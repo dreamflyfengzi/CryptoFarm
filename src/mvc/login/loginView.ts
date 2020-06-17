@@ -5,6 +5,7 @@ import loginWin from './loginWin'
 export default class loginView{
 		private _loginwin: loginWin;
 		constructor(){
+      console.log('初始化登录页面')
 		}
 
 		/**

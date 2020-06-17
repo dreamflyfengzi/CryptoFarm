@@ -4,7 +4,7 @@
 import { ui } from '../../ui/layaMaxUI'
 // import loginController from './loginController'
 // import { baseScene } from '../baseView/component/baseScene'
-// import baseView from '../baseView/component/baseView'
+import baseView from '../baseView/component/baseView'
 // import gameLayer from '../gameLayer'
 // import Event = Laya.Event;
 import GAMEEVENT from '../event/GAMEEVENT'
@@ -13,7 +13,7 @@ import GAMEEVENT from '../event/GAMEEVENT'
 // import resConfig from '../resconfig/resConfig'
 // export default class loginWin extends ui.login.loginUI {
 // export default class loginWin extends baseView {
-export default class loginWin extends ui.login.loginUI {
+export default class loginWin extends baseView {
   // private view: ui.login.loginUI = null;
   private resArr: any[] = [];
   // private _loading_txt:Laya.Text;//加载文字
@@ -28,10 +28,10 @@ export default class loginWin extends ui.login.loginUI {
   // private _loginController = loginController.getInstance();
 
   constructor() {
-    // super(ui.login.loginUI);
-    super();
+    super(ui.login.loginUI);
     // this.ui.login_btn.labelSize = '210'
-    this.initUI()
+    // this.initUI()
+    console.log('已经成功')
   }
   /** */
   public initUI() {
@@ -40,7 +40,7 @@ export default class loginWin extends ui.login.loginUI {
 
 
   public onShow() {
-    // console.log(this._login_sence,'====')
+    console.log('====')
     // this._loading_txt = this._login_sence.getChild('loading_txt').asTextField;
     // this._loading_icon = this._login_sence.getChild('loading_icon').asLoader;
     // this._loading_group = this._login_sence.getChild('loading_group').asGroup;
@@ -59,7 +59,7 @@ export default class loginWin extends ui.login.loginUI {
   //  */
   public onShowLogin() {
     //这里显示登录
-    // this.tweenAlphaAdd('login', 2);
+    // this.tweenAlphaAdd('login', 2); 
     // this.ui.loading_group.visible = false;
     // this.ui.login_group.visible = true;
     // this.ui.login_btn.on(Event.CLICK, this, this.loginBtn);

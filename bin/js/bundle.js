@@ -15,7 +15,7 @@
     GameConfig.alignH = "left";
     GameConfig.startScene = "login/login.scene";
     GameConfig.sceneRoot = "";
-    GameConfig.debug = false;
+    GameConfig.debug = true;
     GameConfig.stat = false;
     GameConfig.physicsDebug = false;
     GameConfig.exportSceneToJson = true;
@@ -36,25 +36,25 @@
         }
     }
 
-    class GAMEEVENT$1 {
+    class GAMEEVENT {
     }
-    GAMEEVENT$1.ONPROGRESSLOADING = 'ONPROGRESSLOADING';
-    GAMEEVENT$1.ONLOADCOMPLETE = 'onloadcomplete';
-    GAMEEVENT$1.ONRESPROGRESSLOGIN = 'ONPROGRESSLOGIN';
-    GAMEEVENT$1.ONRESCOMPLETELOGIN = 'ONRESCOMPLETELOGIN';
-    GAMEEVENT$1.ONRESIZE = 'ONRESIZE';
-    GAMEEVENT$1.GAMESTART = 'GAMESTART';
-    GAMEEVENT$1.TIPSKUAN = 'TIPSKUAN';
-    GAMEEVENT$1.GOLDTIP = 'GOLDTIP';
-    GAMEEVENT$1.FARM = 'FARM';
-    GAMEEVENT$1.ONPROGRESSFARM = 'ONPROGRESSFARM';
-    GAMEEVENT$1.ONLOADCOMPLETEFARM = 'ONLOADCOMPLETEFARM';
-    GAMEEVENT$1.LOGIN_FARM = 'LOGIN_FARM';
-    GAMEEVENT$1.GETINITINFO = 'GETINITINFO';
-    GAMEEVENT$1.BOTTOMBTN = 'BOTTOMBTN';
-    GAMEEVENT$1.HIDEINFODIV = 'HIDEINFODIV';
-    GAMEEVENT$1.SHOWINFODIV = 'SHOWINFODIV';
-    GAMEEVENT$1.TEST_LOGIN_FARM = 'LOGIN_FARM';
+    GAMEEVENT.ONPROGRESSLOADING = 'ONPROGRESSLOADING';
+    GAMEEVENT.ONLOADCOMPLETE = 'onloadcomplete';
+    GAMEEVENT.ONRESPROGRESSLOGIN = 'ONPROGRESSLOGIN';
+    GAMEEVENT.ONRESCOMPLETELOGIN = 'ONRESCOMPLETELOGIN';
+    GAMEEVENT.ONRESIZE = 'ONRESIZE';
+    GAMEEVENT.GAMESTART = 'GAMESTART';
+    GAMEEVENT.TIPSKUAN = 'TIPSKUAN';
+    GAMEEVENT.GOLDTIP = 'GOLDTIP';
+    GAMEEVENT.FARM = 'FARM';
+    GAMEEVENT.ONPROGRESSFARM = 'ONPROGRESSFARM';
+    GAMEEVENT.ONLOADCOMPLETEFARM = 'ONLOADCOMPLETEFARM';
+    GAMEEVENT.LOGIN_FARM = 'LOGIN_FARM';
+    GAMEEVENT.GETINITINFO = 'GETINITINFO';
+    GAMEEVENT.BOTTOMBTN = 'BOTTOMBTN';
+    GAMEEVENT.HIDEINFODIV = 'HIDEINFODIV';
+    GAMEEVENT.SHOWINFODIV = 'SHOWINFODIV';
+    GAMEEVENT.TEST_LOGIN_FARM = 'LOGIN_FARM';
 
     class loginModel {
         constructor() {
@@ -78,38 +78,176 @@
         })(login = ui.login || (ui.login = {}));
     })(ui || (ui = {}));
 
-    class loginWin extends ui.login.loginUI {
-        constructor() {
+    class CONST {
+    }
+    CONST.STAGEHEIGHT = Laya.Browser.clientHeight;
+    CONST.STAGEWIDTH = Laya.Browser.clientWidth;
+    CONST.DESIGNSTAGEHEIGHT = 2688;
+    CONST.DESIGNSTAGEWIDTH = 1242;
+    CONST.DEBUGMODE = 1;
+    CONST.IS_TB = 2;
+    CONST.LOGIN_URL = "http://192.168.0.226/index.php";
+    CONST.SRC_URL = "http://192.168.0.226/pic/";
+
+    class BaseView extends Laya.View {
+        constructor($class, isShowMask = true) {
             super();
+            this.isRemoveBanner = true;
+            this._resources = null;
+            this._isInit = false;
+            this._isShowMask = isShowMask;
+            this._ui = $class;
+            this.initUIView();
+        }
+        get myParent() {
+            return this._myParent;
+        }
+        tweenAlphaAdd(name, type) {
+            var obj = this;
+            var node = gameLayer.scenelayer.getChildByName(name);
+            if (node) {
+                obj = node;
+                obj.visible = true;
+                obj.zOrder = 0;
+            }
+            else {
+                obj.zOrder = 0;
+                gameLayer.scenelayer.addChild(obj);
+            }
+            Laya.Tween.to(gameLayer.scenelayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
+                this.clearChild(type);
+                obj.zOrder = 1;
+                this.tweenAlphaAllShow(obj);
+            }.bind(this)));
+        }
+        tweenAlphaAllShow(obj) {
+            Laya.Tween.to(gameLayer.scenelayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
+        }
+        clearChild(type) {
+            var obj = gameLayer.scenelayer.getChildAt(1);
+            if (type == 1) {
+                obj.visible = false;
+            }
+            else if (type == 2) {
+                gameLayer.scenelayer.removeChildAt(1);
+            }
+        }
+        addToParent() {
+            if (this._isShowMask) {
+                this._myParent.addChildWithMaskCall(this, () => {
+                    this.removeFromParent();
+                    this.close();
+                });
+            }
+            else {
+                this._myParent.addChild(this);
+            }
+        }
+        initUIView() {
+            try {
+                this._ui = new this._ui();
+            }
+            catch (error) {
+            }
+            finally {
+                this.addChild(this._ui);
+            }
+        }
+        removeFromParent() {
+            this.removeSelf();
+        }
+        initUI() {
+            this._isInit = true;
+        }
+        initData() {
+            this._isInit = true;
+        }
+        addEvents() { }
+        removeEvents() { }
+        isInit() {
+            return this._isInit;
+        }
+        isShow() {
+            return this.stage != null && this.visible && this._myParent.contains(this);
+        }
+        open(...param) {
+            this._datas = param;
+        }
+        setVisible(value) {
+            this.visible = value;
+        }
+        setResources(resources) {
+            this._resources = resources;
+        }
+        loadResource(loadComplete, initComplete) {
+            if (this._resources && this._resources.length > 0) {
+            }
+            else {
+                loadComplete && loadComplete();
+                initComplete && initComplete();
+            }
+        }
+        close(...param) {
+            this.removeEvents();
+            if (this.isRemoveBanner) {
+            }
+        }
+        destroy() {
+            this.removeEvents();
+            this._myParent = null;
+            this._ui.removeSelf();
+            this._ui = null;
+        }
+        setScale(obj) {
+            var str = 0;
+            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > 1) {
+                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+            }
+            if (CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT > 1) {
+                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            }
+            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT) {
+                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+            }
+            else {
+                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            }
+            obj.scale(CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH, CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT);
+        }
+        get ui() { return this._ui; }
+        set ui(value) { this._ui = value; }
+        get datas() { return this._datas; }
+        set datas(value) { this._datas = value; }
+    }
+
+    class loginWin extends BaseView {
+        constructor() {
+            super(ui.login.loginUI);
             this.resArr = [];
-            this.initUI();
+            console.log('已经成功');
         }
         initUI() {
             console.log(this);
         }
+        onShow() {
+            console.log('====');
+        }
         onShowLogin() {
-            // this.tweenAlphaAdd('login', 2);
-            // this.ui.loading_group.visible = false;
-            // this.ui.login_group.visible = true;
-            // this.ui.login_btn.on(Event.CLICK, this, this.loginBtn);
         }
         loginBtn() {
             Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
         }
         onupdateFarm(x) {
             console.log(x);
-            // console.log(this.ui.loading_txt);
         }
         onShowFarm() {
             console.log('跳转首页');
-            farmController.getInstance();
-            resManger.getInstance().addGroupRes(resConfig.farm);
-            resManger.getInstance().startLoad('', GAMEEVENT.FARM, '', [2]);
         }
     }
 
     class loginView {
         constructor() {
+            console.log('初始化登录页面');
         }
         init() {
             if (this._loginwin == null) {
@@ -127,60 +265,52 @@
         }
     }
 
-    class resConfig$1 {
+    class resConfig {
         static getDynamicResUrl(signname, type = 0) {
-            for (var key in resConfig$1.dynamicRes) {
-                if (resConfig$1.dynamicRes[key] && resConfig$1.dynamicRes[key]['sign'] == signname) {
+            for (var key in resConfig.dynamicRes) {
+                if (resConfig.dynamicRes[key] && resConfig.dynamicRes[key]['sign'] == signname) {
                     if (type == 1) {
-                        return resConfig$1.dynamicRes[key];
+                        return resConfig.dynamicRes[key];
                     }
                     else {
-                        return resConfig$1.dynamicRes[key]['url'];
+                        return resConfig.dynamicRes[key]['url'];
                     }
                 }
             }
             return 'null';
         }
         static getResUrl(signname) {
-            for (var key in resConfig$1.farm) {
-                if (resConfig$1.farm[key] && resConfig$1.farm[key]['sign'] == signname) {
-                    return resConfig$1.farm[key]['url'];
+            for (var key in resConfig.farm) {
+                if (resConfig.farm[key] && resConfig.farm[key]['sign'] == signname) {
+                    return resConfig.farm[key]['url'];
                 }
             }
-            for (var key in resConfig$1.loadingRes) {
-                if (resConfig$1.loadingRes[key] && resConfig$1.loadingRes[key]['sign'] == signname) {
-                    return resConfig$1.loadingRes[key]['url'];
+            for (var key in resConfig.loadingRes) {
+                if (resConfig.loadingRes[key] && resConfig.loadingRes[key]['sign'] == signname) {
+                    return resConfig.loadingRes[key]['url'];
                 }
             }
             return 'null';
         }
     }
-    resConfig$1._url = '';
-    resConfig$1.loadingRes = [
-        { url: resConfig$1._url + 'login/login.json', type: Laya.Loader.JSON },
-    ];
-    resConfig$1.farm = [
-        { url: resConfig$1._url + 'farm/farmIndexscene.scene', type: Laya.Loader.JSON, sign: 'farmIndex' },
-        { url: resConfig$1._url + 'farm/farmLand.scene', type: Laya.Loader.JSON, sign: 'farmland' },
-    ];
-    resConfig$1.dynamicRes = [
-        { url: resConfig$1._url + 'res/login/login.json', type: Laya.Loader.BUFFER, sign: "login" },
-        { url: resConfig$1._url + 'res/login/login_atlas0.png', type: Laya.Loader.IMAGE, sign: "loginimg" },
-    ];
+    resConfig._url = '';
+    resConfig.loadingRes = [];
+    resConfig.farm = [];
+    resConfig.dynamicRes = [];
 
-    class resManger$1 {
+    class resManger {
         constructor() {
             this.resaddrlist = [];
-            this.resaddrlist = resConfig$1.farm;
+            this.resaddrlist = resConfig.farm;
         }
         static getInstance() {
-            if (resManger$1._instance == null) {
-                resManger$1._instance = new resManger$1();
+            if (resManger._instance == null) {
+                resManger._instance = new resManger();
             }
-            return resManger$1._instance;
+            return resManger._instance;
         }
         addRes(signname) {
-            var tmpurl = resConfig$1.getDynamicResUrl(signname, 1);
+            var tmpurl = resConfig.getDynamicResUrl(signname, 1);
             if (tmpurl) {
                 this.resaddrlist.push(tmpurl);
             }
@@ -210,56 +340,45 @@
             this.resaddrlist = [];
         }
         getRes(name) {
-            var url = resConfig$1.getResUrl(name);
-            if (url != 'null') {
-                var texture = this.loader.getRes(url);
-                if (this.scaledic[url] == null && texture && (texture.sourceWidth || texture.sourceHeight)) {
-                    this.scaledic[url] = { 'w': texture.sourceWidth, 'h': texture.sourceHeight };
-                }
-                if (texture && this.scaledic[url]) {
-                    texture.width = this.scaledic[url].w;
-                    texture.height = this.scaledic[url].h;
-                }
-                return texture;
-            }
             return null;
         }
     }
 
     class loginController {
+        constructor() {
+            this.model = new loginModel;
+            this.initView();
+            Laya.stage.on(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
+            Laya.stage.on(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
+            Laya.stage.on(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
+            Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
+            Laya.stage.on(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
+        }
         static getInstance() {
             if (loginController._instance == null) {
                 loginController._instance = new loginController;
             }
             return loginController._instance;
         }
-        constructor() {
-            this.model = new loginModel;
-            Laya.stage.on(GAMEEVENT$1.ONRESPROGRESSLOGIN, this, this.onResProgress);
-            Laya.stage.on(GAMEEVENT$1.ONRESCOMPLETELOGIN, this, this.onResComplete);
-            Laya.stage.on(GAMEEVENT$1.ONPROGRESSFARM, this, this.onResProgressFarm);
-            Laya.stage.on(GAMEEVENT$1.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
-            Laya.stage.on(GAMEEVENT$1.TEST_LOGIN_FARM, this, this.showFarmView);
-        }
         showFarmView() {
-            Laya.stage.off(GAMEEVENT$1.LOGIN_FARM, this, this.showFarmView);
+            Laya.stage.off(GAMEEVENT.LOGIN_FARM, this, this.showFarmView);
             this._loginview.showFarm();
         }
         onResProgress() {
         }
         onResComplete() {
-            Laya.stage.off(GAMEEVENT$1.ONRESPROGRESSLOGIN, this, this.onResProgress);
-            Laya.stage.off(GAMEEVENT$1.ONRESCOMPLETELOGIN, this, this.onResComplete);
-            resManger$1.getInstance().addGroupRes(resConfig$1.farm);
-            resManger$1.getInstance().startLoad(GAMEEVENT$1.ONPROGRESSFARM, GAMEEVENT$1.ONLOADCOMPLETEFARM);
+            Laya.stage.off(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
+            Laya.stage.off(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
+            resManger.getInstance().addGroupRes(resConfig.farm);
+            resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFARM, GAMEEVENT.ONLOADCOMPLETEFARM);
             this.initView();
         }
         onResProgressFarm(x) {
             this._loginview.updateFarm(x);
         }
         onResCompleteFarm() {
-            Laya.stage.off(GAMEEVENT$1.ONPROGRESSFARM, this, this.onResProgressFarm);
-            Laya.stage.off(GAMEEVENT$1.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
+            Laya.stage.off(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
+            Laya.stage.off(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
             this._loginview.showLogin();
         }
         initView() {
@@ -293,8 +412,8 @@
             Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
             this.initModule();
             loginController.getInstance();
-            resManger$1.getInstance().addGroupRes(resConfig$1.loadingRes);
-            resManger$1.getInstance().startLoad(GAMEEVENT$1.ONRESPROGRESSLOGIN, GAMEEVENT$1.ONRESCOMPLETELOGIN);
+            resManger.getInstance().addGroupRes(resConfig.loadingRes);
+            resManger.getInstance().startLoad(GAMEEVENT.ONRESPROGRESSLOGIN, GAMEEVENT.ONRESCOMPLETELOGIN);
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));

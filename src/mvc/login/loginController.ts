@@ -29,7 +29,7 @@ export default class loginController {
     this.model = new loginModel;
     // this._network = new login.loginNetwork;
 
-
+    this.initView();
     //监听login页面
     Laya.stage.on(GAMEEVENT.ONRESPROGRESSLOGIN,this,this.onResProgress);
     Laya.stage.on(GAMEEVENT.ONRESCOMPLETELOGIN,this,this.onResComplete);

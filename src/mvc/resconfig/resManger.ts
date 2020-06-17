@@ -86,18 +86,18 @@ export default class resManger {
    * name 资源标识 
    */
   public getRes(name: string) {
-    var url = resConfig.getResUrl(name);
-    if (url != 'null') {
-      var texture = this.loader.getRes(url);
-      if (this.scaledic[url] == null && texture && (texture.sourceWidth || texture.sourceHeight)) {
-        this.scaledic[url] = { 'w': texture.sourceWidth, 'h': texture.sourceHeight };
-      }
-      if (texture && this.scaledic[url]) {
-        texture.width = this.scaledic[url].w;
-        texture.height = this.scaledic[url].h;
-      }
-      return texture;
-    }
+    // var url = resConfig.getResUrl(name);
+    // if (url != 'null') {
+    //   var texture = this.loader.getRes(url);
+    //   if (this.scaledic[url] == null && texture && (texture.sourceWidth || texture.sourceHeight)) {
+    //     this.scaledic[url] = { 'w': texture.sourceWidth, 'h': texture.sourceHeight };
+    //   }
+    //   if (texture && this.scaledic[url]) {
+    //     texture.width = this.scaledic[url].w;
+    //     texture.height = this.scaledic[url].h;
+    //   }
+    //   return texture;
+    // }
     return null;
   }
   // /**获取图集资源*/

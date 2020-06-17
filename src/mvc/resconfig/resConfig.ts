@@ -5,7 +5,7 @@ export default class resConfig{
 	public static _url = '';
     /**loading和login页面 */
     public static loadingRes:Array<any> = [
-      {url:resConfig._url+'login/login.json',type:Laya.Loader.JSON},
+      // {url:resConfig._url+'login/login.json',type:Laya.Loader.JSON},
 
         // {url:resConfig._url+'login/login.scene',type:Laya.Loader.JSON,sign:'login'},
         // {url:resConfig._url+'res/loading/login_atlas0.png',type:Laya.Loader.IMAGE},
@@ -13,8 +13,8 @@ export default class resConfig{
     /**首次载入数据 */
     /**载入农场数据 */
     public static farm:Array<any> = [
-        {url:resConfig._url+'farm/farmIndexscene.scene',type:Laya.Loader.JSON,sign:'farmIndex'},
-        {url:resConfig._url+'farm/farmLand.scene',type:Laya.Loader.JSON,sign:'farmland'},
+        // {url:resConfig._url+'farm/farmIndexscene.scene',type:Laya.Loader.JSON,sign:'farmIndex'},
+        // {url:resConfig._url+'farm/farmLand.scene',type:Laya.Loader.JSON,sign:'farmland'},
         // // {url:resConfig._url+'res/ui/base.json',type:Laya.Loader.BUFFER,sign:'base'},
         
         // // {url:resConfig._url+'res/ui/farmland.json',type:Laya.Loader.BUFFER,sign:'farmland'},
@@ -44,8 +44,8 @@ export default class resConfig{
     ]
     /**动态载入资源 */
     public static dynamicRes:Array<any> = [
-        {url:resConfig._url+'res/login/login.json',type:Laya.Loader.BUFFER,sign:"login"},
-        {url:resConfig._url+'res/login/login_atlas0.png',type:Laya.Loader.IMAGE,sign:"loginimg"},
+        // {url:resConfig._url+'res/login/login.json',type:Laya.Loader.BUFFER,sign:"login"},
+        // {url:resConfig._url+'res/login/login_atlas0.png',type:Laya.Loader.IMAGE,sign:"loginimg"},
     ]
     /** 
     *获取动态资源对应地址

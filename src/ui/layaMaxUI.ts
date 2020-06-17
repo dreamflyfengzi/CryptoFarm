@@ -5,7 +5,15 @@ import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
 export module ui.login {
     export class loginUI extends Laya.Scene {
-		public btn:Laya.Button;
+		public n10:Laya.Sprite;
+		public n11:Laya.Sprite;
+		public loading_group:Laya.Box;
+		public loading_icon:Laya.Sprite;
+		public loading_txt:laya.display.Text;
+		public login_group:Laya.Box;
+		public login_check:Laya.Button;
+		public n6:laya.display.Text;
+		public login_btn:Laya.Button;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
