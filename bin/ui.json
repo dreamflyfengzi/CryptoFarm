@@ -1,0 +1,1 @@
+{"login/login":{"type":"Scene","props":{"width":1242,"height":2688},"compId":2,"child":[{"type":"Button","props":{"y":1417,"x":565,"var":"btn","skin":"comp/button.png","label":"label"},"compId":3}],"loadList":["comp/button.png"],"loadList3D":[]}}
