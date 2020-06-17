@@ -1,0 +1,28 @@
+{
+  "name": "cryptofarm",
+  "version": "1.0.0",
+  "description": "cryptofarm ",
+  "main": "gulpfile.js",
+  "bin": {
+    "cryptofarm": "game.js"
+  },
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "layaair2-cmd": "^1.6.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "gulp compile",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://dreamflyfengzi:Qingfeng2008.@github.com/dreamflyfengzi/CryptoFarm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dreamflyfengzi/CryptoFarm/issues"
+  },
+  "homepage": "https://github.com/dreamflyfengzi/CryptoFarm#readme"
+}
