@@ -3,6 +3,23 @@ import View=Laya.View;
 import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
+export module ui.farm {
+    export class farmIndexUI extends Laya.Scene {
+		public farmbg_1:Laya.Sprite;
+		public farmbg_2:Laya.Sprite;
+		public building:Laya.Button;
+		public n40:Laya.Sprite;
+		public order:Laya.Button;
+		public email:Laya.Button;
+		public upgrade:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("farm/farmIndex");
+        }
+    }
+    REG("ui.farm.farmIndexUI",farmIndexUI);
+}
 export module ui.login {
     export class loginUI extends Laya.Scene {
 		public n10:Laya.Sprite;

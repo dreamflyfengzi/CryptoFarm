@@ -1,6 +1,7 @@
 /*
 * name;
 */
+import base from './baseView/component/base'
 export default class gameLayer {
   /**游戏层次 注：各层内容的特效，添加相对层就可以*/
  public static bglayer:Laya.Sprite;/**背景层（背景图片） */
@@ -23,3 +24,4 @@ export default class gameLayer {
      }
  }
 }
+

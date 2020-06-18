@@ -4,15 +4,15 @@
 * 游戏初始化配置;
 */
 export default class GameConfig{
-    static width:number=640;
-    static height:number=1136;
-    static scaleMode:string="fixedwidth";
+    static width:number=1242;
+    static height:number=1688;
+    static scaleMode:string="showall";
     static screenMode:string="none";
     static alignV:string="top";
     static alignH:string="left";
     static startScene:any="login/login.scene";
     static sceneRoot:string="";
-    static debug:boolean=true;
+    static debug:boolean=false;
     static stat:boolean=false;
     static physicsDebug:boolean=false;
     static exportSceneToJson:boolean=true;

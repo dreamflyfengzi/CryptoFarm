@@ -2,20 +2,21 @@
     'use strict';
 
     class GameConfig {
-        constructor() { }
+        constructor() {
+        }
         static init() {
             var reg = Laya.ClassUtils.regClass;
         }
     }
-    GameConfig.width = 640;
-    GameConfig.height = 1136;
-    GameConfig.scaleMode = "fixedwidth";
+    GameConfig.width = 1242;
+    GameConfig.height = 1688;
+    GameConfig.scaleMode = "showall";
     GameConfig.screenMode = "none";
     GameConfig.alignV = "top";
     GameConfig.alignH = "left";
     GameConfig.startScene = "login/login.scene";
     GameConfig.sceneRoot = "";
-    GameConfig.debug = true;
+    GameConfig.debug = false;
     GameConfig.stat = false;
     GameConfig.physicsDebug = false;
     GameConfig.exportSceneToJson = true;
@@ -32,6 +33,48 @@
                 Laya.stage.addChild(gameLayer.scenelayer);
                 Laya.stage.addChild(gameLayer.windowlayer);
                 Laya.stage.addChild(gameLayer.tipslayer);
+            }
+        }
+    }
+
+    class mainView {
+        constructor() {
+        }
+        onInit() {
+        }
+    }
+
+    class mainNetwork {
+        constructor() {
+        }
+    }
+
+    class mainModel {
+        constructor() {
+            this.isInit = false;
+        }
+    }
+
+    class mainController {
+        constructor() {
+            this.initModule();
+        }
+        static getInstance() {
+            if (mainController._instance == null) {
+                mainController._instance = new mainController;
+            }
+            return mainController._instance;
+        }
+        onInit() {
+            if (this._mainview == null) {
+                this._mainview = new mainView;
+            }
+            this._mainview.onInit();
+        }
+        initModule() {
+            if (this._network == null) {
+                this._network = new mainNetwork;
+                this.maininfo = new mainModel;
             }
         }
     }
@@ -63,6 +106,20 @@
 
     var REG = Laya.ClassUtils.regClass;
     var ui;
+    (function (ui) {
+        var farm;
+        (function (farm) {
+            class farmIndexUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("farm/farmIndex");
+                }
+            }
+            farm.farmIndexUI = farmIndexUI;
+            REG("ui.farm.farmIndexUI", farmIndexUI);
+        })(farm = ui.farm || (ui.farm = {}));
+    })(ui || (ui = {}));
     (function (ui) {
         var login;
         (function (login) {
@@ -122,6 +179,7 @@
         }
         tweenAlphaAllShow(obj) {
             Laya.Tween.to(gameLayer.scenelayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
+            console.log(Laya.stage);
         }
         clearChild(type) {
             var obj = gameLayer.scenelayer.getChildAt(1);
@@ -220,48 +278,42 @@
         set datas(value) { this._datas = value; }
     }
 
-    class loginWin extends BaseView {
+    class farmModel {
         constructor() {
-            super(ui.login.loginUI);
-            this.resArr = [];
-            console.log('已经成功');
+            this.clickLandStatic = '';
+            this.landId = '';
         }
-        initUI() {
-            console.log(this);
+        setFatData(data) {
+            this.fatData = data;
         }
-        onShow() {
-            console.log('====');
+        setFarmSeed(data) {
+            this.seedData = data;
         }
-        onShowLogin() {
+        setLandId(str) {
+            this.landId = str;
         }
-        loginBtn() {
-            Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
-        }
-        onupdateFarm(x) {
-            console.log(x);
-        }
-        onShowFarm() {
-            console.log('跳转首页');
+        setClickLandStatic(str) {
+            this.clickLandStatic = str;
         }
     }
 
-    class loginView {
+    class farmNetwork {
+    }
+
+    class farmController {
         constructor() {
-            console.log('初始化登录页面');
+            this.model = new farmModel;
+            this._network = new farmNetwork;
+            Laya.stage.on(GAMEEVENT.FARM, this, this.onShow);
         }
-        init() {
-            if (this._loginwin == null) {
-                this._loginwin = new loginWin;
+        static getInstance() {
+            if (farmController._instance == null) {
+                farmController._instance = new farmController;
             }
+            return farmController._instance;
         }
-        showLogin() {
-            this._loginwin.onShowLogin();
-        }
-        updateFarm(x) {
-            this._loginwin.onupdateFarm(x);
-        }
-        showFarm() {
-            this._loginwin.onShowFarm();
+        onShow(type) {
+            console.log(type);
         }
     }
 
@@ -294,8 +346,16 @@
         }
     }
     resConfig._url = '';
-    resConfig.loadingRes = [];
-    resConfig.farm = [];
+    resConfig.loadingRes = [
+        { url: resConfig._url + 'login/login.json', type: Laya.Loader.BUFFER, sign: "login" },
+        { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE },
+    ];
+    resConfig.farm = [
+        { url: resConfig._url + 'farm/farmIndex.json', type: Laya.Loader.JSON, sign: 'farmIndex' },
+        { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
+    ];
     resConfig.dynamicRes = [];
 
     class resManger {
@@ -344,14 +404,68 @@
         }
     }
 
+    class loginWin extends BaseView {
+        constructor() {
+            super(ui.login.loginUI);
+            this.resArr = [];
+        }
+        onShow() {
+        }
+        onShowLogin() {
+            console.log(this.ui.n10, '=============');
+            this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
+            console.log(this.ui.login_btn);
+            console.log(this.getChildByName('login_btn'));
+        }
+        loginBtn() {
+            console.log('go---------');
+            Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
+        }
+        onupdateFarm(x) {
+            console.log(x);
+        }
+        onShowFarm() {
+            console.log('跳转首页');
+            farmController.getInstance();
+            resManger.getInstance().addGroupRes(resConfig.farm);
+            resManger.getInstance().startLoad('', GAMEEVENT.FARM, '', [2]);
+        }
+    }
+
+    class loginView {
+        constructor() {
+            console.log('初始化登录页面');
+        }
+        init() {
+            if (this._loginwin == null) {
+                this._loginwin = new loginWin;
+            }
+        }
+        showLogin() {
+            this._loginwin.onShowLogin();
+        }
+        updateFarm(x) {
+            this._loginwin.onupdateFarm(x);
+        }
+        showFarm() {
+            this._loginwin.onShowFarm();
+        }
+    }
+
+    class loginNetwork {
+        constructor() {
+        }
+    }
+
     class loginController {
         constructor() {
             this.model = new loginModel;
-            this.initView();
+            this._network = new loginNetwork;
             Laya.stage.on(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
             Laya.stage.on(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
             Laya.stage.on(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
             Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
+            this.onResComplete();
             Laya.stage.on(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
         }
         static getInstance() {
@@ -365,10 +479,12 @@
             this._loginview.showFarm();
         }
         onResProgress() {
+            console.log('加载login---');
         }
         onResComplete() {
             Laya.stage.off(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
             Laya.stage.off(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
+            console.log('加载login--ok-');
             resManger.getInstance().addGroupRes(resConfig.farm);
             resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFARM, GAMEEVENT.ONLOADCOMPLETEFARM);
             this.initView();
@@ -423,6 +539,7 @@
         }
         initModule() {
             gameLayer.initModule();
+            mainController.getInstance();
             loginController.getInstance();
         }
     }

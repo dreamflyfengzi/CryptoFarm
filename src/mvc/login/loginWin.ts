@@ -8,9 +8,9 @@ import baseView from '../baseView/component/baseView'
 // import gameLayer from '../gameLayer'
 // import Event = Laya.Event;
 import GAMEEVENT from '../event/GAMEEVENT'
-// import farmController from '../farm/farmController'
-// import resManger from '../resconfig/resManger'
-// import resConfig from '../resconfig/resConfig'
+import farmController from '../farm/farmController'
+import resManger from '../resconfig/resManger'
+import resConfig from '../resconfig/resConfig'
 // export default class loginWin extends ui.login.loginUI {
 // export default class loginWin extends baseView {
 export default class loginWin extends baseView {
@@ -22,7 +22,7 @@ export default class loginWin extends baseView {
   // private _login_group:Laya.Box;//登录组
   // private _login_btn:Laya.Button;//登录按钮
   // private _login_check:Laya.Button;//多选项
-  // private _ui: ui.login.loginUI;
+  // public _ui: ui.login.loginUI;
 
   // 登陆主控制器
   // private _loginController = loginController.getInstance();
@@ -30,17 +30,11 @@ export default class loginWin extends baseView {
   constructor() {
     super(ui.login.loginUI);
     // this.ui.login_btn.labelSize = '210'
-    // this.initUI()
-    console.log('已经成功')
   }
-  /** */
-  public initUI() {
-    console.log(this)
-  }
+
 
 
   public onShow() {
-    console.log('====')
     // this._loading_txt = this._login_sence.getChild('loading_txt').asTextField;
     // this._loading_icon = this._login_sence.getChild('loading_icon').asLoader;
     // this._loading_group = this._login_sence.getChild('loading_group').asGroup;
@@ -59,15 +53,20 @@ export default class loginWin extends baseView {
   //  */
   public onShowLogin() {
     //这里显示登录
-    // this.tweenAlphaAdd('login', 2); 
+    // this.tweenAlphaAdd('login', 2);
+    console.log(this.ui.n10,'=============')
     // this.ui.loading_group.visible = false;
     // this.ui.login_group.visible = true;
-    // this.ui.login_btn.on(Event.CLICK, this, this.loginBtn);
+    this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
+    console.log(this.ui.login_btn)
+    console.log(this.getChildByName('login_btn'))
   }
   /**
    * 点击登录按钮
    */
+
   public loginBtn() {
+    console.log('go---------')
     Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
     // if (this._login_check.selected) {
     //   //获取一下公共的数据
@@ -144,9 +143,9 @@ export default class loginWin extends baseView {
   // //登陆成功之后显示首页
   public onShowFarm() {
     console.log('跳转首页')
-    // farmController.getInstance();
-    // resManger.getInstance().addGroupRes(resConfig.farm);
-    // resManger.getInstance().startLoad('', GAMEEVENT.FARM, '', [2]);
+    farmController.getInstance();
+    resManger.getInstance().addGroupRes(resConfig.farm);
+    resManger.getInstance().startLoad('', GAMEEVENT.FARM, '', [2]);
     // //这里加载首页（之前预加载过的了,这里检查加载一次）登录接上后放到登录完成代码
     // //如果已经登陆成功
     // if (dataGlobal.getInstance().userInfo && dataGlobal.getInstance().userInfo.uid) {

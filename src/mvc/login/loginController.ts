@@ -13,7 +13,7 @@ export default class loginController {
   private static _instance: loginController;
   private _loginview: loginView;
   public model: loginModel;
-  // private _network: loginNetwork;
+  private _network: loginNetwork;
 
 
   /** */
@@ -27,16 +27,16 @@ export default class loginController {
   /** */
   constructor() {
     this.model = new loginModel;
-    // this._network = new login.loginNetwork;
+    this._network = new loginNetwork;
 
-    this.initView();
-    //监听login页面
+    // this.initView();
+    // //监听login页面
     Laya.stage.on(GAMEEVENT.ONRESPROGRESSLOGIN,this,this.onResProgress);
     Laya.stage.on(GAMEEVENT.ONRESCOMPLETELOGIN,this,this.onResComplete);
-    //监听农场首页的预加载
+    // //监听农场首页的预加载
     Laya.stage.on(GAMEEVENT.ONPROGRESSFARM,this,this.onResProgressFarm);
     Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM,this,this.onResCompleteFarm);
-
+   this.onResComplete()
     // //设置网络监听
     // //设置登陆请求成功回调监听
     // Laya.stage.on(NETWORKEVENT.HTTP_LOGIN_OK,this,this._network.onLoginOK);
@@ -72,7 +72,7 @@ export default class loginController {
 	 * 加载login过程
 	 */
   private onResProgress(){
-  
+    console.log('加载login---')
   }
 	/**
 	 * 加载login完成
@@ -81,15 +81,16 @@ export default class loginController {
   	//清除掉监听
   	Laya.stage.off(GAMEEVENT.ONRESPROGRESSLOGIN,this,this.onResProgress);
     Laya.stage.off(GAMEEVENT.ONRESCOMPLETELOGIN,this,this.onResComplete);
-
-    // Laya.View.uiMap = Laya.loader.getRes("ui.json")
+    console.log('加载login--ok-')
+    
     // console.log("xxxxxxx",Laya.loader.getRes("ui.json")) 
   	//这里预加载农田的
   	resManger.getInstance().addGroupRes(resConfig.farm);
     resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFARM,GAMEEVENT.ONLOADCOMPLETEFARM);
   	//显示loading页面
   	this.initView();
-  	// //初始化弹窗
+    // //初始化弹窗
+
   	// tipController.getInstance();
   }
   /**
@@ -103,17 +104,22 @@ export default class loginController {
    * 加载农场完成
    */
   private onResCompleteFarm(){ 
+
   	//清除掉监听
   	Laya.stage.off(GAMEEVENT.ONPROGRESSFARM,this,this.onResProgressFarm);
   	Laya.stage.off(GAMEEVENT.ONLOADCOMPLETEFARM,this,this.onResCompleteFarm);
   	//调用显示页面
+
     this._loginview.showLogin();
+    
   }
   /** */
   private initView(){
   	if(this._loginview == null){
   		this._loginview = new loginView;
   	}
-  	this._loginview.init();
+    this._loginview.init();
+    // console.log('加载农场')
+    // this._loginview.showLogin();
   }
 }

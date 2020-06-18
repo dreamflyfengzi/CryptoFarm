@@ -24,9 +24,9 @@ export default class mainController {
   }
   //
   constructor() {
-    // Laya.stage.on(GAMEEVENT.RESCOMPLETE,this,this.onInit);
-    this.onInit()
-    // this.initModule();
+    // // Laya.stage.on(GAMEEVENT.RESCOMPLETE,this,this.onInit);
+    // this.onInit()
+    this.initModule();
   }
   /** */
   private onInit() {
@@ -35,13 +35,12 @@ export default class mainController {
     }
     this._mainview.onInit();
   }
-  // /** */
-  // private initModule(){
-  // 	if(this._network == null){
-  // 		this._network = new   mainNetwork;
-  // 		this.maininfo = new   mainModel;
-  //       	// this.socketmsg = new net.socketMsg;
-  // 	}
-
-  // }
+  /** */
+  private initModule(){
+  	if(this._network == null){
+  		this._network = new mainNetwork;
+  		this.maininfo = new mainModel;
+      // this.socketmsg = new net.socketMsg;
+  	}
+  }
 }

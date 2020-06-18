@@ -47,11 +47,13 @@ export default class BaseView extends Laya.View implements IBaseView {
       obj.zOrder = 1;
       this.tweenAlphaAllShow(obj);
     }.bind(this)))
+
   }
   /**添加对象，并且渐显显示 */
   public tweenAlphaAllShow(obj: any) {
     // gameLayer.scenelayer.addChild(obj);
     Laya.Tween.to(gameLayer.scenelayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
+    console.log(Laya.stage)
   }
   /* 清除在上层的子节点 */
   public clearChild(type) {
