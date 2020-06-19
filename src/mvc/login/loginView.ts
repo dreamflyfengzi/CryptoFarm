@@ -21,9 +21,9 @@ export default class loginView{
       }
     }
  
-		// /**
-		//  * 展示登录按钮
-		//  */
+		/**
+		 * 展示登录按钮
+		 */
 		public showLogin(){
 			this._loginwin.onShow();
 		}
