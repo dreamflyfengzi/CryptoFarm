@@ -16,65 +16,40 @@ import resConfig from '../resconfig/resConfig'
 // export default class loginWin extends ui.login.loginUI {
 // export default class loginWin extends baseView {
 export default class loginWin extends baseView {
-  // private view: ui.login.loginUI = null;
-  private resArr: any[] = [];
-  // private _loading_txt:Laya.Text;//加载文字
-  // private _loading_icon:Laya.Loader;//加载图标
-  // private _loading_group:Laya.Box;//加载组
-  // private _login_group:Laya.Box;//登录组
-  // private _login_btn:Laya.Button;//登录按钮
-  // private _login_check:Laya.Button;//多选项
-  // public _ui: ui.login.loginUI;
-
-  // 登陆主控制器
-  // private _loginController = loginController.getInstance();
 
   constructor() {
     super(ui.login.loginUI);
-    // this.ui.login_btn.labelSize = '210'
-    
-    this.addEvents()
-  }
-  
-  
-  public addEvents(){
-    console.log("addEvents") 
-    this.ui.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
-    this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
-    this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
   }
 
-  // public onShow() {
 
-    // this._loading_txt = this._login_sence.getChild('loading_txt').asTextField;
-    // this._loading_icon = this._login_sence.getChild('loading_icon').asLoader;
-    // this._loading_group = this._login_sence.getChild('loading_group').asGroup;
-    // this._login_group = this._login_sence.getChild('login_group').asGroup;
-    // this._login_btn = this._login_sence.getChild('login_btn').asButton;
-    // this._login_check = this._login_sence.getChild('login_check').asButton;
+  public addEvents() {
+    // console.log(this.mouseEnabled)
+    console.log(this.ui)
+    console.log(this.ui.login_btn)
 
-    // this.setScale(this._login_sence.displayObject);
-    // this._login_sence.displayObject.name = 'login';
-    /* 切换场景(obj:场景对象，name:名字，type=1.隐藏2.移除) */
-    // this.addChild(this._showTips.displayObject);
-    // this.tweenShow();
-  // }
-  // /**
-  //  * 展示登录按钮console.log(this.view.n10)
-  //  */
+    // console.log(this.ui.login_btn.width)
+    // console.log(this.ui.login_btn.height)
+
+    console.log("addEvents", this.ui.login_btn)
+    // this.ui.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
+    this.ui.on(Laya.Event.CLICK, this, this.loginBtn);
+  }
+
   public onShow() {
-
+    // this.addEvents();
+    console.log("loginWin", "onShow")
     //这里显示登录
     this.tweenAlphaAdd('login', 2);
-    console.log(this.mouseEnabled)
-    console.log(this.ui.login_btn.mouseEnabled)
-    console.log(this.ui.login_btn.width)
-    console.log(this.ui.login_btn.height)
-    // this.ui.loading_group.
-    // this.ui.login_group.visible = true;
-    // this.on(Laya.Event.CLICK, this, this.loginBtn);
-    // this.on(Laya.Event.CLICK, this, this.loginBtn);
-    console.log(this.ui.loading_group )
+  }
+
+  /**
+		 * 展示登录按钮
+		 */
+  public onShowLogin() {
+    //这里显示登录
+    this.ui.loading_group.visible = false;
+    this.ui.login_group.visible = true;
+    this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
   }
   /**
    * 点击登录按钮
@@ -145,10 +120,10 @@ export default class loginWin extends baseView {
    */
   public onupdateFarm(x) {
     console.log(x)
-    // console.log(this.ui.loading_txt)
-    // this.ui.loading_txt.text = x + '%';
-    // var num = Math.floor(x / (100 / 9)) - 1;
-    // this.ui.loading_icon.url = "ui://login/0_0000" + num;
+    console.log(this.ui.loading_txt)
+    this.ui.loading_txt.text = x + '%';
+    var num = Math.floor(x / (100 / 9)) - 1;
+    this.ui.loading_icon.url = "ui://login/0_0000" + num;
   }
   // /** */
   // public onClick() {

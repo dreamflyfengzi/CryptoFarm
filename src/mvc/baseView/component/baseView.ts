@@ -16,6 +16,8 @@ export default class BaseView extends Laya.View implements IBaseView {
   /** 构造函数 */
   public constructor($class: any, isShowMask: boolean = true) {
     super();
+    console.log("1111")
+
     // this._myParent = $layer;
     this._isInit = false;
     this._isShowMask = isShowMask;
@@ -33,6 +35,7 @@ export default class BaseView extends Laya.View implements IBaseView {
     var obj = this
     //查找是否有该对象
     var node: any = gameLayer.scenelayer.getChildByName(name);
+    console.log("xxxx", node)
     if (node) {//有该对象的话就显示就行了
       obj = node;
       obj.visible = true;
@@ -40,6 +43,7 @@ export default class BaseView extends Laya.View implements IBaseView {
     } else {//没有改对象的话就添加
       obj.zOrder = 0;
       gameLayer.scenelayer.addChild(obj);
+      console.log(obj)
     }
 
     Laya.Tween.to(gameLayer.scenelayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
@@ -83,12 +87,10 @@ export default class BaseView extends Laya.View implements IBaseView {
   public initUIView(): void {
     try {
       this._ui = new this._ui();
-      console.log(2222)
     } catch (error) {
 
     } finally {
       this.addChild(this._ui);
-      // this.size(this.ui.width, this.ui.height);
     }
   }
 

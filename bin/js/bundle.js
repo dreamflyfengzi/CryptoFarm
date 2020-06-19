@@ -15,7 +15,7 @@
     GameConfig.alignH = "left";
     GameConfig.startScene = "login/login.scene";
     GameConfig.sceneRoot = "";
-    GameConfig.debug = false;
+    GameConfig.debug = true;
     GameConfig.stat = false;
     GameConfig.physicsDebug = false;
     GameConfig.exportSceneToJson = true;
@@ -150,6 +150,7 @@
             super();
             this.isRemoveBanner = true;
             this._resources = null;
+            console.log("1111");
             this._isInit = false;
             this._isShowMask = isShowMask;
             this._ui = $class;
@@ -161,6 +162,7 @@
         tweenAlphaAdd(name, type) {
             var obj = this;
             var node = gameLayer.scenelayer.getChildByName(name);
+            console.log("xxxx", node);
             if (node) {
                 obj = node;
                 obj.visible = true;
@@ -169,6 +171,7 @@
             else {
                 obj.zOrder = 0;
                 gameLayer.scenelayer.addChild(obj);
+                console.log(obj);
             }
             Laya.Tween.to(gameLayer.scenelayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
                 this.clearChild(type);
@@ -203,7 +206,6 @@
         initUIView() {
             try {
                 this._ui = new this._ui();
-                console.log(2222);
             }
             catch (error) {
             }
@@ -347,11 +349,10 @@
     }
     resConfig._url = '';
     resConfig.loadingRes = [
-        { url: resConfig._url + 'ui.json', type: Laya.Loader.JSON, sign: 'login' },
-        { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'ui.json', type: Laya.Loader.JSON },
+        { url: resConfig._url + 'res/atlas/loading.atlas', type: Laya.Loader.ATLAS, sign: 'login' },
     ];
     resConfig.farm = [
-        { url: resConfig._url + 'farm/farmIndex.json', type: Laya.Loader.JSON, sign: 'farmIndex' },
         { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
@@ -407,28 +408,31 @@
     class loginWin extends BaseView {
         constructor() {
             super(ui.login.loginUI);
-            this.resArr = [];
-            this.addEvents();
         }
         addEvents() {
-            console.log("addEvents");
-            this.ui.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
-            this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
-            this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
+            console.log(this.ui);
+            console.log(this.ui.login_btn);
+            console.log("addEvents", this.ui.login_btn);
+            this.ui.on(Laya.Event.CLICK, this, this.loginBtn);
         }
         onShow() {
+            console.log("loginWin", "onShow");
             this.tweenAlphaAdd('login', 2);
-            console.log(this.mouseEnabled);
-            console.log(this.ui.login_btn.mouseEnabled);
-            console.log(this.ui.login_btn.width);
-            console.log(this.ui.login_btn.height);
-            console.log(this.ui.loading_group);
+        }
+        onShowLogin() {
+            this.ui.loading_group.visible = false;
+            this.ui.login_group.visible = true;
+            this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
         }
         loginBtn() {
             console.log('go---------');
         }
         onupdateFarm(x) {
             console.log(x);
+            console.log(this.ui.loading_txt);
+            this.ui.loading_txt.text = x + '%';
+            var num = Math.floor(x / (100 / 9)) - 1;
+            this.ui.loading_icon.url = "ui://login/0_0000" + num;
         }
         onShowFarm() {
             console.log('跳转首页');
@@ -446,9 +450,10 @@
             if (this._loginwin == null) {
                 this._loginwin = new loginWin;
             }
+            this._loginwin.onShow();
         }
         showLogin() {
-            this._loginwin.onShow();
+            this._loginwin.onShowLogin();
         }
         updateFarm(x) {
             this._loginwin.onupdateFarm(x);
@@ -469,7 +474,8 @@
             this._network = new loginNetwork;
             Laya.stage.on(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
             Laya.stage.on(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
-            Laya.stage.on(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
+            Laya.stage.on(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
+            Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
         }
         static getInstance() {
             if (loginController._instance == null) {
@@ -487,9 +493,14 @@
         onResComplete() {
             Laya.stage.off(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
             Laya.stage.off(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
-            console.log('加载login--ok-');
-            console.log("xxxxxxx", Laya.loader.getRes("ui.json"));
-            Laya.View.uiMap = Laya.loader.getRes("ui.json");
+            console.log(1, Laya.View.uiMap);
+            Laya.Scene.setUIMap("ui.json");
+            console.log(2, Laya.View.uiMap);
+            resManger.getInstance().addGroupRes(resConfig.farm);
+            resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFARM, GAMEEVENT.ONLOADCOMPLETEFARM);
+            this.initView();
+        }
+        show() {
             this.initView();
         }
         onResProgressFarm(x) {
@@ -505,7 +516,6 @@
                 this._loginview = new loginView;
             }
             this._loginview.init();
-            this._loginview.showLogin();
         }
     }
 
@@ -529,17 +539,9 @@
             if (GameConfig.stat)
                 Laya.Stat.show();
             Laya.alertGlobalError = true;
-            Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
             this.initModule();
-            loginController.getInstance();
             resManger.getInstance().addGroupRes(resConfig.loadingRes);
             resManger.getInstance().startLoad(GAMEEVENT.ONRESPROGRESSLOGIN, GAMEEVENT.ONRESCOMPLETELOGIN);
-        }
-        onVersionLoaded() {
-            Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
-        }
-        onConfigLoaded() {
-            GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
         }
         initModule() {
             gameLayer.initModule();

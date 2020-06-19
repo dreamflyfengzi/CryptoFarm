@@ -38,4 +38,4 @@ export module ui.login {
         }
     }
     REG("ui.login.loginUI",loginUI);
-}
+}
