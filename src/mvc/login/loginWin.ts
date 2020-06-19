@@ -11,6 +11,8 @@ import GAMEEVENT from '../event/GAMEEVENT'
 import farmController from '../farm/farmController'
 import resManger from '../resconfig/resManger'
 import resConfig from '../resconfig/resConfig'
+
+
 // export default class loginWin extends ui.login.loginUI {
 // export default class loginWin extends baseView {
 export default class loginWin extends baseView {
@@ -30,11 +32,20 @@ export default class loginWin extends baseView {
   constructor() {
     super(ui.login.loginUI);
     // this.ui.login_btn.labelSize = '210'
+    
+    this.addEvents()
+  }
+  
+  
+  public addEvents(){
+    console.log("addEvents") 
+    this.ui.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
+    this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
+    this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
   }
 
+  // public onShow() {
 
-
-  public onShow() {
     // this._loading_txt = this._login_sence.getChild('loading_txt').asTextField;
     // this._loading_icon = this._login_sence.getChild('loading_icon').asLoader;
     // this._loading_group = this._login_sence.getChild('loading_group').asGroup;
@@ -47,19 +58,23 @@ export default class loginWin extends baseView {
     /* 切换场景(obj:场景对象，name:名字，type=1.隐藏2.移除) */
     // this.addChild(this._showTips.displayObject);
     // this.tweenShow();
-  }
+  // }
   // /**
   //  * 展示登录按钮console.log(this.view.n10)
   //  */
-  public onShowLogin() {
+  public onShow() {
+
     //这里显示登录
-    // this.tweenAlphaAdd('login', 2);
-    console.log(this.ui.n10,'=============')
-    // this.ui.loading_group.visible = false;
+    this.tweenAlphaAdd('login', 2);
+    console.log(this.mouseEnabled)
+    console.log(this.ui.login_btn.mouseEnabled)
+    console.log(this.ui.login_btn.width)
+    console.log(this.ui.login_btn.height)
+    // this.ui.loading_group.
     // this.ui.login_group.visible = true;
-    this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
-    console.log(this.ui.login_btn)
-    console.log(this.getChildByName('login_btn'))
+    // this.on(Laya.Event.CLICK, this, this.loginBtn);
+    // this.on(Laya.Event.CLICK, this, this.loginBtn);
+    console.log(this.ui.loading_group )
   }
   /**
    * 点击登录按钮
@@ -67,7 +82,7 @@ export default class loginWin extends baseView {
 
   public loginBtn() {
     console.log('go---------')
-    Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
+    // Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
     // if (this._login_check.selected) {
     //   //获取一下公共的数据
     //   var tmp_dataGlobal = dataGlobal.getInstance();

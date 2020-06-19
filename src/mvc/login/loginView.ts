@@ -18,14 +18,14 @@ export default class loginView{
 			// fairygui.UIPackage.addPackage(login[0]);
 			if(this._loginwin == null){
 				this._loginwin = new loginWin;
-			}
+      }
     }
  
 		// /**
 		//  * 展示登录按钮
 		//  */
 		public showLogin(){
-			this._loginwin.onShowLogin();
+			this._loginwin.onShow();
 		}
 		/**
 		 * 加载农场

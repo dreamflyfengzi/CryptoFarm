@@ -83,7 +83,7 @@ export default class BaseView extends Laya.View implements IBaseView {
   public initUIView(): void {
     try {
       this._ui = new this._ui();
-
+      console.log(2222)
     } catch (error) {
 
     } finally {

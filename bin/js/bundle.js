@@ -2,8 +2,7 @@
     'use strict';
 
     class GameConfig {
-        constructor() {
-        }
+        constructor() { }
         static init() {
             var reg = Laya.ClassUtils.regClass;
         }
@@ -204,6 +203,7 @@
         initUIView() {
             try {
                 this._ui = new this._ui();
+                console.log(2222);
             }
             catch (error) {
             }
@@ -347,7 +347,7 @@
     }
     resConfig._url = '';
     resConfig.loadingRes = [
-        { url: resConfig._url + 'login/login.json', type: Laya.Loader.BUFFER, sign: "login" },
+        { url: resConfig._url + 'ui.json', type: Laya.Loader.JSON, sign: 'login' },
         { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE },
     ];
     resConfig.farm = [
@@ -408,18 +408,24 @@
         constructor() {
             super(ui.login.loginUI);
             this.resArr = [];
+            this.addEvents();
+        }
+        addEvents() {
+            console.log("addEvents");
+            this.ui.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
+            this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
+            this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
         }
         onShow() {
-        }
-        onShowLogin() {
-            console.log(this.ui.n10, '=============');
-            this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
-            console.log(this.ui.login_btn);
-            console.log(this.getChildByName('login_btn'));
+            this.tweenAlphaAdd('login', 2);
+            console.log(this.mouseEnabled);
+            console.log(this.ui.login_btn.mouseEnabled);
+            console.log(this.ui.login_btn.width);
+            console.log(this.ui.login_btn.height);
+            console.log(this.ui.loading_group);
         }
         loginBtn() {
             console.log('go---------');
-            Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
         }
         onupdateFarm(x) {
             console.log(x);
@@ -442,7 +448,7 @@
             }
         }
         showLogin() {
-            this._loginwin.onShowLogin();
+            this._loginwin.onShow();
         }
         updateFarm(x) {
             this._loginwin.onupdateFarm(x);
@@ -463,9 +469,6 @@
             this._network = new loginNetwork;
             Laya.stage.on(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
             Laya.stage.on(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
-            Laya.stage.on(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
-            Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
-            this.onResComplete();
             Laya.stage.on(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
         }
         static getInstance() {
@@ -485,8 +488,8 @@
             Laya.stage.off(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
             Laya.stage.off(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
             console.log('加载login--ok-');
-            resManger.getInstance().addGroupRes(resConfig.farm);
-            resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFARM, GAMEEVENT.ONLOADCOMPLETEFARM);
+            console.log("xxxxxxx", Laya.loader.getRes("ui.json"));
+            Laya.View.uiMap = Laya.loader.getRes("ui.json");
             this.initView();
         }
         onResProgressFarm(x) {
@@ -502,6 +505,7 @@
                 this._loginview = new loginView;
             }
             this._loginview.init();
+            this._loginview.showLogin();
         }
     }
 

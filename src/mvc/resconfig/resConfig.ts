@@ -5,8 +5,8 @@ export default class resConfig{
 	public static _url = '';
     /**loading和login页面 */
     public static loadingRes:Array<any> = [
-       {url:resConfig._url+'login/login.json',type:Laya.Loader.BUFFER,sign:"login"},
-        // {url:resConfig._url+'ui.json',type:Laya.Loader.BUFFER,sign:'login'},
+              {url:resConfig._url+'ui.json',type:Laya.Loader.JSON,sign:'login'},
+      //  {url:resConfig._url+'login/login.json',type:Laya.Loader.BUFFER,sign:"login"},
         // {url:resConfig._url+'res/atlas/loading.atlas',type:Laya.Loader.ATLAS,sign:'login'},
         {url:resConfig._url+'res/atlas/loading.png',type:Laya.Loader.IMAGE},
     ]
