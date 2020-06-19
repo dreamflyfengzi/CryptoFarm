@@ -3,7 +3,7 @@
 */
 import { ui } from '../../ui/layaMaxUI'
 import baseView from '../baseView/component/baseView'
-	export class farmIndex extends baseView{
+	export default class farmIndex extends baseView{
 		// private _farmIndex:fairygui.GComponent;
 		// private building_btn:fairygui.GLoader;//建筑按钮
 		// private upgrade_btn:fairygui.GLoader;//升级按钮
@@ -18,8 +18,7 @@ import baseView from '../baseView/component/baseView'
 		// private _seedList:Laya.Sprite;//种子列表
 		
 		constructor(){
-			super(ui.farm.farmIndexUI);
-			
+			super(ui.farm.farmIndexsceneUI);
 		}
 		/** */
 		public onShow(type){
@@ -45,7 +44,8 @@ import baseView from '../baseView/component/baseView'
 			// 	//获取农田的种子信息
 			// 	this.getFarmSeed();
 			// }
-			// this.tweenAlphaAdd(this._farmIndex.displayObject,'farmIndex',type);
+      // this.tweenAlphaAdd(this._farmIndex.displayObject,'farmIndex',type);
+      this.tweenAlphaAdd('farm', type);
 		}
 		
 		// /**

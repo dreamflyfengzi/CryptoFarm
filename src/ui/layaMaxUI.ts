@@ -4,7 +4,7 @@ import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
 export module ui.farm {
-    export class farmIndexUI extends Laya.Scene {
+    export class farmIndexsceneUI extends Laya.Scene {
 		public farmbg_1:Laya.Sprite;
 		public farmbg_2:Laya.Sprite;
 		public building:Laya.Button;
@@ -12,13 +12,36 @@ export module ui.farm {
 		public order:Laya.Button;
 		public email:Laya.Button;
 		public upgrade:Laya.Button;
+		public top_kuan:Laya.Box;
+		public kuan:Laya.Sprite;
+		public uname_bg:Laya.Sprite;
+		public uname:laya.display.Text;
+		public bottom:Laya.Box;
+		public botton_bg:Laya.Sprite;
+		public main_btn_kuan:Laya.Box;
+		public n26:Laya.Button;
+		public main_btn:Laya.Button;
+		public main_btn_txt:Laya.Sprite;
+		public factory_kuan:Laya.Box;
+		public factory_btn:Laya.Button;
+		public factory_btn_txt:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
-            this.loadScene("farm/farmIndex");
+            this.loadScene("farm/farmIndexscene");
         }
     }
-    REG("ui.farm.farmIndexUI",farmIndexUI);
+    REG("ui.farm.farmIndexsceneUI",farmIndexsceneUI);
+    export class farmLandUI extends Laya.Scene {
+		public land:Laya.Sprite;
+		public xuanzhong:Laya.Sprite;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("farm/farmLand");
+        }
+    }
+    REG("ui.farm.farmLandUI",farmLandUI);
 }
 export module ui.login {
     export class loginUI extends Laya.Scene {
@@ -38,4 +61,4 @@ export module ui.login {
         }
     }
     REG("ui.login.loginUI",loginUI);
-}
+}

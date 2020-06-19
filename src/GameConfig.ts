@@ -5,14 +5,14 @@
 */
 export default class GameConfig{
     static width:number=1242;
-    static height:number=1688;
+    static height:number=2688;
     static scaleMode:string="showall";
     static screenMode:string="none";
     static alignV:string="top";
     static alignH:string="left";
     static startScene:any="login/login.scene";
     static sceneRoot:string="";
-    static debug:boolean=true;
+    static debug:boolean=false;
     static stat:boolean=false;
     static physicsDebug:boolean=false;
     static exportSceneToJson:boolean=true;

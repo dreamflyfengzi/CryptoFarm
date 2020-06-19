@@ -56,8 +56,7 @@ export default class loginWin extends baseView {
    */
 
   public loginBtn() {
-    console.log('go---------')
-    // Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
+    Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
     // if (this._login_check.selected) {
     //   //获取一下公共的数据
     //   var tmp_dataGlobal = dataGlobal.getInstance();
@@ -134,7 +133,7 @@ export default class loginWin extends baseView {
   public onShowFarm() {
     console.log('跳转首页')
     farmController.getInstance();
-    resManger.getInstance().addGroupRes(resConfig.farm);
+    resManger.getInstance().addGroupRes(resConfig.farm);//加载农场资源
     resManger.getInstance().startLoad('', GAMEEVENT.FARM, '', [2]);
     // //这里加载首页（之前预加载过的了,这里检查加载一次）登录接上后放到登录完成代码
     // //如果已经登陆成功

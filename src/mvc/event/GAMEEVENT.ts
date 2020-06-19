@@ -29,8 +29,6 @@ export default class GAMEEVENT{
   public static HIDEINFODIV:string = 'HIDEINFODIV';//隐藏用户信息层
   public static SHOWINFODIV:string = 'SHOWINFODIV';//显示用户信息层
 
-
-
   // 开发测试
-  public static TEST_LOGIN_FARM:string = 'LOGIN_FARM';//打开农场
+  public static TEST_LOGIN_FARM:string = 'FARM';//打开农场
 }

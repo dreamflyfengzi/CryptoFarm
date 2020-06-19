@@ -8,14 +8,14 @@
         }
     }
     GameConfig.width = 1242;
-    GameConfig.height = 1688;
+    GameConfig.height = 2688;
     GameConfig.scaleMode = "showall";
     GameConfig.screenMode = "none";
     GameConfig.alignV = "top";
     GameConfig.alignH = "left";
     GameConfig.startScene = "login/login.scene";
     GameConfig.sceneRoot = "";
-    GameConfig.debug = true;
+    GameConfig.debug = false;
     GameConfig.stat = false;
     GameConfig.physicsDebug = false;
     GameConfig.exportSceneToJson = true;
@@ -96,7 +96,7 @@
     GAMEEVENT.BOTTOMBTN = 'BOTTOMBTN';
     GAMEEVENT.HIDEINFODIV = 'HIDEINFODIV';
     GAMEEVENT.SHOWINFODIV = 'SHOWINFODIV';
-    GAMEEVENT.TEST_LOGIN_FARM = 'LOGIN_FARM';
+    GAMEEVENT.TEST_LOGIN_FARM = 'FARM';
 
     class loginModel {
         constructor() {
@@ -108,15 +108,24 @@
     (function (ui) {
         var farm;
         (function (farm) {
-            class farmIndexUI extends Laya.Scene {
+            class farmIndexsceneUI extends Laya.Scene {
                 constructor() { super(); }
                 createChildren() {
                     super.createChildren();
-                    this.loadScene("farm/farmIndex");
+                    this.loadScene("farm/farmIndexscene");
                 }
             }
-            farm.farmIndexUI = farmIndexUI;
-            REG("ui.farm.farmIndexUI", farmIndexUI);
+            farm.farmIndexsceneUI = farmIndexsceneUI;
+            REG("ui.farm.farmIndexsceneUI", farmIndexsceneUI);
+            class farmLandUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("farm/farmLand");
+                }
+            }
+            farm.farmLandUI = farmLandUI;
+            REG("ui.farm.farmLandUI", farmLandUI);
         })(farm = ui.farm || (ui.farm = {}));
     })(ui || (ui = {}));
     (function (ui) {
@@ -280,32 +289,43 @@
         set datas(value) { this._datas = value; }
     }
 
-    class farmModel {
+    class farmIndex extends BaseView {
         constructor() {
-            this.clickLandStatic = '';
-            this.landId = '';
+            super(ui.farm.farmIndexsceneUI);
         }
-        setFatData(data) {
-            this.fatData = data;
-        }
-        setFarmSeed(data) {
-            this.seedData = data;
-        }
-        setLandId(str) {
-            this.landId = str;
-        }
-        setClickLandStatic(str) {
-            this.clickLandStatic = str;
+        onShow(type) {
+            this.tweenAlphaAdd('farm', type);
         }
     }
 
-    class farmNetwork {
+    class farmView {
+        constructor() {
+        }
+        onShow(type) {
+            if (this._indexCom == null) {
+                this._indexCom = new farmIndex;
+            }
+            this._indexCom.onShow(type);
+        }
+        onShowFarmInitField(data) {
+        }
+        onFarmInitSeedList(data) {
+        }
+        showSeepList() {
+        }
+        setThisLandStatic(id, str) {
+        }
+        setThisLandTimer(id) {
+        }
+        initLand() {
+        }
+        setPlantFramLand() {
+        }
     }
 
-    class farmController {
+    class farmController extends BaseView {
         constructor() {
-            this.model = new farmModel;
-            this._network = new farmNetwork;
+            super(ui.farm.farmIndexsceneUI);
             Laya.stage.on(GAMEEVENT.FARM, this, this.onShow);
         }
         static getInstance() {
@@ -315,7 +335,33 @@
             return farmController._instance;
         }
         onShow(type) {
-            console.log(type);
+            if (this._farmview == null) {
+                this._farmview = new farmView;
+            }
+            console.log(GAMEEVENT.BOTTOMBTN, '[[[[[[[[[[');
+            this._farmview.onShow(type);
+            Laya.stage.event(GAMEEVENT.BOTTOMBTN, ['farm']);
+        }
+        onShowFarmInitField(data) {
+            this._farmview.onShowFarmInitField(data);
+        }
+        onFarmInitSeedList(data) {
+            this._farmview.onFarmInitSeedList(data);
+        }
+        showSeepList() {
+            this._farmview.showSeepList();
+        }
+        setThisLandStatic(id, str) {
+            this._farmview.setThisLandStatic(id, str);
+        }
+        setThisLandTimer(id) {
+            this._farmview.setThisLandTimer(id);
+        }
+        initLand() {
+            this._farmview.initLand();
+        }
+        setPlantFramLand() {
+            this._farmview.setPlantFramLand();
         }
     }
 
@@ -425,7 +471,7 @@
             this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
         }
         loginBtn() {
-            console.log('go---------');
+            Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
         }
         onupdateFarm(x) {
             console.log(x);
@@ -476,6 +522,7 @@
             Laya.stage.on(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
             Laya.stage.on(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
             Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
+            Laya.stage.on(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
         }
         static getInstance() {
             if (loginController._instance == null) {
@@ -484,7 +531,8 @@
             return loginController._instance;
         }
         showFarmView() {
-            Laya.stage.off(GAMEEVENT.LOGIN_FARM, this, this.showFarmView);
+            Laya.stage.off(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
+            console.log('确保只做一只跳入主场景的操作');
             this._loginview.showFarm();
         }
         onResProgress() {
@@ -505,6 +553,7 @@
         }
         onResProgressFarm(x) {
             this._loginview.updateFarm(x);
+            console.log(x);
         }
         onResCompleteFarm() {
             Laya.stage.off(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);

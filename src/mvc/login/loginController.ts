@@ -47,7 +47,7 @@ export default class loginController {
 
     //websocket测试
     //Laya.stage.on("send_data_bak",this,this.send_data_bak);
-    // Laya.stage.on(GAMEEVENT.TEST_LOGIN_FARM,this,this.showFarmView); //测试打开农场
+    Laya.stage.on(GAMEEVENT.TEST_LOGIN_FARM,this,this.showFarmView); //测试打开农场
   }
 
   //websocket测试
@@ -58,8 +58,8 @@ export default class loginController {
   //显示主场景
   public showFarmView() {
     //确保只做一只跳入主场景的操作
-    Laya.stage.off(GAMEEVENT.LOGIN_FARM, this, this.showFarmView);
-
+    Laya.stage.off(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
+    console.log('确保只做一只跳入主场景的操作')
     // //初始化websocket网络(一定要在登陆成功之后初始化网络连接，否则无法用websocket)
     // net.webSocketJson.getInstance();
     this._loginview.showFarm();
@@ -103,17 +103,16 @@ export default class loginController {
    */
   private onResProgressFarm(x) {
     this._loginview.updateFarm(x);
+    console.log(x)
   }
   /**
    * 加载农场完成
    */
   private onResCompleteFarm() {
-
     //清除掉监听
     Laya.stage.off(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
     Laya.stage.off(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
     //调用显示页面
-
     this._loginview.showLogin();
 
   }
