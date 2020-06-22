@@ -16,7 +16,7 @@ export default class BaseView extends Laya.View implements IBaseView {
   /** 构造函数 */
   public constructor($class: any, isShowMask: boolean = true) {
     super();
-    console.log("1111")
+    console.log("--------------------------------")
 
     // this._myParent = $layer;
     this._isInit = false;
@@ -34,7 +34,7 @@ export default class BaseView extends Laya.View implements IBaseView {
   public tweenAlphaAdd(name: string, type: number) {
     var obj = this
     //查找是否有该对象
-    var node: any = gameLayer.scenelayer.getChildByName(name);
+    var node: any = gameLayer.bglayer.getChildByName(name);
     console.log("xxxx", node)
     if (node) {//有该对象的话就显示就行了
       obj = node;
@@ -42,11 +42,11 @@ export default class BaseView extends Laya.View implements IBaseView {
       obj.zOrder = 0;
     } else {//没有改对象的话就添加
       obj.zOrder = 0;
-      gameLayer.scenelayer.addChild(obj);
+      gameLayer.bglayer.addChild(obj);
       console.log(obj)
     }
 
-    Laya.Tween.to(gameLayer.scenelayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
+    Laya.Tween.to(gameLayer.bglayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
       this.clearChild(type);
       obj.zOrder = 1;
       this.tweenAlphaAllShow(obj);
@@ -55,17 +55,17 @@ export default class BaseView extends Laya.View implements IBaseView {
   }
   /**添加对象，并且渐显显示 */
   public tweenAlphaAllShow(obj: any) {
-    // gameLayer.scenelayer.addChild(obj);
-    Laya.Tween.to(gameLayer.scenelayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
+    // gameLayer.bglayer.addChild(obj);
+    Laya.Tween.to(gameLayer.bglayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
     console.log(Laya.stage)
   }
   /* 清除在上层的子节点 */
   public clearChild(type) {
-    var obj: any = gameLayer.scenelayer.getChildAt(1);
+    var obj: any = gameLayer.bglayer.getChildAt(1);
     if (type == 1) {
       obj.visible = false;
     } else if (type == 2) {
-      gameLayer.scenelayer.removeChildAt(1);
+      gameLayer.bglayer.removeChildAt(1);
     }
   }
 

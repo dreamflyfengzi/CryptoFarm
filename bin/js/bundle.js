@@ -159,7 +159,7 @@
             super();
             this.isRemoveBanner = true;
             this._resources = null;
-            console.log("1111");
+            console.log("--------------------------------");
             this._isInit = false;
             this._isShowMask = isShowMask;
             this._ui = $class;
@@ -170,7 +170,7 @@
         }
         tweenAlphaAdd(name, type) {
             var obj = this;
-            var node = gameLayer.scenelayer.getChildByName(name);
+            var node = gameLayer.bglayer.getChildByName(name);
             console.log("xxxx", node);
             if (node) {
                 obj = node;
@@ -179,26 +179,26 @@
             }
             else {
                 obj.zOrder = 0;
-                gameLayer.scenelayer.addChild(obj);
+                gameLayer.bglayer.addChild(obj);
                 console.log(obj);
             }
-            Laya.Tween.to(gameLayer.scenelayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
+            Laya.Tween.to(gameLayer.bglayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
                 this.clearChild(type);
                 obj.zOrder = 1;
                 this.tweenAlphaAllShow(obj);
             }.bind(this)));
         }
         tweenAlphaAllShow(obj) {
-            Laya.Tween.to(gameLayer.scenelayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
+            Laya.Tween.to(gameLayer.bglayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
             console.log(Laya.stage);
         }
         clearChild(type) {
-            var obj = gameLayer.scenelayer.getChildAt(1);
+            var obj = gameLayer.bglayer.getChildAt(1);
             if (type == 1) {
                 obj.visible = false;
             }
             else if (type == 2) {
-                gameLayer.scenelayer.removeChildAt(1);
+                gameLayer.bglayer.removeChildAt(1);
             }
         }
         addToParent() {
@@ -289,12 +289,350 @@
         set datas(value) { this._datas = value; }
     }
 
+    class NETWORKEVENT {
+    }
+    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
+    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
+    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
+    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
+    NETWORKEVENT.GAMEFAILTIP = 'game_fail_tip';
+    NETWORKEVENT.INITINFO = "init_info";
+    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
+    NETWORKEVENT.FARMINITFIELD = "init_field";
+    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
+    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
+    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
+    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
+    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
+    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
+    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
+    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
+    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
+    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
+    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
+    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
+    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
+    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
+    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
+    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
+    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
+    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
+    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
+    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
+    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
+    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
+    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
+
+    class GAMECONFIG {
+    }
+    GAMECONFIG.farmLand = {
+        "ht01": { "x": 425, "y": 576, "zOrder": 9 },
+        "ht02": { "x": 632, "y": 430, "zOrder": 8 },
+        "ht03": { "x": 841, "y": 280, "zOrder": 7 },
+        "ht04": { "x": 212, "y": 434, "zOrder": 6 },
+        "ht05": { "x": 425, "y": 289, "zOrder": 5 },
+        "ht06": { "x": 631, "y": 138, "zOrder": 4 },
+        "ht07": { "x": 0, "y": 296, "zOrder": 3 },
+        "ht08": { "x": 212, "y": 149, "zOrder": 2 },
+        "ht09": { "x": 422, "y": 0, "zOrder": 1 },
+    };
+
+    class dataGlobal {
+        constructor() {
+            this.query = {
+                "uid": '',
+                "sid": '',
+                "sid2": '',
+                "system": ''
+            };
+            this.query.system = this.get_sys();
+            this.farmInfo = {};
+            this.userInfo = {};
+            this.factory = {};
+            this.userGoodInfo = {};
+            this.warehouseInfo = {};
+            this.lotteryInfo = {};
+        }
+        static getInstance() {
+            if (dataGlobal._instance == null) {
+                dataGlobal._instance = new dataGlobal();
+            }
+            return dataGlobal._instance;
+        }
+        setUserInfo(data) {
+            if (typeof data.sid != 'undefined') {
+                this.userInfo.sid = data.sid;
+            }
+            if (typeof data.sid2 != 'undefined') {
+                this.userInfo.sid2 = data.sid2;
+            }
+            if (typeof data.uid != 'undefined') {
+                this.userInfo.uid = data.uid;
+            }
+            if (typeof data.name != 'undefined') {
+                this.userInfo.name = data.name;
+            }
+            if (typeof data.nickname != 'undefined') {
+                this.userInfo.nickname = data.nickname;
+            }
+            if (typeof data.pic != 'undefined') {
+                this.userInfo.pic = data.pic;
+            }
+            if (typeof data.sex != 'undefined') {
+                this.userInfo.sex = data.sex;
+            }
+            if (typeof data.token != 'undefined') {
+                this.userInfo.token = data.token;
+            }
+            if (typeof data.have_gold != 'undefined') {
+                this.userInfo.have_gold = data.have_gold;
+            }
+            if (typeof data.grade != 'undefined') {
+                this.userInfo.grade = data.grade;
+            }
+            if (typeof data.exp != 'undefined') {
+                this.userInfo.exp = data.exp;
+            }
+            if (typeof data.flower_num != 'undefined') {
+                this.userInfo.flower_num = data.flower_num;
+            }
+            if (typeof data.order_num != 'undefined') {
+                this.userInfo.order_num = data.order_num;
+            }
+            if (typeof data.goods_num != 'undefined') {
+                this.userInfo.goods_num = data.goods_num;
+            }
+            if (typeof data.upgrade_exp != 'undefined') {
+                this.userInfo.upgrade_exp = data.upgrade_exp;
+            }
+            if (typeof data.sid != 'undefined') {
+                this.query.sid = data.sid;
+            }
+            if (typeof data.sid2 != 'undefined') {
+                this.query.sid2 = data.sid2;
+            }
+            if (typeof data.sid2 != 'undefined') {
+                this.query.uid = data.uid;
+            }
+        }
+        setUserProp(data) {
+            this.userProp = data;
+        }
+        setGameWS(ws) {
+            this.gameWS = ws;
+        }
+        static getRound(lowValue, highValue) {
+            var choice = highValue - lowValue;
+            return Math.floor(Math.random() * choice + lowValue);
+        }
+        get_sys() {
+            let tmp_sys = Laya.Browser.userAgent;
+            if (Laya.Browser.onAndroid) {
+                tmp_sys += ",Android";
+            }
+            if (Laya.Browser.onIOS) {
+                tmp_sys += ",ios";
+            }
+            if (Laya.Browser.onIPad) {
+                tmp_sys += ",ipad";
+            }
+            if (Laya.Browser.onIPhone) {
+                tmp_sys += ",iphone";
+            }
+            return tmp_sys;
+        }
+        setFarmInfo(data, id) {
+            if (id) {
+                this.farmInfo[id] = this.farmInfo[id] ? this.farmInfo[id] : {};
+                for (var i in data) {
+                    this.farmInfo[id][i] = (this.farmInfo[id][i] || this.farmInfo[id][i] == 0) ? this.farmInfo[id][i] : (typeof data[i] == 'object' ? {} : '');
+                    if (typeof data[i] == 'object') {
+                        for (var y in data[i]) {
+                            this.farmInfo[id][i][y] = (this.farmInfo[id][i][y] || this.farmInfo[id][i][y] == 0) ? this.farmInfo[id][i][y] : '';
+                            this.farmInfo[id][i][y] = data[i][y];
+                        }
+                    }
+                    else {
+                        this.farmInfo[id][i] = data[i];
+                    }
+                }
+            }
+            else {
+                for (var i in data) {
+                    this.farmInfo[data[i].ff_id] = this.farmInfo[data[i].ff_id] ? this.farmInfo[data[i].ff_id] : {};
+                    for (var y in data[i]) {
+                        this.farmInfo[data[i].ff_id][y] = this.farmInfo[data[i].ff_id][y] ? this.farmInfo[data[i].ff_id][y] : (typeof data[i][y] == 'object' ? {} : '');
+                        if (typeof data[i][y] == 'object') {
+                            for (var q in data[i][y]) {
+                                this.farmInfo[data[i].ff_id][y][q] = data[i][y][q];
+                            }
+                        }
+                        else {
+                            this.farmInfo[data[i].ff_id][y] = data[i][y];
+                        }
+                    }
+                }
+            }
+        }
+        setFlowerInfo(id) {
+            this.farmInfo[id].seed_data = {};
+        }
+        setFactory(data, id) {
+            if (id) {
+                this.factory[id] = data;
+            }
+            else {
+                this.factory = data ? data : {};
+            }
+        }
+        buySetFactory(data) {
+            if (data.mf_id) {
+                this.factory[data.mf_id].grade = data.grade;
+                this.factory[data.mf_id].open_seat_num = data.open_seat_num;
+            }
+        }
+        setUserGoodInfo(data) {
+            for (var i in data) {
+                this.userGoodInfo[data[i].id] = data[i];
+            }
+        }
+        setWarehouseInfo(data) {
+            if (typeof data.store_id != 'undefined') {
+                this.warehouseInfo.store_id = data.store_id;
+            }
+            if (typeof data.grade != 'undefined') {
+                this.warehouseInfo.grade = data.grade;
+            }
+            if (typeof data.num != 'undefined') {
+                this.warehouseInfo.num = data.num;
+            }
+            if (typeof data.num2 != 'undefined') {
+                this.warehouseInfo.num2 = data.num2;
+            }
+            if (typeof data.num3 != 'undefined') {
+                this.warehouseInfo.num3 = data.num3;
+            }
+            if (typeof data.name != 'undefined') {
+                this.warehouseInfo.name = data.name;
+            }
+            if (typeof data.data_info != 'undefined') {
+                this.warehouseInfo.data_info = data.data_info;
+            }
+        }
+        setlotteryInfo(data, type) {
+            if (type) {
+                this.lotteryInfo = {};
+            }
+            for (var i in data) {
+                this.lotteryInfo[data[i].lottery_id] = data[i];
+            }
+        }
+    }
+
+    class farmLand extends ui.farm.farmLandUI {
+        constructor() {
+            super();
+        }
+        init(data) {
+            this.land_id = data.ff_id;
+            this.initLand();
+            this._farmland = this;
+            this._farmland.x = data.x;
+            this._farmland.y = data.y;
+            this._farmland.zOrder = data.zOrder;
+            return this._farmland;
+        }
+        initLand() {
+            this.initLandDiv();
+            this.initLandStatic();
+        }
+        initLandDiv() {
+            console.log('先隐藏掉不显示的层');
+            this.extend_btn.visible = false;
+            this.extend_kuan.visible = false;
+            this.upgrade_kuan.visible = false;
+            this.xuanzhong.visible = false;
+            this.grow_kuan.visible = false;
+            this.fertilizer_kuan.visible = false;
+            this.harvest_icon.visible = false;
+            var landId = farmController.getInstance().model.landId;
+            if (landId == this.land_id) {
+                this.xuanzhong.visible = true;
+            }
+        }
+        initLandStatic() {
+            console.log('先获取这个花田的信息');
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            console.log('先获取这个花田的信息', data);
+            console.log(data, '=========vip');
+            if (data.ff_vip == 1) {
+                this.land_static = 'unlock';
+                if (data.is_lock == 2) {
+                    return;
+                }
+                this.extend_kuan.visible = true;
+                this.extend_btn.visible = true;
+                this.extend_gold.text = data.ff_id_unlocknum;
+                this.extend_gold.visible = true;
+                return;
+            }
+            console.log(this, '如果是在升级');
+            console.log(this.land_static, '如果是在升级');
+        }
+    }
+
     class farmIndex extends BaseView {
         constructor() {
             super(ui.farm.farmIndexsceneUI);
         }
         onShow(type) {
+            if (this._farmIndex == null) {
+                this._farmIndex = new Laya.Sprite();
+                this.width = this._farmIndex.width;
+                this.height = this._farmIndex.height;
+                this._farmIndex.name = 'farmIndex';
+                this.showInit();
+                this.land_div = new Laya.Sprite();
+                this.land_div.name = 'land_div';
+                this.land_div.x = 12;
+                this.land_div.y = 1079;
+                this._farmIndex.addChild(this.land_div);
+                this.addChild(this._farmIndex);
+                this.getFarmLand();
+            }
             this.tweenAlphaAdd('farm', type);
+        }
+        showInit() {
+            this.landArr = {};
+        }
+        getFarmLand() {
+            let tmp_data = {
+                'a': "init_field",
+                'm': "init",
+                'd': {},
+                'code': 1
+            };
+            Laya.stage.event(NETWORKEVENT.FARMINITFIELD);
+        }
+        onShowFarmInitField(data) {
+            var land_config = GAMECONFIG.farmLand;
+            for (var i in data) {
+                var land_data = land_config[data[i].ff_id];
+                data[i].zOrder = land_data.zOrder;
+                data[i].x = land_data.x;
+                data[i].y = land_data.y;
+                this.forFarmLand(data[i]);
+            }
+        }
+        forFarmLand(data) {
+            var landObj = new farmLand;
+            console.log(landObj);
+            console.log(data.ff_id);
+            this.landArr[data.ff_id] = landObj;
+            console.log(landObj.init(data));
+            this.land_div.addChild(landObj.init(data));
+            console.log(this.land_div);
+            console.log(this._farmIndex);
         }
     }
 
@@ -302,12 +640,14 @@
         constructor() {
         }
         onShow(type) {
+            console.log('farmView.onshow');
             if (this._indexCom == null) {
                 this._indexCom = new farmIndex;
             }
             this._indexCom.onShow(type);
         }
         onShowFarmInitField(data) {
+            this._indexCom.onShowFarmInitField(data);
         }
         onFarmInitSeedList(data) {
         }
@@ -323,10 +663,148 @@
         }
     }
 
-    class farmController extends BaseView {
+    class farmModel {
         constructor() {
-            super(ui.farm.farmIndexsceneUI);
+            this.clickLandStatic = '';
+            this.landId = 'ht08';
+        }
+        setFatData(data) {
+            this.fatData = data;
+        }
+        setFarmSeed(data) {
+            this.seedData = data;
+        }
+        setLandId(str) {
+            this.landId = str;
+        }
+        setClickLandStatic(str) {
+            this.clickLandStatic = str;
+        }
+    }
+
+    class farmNetwork {
+        constructor() {
+        }
+        FarmInitField(data) {
+            data = { "ga": "init_field", "gd": [{ "ff_id": "ht01", "ff_vip": 1, "ff_exp": 0, "ff_id_unlocknum": 50, "next_ff_id_glod": 0, "next_exp": 0, "pic": "land_1", "ain": "", "fat_time": 0, "fat_time_tol": 0, "seed_data": { "mature_time": 0, "grow_time_tol": 9000, "grow_static": 0, "id": 0, "name": "", "grade": "", "pic": "", "ain": "" } }, { "ff_id": "ht02", "ff_vip": 2, "ff_exp": 1001, "ff_id_unlocknum": 500, "next_ff_id_glod": 100, "next_exp": 1000, "pic": "land_2", "ain": "", "fat_time": 0, "fat_time_tol": 0, "seed_data": { "mature_time": 500, "grow_time_tol": 9000, "grow_static": 2, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": 1, "pic": "", "ain": "", "water": 2 } }, { "ff_id": "ht03", "ff_vip": 2, "ff_exp": 500, "ff_id_unlocknum": 500, "next_ff_id_glod": 100, "next_exp": 1000, "pic": "land_2", "ain": "", "fat_time": 0, "fat_time_tol": 0, "seed_data": { "mature_time": 500, "grow_time_tol": 9000, "grow_static": 2, "id": "", "name": "\u7ea2\u73ab\u7470", "grade": 1, "pic": "", "ain": "" } }, { "ff_id": "ht04", "ff_vip": 1, "ff_exp": 500, "ff_id_unlocknum": 500, "next_ff_id_glod": 100, "next_exp": 1000, "pic": "land_2", "ain": "", "fat_time": 0, "fat_time_tol": 0, "seed_data": { "mature_time": 500, "grow_time_tol": 9000, "grow_static": 2, "id": "", "name": "\u7ea2\u73ab\u7470", "grade": 1, "pic": "", "ain": "" } }, { "ff_id": "ht05", "ff_vip": 1, "ff_exp": 1001, "ff_id_unlocknum": 500, "next_ff_id_glod": 100, "next_exp": 1000, "pic": "land_2", "ain": "", "fat_time": 0, "fat_time_tol": 0, "seed_data": { "mature_time": 500, "grow_time_tol": 9000, "grow_static": 2, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": 1, "pic": "", "ain": "" } }, { "ff_id": "ht06", "ff_vip": 2, "ff_exp": 500, "ff_id_unlocknum": 500, "next_ff_id_glod": 100, "next_exp": 1000, "pic": "land_2", "ain": "", "fat_time": 0, "fat_time_tol": 0, "seed_data": { "mature_time": 500, "grow_time_tol": 9000, "grow_static": 2, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": 1, "pic": "", "ain": "" } }, { "ff_id": "ht07", "ff_vip": 2, "ff_exp": 500, "ff_id_unlocknum": 500, "next_ff_id_glod": 100, "next_exp": 1000, "pic": "land_2", "ain": "", "fat_time_tol": 0, "fat_time": 0, "seed_data": { "mature_time": 500, "grow_time_tol": 9000, "grow_static": 2, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": 1, "pic": "", "ain": "" } }, { "ff_id": "ht08", "ff_vip": 2, "ff_exp": 500, "ff_id_unlocknum": 500, "next_ff_id_glod": 100, "next_exp": 1000, "pic": "land_2", "ain": "", "fat_time": 0, "fat_time_tol": 0, "seed_data": { "mature_time": 10, "grow_time_tol": 9000, "grow_static": 2, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": 1, "pic": "", "ain": "" } }, { "ff_id": "ht09", "ff_vip": 2, "ff_exp": 500, "ff_id_unlocknum": 500, "next_ff_id_glod": 100, "next_exp": 1000, "pic": "land_2", "ain": "", "fat_time": 20, "fat_time_tol": 50000, "seed_data": { "mature_time": 10, "grow_time_tol": 9000000, "grow_static": 2, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": 1, "pic": "", "ain": "" } }], "code": 1 };
+            dataGlobal.getInstance().setFarmInfo(data.gd);
+            farmController.getInstance().onShowFarmInitField(data.gd);
+        }
+        FarmInitSeedList(data) {
+            data = { "ga": "init_seed_list", "gd": [{ "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh01_1", "ain": "", "gold": 100 }, { "id": "hh02", "name": "\u9ed1\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh01_2", "ain": "", "gold": 100 }, { "id": "hh03", "name": "\u9ec4\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "500", "pic": "ui:\/\/farm\/hh01_3", "ain": "", "gold": 100 }, { "id": "hh04", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "400", "pic": "ui:\/\/farm\/hh01_4", "ain": "", "gold": 150 }, { "id": "hh05", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "300", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 200 }, { "id": "hh06", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "20", "grade3": "200", "pic": "ui:\/\/farm\/hh02_2", "ain": "", "gold": 300 }], "code": 1 };
+            farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
+            farmController.getInstance().model.setFatData(data.gd.fat_data);
+            farmController.getInstance().onFarmInitSeedList(data.gd);
+        }
+        FarmInitFlowerGrade(data) {
+            data = { "ga": "init_flower_grade", "gd": { "type": 2, "ff_id": "ht01", "ff_vip": 3, "ff_exp": 10, "next_exp": 100, "ff_id_unlocknum": 0, "next_ff_id_glod": 110, "pic": "land_3", "ain": "", "msg": "\u5347\u7ea7\/\u89e3\u9501\u6210\u529f" }, "code": 1 };
+            var myData = data.gd;
+            var tmp_arr = {
+                'ff_vip': myData.ff_vip,
+                'ff_exp': myData.ff_exp,
+                'next_exp': myData.next_exp,
+                'ff_id_unlocknum': myData.ff_id_unlocknum,
+                'next_ff_id_glod': myData.next_ff_id_glod,
+                "seed": myData.seed,
+                "next_seed": myData.next_seed,
+                'pic': myData.pic,
+            };
+            if (myData.type == 1) {
+            }
+            else if (myData.type == 2) {
+                tmp_arr['is_lock'] = myData.is_lock;
+                var landStatic = farmController.getInstance().model.clickLandStatic;
+                if (myData.next_ht_lock) {
+                    var next_arr = {
+                        'is_lock': 1
+                    };
+                    dataGlobal.getInstance().setFarmInfo(next_arr, myData.next_ht_lock);
+                }
+            }
+            dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
+            farmController.getInstance().initLand();
+        }
+        FarmInitPlantFlower(data) {
+            data = { "ga": "init_plant_flower", "gd": { "ff_id": "ht01", "fat_time": 0, "fat_time_tol": 0, "ff_exp": 500, "seed_data": { "grow_time_tol": 5000, "mature_time": 500, "grow_static": 1, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": "1", "pic": "hh01_1", "ain": "" }, "msg": "\u79cd\u690d\u6210\u529f" }, "code": 1 };
+            var myData = data.gd;
+            var tmp_arr = {
+                'fat_time': myData.fat_time,
+                'fat_time_tol': myData.fat_time_tol,
+                'ff_exp': myData.ff_exp,
+                'seed_data': myData.seed_data
+            };
+            dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
+            farmController.getInstance().setThisLandTimer(myData.ff_id);
+            farmController.getInstance().initLand();
+            farmController.getInstance().setPlantFramLand();
+        }
+        FarmInitFlowerFertilize(data) {
+            data = { "ga": "init_flower_fertilize", "gd": { "ff_id": "ht01", "fat_time": 500, "fat_time_tol": 5000, "ff_exp": 50, "seed_data": { "grow_time_tol": 5000, "mature_time": 300, "grow_static": 4, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": "1", "pic": "hh01_1", "ain": "" }, "exp_data": { "exp": "20", "exp2": "2", "t": "7200" }, "msg": "\u65bd\u80a5\u6210\u529f" }, "code": 1 };
+            var myData = data.gd;
+            var tmp_arr = {
+                'fat_time': myData.fat_time,
+                'fat_time_tol': myData.fat_time_tol,
+                'ff_exp': myData.ff_exp,
+                'seed_data': myData.seed_data
+            };
+            dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
+            farmController.getInstance().setThisLandTimer(myData.ff_id);
+            farmController.getInstance().model.setClickLandStatic('fertilizer');
+            farmController.getInstance().initLand();
+        }
+        FarmInitFlowerWater(data) {
+            data = { "ga": "init_flower_water", "gd": { "ff_id": "ht02", "fat_time": 0, "fat_time_tol": 0, "ff_exp": 500, "seed_data": { "grow_time_tol": 5000, "mature_time": 900, "grow_static": 2, "id": "hh02", "name": "\u7ea2\u73ab\u7470", "grade": "1", "pic": "hh02_2", "ain": "" }, "exp_data": { "exp": "20", "exp2": "2", "t": "7200" }, "msg": "\u6d47\u6c34\u6210\u529f" }, "code": 1 };
+            var myData = data.gd;
+            var tmp_arr = {
+                'fat_time': myData.fat_time,
+                'fat_time_tol': myData.fat_time_tol,
+                'ff_exp': myData.ff_exp,
+                'seed_data': myData.seed_data
+            };
+            dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
+            farmController.getInstance().initLand();
+        }
+        FarmInitGrowFlower(data) {
+            var myData = data.gd;
+            var tmp_arr = {
+                'fat_time': myData.fat_time,
+                'fat_time_tol': myData.fat_time_tol,
+                'ff_exp': myData.ff_exp,
+                'seed_data': myData.seed_data
+            };
+            dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
+            farmController.getInstance().initLand();
+        }
+        FarmCollectFlower(data) {
+            data = { "ga": "init_collect_flower", "gd": { "ff_id": "ht01", "fat_time": 500, "fat_time_tol": 5000, "ff_exp": 1000, "seed_data": { "grow_time_tol": 0, "mature_time": 0, "grow_static": 0, "id": "", "name": "", "grade": 0, "pic": "", "ain": "" }, "exp_data": { "exp": null, "exp2": null, "t": 0 }, "msg": "\u6536\u83b7\u6210\u529f" }, "code": 1 };
+            var myData = data.gd;
+            var tmp_arr = {
+                'fat_time': myData.fat_time,
+                'fat_time_tol': myData.fat_time_tol,
+                'ff_exp': myData.ff_exp
+            };
+            dataGlobal.getInstance().setFlowerInfo(myData.ff_id);
+            dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
+            farmController.getInstance().initLand();
+        }
+        FarmInitFlowerFat(data) {
+            var myData = data.gd;
+            var tmp_arr = {
+                'fat_time': myData.fat_time,
+                'fat_time_tol': myData.fat_time_tol,
+                'ff_exp': myData.ff_exp,
+                'seed_data': myData.seed_data
+            };
+            farmController.getInstance().initLand();
+        }
+    }
+
+    class farmController {
+        constructor() {
+            this.model = new farmModel;
+            this._network = new farmNetwork;
             Laya.stage.on(GAMEEVENT.FARM, this, this.onShow);
+            Laya.stage.on(NETWORKEVENT.FARMINITFIELD, this, this._network.FarmInitField);
         }
         static getInstance() {
             if (farmController._instance == null) {
@@ -338,7 +816,6 @@
             if (this._farmview == null) {
                 this._farmview = new farmView;
             }
-            console.log(GAMEEVENT.BOTTOMBTN, '[[[[[[[[[[');
             this._farmview.onShow(type);
             Laya.stage.event(GAMEEVENT.BOTTOMBTN, ['farm']);
         }
@@ -397,11 +874,16 @@
     resConfig.loadingRes = [
         { url: resConfig._url + 'ui.json', type: Laya.Loader.JSON },
         { url: resConfig._url + 'res/atlas/loading.atlas', type: Laya.Loader.ATLAS, sign: 'login' },
+        { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE },
     ];
     resConfig.farm = [
+        { url: resConfig._url + 'res/atlas/main.atlas', type: Laya.Loader.ATLAS, sign: 'main' },
+        { url: resConfig._url + 'res/atlas/farm.atlas', type: Laya.Loader.ATLAS, sign: 'farm' },
         { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/farm.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/farm1.png', type: Laya.Loader.IMAGE },
     ];
     resConfig.dynamicRes = [];
 
@@ -462,7 +944,6 @@
             this.ui.on(Laya.Event.CLICK, this, this.loginBtn);
         }
         onShow() {
-            console.log("loginWin", "onShow");
             this.tweenAlphaAdd('login', 2);
         }
         onShowLogin() {
@@ -490,7 +971,6 @@
 
     class loginView {
         constructor() {
-            console.log('初始化登录页面');
         }
         init() {
             if (this._loginwin == null) {
@@ -536,7 +1016,6 @@
             this._loginview.showFarm();
         }
         onResProgress() {
-            console.log('加载login---');
         }
         onResComplete() {
             Laya.stage.off(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);

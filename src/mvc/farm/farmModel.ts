@@ -5,7 +5,7 @@
 export default class farmModel{
 		constructor(){
 			this.clickLandStatic = '';
-			this.landId = '';
+			this.landId = 'ht08';
 		}
 		
 		public seedData:any;//种子信息

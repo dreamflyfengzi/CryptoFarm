@@ -3,16 +3,19 @@
 */
 import { ui } from '../../ui/layaMaxUI'
 import baseView from '../baseView/component/baseView'
+import NETWORKEVENT from '../event/NETWORKEVENT'
+import GAMECONFIG from '../../const/GAMECONFIG'
+import farmLand from './farmLand'
 	export default class farmIndex extends baseView{
-		// private _farmIndex:fairygui.GComponent;
+		private _farmIndex:Laya.Sprite;
 		// private building_btn:fairygui.GLoader;//建筑按钮
 		// private upgrade_btn:fairygui.GLoader;//升级按钮
 		// private email_btn:fairygui.GLoader;//邮件按钮
 		// private order_btn:fairygui.GLoader;//订单按钮
-		// private land_div:Laya.Sprite;//花田的层
+		private land_div:Laya.Sprite;//花田的层
 		// private muneClickStr:string;//当前所在的菜单操作
 		// private bg_kuan:fairygui.GGroup;//背景框
-		// private landArr:any;//花田的数组
+		private landArr:any;//花田的数组
 		
 		// private _seedListClass:mvc.farm.farmSeedList;
 		// private _seedList:Laya.Sprite;//种子列表
@@ -22,37 +25,37 @@ import baseView from '../baseView/component/baseView'
 		}
 		/** */
 		public onShow(type){
-			// if(this._farmIndex == null){
-			// 	this._farmIndex = fairygui.UIPackage.createObject('farm','farmIndex').asCom;
-			// 	this.width = this._farmIndex.width;
-			// 	this.height = this._farmIndex.height;
-
-			// 	this._farmIndex.displayObject.name = 'farmIndex';
-			// 	this.loadSeedList();
-			// 	this.setScale(this._farmIndex.displayObject);
-			// 	//初始化页面的参数
-			// 	this.showInit();
+      if(this._farmIndex == null){
+        this._farmIndex = new Laya.Sprite();
+				this.width = this._farmIndex.width;
+				this.height = this._farmIndex.height;
+				this._farmIndex.name = 'farmIndex';
+        // 	// this.loadSeedList();
+        // // 	this.setScale(this._farmIndex.displayObject);
+        // // 	//初始化页面的参数
+				this.showInit();
 				
-			// 	//先添加一下农田的层
-			// 	this.land_div = new Laya.Sprite;
-			// 	this.land_div.name = 'land_div';
-			// 	this.land_div.x = 12;
-			// 	this.land_div.y = 1079;
-			// 	this._farmIndex.displayObject.addChild(this.land_div);
-			// 	//获取所有农田的状态
-			// 	this.getFarmLand();
-			// 	//获取农田的种子信息
-			// 	this.getFarmSeed();
-			// }
-      // this.tweenAlphaAdd(this._farmIndex.displayObject,'farmIndex',type);
+        // //先添加一下农田的层
+				this.land_div = new Laya.Sprite();
+				this.land_div.name = 'land_div';
+				this.land_div.x = 12;
+        this.land_div.y = 1079;
+        //   console.log(Laya.Stage,'=================')
+        this._farmIndex.addChild(this.land_div);
+        this.addChild(this._farmIndex)
+        //获取所有农田的状态
+				this.getFarmLand();
+        // 	//获取农田的种子信息
+        // 	this.getFarmSeed();
+			}
       this.tweenAlphaAdd('farm', type);
 		}
 		
 		// /**
 		//  * 初始化页面的参数
 		//  */
-		// private showInit(){
-		// 	this.landArr = {};
+		private showInit(){
+			this.landArr = {};
 		// 	//赋值
 		// 	this.bg_kuan = this._farmIndex.getChild('bg_kuan').asGroup;
 		// 	this.building_btn = this._farmIndex.getChild('building').asLoader;
@@ -67,10 +70,10 @@ import baseView from '../baseView/component/baseView'
 		// 	this.email_btn.onClick(this,this.onMenuClick,['email']);
 		// 	this.order_btn.onClick(this,this.onMenuClick,['order']);
 		// 	this.cleanAllStatu();//重置所有的按钮状态
-		// }
-		// /**
-		//  * 加载列表
-		//  */
+		}
+		/**
+		 * 加载列表
+		 */
 		// private loadSeedList(){
 		// 	this._seedListClass = new mvc.farm.farmSeedList();
     //         this._seedList = this._seedListClass.init();
@@ -110,46 +113,55 @@ import baseView from '../baseView/component/baseView'
 		// 	this.showBgKuan();
 		// 	this._seedListClass.setSeedListItem();
 		// }
-		// /**
-		//  * 获取所有农田的状态
-		//  */
-		// private getFarmLand(){
-		// 	//试着进行websocke请求
-		// 	let tmp_websocket = net.webSocketJson.getInstance();
-		// 	let tmp_data = {
-		// 		'a':"init_field",
-		// 		'm':"init",
-		// 		'd':{},
-		// 		'code':1
-		// 	};
+		/**
+		 * 获取所有农田的状态
+		 */
+		private getFarmLand(){
+			//试着进行websocke请求
+			// let tmp_websocket = net.webSocketJson.getInstance();
+			let tmp_data = {
+				'a':"init_field",
+				'm':"init",
+				'd':{},
+				'code':1
+			};
 		// 	console.log("发送websocket数据",tmp_data);
 		// 	tmp_websocket.sendMessage(tmp_data);
-		// 	// Laya.stage.event(NETWORKEVENT.FARMINITFIELD);
-		// }
-		// /**
-		//  * 展示农田信息
-		//  */
-		// public onShowFarmInitField(data){
-		// 	//获取农田
-		// 	var land_config = GAMECONFIG.farmLand;
-		// 	for(var i in data){
-		// 		var land_data = land_config[data[i].ff_id];
-		// 		data[i].zOrder = land_data.zOrder;
-		// 		data[i].x = land_data.x;
-		// 		data[i].y = land_data.y;
-		// 		this.forFarmLand(data[i]);
-		// 	}
-		// }
-		// /**
-		//  * 
-		//  * @param data ：农田的参数，包括位置，状态等信息
-		//  */
-		// private forFarmLand(data){
-		// 	var landObj = new mvc.farm.farmLand;
-		// 	this.landArr[data.ff_id] = landObj;
-			
-		// 	this.land_div.addChild(landObj.init(data)); 
-		// }
+			Laya.stage.event(NETWORKEVENT.FARMINITFIELD);
+		}
+		/**
+		 * 展示农田信息
+		 */
+		public onShowFarmInitField(data){
+			//获取农田
+      var land_config = GAMECONFIG.farmLand;
+  
+			for(var i in data){
+				var land_data = land_config[data[i].ff_id];
+				data[i].zOrder = land_data.zOrder;
+				data[i].x = land_data.x;
+				data[i].y = land_data.y;
+				this.forFarmLand(data[i]);
+			}
+		}
+		/**
+		 * 
+		 * @param data ：农田的参数，包括位置，状态等信息
+		 */
+		private forFarmLand(data){
+      var landObj = new farmLand;
+      console.log(landObj)
+      console.log(data.ff_id)
+			this.landArr[data.ff_id] = landObj;
+      // console.log(data.ff_id)
+      console.log(landObj.init(data))
+      this.land_div.addChild(landObj.init(data)); 
+      console.log(this.land_div)
+      console.log(this._farmIndex)
+			// landObj.init(data)
+      // console.log(this.landArr[data.ff_id])
+      // console.log('00000000000000000000000')
+		}
 		// /**
 		//  * 清除所有状态
 		//  */

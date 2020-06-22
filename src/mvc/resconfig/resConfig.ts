@@ -7,14 +7,19 @@ export default class resConfig {
     public static loadingRes: Array<any> = [
         { url: resConfig._url + 'ui.json', type: Laya.Loader.JSON },
         { url: resConfig._url + 'res/atlas/loading.atlas', type: Laya.Loader.ATLAS, sign: 'login' },
+        { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE},
     ]
     
     /**首次载入数据 */
     /**载入农场数据 */
     public static farm: Array<any> = [
+      { url: resConfig._url + 'res/atlas/main.atlas', type: Laya.Loader.ATLAS, sign: 'main' },
+      { url: resConfig._url + 'res/atlas/farm.atlas', type: Laya.Loader.ATLAS, sign: 'farm' },
         { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/farm.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/farm1.png', type: Laya.Loader.IMAGE },
         // {url:resConfig._url+'farm/farmIndexscene.scene',type:Laya.Loader.JSON,sign:'farmIndex'},
         // {url:resConfig._url+'farm/farmLand.scene',type:Laya.Loader.JSON,sign:'farmland'},
         // // {url:resConfig._url+'res/ui/base.json',type:Laya.Loader.BUFFER,sign:'base'},

@@ -8,7 +8,7 @@ import farmNetwork from './farmNetwork'
 import GAMEEVENT from '../event/GAMEEVENT'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import baseView from '../baseView/component/baseView'
-export default class farmController extends baseView{
+export default class farmController {
 	private _farmview: farmView;
 	private static _instance:farmController;
 	public model: farmModel;
@@ -22,20 +22,19 @@ export default class farmController extends baseView{
 	}
 
 	constructor(){
-		// this.model = new farmModel;
-		// this._network = new farmNetwork;
+		this.model = new farmModel;
+		this._network = new farmNetwork;
     
-    super(ui.farm.farmIndexsceneUI);
 		Laya.stage.on(GAMEEVENT.FARM,this,this.onShow);
 		Laya.stage.on(NETWORKEVENT.FARMINITFIELD,this,this._network.FarmInitField);//获取农田信息
-		Laya.stage.on(NETWORKEVENT.FARMINITSEEDLIST,this,this._network.FarmInitSeedList);//获取农田信息
-		Laya.stage.on(NETWORKEVENT.FARMINITFLOWERGRADE,this,this._network.FarmInitFlowerGrade);//获取农田升级扩建
-		Laya.stage.on(NETWORKEVENT.FARMINITPLANTFLOWER,this,this._network.FarmInitPlantFlower);//请求种植操作
-		Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFERTILIZE,this,this._network.FarmInitFlowerFertilize);//请求施肥操作
-		Laya.stage.on(NETWORKEVENT.FARMINITFLOWERWATER,this,this._network.FarmInitFlowerWater);//请求浇水操作
-		Laya.stage.on(NETWORKEVENT.FARMINITCOLLECTFLOWER,this,this._network.FarmCollectFlower);//花田收获
-		Laya.stage.on(NETWORKEVENT.FARMINITGROWFLOWER,this,this._network.FarmInitGrowFlower);//植物成长推送
-		Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFAT,this,this._network.FarmInitFlowerFat);//肥力失效
+		// Laya.stage.on(NETWORKEVENT.FARMINITSEEDLIST,this,this._network.FarmInitSeedList);//获取农田信息
+		// Laya.stage.on(NETWORKEVENT.FARMINITFLOWERGRADE,this,this._network.FarmInitFlowerGrade);//获取农田升级扩建
+		// Laya.stage.on(NETWORKEVENT.FARMINITPLANTFLOWER,this,this._network.FarmInitPlantFlower);//请求种植操作
+		// Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFERTILIZE,this,this._network.FarmInitFlowerFertilize);//请求施肥操作
+		// Laya.stage.on(NETWORKEVENT.FARMINITFLOWERWATER,this,this._network.FarmInitFlowerWater);//请求浇水操作
+		// Laya.stage.on(NETWORKEVENT.FARMINITCOLLECTFLOWER,this,this._network.FarmCollectFlower);//花田收获
+		// Laya.stage.on(NETWORKEVENT.FARMINITGROWFLOWER,this,this._network.FarmInitGrowFlower);//植物成长推送
+		// Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFAT,this,this._network.FarmInitFlowerFat);//肥力失效
 		
 	}
 	/**显示农场场景(type:1.当前页面隐藏切换，2.当前页面去除切换) */

@@ -37,7 +37,7 @@ export default class loginWin extends baseView {
 
   public onShow() {
     // this.addEvents();
-    console.log("loginWin", "onShow")
+    // console.log("loginWin", "onShow")
     //这里显示登录
     this.tweenAlphaAdd('login', 2);
   }

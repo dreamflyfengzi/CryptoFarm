@@ -4,7 +4,7 @@
 import farmController from './farmController'
 import dataGlobal from '../resconfig/dataGlobal'
   export default class farmNetwork{
-		// private _farmController:farmController;
+		private _farmController:farmController;
 		constructor(){
 		}
 		/**
@@ -12,17 +12,16 @@ import dataGlobal from '../resconfig/dataGlobal'
 		 * 获取农田信息
 		 */
 		public FarmInitField(data){
-			// data = {"ga":"init_field","gd":[{"ff_id":"ht01","ff_vip":1,"ff_exp":0,"ff_id_unlocknum":50,"next_ff_id_glod":0,"next_exp":0,"pic":"land_1","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":0,"grow_time_tol":9000,"grow_static":0,"id":0,"name":"","grade":"","pic":"","ain":""}},{"ff_id":"ht02","ff_vip":2,"ff_exp":1001,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":"","water":2}},{"ff_id":"ht03","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht04","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht05","ff_vip":2,"ff_exp":1001,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht06","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht07","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time_tol":0,"fat_time":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht08","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":10,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht09","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":20,"fat_time_tol":50000,"seed_data":{"mature_time":10,"grow_time_tol":9000000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}}],"code":1};
+			data = {"ga":"init_field","gd":[{"ff_id":"ht01","ff_vip":1,"ff_exp":0,"ff_id_unlocknum":50,"next_ff_id_glod":0,"next_exp":0,"pic":"land_1","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":0,"grow_time_tol":9000,"grow_static":0,"id":0,"name":"","grade":"","pic":"","ain":""}},{"ff_id":"ht02","ff_vip":2,"ff_exp":1001,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":"","water":2}},{"ff_id":"ht03","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht04","ff_vip":1,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht05","ff_vip":1,"ff_exp":1001,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht06","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht07","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time_tol":0,"fat_time":0,"seed_data":{"mature_time":500,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht08","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":0,"fat_time_tol":0,"seed_data":{"mature_time":10,"grow_time_tol":9000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}},{"ff_id":"ht09","ff_vip":2,"ff_exp":500,"ff_id_unlocknum":500,"next_ff_id_glod":100,"next_exp":1000,"pic":"land_2","ain":"","fat_time":20,"fat_time_tol":50000,"seed_data":{"mature_time":10,"grow_time_tol":9000000,"grow_static":2,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":1,"pic":"","ain":""}}],"code":1};
 			dataGlobal.getInstance().setFarmInfo(data.gd);//保存农田信息
-			//展示农田信息
+      //展示农田信息
 			farmController.getInstance().onShowFarmInitField(data.gd);
-
 		}
 		/**
 		 * 获取种子列表
 		 */
 		public FarmInitSeedList(data){
-			// data = {"ga":"init_seed_list","gd":[{"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":"1","grade2":"1","grade3":"100","pic":"ui:\/\/farm\/hh01_1","ain":"","gold":100},{"id":"hh02","name":"\u9ed1\u73ab\u7470","grade":"1","grade2":"1","grade3":"100","pic":"ui:\/\/farm\/hh01_2","ain":"","gold":100},{"id":"hh03","name":"\u9ec4\u73ab\u7470","grade":"1","grade2":"1","grade3":"500","pic":"ui:\/\/farm\/hh01_3","ain":"","gold":100},{"id":"hh04","name":"\u9752\u73ab\u7470","grade":"1","grade2":"1","grade3":"400","pic":"ui:\/\/farm\/hh01_4","ain":"","gold":150},{"id":"hh05","name":"\u9752\u73ab\u7470","grade":"1","grade2":"1","grade3":"300","pic":"ui:\/\/farm\/hh02_1","ain":"","gold":200},{"id":"hh06","name":"\u9752\u73ab\u7470","grade":"1","grade2":"20","grade3":"200","pic":"ui:\/\/farm\/hh02_2","ain":"","gold":300}],"code":1};
+			data = {"ga":"init_seed_list","gd":[{"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":"1","grade2":"1","grade3":"100","pic":"ui:\/\/farm\/hh01_1","ain":"","gold":100},{"id":"hh02","name":"\u9ed1\u73ab\u7470","grade":"1","grade2":"1","grade3":"100","pic":"ui:\/\/farm\/hh01_2","ain":"","gold":100},{"id":"hh03","name":"\u9ec4\u73ab\u7470","grade":"1","grade2":"1","grade3":"500","pic":"ui:\/\/farm\/hh01_3","ain":"","gold":100},{"id":"hh04","name":"\u9752\u73ab\u7470","grade":"1","grade2":"1","grade3":"400","pic":"ui:\/\/farm\/hh01_4","ain":"","gold":150},{"id":"hh05","name":"\u9752\u73ab\u7470","grade":"1","grade2":"1","grade3":"300","pic":"ui:\/\/farm\/hh02_1","ain":"","gold":200},{"id":"hh06","name":"\u9752\u73ab\u7470","grade":"1","grade2":"20","grade3":"200","pic":"ui:\/\/farm\/hh02_2","ain":"","gold":300}],"code":1};
 			//先存一份种子的数据
 			farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
 			//保存一份肥料的数据
@@ -34,7 +33,7 @@ import dataGlobal from '../resconfig/dataGlobal'
 		 * 农田的升级扩建
 		 */
 		public FarmInitFlowerGrade(data){
-			// data = {"ga":"init_flower_grade","gd":{"type":2,"ff_id":"ht01","ff_vip":3,"ff_exp":10,"next_exp":100,"ff_id_unlocknum":0,"next_ff_id_glod":110,"pic":"land_3","ain":"","msg":"\u5347\u7ea7\/\u89e3\u9501\u6210\u529f"},"code":1};
+			data = {"ga":"init_flower_grade","gd":{"type":2,"ff_id":"ht01","ff_vip":3,"ff_exp":10,"next_exp":100,"ff_id_unlocknum":0,"next_ff_id_glod":110,"pic":"land_3","ain":"","msg":"\u5347\u7ea7\/\u89e3\u9501\u6210\u529f"},"code":1};
 			var myData = data.gd;
 			var tmp_arr = {
 				// 'ff_id':myData.ff_id,
@@ -70,7 +69,7 @@ import dataGlobal from '../resconfig/dataGlobal'
 		 * 请求种植操作
 		 */
 		public FarmInitPlantFlower(data){
-			// data = {"ga":"init_plant_flower","gd":{"ff_id":"ht01","fat_time":0,"fat_time_tol":0,"ff_exp":500,"seed_data":{"grow_time_tol":5000,"mature_time":500,"grow_static":1,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":"1","pic":"hh01_1","ain":""},"msg":"\u79cd\u690d\u6210\u529f"},"code":1};
+			data = {"ga":"init_plant_flower","gd":{"ff_id":"ht01","fat_time":0,"fat_time_tol":0,"ff_exp":500,"seed_data":{"grow_time_tol":5000,"mature_time":500,"grow_static":1,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":"1","pic":"hh01_1","ain":""},"msg":"\u79cd\u690d\u6210\u529f"},"code":1};
 			var myData = data.gd;
 			var tmp_arr = {
 				// 'ff_id':myData.ff_id,
@@ -90,7 +89,7 @@ import dataGlobal from '../resconfig/dataGlobal'
 		 * 请求施肥
 		 */
 		public FarmInitFlowerFertilize(data){
-			// data = {"ga":"init_flower_fertilize","gd":{"ff_id":"ht01","fat_time":500,"fat_time_tol":5000,"ff_exp":50,"seed_data":{"grow_time_tol":5000,"mature_time":300,"grow_static":4,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":"1","pic":"hh01_1","ain":""},"exp_data":{"exp":"20","exp2":"2","t":"7200"},"msg":"\u65bd\u80a5\u6210\u529f"},"code":1};
+			data = {"ga":"init_flower_fertilize","gd":{"ff_id":"ht01","fat_time":500,"fat_time_tol":5000,"ff_exp":50,"seed_data":{"grow_time_tol":5000,"mature_time":300,"grow_static":4,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":"1","pic":"hh01_1","ain":""},"exp_data":{"exp":"20","exp2":"2","t":"7200"},"msg":"\u65bd\u80a5\u6210\u529f"},"code":1};
 			var myData = data.gd;
 			var tmp_arr = {
 				// 'ff_id':myData.ff_id,
@@ -109,7 +108,7 @@ import dataGlobal from '../resconfig/dataGlobal'
 		 * 请求浇水操作
 		 */
 		public FarmInitFlowerWater(data){
-			// data = {"ga":"init_flower_water","gd":{"ff_id":"ht02","fat_time":0,"fat_time_tol":0,"ff_exp":500,"seed_data":{"grow_time_tol":5000,"mature_time":900,"grow_static":2,"id":"hh02","name":"\u7ea2\u73ab\u7470","grade":"1","pic":"hh02_2","ain":""},"exp_data":{"exp":"20","exp2":"2","t":"7200"},"msg":"\u6d47\u6c34\u6210\u529f"},"code":1};
+			data = {"ga":"init_flower_water","gd":{"ff_id":"ht02","fat_time":0,"fat_time_tol":0,"ff_exp":500,"seed_data":{"grow_time_tol":5000,"mature_time":900,"grow_static":2,"id":"hh02","name":"\u7ea2\u73ab\u7470","grade":"1","pic":"hh02_2","ain":""},"exp_data":{"exp":"20","exp2":"2","t":"7200"},"msg":"\u6d47\u6c34\u6210\u529f"},"code":1};
 			var myData = data.gd;
 			var tmp_arr = {
 				// 'ff_id':myData.ff_id,
@@ -142,7 +141,7 @@ import dataGlobal from '../resconfig/dataGlobal'
 		 * 花田收获
 		 */
 		public FarmCollectFlower(data){
-			// data = {"ga":"init_collect_flower","gd":{"ff_id":"ht01","fat_time":500,"fat_time_tol":5000,"ff_exp":1000,"seed_data":{"grow_time_tol":0,"mature_time":0,"grow_static":0,"id":"","name":"","grade":0,"pic":"","ain":""},"exp_data":{"exp":null,"exp2":null,"t":0},"msg":"\u6536\u83b7\u6210\u529f"},"code":1};
+			data = {"ga":"init_collect_flower","gd":{"ff_id":"ht01","fat_time":500,"fat_time_tol":5000,"ff_exp":1000,"seed_data":{"grow_time_tol":0,"mature_time":0,"grow_static":0,"id":"","name":"","grade":0,"pic":"","ain":""},"exp_data":{"exp":null,"exp2":null,"t":0},"msg":"\u6536\u83b7\u6210\u529f"},"code":1};
 			var myData = data.gd;
 			var tmp_arr = {
 				'fat_time':myData.fat_time,

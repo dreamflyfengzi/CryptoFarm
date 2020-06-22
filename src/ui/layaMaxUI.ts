@@ -34,7 +34,28 @@ export module ui.farm {
     REG("ui.farm.farmIndexsceneUI",farmIndexsceneUI);
     export class farmLandUI extends Laya.Scene {
 		public land:Laya.Sprite;
-		public xuanzhong:Laya.Sprite;
+		public xuanzhong:Laya.Image;
+		public flower:Laya.Sprite;
+		public extend_btn:Laya.Button;
+		public extend_kuan:Laya.Box;
+		public n14:Laya.Sprite;
+		public extend_gold:laya.display.Text;
+		public upgrade_kuan:Laya.Box;
+		public n17:Laya.Image;
+		public n18:Laya.Sprite;
+		public upgrade_gold:laya.display.Text;
+		public upgrade_info:Laya.TextArea;
+		public upgrade_progressbar:Laya.ProgressBar;
+		public bar:Laya.Image;
+		public upgrade_level:laya.display.Text;
+		public grow_kuan:Laya.Box;
+		public n24:laya.display.Text;
+		public grow_time_val:Laya.ProgressBar;
+		public grow_time:laya.display.Text;
+		public fertilizer_kuan:Laya.Box;
+		public n27:laya.display.Text;
+		public fertilizer_time:laya.display.Text;
+		public harvest_icon:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

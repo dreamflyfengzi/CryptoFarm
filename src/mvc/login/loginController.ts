@@ -71,7 +71,6 @@ export default class loginController {
 	 * 加载login过程
 	 */
   private onResProgress() {
-    console.log('加载login---')
   }
 	/**
 	 * 加载login完成
