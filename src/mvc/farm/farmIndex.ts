@@ -6,6 +6,8 @@ import baseView from '../baseView/component/baseView'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import GAMECONFIG from '../../const/GAMECONFIG'
 import farmLand from './farmLand'
+import farmController from './farmController'
+import farmSeedList from './farmSeedList'
 	export default class farmIndex extends baseView{
 		private _farmIndex:Laya.Sprite;
 		// private building_btn:fairygui.GLoader;//建筑按钮
@@ -17,8 +19,8 @@ import farmLand from './farmLand'
 		// private bg_kuan:fairygui.GGroup;//背景框
 		private landArr:any;//花田的数组
 		
-		// private _seedListClass:mvc.farm.farmSeedList;
-		// private _seedList:Laya.Sprite;//种子列表
+		private _seedListClass: farmSeedList;
+		private _seedList:Laya.Sprite;//种子列表
 		
 		constructor(){
 			super(ui.farm.farmIndexsceneUI);
@@ -30,7 +32,7 @@ import farmLand from './farmLand'
 				this.width = this._farmIndex.width;
 				this.height = this._farmIndex.height;
 				this._farmIndex.name = 'farmIndex';
-        // 	// this.loadSeedList();
+        this.loadSeedList();
         // // 	this.setScale(this._farmIndex.displayObject);
         // // 	//初始化页面的参数
 				this.showInit();
@@ -72,16 +74,17 @@ import farmLand from './farmLand'
 		// 	this.cleanAllStatu();//重置所有的按钮状态
 		}
 		/**
-		 * 加载列表
+		 * 加载种子列表
 		 */
-		// private loadSeedList(){
-		// 	this._seedListClass = new mvc.farm.farmSeedList();
-    //         this._seedList = this._seedListClass.init();
-		// 	this._seedList.x = 30;
-		// 	this._seedList.y = 2200;
-		// 	this._seedList.zOrder = 2;
-		// 	this._farmIndex.displayObject.addChild(this._seedList);
-		// }
+		private loadSeedList(){
+      this._seedListClass = new farmSeedList();
+      this._seedListClass.init()
+      // this._seedList = this._seedListClass.init();
+			// this._seedList.x = 30;
+			// this._seedList.y = 2200;
+			// this._seedList.zOrder = 2;
+			// this._farmIndex.displayObject.addChild(this._seedList);
+		}
 		// /**
 		//  * 获取农田种子信息
 		//  */
@@ -105,9 +108,9 @@ import farmLand from './farmLand'
 		// 	this._seedListClass.addSeedListItem(data);
 			
 		// }
-		// /**
-		//  * 展示花种列表
-		//  */
+		/**
+		 * 展示花种列表
+		 */
 		// public showSeepList(){
 		// 	//展示虚拟的背景
 		// 	this.showBgKuan();
@@ -162,21 +165,21 @@ import farmLand from './farmLand'
       // console.log(this.landArr[data.ff_id])
       // console.log('00000000000000000000000')
 		}
-		// /**
-		//  * 清除所有状态
-		//  */
-		// private cleanAllStatu(){
-		// 	this.bg_kuan.visible = false;
-		// 	this.bg_kuan.enabled = false;
-		// 	//重置一下农田
-		// 	farmController.getInstance().model.setLandId('');
-		// 	farmController.getInstance().model.setClickLandStatic('');
-		// 	this.setLandStatic('');
-		// 	this.initLand();
-		// 	//种子的框
-		// 	this._seedListClass.hide();
-		// 	this.recoveryBtn();
-		// }
+		/**
+		 * 清除所有状态
+		 */
+		private cleanAllStatu(){
+			// this.bg_kuan.visible = false;
+			// this.bg_kuan.enabled = false;
+			//重置一下农田
+			farmController.getInstance().model.setLandId('');
+			farmController.getInstance().model.setClickLandStatic('');
+			this.setLandStatic('');
+			this.initLand();
+			//种子的框
+			// this._seedListClass.hide();
+			// this.recoveryBtn();
+		}
 		// /**
 		//  * 修改单个农田的状态
 		//  */
@@ -193,26 +196,26 @@ import farmLand from './farmLand'
 		// /**
 		//  * 自动选择下一个农田
 		//  */
-		// public setPlantFramLand(){
-		// 	//获取当前农田
-		// 	var landId = farmController.getInstance().model.landId;
-		// 	var arr = this.landArr;
-		// 	for(var i in arr ){
-		// 		if(arr[i].land_static == 'plant'){
-		// 			arr[i].onClickLand();
-		// 			return;
-		// 		}
-		// 	}
-		// 	this.cleanAllStatu();//没有农田可以种植就直接关闭操作
-		// }
+		public setPlantFramLand(){
+			//获取当前农田
+			var landId = farmController.getInstance().model.landId;
+			var arr = this.landArr;
+			for(var i in arr ){
+				if(arr[i].land_static == 'plant'){
+					arr[i].onClickLand();
+					return;
+				}
+			}
+			this.cleanAllStatu();//没有农田可以种植就直接关闭操作
+		}
 		// /**
 		//  * 重置农田
 		//  */
-		// public initLand(){
-		// 	for(var i in this.landArr){
-		// 		this.landArr[i].initLand();
-		// 	}
-		// }
+		public initLand(){
+			for(var i in this.landArr){
+        this.landArr[i].initLand();
+			}
+		}
 		// /**
 		//  * 显示虚拟背景
 		//  */
@@ -276,11 +279,11 @@ import farmLand from './farmLand'
 		// /**
 		//  * 设置所有花田的状态
 		//  */
-		// private setLandStatic(str:string){
-		// 	var data = this.landArr;
-		// 	for(var i in data){
-		// 		data[i].land_static = str;
-		// 	}
+		private setLandStatic(str:string){
+			var data = this.landArr;
+			for(var i in data){
+				data[i].land_static = str;
+			}
 		// }
 		// /**
 		//  * 点击建筑按钮
@@ -296,5 +299,5 @@ import farmLand from './farmLand'
 		// 	orderController.getInstance().onShowOrder();
 		// }
 
-
+    }
 	}

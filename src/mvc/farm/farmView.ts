@@ -61,13 +61,13 @@ export default class farmView{
 		 * 重置农田信息
 		 */
 		public initLand(){
-			// this._indexCom.initLand();
+			this._indexCom.initLand();
 		}
 		/**
 		 * 自动选择下一个农田
 		 */
 		public setPlantFramLand(){
-			// this._indexCom.setPlantFramLand();
+			this._indexCom.setPlantFramLand();
 		}
 		
 	}

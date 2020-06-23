@@ -3,6 +3,21 @@ import View=Laya.View;
 import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
+export module ui.base {
+    export class tishi_tipUI extends Laya.Dialog {
+		public tip_bg:Laya.Sprite;
+		public close_btn:Laya.Button;
+		public content_txt:laya.display.Text;
+		public confirm_btn:Laya.Button;
+		public cancel_btn:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("base/tishi_tip");
+        }
+    }
+    REG("ui.base.tishi_tipUI",tishi_tipUI);
+}
 export module ui.farm {
     export class farmIndexsceneUI extends Laya.Scene {
 		public farmbg_1:Laya.Sprite;
@@ -46,7 +61,6 @@ export module ui.farm {
 		public upgrade_gold:laya.display.Text;
 		public upgrade_info:Laya.TextArea;
 		public upgrade_progressbar:Laya.ProgressBar;
-		public bar:Laya.Image;
 		public upgrade_level:laya.display.Text;
 		public grow_kuan:Laya.Box;
 		public n24:laya.display.Text;
@@ -54,8 +68,10 @@ export module ui.farm {
 		public grow_time:laya.display.Text;
 		public fertilizer_kuan:Laya.Box;
 		public n27:laya.display.Text;
+		public fertilizer_time_val:Laya.ProgressBar;
 		public fertilizer_time:laya.display.Text;
 		public harvest_icon:Laya.Sprite;
+		public water_icon:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -63,6 +79,32 @@ export module ui.farm {
         }
     }
     REG("ui.farm.farmLandUI",farmLandUI);
+    export class itemUI extends Laya.Scene {
+		public n0:Laya.Image;
+		public seep_pic:Laya.Sprite;
+		public n2:Laya.Image;
+		public n3:Laya.Sprite;
+		public gold:laya.display.Text;
+		public suo_div:Laya.Box;
+		public n4:Laya.Image;
+		public n5:Laya.Sprite;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("farm/item");
+        }
+    }
+    REG("ui.farm.itemUI",itemUI);
+    export class seedListUI extends Laya.Scene {
+		public n1:Laya.Image;
+		public seed_list:Laya.List;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("farm/seedList");
+        }
+    }
+    REG("ui.farm.seedListUI",seedListUI);
 }
 export module ui.login {
     export class loginUI extends Laya.Scene {
