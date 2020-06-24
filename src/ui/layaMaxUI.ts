@@ -40,6 +40,10 @@ export module ui.farm {
 		public factory_kuan:Laya.Box;
 		public factory_btn:Laya.Button;
 		public factory_btn_txt:Laya.Sprite;
+		public bg_kuan:Laya.Box;
+		public n71:Laya.Sprite;
+		public n72:Laya.Sprite;
+		public n74:Laya.Image;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

@@ -5,7 +5,7 @@
 export default class farmModel{
 		constructor(){
 			this.clickLandStatic = '';
-			this.landId = 'ht08';
+			this.landId = '';
 		}
 		
 		public seedData:any;//种子信息
@@ -22,7 +22,8 @@ export default class farmModel{
 		 * 保存种子的数据
 		 */
 		public setFarmSeed(data){
-			this.seedData = data;
+      this.seedData = data;
+      console.log(this.seedData)
 		}
 		/**
 		 * 设置选中田的ID

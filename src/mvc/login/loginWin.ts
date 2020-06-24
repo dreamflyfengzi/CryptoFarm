@@ -39,7 +39,7 @@ export default class loginWin extends baseView {
     // this.addEvents();
     // console.log("loginWin", "onShow")
     //这里显示登录
-    this.tweenAlphaAdd('login', 2);
+    this.tweenAlphaAdd('login', 2, 1);
   }
 
   /**
@@ -118,8 +118,6 @@ export default class loginWin extends baseView {
    * 加载农场
    */
   public onupdateFarm(x) {
-    console.log(x)
-    console.log(this.ui.loading_txt)
     this.ui.loading_txt.text = x + '%';
     var num = Math.floor(x / (100 / 9)) - 1;
     this.ui.loading_icon.url = "ui://login/0_0000" + num;
@@ -131,7 +129,6 @@ export default class loginWin extends baseView {
 
   // //登陆成功之后显示首页
   public onShowFarm() {
-    console.log('跳转首页')
     farmController.getInstance();
     resManger.getInstance().addGroupRes(resConfig.farm);//加载农场资源
     resManger.getInstance().startLoad('', GAMEEVENT.FARM, '', [2]);

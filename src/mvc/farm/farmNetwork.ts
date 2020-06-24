@@ -23,11 +23,14 @@ export default class farmNetwork {
    * 获取种子列表
    */
   public FarmInitSeedList(data) {
-    data = { "ga": "init_seed_list", "gd": [{ "id": "hh02", "name": "\u7ea2\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 100 }, { "id": "hh02", "name": "\u9ed1\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh01_2", "ain": "", "gold": 100 }, { "id": "hh03", "name": "\u9ec4\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "500", "pic": "ui:\/\/farm\/hh01_3", "ain": "", "gold": 100 }, { "id": "hh04", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "400", "pic": "ui:\/\/farm\/hh01_4", "ain": "", "gold": 150 }, { "id": "hh05", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "300", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 200 }, { "id": "hh06", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "20", "grade3": "200", "pic": "ui:\/\/farm\/hh02_2", "ain": "", "gold": 300 }], "code": 1 };
+    // data = { "ga": "init_seed_list", "gd": [{ "id": "hh02", "name": "\u7ea2\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 100 }, { "id": "hh02", "name": "\u9ed1\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh01_2", "ain": "", "gold": 100 }, { "id": "hh03", "name": "\u9ec4\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "500", "pic": "ui:\/\/farm\/hh01_3", "ain": "", "gold": 100 }, { "id": "hh04", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "400", "pic": "ui:\/\/farm\/hh01_4", "ain": "", "gold": 150 }, { "id": "hh05", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "300", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 200 }, { "id": "hh06", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "20", "grade3": "200", "pic": "ui:\/\/farm\/hh02_2", "ain": "", "gold": 300 }], "code": 1 };
+    data = staticData.getInstance().getFarmInitSeedList()
+    console.log(data.gd.seed_data,'/////////////////////')
     //先存一份种子的数据
-    farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
+    // farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
+    farmController.getInstance().model.setFarmSeed(data.gd);
     //保存一份肥料的数据
-    farmController.getInstance().model.setFatData(data.gd.fat_data);
+    // farmController.getInstance().model.setFatData(data.gd.fat_data);
     //设置农田的信息
     farmController.getInstance().onFarmInitSeedList(data.gd);
   }
@@ -35,7 +38,6 @@ export default class farmNetwork {
    * 农田的升级扩建
    */
   public FarmInitFlowerGrade(id) {
-    console.log('扩建这块地',id)
     // data = { "ga": "init_flower_grade", "gd": { "type": 2, "ff_id": "ht01", "ff_vip": 3, "ff_exp": 10, "next_exp": 100, "ff_id_unlocknum": 0, "next_ff_id_glod": 110, "pic": "land_3", "ain": "", "msg": "\u5347\u7ea7\/\u89e3\u9501\u6210\u529f" }, "code": 1 };
     var data = staticData.getInstance().getFarmInitFlowerGrade(id);
     // console.log(data)
@@ -75,9 +77,33 @@ export default class farmNetwork {
   /**
    * 请求种植操作
    */
-  public FarmInitPlantFlower(data) {
-    data = { "ga": "init_plant_flower", "gd": { "ff_id": "ht01", "fat_time": 0, "fat_time_tol": 0, "ff_exp": 500, "seed_data": { "grow_time_tol": 5000, "mature_time": 500, "grow_static": 1, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": "1", "pic": "hh01_1", "ain": "" }, "msg": "\u79cd\u690d\u6210\u529f" }, "code": 1 };
+  public FarmInitPlantFlower(list) {
+    var data = staticData.getInstance().farmInitPlantFlower(list.htid,list.hhid);
+    // data = { 
+    //   "ga": "init_plant_flower", 
+    //   "gd":
+    //       { 
+    //         "ff_id": "ht01", 
+    //         "fat_time": 0, 
+    //         "fat_time_tol": 0, 
+    //         "ff_exp": 500, 
+    //         "seed_data": 
+    //          { 
+    //            "grow_time_tol": 5000, 
+    //            "mature_time": 500, 
+    //            "grow_static": 1, 
+    //            "id":  "hh01", 
+    //            "name": "\u7ea2\u73ab\u7470", 
+    //            "grade": "1", 
+    //            "pic": "hh01_1", 
+    //            "ain": "" 
+    //           }, 
+    //         "msg": "\u79cd\u690d\u6210\u529f" 
+    //       }, 
+    //       "code": 1 
+    //     };
     var myData = data.gd;
+    // console.log(myData)
     var tmp_arr = {
       // 'ff_id':myData.ff_id,
       'fat_time': myData.fat_time,
@@ -89,7 +115,6 @@ export default class farmNetwork {
     farmController.getInstance().setThisLandTimer(myData.ff_id);//设置农田的定时器
     farmController.getInstance().initLand();//重置农田
     farmController.getInstance().setPlantFramLand();//看看是否还有空的农田可以种植
-
 
   }
   /**

@@ -18,7 +18,6 @@ export default class farmView{
 		}
 		/**显示农场场景(type:1.当前页面隐藏切换，2.当前页面去除切换) */
 		public onShow(type){
-      console.log('farmView.onshow')
 			if(this._indexCom == null){
 				this._indexCom = new farmIndex;
 			}
@@ -36,13 +35,13 @@ export default class farmView{
 		 * 设置种子列表信息
 		 */
 		public onFarmInitSeedList(data){
-			// this._indexCom.onFarmInitSeedList(data);
+			this._indexCom.onFarmInitSeedList(data);
 		}
 		/**
 		 * 展示花种列表
 		 */
 		public showSeepList(){
-			// this._indexCom.showSeepList();
+			this._indexCom.showSeepList();
 		}
 		/**
 		 * 修改单个农田的状态

@@ -59,7 +59,6 @@ export default class loginController {
   public showFarmView() {
     //确保只做一只跳入主场景的操作
     Laya.stage.off(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
-    console.log('确保只做一只跳入主场景的操作')
     // //初始化websocket网络(一定要在登陆成功之后初始化网络连接，否则无法用websocket)
     // net.webSocketJson.getInstance();
     this._loginview.showFarm();
@@ -80,9 +79,7 @@ export default class loginController {
     Laya.stage.off(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
     Laya.stage.off(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
 
-    console.log(1, Laya.View.uiMap)
     Laya.Scene.setUIMap("ui.json");
-    console.log(2, Laya.View.uiMap)
 
     //这里预加载农田的
     resManger.getInstance().addGroupRes(resConfig.farm);

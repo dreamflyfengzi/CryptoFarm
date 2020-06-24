@@ -6,6 +6,8 @@ import dataGlobal from '../resconfig/dataGlobal'
 import farmController from './farmController'
 import globalFun from '../resconfig/globalFun'
 import NETWORKEVENT from '../event/NETWORKEVENT'
+import GAMEEVENT from '../event/GAMEEVENT'
+import tipController from '../baseView/public/tip/tipController'
 export default class farmLand extends ui.farm.farmLandUI {
   // ui文件 
   //  ---land 田地
@@ -88,7 +90,6 @@ export default class farmLand extends ui.farm.farmLandUI {
     this.water_icon.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
     this.harvest_icon.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
 
-    // return this._farmlandObject;
     return this._farmland;
   }
   /**
@@ -105,7 +106,7 @@ export default class farmLand extends ui.farm.farmLandUI {
    */
   private initLandDiv() {
     //先隐藏掉不显示的层
-    console.log('先隐藏掉不显示的层')
+    // console.log('先隐藏掉不显示的层')
     this.flower.visible = false;
     this.extend_btn.visible = false;
     this.extend_kuan.visible = false;
@@ -173,11 +174,11 @@ export default class farmLand extends ui.farm.farmLandUI {
       if (data.seed_data.mature_time <= 0) {
         this.grow_kuan.visible = false;
       }
-      // console.log(data.seed_data)
+      console.log(data.seed_data.next_mature_time,'----',data.seed_data.mature_time)
       // console.log(data.seed_data.next_mature_time)
       //判断是否到时间了，如果到时见那么久应该发送成长请求
-      // if (data.seed_data.next_mature_time <= 0) {
-      if (data.seed_data.mature_time <= 0) {
+      if (data.seed_data.next_mature_time <= 0) {
+      // if (data.seed_data.mature_time <= 0) {
         //             //试着进行websocke请求
         //             let tmp_websocket = net.webSocketJson.getInstance();
         //             let tmp_data = {
@@ -190,7 +191,7 @@ export default class farmLand extends ui.farm.farmLandUI {
         //             };
         //             console.log("发送websocket数据",tmp_data);
         //             tmp_websocket.sendMessage(tmp_data);
-         Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER);
+        Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER);
       }
     }
     if (data.fat_time > 0) {
@@ -213,7 +214,7 @@ export default class farmLand extends ui.farm.farmLandUI {
         //         'code':1
         //     };
         //     tmp_websocket.sendMessage(tmp_data);
-        //     Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFAT);
+        Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFAT);
       }
     }
 
@@ -228,7 +229,7 @@ export default class farmLand extends ui.farm.farmLandUI {
       farmController.getInstance().model.setClickLandStatic('');
       return;
     }
-    console.log('点击','--------',this.land_id,'============',this.land_static)
+    console.log('点击', '--', this.land_id, '--', this.land_static)
     farmController.getInstance().model.setLandId(this.land_id);
     farmController.getInstance().initLand();
     switch (this.land_static) {
@@ -236,55 +237,54 @@ export default class farmLand extends ui.farm.farmLandUI {
         this.onGradeExtend(2);
         break;
       case 'plant'://种植
-    //   case 'fertilizer'://施肥
-        // farmController.getInstance().model.setClickLandStatic(this.land_static);
-        // farmController.getInstance().model.setLandId(this.land_id);
-    //     farmController.getInstance().initLand();
-    //     //调用列表
-    //     farmController.getInstance().showSeepList();
-    //     //显示一下加速还有施肥
-    //     this.xuanzhong.visible = true;
-    //     break;
-    //   case 'upgrade'://升级
-    //     farmController.getInstance().initLand();
-    //     this.xuanzhong.visible = true;
-    //     this.onGradeExtend(1);
-    //     break;
-    //   case 'harvest':
-    //     //收获的接口
-    //     // farmController.getInstance().model.setClickLandStatic('harvest');
-    //     farmController.getInstance().model.setLandId('');
-    //     this.onHarvest();//花田收获
-    //     break;
-    //   case 'water'://浇水的接口
-    //     // farmController.getInstance().model.setClickLandStatic('water');
-    //     farmController.getInstance().model.setLandId('');
-    //     this.onWater();
-    //     break;
-
+      case 'fertilizer'://施肥
+        farmController.getInstance().model.setClickLandStatic(this.land_static);
+        farmController.getInstance().model.setLandId(this.land_id);
+        farmController.getInstance().initLand();
+        //调用列表
+        farmController.getInstance().showSeepList();
+        //显示一下加速还有施肥
+        this.xuanzhong.visible = true;
+        break;
+      case 'upgrade'://升级
+        farmController.getInstance().initLand();
+        this.xuanzhong.visible = true;
+        this.onGradeExtend(1);
+        break;
+      case 'harvest':
+        //收获的接口
+        farmController.getInstance().model.setClickLandStatic('harvest');
+        farmController.getInstance().model.setLandId('');
+        this.onHarvest();//花田收获
+        break;
+      case 'water'://浇水的接口
+        farmController.getInstance().model.setClickLandStatic('water');
+        farmController.getInstance().model.setLandId('');
+        this.onWater();
+        break;
     }
   }
   /**
    * 浇水的接口
    */
-  private onWater(){
-     //这里可以先判断一下
-     var data = dataGlobal.getInstance().farmInfo[this.land_id];
-     if(data.seed_data.id && typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0){//可以浇水
-         //试着进行websocke请求
-         console.log('jiaoshui')
-        //  let tmp_websocket = net.webSocketJson.getInstance();
-        //  let tmp_data = {
-        //      'a':"init_flower_water",
-        //      'm':"init",
-        //      'd':{
-        //          'ff_id':this.land_id,
-        //      },
-        //      'code':1
-        //  };
-        //  tmp_websocket.sendMessage(tmp_data);
-         // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERWATER);
-     }
+  private onWater() {
+    //这里可以先判断一下
+    var data = dataGlobal.getInstance().farmInfo[this.land_id];
+    if (data.seed_data.id && typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {//可以浇水
+      //试着进行websocke请求
+      console.log('浇水')
+      //  let tmp_websocket = net.webSocketJson.getInstance();
+      //  let tmp_data = {
+      //      'a':"init_flower_water",
+      //      'm':"init",
+      //      'd':{
+      //          'ff_id':this.land_id,
+      //      },
+      //      'code':1
+      //  };
+      //  tmp_websocket.sendMessage(tmp_data);
+      // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERWATER);
+    }
 
   }
   /**
@@ -308,11 +308,11 @@ export default class farmLand extends ui.farm.farmLandUI {
       // tmp_websocket.sendMessage(tmp_data);
       // Laya.stage.event(NETWORKEVENT.FARMINITCOLLECTFLOWER);
     } else {//花田不能收获
-      // Laya.stage.event(GAMEEVENT.TIPSKUAN, ['还不能收获', '确定', '取消', function () {
-      //   tipController.getInstance().close();
-      // }, function () {
-      //   tipController.getInstance().close();
-      // }]);
+      Laya.stage.event(GAMEEVENT.TIPSKUAN, ['还不能收获', '确定', '取消', function () {
+        tipController.getInstance().close();
+      }, function () {
+        tipController.getInstance().close();
+      }]);
     }
   }
   /**
@@ -341,13 +341,13 @@ export default class farmLand extends ui.farm.farmLandUI {
         console.log(str)
       }
     }
-    if(str){
-        // Laya.stage.event(GAMEEVENT.TIPSKUAN,[str,'确定','取消',function(){
-        //     tipController.getInstance().close();
-        // },function(){
-        //     tipController.getInstance().close();
-        // }]);
-        // return;
+    if (str) {
+      Laya.stage.event(GAMEEVENT.TIPSKUAN, [str, '确定', '取消', function () {
+        tipController.getInstance().close();
+      }, function () {
+        tipController.getInstance().close();
+      }]);
+      return;
     }
     //试着进行websocke请求
     // let tmp_websocket = net.webSocketJson.getInstance();
@@ -361,7 +361,7 @@ export default class farmLand extends ui.farm.farmLandUI {
     // 	'code':1
     // };
     // tmp_websocket.sendMessage(tmp_data);
-    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE,this.land_id);
+    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, this.land_id);
   }
   /**
    * 设置状态
@@ -371,7 +371,7 @@ export default class farmLand extends ui.farm.farmLandUI {
     // console.log('先获取这个花田的信息')
     var data = dataGlobal.getInstance().farmInfo[this.land_id];
     // console.log('先获取这个花田的信息', data)
-    console.log(data.pic)
+    // console.log(data.pic)
     // console.log(this.land,'now------------------------------')
     //设置土地的样式
     // console.log("farm/"+ data.pic +".png")
@@ -380,10 +380,10 @@ export default class farmLand extends ui.farm.farmLandUI {
     // console.log(this.land,'now------------------------------')
     // sprite.graphics.drawTexture(texture);
     // this._land.url = data.pic;
-    // this._land.visible = true;
-    //     //先去除掉田的事件
-    //     this._land.displayObject.off(Laya.Event.CLICK,this,this.onClickLand);
-    //     this._land.displayObject.off(Laya.Event.MOUSE_OUT,this,this.onClickLand);
+    this.land.visible = true;
+    //先去除掉田的事件
+    this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+    this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
 
     //看看是否解锁
     if (data.ff_vip == 1) {//未解锁
@@ -397,15 +397,13 @@ export default class farmLand extends ui.farm.farmLandUI {
       this.extend_btn.visible = true;
       // this.land.touchable = true;
 
-      this.on(Laya.Event.CLICK,this,this.onClickLand);
+      this.on(Laya.Event.CLICK, this, this.onClickLand);
       // //设置升级需要的金币
       this.extend_gold.text = data.ff_id_unlocknum;
       this.extend_gold.visible = true;
       return;
     }
     //如果是在升级
-    console.log(this, '如果是在升级')
-    console.log(this.land_static, '如果是在升级')
     if (this.land_static == 'upgrade') {
       this.upgrade_kuan.visible = true;
       //判断是否满级
@@ -413,8 +411,8 @@ export default class farmLand extends ui.farm.farmLandUI {
         this.upgrade_info.text = "<span style='color:#ffffff'>满级</span>";
         this.upgrade_info.visible = true;
         // this._land.touchable = true;
-        // this._land.displayObject.on(Laya.Event.CLICK, this, function () {
-        // });
+        this.land.on(Laya.Event.CLICK, this, function () {
+        });
       } else {
         //没有满级的需要显示一下
         // this.upgrade_info.text = "<span style='color:#ffffff'>加成:" + data.seed + "%+</span><span style='color:#96fa65'>" + data.next_seed + "%</span>";
@@ -427,7 +425,7 @@ export default class farmLand extends ui.farm.farmLandUI {
         this.upgrade_progressbar.value = Math.floor((data.ff_exp / data.next_exp) * 100) >= 100 ? 100 : Math.floor((data.ff_exp / data.next_exp) * 100);
         this.upgrade_progressbar.visible = true;
         // this.land.touchable = true;
-        // this.land.displayObject.on(Laya.Event.CLICK, this, this.onClickLand);
+        this.land.on(Laya.Event.CLICK, this, this.onClickLand);
       }
       return;
     }
@@ -488,11 +486,11 @@ export default class farmLand extends ui.farm.farmLandUI {
         this.grow_kuan.visible = true;
       }
       //没有花需要监听一下点击事件
-      // this._land.displayObject.on(Laya.Event.CLICK,this,this.onClickLand);
+      this.land.on(Laya.Event.CLICK, this, this.onClickLand);
       // this._land.touchable = true;
       this.land_static = 'fertilizer';//施肥
     } else {//种种子
-      // this._land.displayObject.on(Laya.Event.CLICK,this,this.onClickLand);
+      this.land.on(Laya.Event.CLICK, this, this.onClickLand);
       // this._land.touchable = true;
       this.land_static = 'plant';//如果没有上面的，那么默认就是施肥和种植
     }
@@ -508,21 +506,19 @@ export default class farmLand extends ui.farm.farmLandUI {
         if (data.seed_data.id && data.seed_data.grow_static == 4 && data.seed_data.mature_time <= 0) {
           //可以收获
           this.land_static = 'harvest';
-          // this.land.touchable = true;
-          // this.land.displayObject.off(Laya.Event.CLICK,this,this.onClickLand);
-          // this.land.displayObject.off(Laya.Event.MOUSE_OUT,this,this.onClickLand);
-          // this.land.displayObject.on(Laya.Event.MOUSE_OUT,this,this.onClickLand);
+          this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+          this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+          this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
           //显示可以收获的图标
-          // this.harvest_icon.touchable = true;
           this.harvest_icon.visible = true;
           return true;
         } else if (typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {//判断是否可以浇水
           //可以浇水
           this.land_static = 'water';
           // this.land.touchable = true;
-          // this.land.displayObject.off(Laya.Event.CLICK,this,this.onClickLand);
-          // this.land.displayObject.off(Laya.Event.MOUSE_OUT,this,this.onClickLand);
-          // this.land.displayObject.on(Laya.Event.MOUSE_OUT,this,this.onClickLand);
+          this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+          this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+          this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
           //显示可以收获的图标
           // this.water_icon.touchable = true;
           this.water_icon.visible = true;

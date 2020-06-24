@@ -1,2 +1,2 @@
-export class baseWindow extends Laya.Sprite{
+export default class baseWindow extends Laya.Sprite{
 }

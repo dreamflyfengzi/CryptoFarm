@@ -16,8 +16,6 @@ export default class BaseView extends Laya.View implements IBaseView {
   /** 构造函数 */
   public constructor($class: any, isShowMask: boolean = true) {
     super();
-    console.log("--------------------------------")
-
     // this._myParent = $layer;
     this._isInit = false;
     this._isShowMask = isShowMask;
@@ -31,7 +29,8 @@ export default class BaseView extends Laya.View implements IBaseView {
   }
 
   /* 切换场景(obj:场景对象，name:名字，type=1.隐藏2.移除) */
-  public tweenAlphaAdd(name: string, type: number) {
+  // 第三个参数 1 2 3 4 层
+  public tweenAlphaAdd(name: string, type: number, index: number) {
     var obj = this
     //查找是否有该对象
     var node: any = gameLayer.bglayer.getChildByName(name);
@@ -45,8 +44,13 @@ export default class BaseView extends Laya.View implements IBaseView {
       gameLayer.bglayer.addChild(obj);
       console.log(obj)
     }
-
-    Laya.Tween.to(gameLayer.bglayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
+    console.log(index, '第几层啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊')
+    if (index == 1) {
+      var _index = gameLayer.bglayer;
+    } else if (index == 3) {
+      var _index = gameLayer.windowlayer;
+    }
+    Laya.Tween.to(_index, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
       this.clearChild(type);
       obj.zOrder = 1;
       this.tweenAlphaAllShow(obj);
@@ -169,6 +173,70 @@ export default class BaseView extends Laya.View implements IBaseView {
     this._ui = null;
     // SDKManager.Instance.closeBannerAd();
   }
+
+  // 窗口
+  /** */
+  public tweenHide() {
+    this.off(Laya.Event.CLICK, this, this.onClick);
+    Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 1000, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
+    Laya.Tween.to(this, { alpha: 0 }, 1000, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
+  }
+  /** */
+  public onClick() {
+    console.log("onClick");
+  }
+  /** */
+  private onComplete() {
+    gameLayer.windowlayer.removeChild(this);
+    this.scale(1, 1);
+    this.clearAll();
+  }
+  /** */
+  private onAlphaComplete(){
+    gameLayer.windowlayer.removeChild(this);
+    this.alpha = 1;
+    this.clearAll();
+  }
+  /** */
+  public clearAll() {
+    this.visible = false;
+    this.graphics.clear();
+    this.off(Laya.Event.CLICK, this, this.onClick);
+    this.removeChildren();
+    Laya.Tween.clearAll(this);
+    this.visible = false;
+  }
+  	/** */
+		public tweenShow(){
+      console.log(this)
+			this.visible = true;
+			this.setCenter();
+			this.scale(0,0);
+			this.alpha = 0;
+			Laya.Tween.to(this,{alpha:1},1000,Laya.Ease.linearIn);
+			Laya.Tween.to(this,{scaleX:1,scaleY:1},1000,Laya.Ease.elasticOut);
+			this.showModal();
+			gameLayer.windowlayer.addChild(this);
+    }
+    	/** */
+		public showModal(){
+			this.visible = true;
+			this.graphics.clear();
+			// this.graphics.drawRect(0,0,Laya.stage.width,Laya.stage.height,'#000000');
+			this.alpha = .25;
+			this.width = Laya.stage.width;
+      this.height = Laya.stage.height;
+			gameLayer.windowlayer.addChild(this);
+			this.on(Laya.Event.CLICK,this,this.onClick);
+		}
+    		/** */
+		public setCenter(){
+			this.pivotX = this.width*.5;
+			this.pivotY = this.height*.5;
+			this.x = Laya.stage.width*.5;
+			this.y = Laya.stage.height*.5;
+		}
+
 
   //设置缩放比例
   public setScale(obj: any) {

@@ -191,7 +191,6 @@
             super();
             this.isRemoveBanner = true;
             this._resources = null;
-            console.log("--------------------------------");
             this._isInit = false;
             this._isShowMask = isShowMask;
             this._ui = $class;
@@ -200,7 +199,7 @@
         get myParent() {
             return this._myParent;
         }
-        tweenAlphaAdd(name, type) {
+        tweenAlphaAdd(name, type, index) {
             var obj = this;
             var node = gameLayer.bglayer.getChildByName(name);
             console.log("xxxx", node);
@@ -214,7 +213,14 @@
                 gameLayer.bglayer.addChild(obj);
                 console.log(obj);
             }
-            Laya.Tween.to(gameLayer.bglayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
+            console.log(index, '第几层啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊');
+            if (index == 1) {
+                var _index = gameLayer.bglayer;
+            }
+            else if (index == 3) {
+                var _index = gameLayer.windowlayer;
+            }
+            Laya.Tween.to(_index, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
                 this.clearChild(type);
                 obj.zOrder = 1;
                 this.tweenAlphaAllShow(obj);
@@ -299,6 +305,58 @@
             this._ui.removeSelf();
             this._ui = null;
         }
+        tweenHide() {
+            this.off(Laya.Event.CLICK, this, this.onClick);
+            Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 1000, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
+            Laya.Tween.to(this, { alpha: 0 }, 1000, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
+        }
+        onClick() {
+            console.log("onClick");
+        }
+        onComplete() {
+            gameLayer.windowlayer.removeChild(this);
+            this.scale(1, 1);
+            this.clearAll();
+        }
+        onAlphaComplete() {
+            gameLayer.windowlayer.removeChild(this);
+            this.alpha = 1;
+            this.clearAll();
+        }
+        clearAll() {
+            this.visible = false;
+            this.graphics.clear();
+            this.off(Laya.Event.CLICK, this, this.onClick);
+            this.removeChildren();
+            Laya.Tween.clearAll(this);
+            this.visible = false;
+        }
+        tweenShow() {
+            console.log(this);
+            this.visible = true;
+            this.setCenter();
+            this.scale(0, 0);
+            this.alpha = 0;
+            Laya.Tween.to(this, { alpha: 1 }, 1000, Laya.Ease.linearIn);
+            Laya.Tween.to(this, { scaleX: 1, scaleY: 1 }, 1000, Laya.Ease.elasticOut);
+            this.showModal();
+            gameLayer.windowlayer.addChild(this);
+        }
+        showModal() {
+            this.visible = true;
+            this.graphics.clear();
+            this.alpha = .25;
+            this.width = Laya.stage.width;
+            this.height = Laya.stage.height;
+            gameLayer.windowlayer.addChild(this);
+            this.on(Laya.Event.CLICK, this, this.onClick);
+        }
+        setCenter() {
+            this.pivotX = this.width * .5;
+            this.pivotY = this.height * .5;
+            this.x = Laya.stage.width * .5;
+            this.y = Laya.stage.height * .5;
+        }
         setScale(obj) {
             var str = 0;
             if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > 1) {
@@ -379,7 +437,10 @@
             };
             this.query.system = this.get_sys();
             this.farmInfo = {};
-            this.userInfo = {};
+            this.userInfo = {
+                "grade": 22,
+                "have_gold": 1000000
+            };
             this.factory = {};
             this.userGoodInfo = {};
             this.warehouseInfo = {};
@@ -604,6 +665,118 @@
         }
     }
 
+    class tipIndex extends BaseView {
+        constructor() {
+            super(ui.base.tishi_tipUI);
+        }
+        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            console.log(this.ui.scene);
+            var _tipKuan = this.ui.scene;
+            _tipKuan.content_txt.text = content_txt;
+            _tipKuan.confirm_btn.label = confirm_txt;
+            _tipKuan.cancel_btn.label = cancel_txt;
+            _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
+            _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, this.close);
+            console.log('窗口');
+            this.tweenShow();
+        }
+        close() {
+            this.tweenHide();
+        }
+        gameFailTip(data) {
+            var myData = data.gd;
+            this.tipShow(myData.msg, '确定', '取消', function () {
+                this.close();
+            }.bind(this), function () {
+                this.close();
+            }.bind(this));
+        }
+        gameTxtTip(txt, call_fun) {
+        }
+        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            this.tweenShow();
+        }
+    }
+
+    class tipView {
+        constructor() {
+        }
+        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        gameTxtTip(txt, call_fun) {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.gameTxtTip(txt, call_fun);
+        }
+        gameFailTip(data) {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.gameFailTip(data);
+        }
+        close() {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.close();
+        }
+    }
+
+    class tipController {
+        constructor() {
+            Laya.stage.on(GAMEEVENT.TIPSKUAN, this, this.tipShow);
+            Laya.stage.on(GAMEEVENT.GOLDTIP, this, this.goldTipShow);
+            Laya.stage.on(NETWORKEVENT.GAMEFAILTIP, this, this.gameFailTip);
+        }
+        static getInstance() {
+            if (tipController._instance == null) {
+                tipController._instance = new tipController;
+            }
+            return tipController._instance;
+        }
+        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._tipview == null) {
+                this._tipview = new tipView();
+            }
+            this._tipview.tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._tipview == null) {
+                this._tipview = new tipView;
+            }
+            this._tipview.goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        gameTxtTip(txt, call_fun) {
+            if (this._tipview == null) {
+                this._tipview = new tipView;
+            }
+            this._tipview.gameTxtTip(txt, call_fun);
+        }
+        gameFailTip(data) {
+            if (this._tipview == null) {
+                this._tipview = new tipView;
+            }
+            this._tipview.gameFailTip(data);
+        }
+        close() {
+            if (this._tipview == null) {
+                this._tipview = new tipView;
+            }
+            this._tipview.close();
+        }
+    }
+
     class farmLand extends ui.farm.farmLandUI {
         constructor() {
             super();
@@ -626,7 +799,6 @@
             this.initLandStatic();
         }
         initLandDiv() {
-            console.log('先隐藏掉不显示的层');
             this.flower.visible = false;
             this.extend_btn.visible = false;
             this.extend_kuan.visible = false;
@@ -683,7 +855,8 @@
                 if (data.seed_data.mature_time <= 0) {
                     this.grow_kuan.visible = false;
                 }
-                if (data.seed_data.mature_time <= 0) {
+                console.log(data.seed_data.next_mature_time, '----', data.seed_data.mature_time);
+                if (data.seed_data.next_mature_time <= 0) {
                     Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER);
                 }
             }
@@ -694,6 +867,7 @@
                 this.fertilizer_kuan.visible = true;
                 if (data.fat_time <= 0) {
                     this.fertilizer_kuan.visible = false;
+                    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFAT);
                 }
             }
         }
@@ -702,7 +876,7 @@
                 farmController.getInstance().model.setClickLandStatic('');
                 return;
             }
-            console.log('点击', '--------', this.land_id, '============', this.land_static);
+            console.log('点击', '--', this.land_id, '--', this.land_static);
             farmController.getInstance().model.setLandId(this.land_id);
             farmController.getInstance().initLand();
             switch (this.land_static) {
@@ -710,12 +884,34 @@
                     this.onGradeExtend(2);
                     break;
                 case 'plant':
+                case 'fertilizer':
+                    farmController.getInstance().model.setClickLandStatic(this.land_static);
+                    farmController.getInstance().model.setLandId(this.land_id);
+                    farmController.getInstance().initLand();
+                    farmController.getInstance().showSeepList();
+                    this.xuanzhong.visible = true;
+                    break;
+                case 'upgrade':
+                    farmController.getInstance().initLand();
+                    this.xuanzhong.visible = true;
+                    this.onGradeExtend(1);
+                    break;
+                case 'harvest':
+                    farmController.getInstance().model.setClickLandStatic('harvest');
+                    farmController.getInstance().model.setLandId('');
+                    this.onHarvest();
+                    break;
+                case 'water':
+                    farmController.getInstance().model.setClickLandStatic('water');
+                    farmController.getInstance().model.setLandId('');
+                    this.onWater();
+                    break;
             }
         }
         onWater() {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
             if (data.seed_data.id && typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {
-                console.log('jiaoshui');
+                console.log('浇水');
             }
         }
         onHarvest() {
@@ -724,6 +920,11 @@
                 console.log('可以收获');
             }
             else {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['还不能收获', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
             }
         }
         onGradeExtend(type) {
@@ -747,13 +948,21 @@
                 }
             }
             if (str) {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, [str, '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+                return;
             }
             Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, this.land_id);
         }
         initLandStatic() {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            console.log(data.pic);
             this.land.graphics.drawTexture(Laya.loader.getRes("farm/" + data.pic + ".png"));
+            this.land.visible = true;
+            this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+            this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
             if (data.ff_vip == 1) {
                 this.land_static = 'unlock';
                 if (data.is_lock == 2) {
@@ -766,13 +975,13 @@
                 this.extend_gold.visible = true;
                 return;
             }
-            console.log(this, '如果是在升级');
-            console.log(this.land_static, '如果是在升级');
             if (this.land_static == 'upgrade') {
                 this.upgrade_kuan.visible = true;
                 if (data.ff_vip >= data.max_grade) {
                     this.upgrade_info.text = "<span style='color:#ffffff'>满级</span>";
                     this.upgrade_info.visible = true;
+                    this.land.on(Laya.Event.CLICK, this, function () {
+                    });
                 }
                 else {
                     this.upgrade_info.text = "加成:" + data.seed + "%+" + data.next_seed + "%";
@@ -783,6 +992,7 @@
                     this.upgrade_level.visible = true;
                     this.upgrade_progressbar.value = Math.floor((data.ff_exp / data.next_exp) * 100) >= 100 ? 100 : Math.floor((data.ff_exp / data.next_exp) * 100);
                     this.upgrade_progressbar.visible = true;
+                    this.land.on(Laya.Event.CLICK, this, this.onClickLand);
                 }
                 return;
             }
@@ -804,9 +1014,11 @@
                     this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
                     this.grow_kuan.visible = true;
                 }
+                this.land.on(Laya.Event.CLICK, this, this.onClickLand);
                 this.land_static = 'fertilizer';
             }
             else {
+                this.land.on(Laya.Event.CLICK, this, this.onClickLand);
                 this.land_static = 'plant';
             }
         }
@@ -817,11 +1029,17 @@
                 if (clickLandStatic == '') {
                     if (data.seed_data.id && data.seed_data.grow_static == 4 && data.seed_data.mature_time <= 0) {
                         this.land_static = 'harvest';
+                        this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+                        this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+                        this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
                         this.harvest_icon.visible = true;
                         return true;
                     }
                     else if (typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {
                         this.land_static = 'water';
+                        this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+                        this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+                        this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
                         this.water_icon.visible = true;
                         return true;
                     }
@@ -830,11 +1048,161 @@
         }
     }
 
+    class seedItem extends ui.farm.itemUI {
+        constructor() {
+            super();
+        }
+        init() {
+            return this;
+        }
+    }
+
     class farmSeedList extends ui.farm.seedListUI {
         constructor() {
             super();
         }
         init() {
+            this._seedListScene = this;
+            this._seed_list = this.seed_list;
+            this._seed_list.repeatX = 5;
+            this._seed_list.repeatX = 1;
+            this._seed_list.hScrollBarSkin = "";
+            this._seedListScene.visible = false;
+            return this._seedListScene;
+        }
+        addSeedListItem(data) {
+            var seed_data = data;
+            this.addSeedItem(seed_data);
+        }
+        setSeedListItem() {
+            this.setSeedItem();
+        }
+        addSeedItem(data) {
+            for (var i in data) {
+                console.log(data[i]);
+                var _seedItem = new seedItem();
+                _seedItem.name = 'seed_' + data[i].id;
+                console.log(data[i]);
+                console.log(data[i]);
+                console.log(data[i]);
+                var ntn = parseInt(data[i].id.replace(/[^0-9]/ig, ""));
+                _seedItem.x = (this._seed_list.width / 6) * (ntn - 2);
+                _seedItem.y = (this._seed_list.height - _seedItem.height) / 2;
+                _seedItem.gold.text = data[i].gold;
+                _seedItem.seep_pic.graphics.drawTexture(Laya.loader.getRes("farm/" + data[i].id + "_seed.png"));
+                this.initSeedItem(_seedItem);
+                this._seed_list.addChild(_seedItem);
+            }
+        }
+        setSeedItem() {
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var seed_arr = farmController.getInstance().model.seedData;
+            for (var i in seed_arr) {
+                console.log('seed_' + seed_arr[i].id);
+                console.log('这是列表', this._seed_list.getChildByName('seed_' + seed_arr[i].id));
+                var _seedItem = this._seed_list.getChildByName('seed_' + seed_arr[i].id);
+                this.initSeedItem(_seedItem);
+                _seedItem.off(Laya.Event.CLICK, this, this.onClick);
+                if (grade >= seed_arr[i].grade2 && grade <= seed_arr[i].grade3) {
+                    if (have_gold >= seed_arr[i].gold) {
+                        _seedItem.scene.gold.color = '#EDFF24';
+                        _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['buy', { 'id': seed_arr[i].id }]);
+                    }
+                    else {
+                        _seedItem.scene.gold.color = '#FF3E24';
+                        _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['noMoney', { 'gold': seed_arr[i].gold }]);
+                    }
+                }
+                else {
+                    _seedItem.scene.suo_div.visible = true;
+                    _seedItem.scene.gold.color = '#274200';
+                    _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['lock', { 'grade': seed_arr[i].grade2 }]);
+                }
+                console.log(_seedItem.scene.suo_div);
+            }
+            this._seedListScene.visible = true;
+        }
+        initSeedItem(itemObj) {
+            itemObj.suo_div.visible = false;
+            itemObj.gold.color = '#EDFF24';
+        }
+        addFertilizerItem(data) {
+            for (var i in data) {
+            }
+        }
+        setFatItem() {
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var fat_arr = farmController.getInstance().model.fatData;
+            for (var i in fat_arr) {
+            }
+            this._seedListScene.visible = true;
+        }
+        hide() {
+            this._seedListScene.visible = false;
+        }
+        onClick(itemStatic, arr) {
+            tipController.getInstance();
+            if (itemStatic == 'buy') {
+                console.log("等级够了，钱也够");
+                var landId = farmController.getInstance().model.landId;
+                this.onPlant(landId, arr.id);
+            }
+            else if (itemStatic == 'noMoney') {
+                console.log("等级够了，钱不够");
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.gold + '金币', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+            }
+            else if (itemStatic == 'lock') {
+                console.log("等级不够");
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.grade + '级', '确定', '取消', function () {
+                        console.log('tanchuang');
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+            }
+        }
+        onPlant(landId, id) {
+            var landData = dataGlobal.getInstance().farmInfo[landId];
+            if (landData.seed_data.id) {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['该田已经种植了', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+                return;
+            }
+            var list = {
+                "htid": landId,
+                "hhid": id
+            };
+            Laya.stage.event(NETWORKEVENT.FARMINITPLANTFLOWER, list);
+        }
+        onFertilizer(data) {
+            var landId = farmController.getInstance().model.landId;
+            var landData = dataGlobal.getInstance().farmInfo[landId];
+            if (landData.fat_time > 0) {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['该田已经施过肥了', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+            }
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            if (have_gold < data.num) {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['施肥种子需要' + data.num + '金币', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+                return;
+            }
+            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFERTILIZE);
         }
     }
 
@@ -857,15 +1225,36 @@
                 this._farmIndex.addChild(this.land_div);
                 this.addChild(this._farmIndex);
                 this.getFarmLand();
+                this.getFarmSeed();
             }
-            this.tweenAlphaAdd('farm', type);
+            this.tweenAlphaAdd('farm', type, 1);
         }
         showInit() {
             this.landArr = {};
+            this.ui.bg_kuan.on(Laya.Event.CLICK, this, this.cleanAllStatu);
+            this.ui.building.on(Laya.Event.CLICK, this, this.onMenuClick, ['building']);
+            this.ui.order.on(Laya.Event.CLICK, this, this.onMenuClick, ['order']);
+            this.ui.email.on(Laya.Event.CLICK, this, this.onMenuClick, ['email']);
+            this.ui.upgrade.on(Laya.Event.CLICK, this, this.onMenuClick, ['upgrade']);
+            this.cleanAllStatu();
         }
         loadSeedList() {
             this._seedListClass = new farmSeedList();
-            this._seedListClass.init();
+            this._seedList = this._seedListClass.init();
+            this._seedList.x = 30;
+            this._seedList.y = 2200;
+            this._seedList.zOrder = 2;
+            this._farmIndex.addChild(this._seedList);
+        }
+        getFarmSeed() {
+            Laya.stage.event(NETWORKEVENT.FARMINITSEEDLIST);
+        }
+        onFarmInitSeedList(data) {
+            this._seedListClass.addSeedListItem(data);
+        }
+        showSeepList() {
+            this.showBgKuan();
+            this._seedListClass.setSeedListItem();
         }
         getFarmLand() {
             let tmp_data = {
@@ -888,19 +1277,17 @@
         }
         forFarmLand(data) {
             var landObj = new farmLand;
-            console.log(landObj);
-            console.log(data.ff_id);
             this.landArr[data.ff_id] = landObj;
-            console.log(landObj.init(data));
             this.land_div.addChild(landObj.init(data));
-            console.log(this.land_div);
-            console.log(this._farmIndex);
         }
         cleanAllStatu() {
+            console.log(this.ui);
+            this.ui.bg_kuan.visible = false;
             farmController.getInstance().model.setLandId('');
             farmController.getInstance().model.setClickLandStatic('');
             this.setLandStatic('');
             this.initLand();
+            this._seedListClass.hide();
         }
         setPlantFramLand() {
             var landId = farmController.getInstance().model.landId;
@@ -918,11 +1305,42 @@
                 this.landArr[i].initLand();
             }
         }
+        showBgKuan() {
+            this.ui.bg_kuan.visible = true;
+        }
+        onMenuClick(type) {
+            if (this.muneClickStr == type) {
+                return;
+            }
+            this.recoveryBtn(type);
+            switch (type) {
+                case 'building':
+                    console.log('点击建筑物');
+                    this.onClickBuilding();
+                    break;
+                case 'upgrade':
+                    console.log('点击升级');
+                    break;
+                case 'email':
+                    console.log('点击邮箱');
+                    break;
+                case 'order':
+                    console.log('点击订单');
+                    break;
+            }
+        }
+        recoveryBtn(type) {
+            this.muneClickStr = type;
+        }
         setLandStatic(str) {
             var data = this.landArr;
             for (var i in data) {
                 data[i].land_static = str;
             }
+        }
+        onClickBuilding() {
+        }
+        onClickOrder() {
         }
     }
 
@@ -930,7 +1348,6 @@
         constructor() {
         }
         onShow(type) {
-            console.log('farmView.onshow');
             if (this._indexCom == null) {
                 this._indexCom = new farmIndex;
             }
@@ -940,8 +1357,10 @@
             this._indexCom.onShowFarmInitField(data);
         }
         onFarmInitSeedList(data) {
+            this._indexCom.onFarmInitSeedList(data);
         }
         showSeepList() {
+            this._indexCom.showSeepList();
         }
         setThisLandStatic(id, str) {
         }
@@ -958,13 +1377,14 @@
     class farmModel {
         constructor() {
             this.clickLandStatic = '';
-            this.landId = 'ht08';
+            this.landId = '';
         }
         setFatData(data) {
             this.fatData = data;
         }
         setFarmSeed(data) {
             this.seedData = data;
+            console.log(this.seedData);
         }
         setLandId(str) {
             this.landId = str;
@@ -1002,6 +1422,37 @@
                 }
             }
         }
+        getFarmInitSeedList() {
+            return {
+                "ga": "init_seed_list",
+                "gd": staticData.SEED_LIST,
+                "code": 1
+            };
+        }
+        farmInitPlantFlower(id, hhid) {
+            for (var i in staticData.INDEX_DATA) {
+                if (staticData.INDEX_DATA[i].ff_id == id) {
+                    console.log(staticData.INDEX_DATA[i]);
+                    staticData.INDEX_DATA[i].seed_data = {
+                        "grow_time_tol": 5000,
+                        "next_mature_time": 1000,
+                        "mature_time": 500,
+                        "grow_static": 1,
+                        "id": hhid,
+                        "name": "\u7ea2\u73ab\u7470",
+                        "grade": "3",
+                        "pic": "hh01_1",
+                        "ain": ""
+                    };
+                    staticData.INDEX_DATA[i].msg = "\u79cd\u690d\u6210\u529f";
+                    return {
+                        "ga": "init_plant_flower",
+                        "gd": staticData.INDEX_DATA[i],
+                        "code": 1
+                    };
+                }
+            }
+        }
     }
     staticData.userInfo = {
         'sid': "渠道ID",
@@ -1026,6 +1477,7 @@
             "ain": "",
             "fat_time": 0,
             "fat_time_tol": 0,
+            "msg": "",
             "seed_data": {
                 "mature_time": 100,
                 "next_mature_time": 499,
@@ -1047,6 +1499,7 @@
             "next_exp": 0,
             "pic": "land_1",
             "ain": "",
+            "msg": "",
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
@@ -1070,6 +1523,7 @@
             "next_exp": 0,
             "pic": "land_1",
             "ain": "",
+            "msg": "",
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
@@ -1093,6 +1547,7 @@
             "next_exp": 0,
             "pic": "land_1",
             "ain": "",
+            "msg": "",
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
@@ -1116,6 +1571,7 @@
             "next_exp": 0,
             "pic": "land_1",
             "ain": "",
+            "msg": "",
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
@@ -1139,6 +1595,7 @@
             "next_exp": 0,
             "pic": "land_1",
             "ain": "",
+            "msg": "",
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
@@ -1162,6 +1619,7 @@
             "next_exp": 0,
             "pic": "land_1",
             "ain": "",
+            "msg": "",
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
@@ -1185,6 +1643,7 @@
             "next_exp": 0,
             "pic": "land_1",
             "ain": "",
+            "msg": "",
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
@@ -1208,6 +1667,7 @@
             "next_exp": 0,
             "pic": "land_1",
             "ain": "",
+            "msg": "",
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
@@ -1223,6 +1683,68 @@
             }
         },
     ];
+    staticData.SEED_LIST = [
+        {
+            "id": "hh02",
+            "name": "\u7ea2\u73ab\u7470",
+            "grade": "1",
+            "grade2": "1",
+            "grade3": "100",
+            "pic": "ui:\/\/farm\/hh02_1",
+            "ain": "",
+            "gold": 100
+        },
+        {
+            "id": "hh02",
+            "name": "\u9ed1\u73ab\u7470",
+            "grade": "1",
+            "grade2": "1",
+            "grade3": "100",
+            "pic": "ui:\/\/farm\/hh01_2",
+            "ain": "",
+            "gold": 100
+        },
+        {
+            "id": "hh03",
+            "name": "\u9ec4\u73ab\u7470",
+            "grade": "1",
+            "grade2": "1",
+            "grade3": "500",
+            "pic": "ui:\/\/farm\/hh01_3",
+            "ain": "",
+            "gold": 100
+        },
+        {
+            "id": "hh04",
+            "name": "\u9752\u73ab\u7470",
+            "grade": "1",
+            "grade2": "1",
+            "grade3": "400",
+            "pic": "ui:\/\/farm\/hh01_4",
+            "ain": "",
+            "gold": 150
+        },
+        {
+            "id": "hh05",
+            "name": "\u9752\u73ab\u7470",
+            "grade": "1",
+            "grade2": "1",
+            "grade3": "300",
+            "pic": "ui:\/\/farm\/hh02_1",
+            "ain": "",
+            "gold": 200
+        },
+        {
+            "id": "hh06",
+            "name": "\u9752\u73ab\u7470",
+            "grade": "1",
+            "grade2": "20",
+            "grade3": "200",
+            "pic": "ui:\/\/farm\/hh02_2",
+            "ain": "",
+            "gold": 300
+        }
+    ];
 
     class farmNetwork {
         constructor() {
@@ -1233,13 +1755,12 @@
             farmController.getInstance().onShowFarmInitField(data.gd);
         }
         FarmInitSeedList(data) {
-            data = { "ga": "init_seed_list", "gd": [{ "id": "hh02", "name": "\u7ea2\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 100 }, { "id": "hh02", "name": "\u9ed1\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh01_2", "ain": "", "gold": 100 }, { "id": "hh03", "name": "\u9ec4\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "500", "pic": "ui:\/\/farm\/hh01_3", "ain": "", "gold": 100 }, { "id": "hh04", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "400", "pic": "ui:\/\/farm\/hh01_4", "ain": "", "gold": 150 }, { "id": "hh05", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "300", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 200 }, { "id": "hh06", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "20", "grade3": "200", "pic": "ui:\/\/farm\/hh02_2", "ain": "", "gold": 300 }], "code": 1 };
-            farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
-            farmController.getInstance().model.setFatData(data.gd.fat_data);
+            data = staticData.getInstance().getFarmInitSeedList();
+            console.log(data.gd.seed_data, '/////////////////////');
+            farmController.getInstance().model.setFarmSeed(data.gd);
             farmController.getInstance().onFarmInitSeedList(data.gd);
         }
         FarmInitFlowerGrade(id) {
-            console.log('扩建这块地', id);
             var data = staticData.getInstance().getFarmInitFlowerGrade(id);
             var myData = data.gd;
             var tmp_arr = {
@@ -1254,8 +1775,8 @@
             dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
             farmController.getInstance().initLand();
         }
-        FarmInitPlantFlower(data) {
-            data = { "ga": "init_plant_flower", "gd": { "ff_id": "ht01", "fat_time": 0, "fat_time_tol": 0, "ff_exp": 500, "seed_data": { "grow_time_tol": 5000, "mature_time": 500, "grow_static": 1, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": "1", "pic": "hh01_1", "ain": "" }, "msg": "\u79cd\u690d\u6210\u529f" }, "code": 1 };
+        FarmInitPlantFlower(list) {
+            var data = staticData.getInstance().farmInitPlantFlower(list.htid, list.hhid);
             var myData = data.gd;
             var tmp_arr = {
                 'fat_time': myData.fat_time,
@@ -1336,8 +1857,14 @@
             this._network = new farmNetwork;
             Laya.stage.on(GAMEEVENT.FARM, this, this.onShow);
             Laya.stage.on(NETWORKEVENT.FARMINITFIELD, this, this._network.FarmInitField);
+            Laya.stage.on(NETWORKEVENT.FARMINITSEEDLIST, this, this._network.FarmInitSeedList);
             Laya.stage.on(NETWORKEVENT.FARMINITFLOWERGRADE, this, this._network.FarmInitFlowerGrade);
+            Laya.stage.on(NETWORKEVENT.FARMINITPLANTFLOWER, this, this._network.FarmInitPlantFlower);
+            Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFERTILIZE, this, this._network.FarmInitFlowerFertilize);
+            Laya.stage.on(NETWORKEVENT.FARMINITFLOWERWATER, this, this._network.FarmInitFlowerWater);
+            Laya.stage.on(NETWORKEVENT.FARMINITCOLLECTFLOWER, this, this._network.FarmCollectFlower);
             Laya.stage.on(NETWORKEVENT.FARMINITGROWFLOWER, this, this._network.FarmInitGrowFlower);
+            Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFAT, this, this._network.FarmInitFlowerFat);
         }
         static getInstance() {
             if (farmController._instance == null) {
@@ -1477,7 +2004,7 @@
             this.ui.on(Laya.Event.CLICK, this, this.loginBtn);
         }
         onShow() {
-            this.tweenAlphaAdd('login', 2);
+            this.tweenAlphaAdd('login', 2, 1);
         }
         onShowLogin() {
             this.ui.loading_group.visible = false;
@@ -1488,14 +2015,11 @@
             Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
         }
         onupdateFarm(x) {
-            console.log(x);
-            console.log(this.ui.loading_txt);
             this.ui.loading_txt.text = x + '%';
             var num = Math.floor(x / (100 / 9)) - 1;
             this.ui.loading_icon.url = "ui://login/0_0000" + num;
         }
         onShowFarm() {
-            console.log('跳转首页');
             farmController.getInstance();
             resManger.getInstance().addGroupRes(resConfig.farm);
             resManger.getInstance().startLoad('', GAMEEVENT.FARM, '', [2]);
@@ -1545,7 +2069,6 @@
         }
         showFarmView() {
             Laya.stage.off(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
-            console.log('确保只做一只跳入主场景的操作');
             this._loginview.showFarm();
         }
         onResProgress() {
@@ -1553,9 +2076,7 @@
         onResComplete() {
             Laya.stage.off(GAMEEVENT.ONRESPROGRESSLOGIN, this, this.onResProgress);
             Laya.stage.off(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
-            console.log(1, Laya.View.uiMap);
             Laya.Scene.setUIMap("ui.json");
-            console.log(2, Laya.View.uiMap);
             resManger.getInstance().addGroupRes(resConfig.farm);
             resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFARM, GAMEEVENT.ONLOADCOMPLETEFARM);
             this.initView();
