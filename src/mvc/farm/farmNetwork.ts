@@ -35,12 +35,13 @@ export default class farmNetwork {
     farmController.getInstance().onFarmInitSeedList(data.gd);
   }
   /**
-   * 农田的升级扩建
+   * 农田的操作
+   * 1 升级
+   * 2 解锁
    */
   public FarmInitFlowerGrade(id) {
-    // data = { "ga": "init_flower_grade", "gd": { "type": 2, "ff_id": "ht01", "ff_vip": 3, "ff_exp": 10, "next_exp": 100, "ff_id_unlocknum": 0, "next_ff_id_glod": 110, "pic": "land_3", "ain": "", "msg": "\u5347\u7ea7\/\u89e3\u9501\u6210\u529f" }, "code": 1 };
+    // var _data = { "ga": "init_flower_grade", "gd": { "type": 2, "ff_id": "ht01", "ff_vip": 3, "ff_exp": 10, "next_exp": 100, "ff_id_unlocknum": 0, "next_ff_id_glod": 110, "pic": "land_3", "ain": "", "msg": "\u5347\u7ea7\/\u89e3\u9501\u6210\u529f" }, "code": 1 };
     var data = staticData.getInstance().getFarmInitFlowerGrade(id);
-    // console.log(data)
     var myData = data.gd;
     // // console.log(myData)
     var tmp_arr = {

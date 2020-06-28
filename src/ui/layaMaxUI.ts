@@ -128,4 +128,61 @@ export module ui.login {
         }
     }
     REG("ui.login.loginUI",loginUI);
+}
+export module ui.warehouse {
+    export class good_itemUI extends Laya.Scene {
+		public n2:Laya.Sprite;
+		public gicon:Laya.Sprite;
+		public gnum:laya.display.Text;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("warehouse/good_item");
+        }
+    }
+    REG("ui.warehouse.good_itemUI",good_itemUI);
+    export class sell_tipUI extends Laya.Scene {
+		public n0:Laya.Image;
+		public close_btn:Laya.Button;
+		public jian_btn:Laya.Button;
+		public jia_btn:Laya.Button;
+		public gname:laya.display.Text;
+		public n7:Laya.Sprite;
+		public sell_btn:Laya.Button;
+		public tot_price:laya.display.Text;
+		public n14:Laya.Sprite;
+		public gicon:Laya.Sprite;
+		public tot_num:laya.display.Text;
+		public gdescribe:laya.display.Text;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("warehouse/sell_tip");
+        }
+    }
+    REG("ui.warehouse.sell_tipUI",sell_tipUI);
+    export class warehouseUI extends Laya.Scene {
+		public n0:Laya.Sprite;
+		public n3:Laya.Sprite;
+		public good_num:laya.display.Text;
+		public n5:laya.display.Text;
+		public n6:laya.display.Text;
+		public close_btn:Laya.Button;
+		public upgrade_btn:Laya.Button;
+		public n10:Laya.Image;
+		public item_title_div:Laya.Box;
+		public item_all:Laya.Button;
+		public item_all_biao:Laya.Sprite;
+		public item_flower:Laya.Button;
+		public item_flower_biao:Laya.Sprite;
+		public item_good:Laya.Button;
+		public item_good_biao:Laya.Sprite;
+		public good_list:Laya.List;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("warehouse/warehouse");
+        }
+    }
+    REG("ui.warehouse.warehouseUI",warehouseUI);
 }

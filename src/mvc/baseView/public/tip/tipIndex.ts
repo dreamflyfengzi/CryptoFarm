@@ -39,7 +39,6 @@ export default class tipIndex extends baseView {
     // _tipKuan.displayObject.pivotX = 0.5 * _tipKuan.displayObject.width;
     // _tipKuan.displayObject.pivotY = 0.5 * _tipKuan.displayObject.height;
     // this.addChild(_tipKuan.displayObject);
-    console.log('窗口')
     this.tweenShow();
   }
   public close() {

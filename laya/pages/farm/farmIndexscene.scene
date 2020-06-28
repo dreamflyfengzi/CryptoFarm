@@ -287,7 +287,7 @@
             "x":15,
             "type":"Box",
             "searchKey":"Box,bg_kuan",
-            "props":{"width":1242,"visible":false,"var":"bg_kuan","height":2688},
+            "props":{"y":0,"x":0,"width":1242,"visible":true,"var":"bg_kuan","height":2688},
             "nodeParent":2,
             "label":"bg_kuan",
             "isOpen":true,

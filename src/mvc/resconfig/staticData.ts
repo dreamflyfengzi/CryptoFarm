@@ -61,7 +61,7 @@ export default class staticData {
     // 01
     {
       "ff_id": "ht01",
-      "ff_vip": 1,
+      "ff_vip": 2,
       "ff_exp": 0,
       "ff_id_unlocknum": 50,
       "next_ff_id_glod": 0,
@@ -86,7 +86,7 @@ export default class staticData {
     // 02
     {
       "ff_id": "ht02",
-      "ff_vip": 1,
+      "ff_vip": 4,
       "ff_exp": 100,
       "ff_id_unlocknum": 100,
       "next_ff_id_glod": 0,
@@ -131,7 +131,7 @@ export default class staticData {
     // 03
     {
       "ff_id": "ht03",
-      "ff_vip": 1,
+      "ff_vip": 5,
       "ff_exp": 200,
       "ff_id_unlocknum": 200,
       "next_ff_id_glod": 0,
@@ -175,7 +175,7 @@ export default class staticData {
     // 04
     {
       "ff_id": "ht04",
-      "ff_vip": 1,
+      "ff_vip": 2,
       "ff_exp": 100,
       "ff_id_unlocknum": 300,
       "next_ff_id_glod": 0,
@@ -219,7 +219,7 @@ export default class staticData {
     // 05
     {
       "ff_id": "ht05",
-      "ff_vip": 1,
+      "ff_vip": 3,
       "ff_exp": 100,
       "ff_id_unlocknum": 400,
       "next_ff_id_glod": 0,
@@ -240,7 +240,7 @@ export default class staticData {
         "pic": "",
         "ain": ""
       }
-      // "ff_vip": 1,
+      // "ff_vip": 2,
       // "ff_exp": 500,
       // "ff_id_unlocknum": 500,
       // "next_ff_id_glod": 100,
@@ -263,7 +263,7 @@ export default class staticData {
     // 06
     {
       "ff_id": "ht06",
-      "ff_vip": 1,
+      "ff_vip": 2,
       "ff_exp": 100,
       "ff_id_unlocknum": 500,
       "next_ff_id_glod": 0,
@@ -284,7 +284,7 @@ export default class staticData {
         "pic": "",
         "ain": ""
       }
-      // "ff_vip": 1,
+      // "ff_vip": 2,
       // "ff_exp": 500,
       // "ff_id_unlocknum": 500,
       // "next_ff_id_glod": 100,
@@ -307,7 +307,7 @@ export default class staticData {
     // 07
     {
       "ff_id": "ht07",
-      "ff_vip": 1,
+      "ff_vip": 2,
       "ff_exp": 100,
       "ff_id_unlocknum": 600,
       "next_ff_id_glod": 0,
@@ -328,7 +328,7 @@ export default class staticData {
         "pic": "",
         "ain": ""
       }
-      // "ff_vip": 1,
+      // "ff_vip": 2,
       // "ff_exp": 500,
       // "ff_id_unlocknum": 500,
       // "next_ff_id_glod": 100,
@@ -351,7 +351,7 @@ export default class staticData {
     // 08
     {
       "ff_id": "ht08",
-      "ff_vip": 1,
+      "ff_vip": 2,
       "ff_exp": 100,
       "ff_id_unlocknum": 700,
       "next_ff_id_glod": 0,
@@ -372,7 +372,7 @@ export default class staticData {
         "pic": "",
         "ain": ""
       }
-      // "ff_vip": 1,
+      // "ff_vip": 2,
       // "ff_exp": 500,
       // "ff_id_unlocknum": 500,
       // "next_ff_id_glod": 100,
@@ -395,7 +395,7 @@ export default class staticData {
     //09 
     {
       "ff_id": "ht09",
-      "ff_vip": 1,
+      "ff_vip": 2,
       "ff_exp": 100,
       "ff_id_unlocknum": 800,
       "next_ff_id_glod": 0,
@@ -515,8 +515,14 @@ export default class staticData {
   public getFarmInitFlowerGrade(id) {
     for (var i in staticData.INDEX_DATA) {
       if (staticData.INDEX_DATA[i].ff_id == id) {
-        staticData.INDEX_DATA[i].ff_vip = 2;
+        if (staticData.INDEX_DATA[i].ff_vip != 1) {
+         var type = 2;
+        } else {
+          var type = 1;
+        }
+        staticData.INDEX_DATA[i].ff_vip = staticData.INDEX_DATA[i].ff_vip+1
         return {
+          "type": type,
           "ga": "init_flower_grade",
           "gd": staticData.INDEX_DATA[i],
           "code": 1

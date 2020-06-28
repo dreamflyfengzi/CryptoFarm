@@ -8,6 +8,7 @@ import GAMECONFIG from '../../const/GAMECONFIG'
 import farmLand from './farmLand'
 import farmController from './farmController'
 import farmSeedList from './farmSeedList'
+import warehouseController from '../warehouse/warehouseController'
 export default class farmIndex extends baseView {
   private _farmIndex: Laya.Sprite;
   // private building_btn:fairygui.GLoader;//建筑按钮
@@ -168,7 +169,7 @@ export default class farmIndex extends baseView {
   private cleanAllStatu() {
     console.log(this.ui)
     this.ui.bg_kuan.visible = false;
-    // this.bg_kuan.enabled = false;
+    // this.ui.bg_kuan.enabled = false;
     //重置一下农田
     farmController.getInstance().model.setLandId('');
     farmController.getInstance().model.setClickLandStatic('');
@@ -176,7 +177,7 @@ export default class farmIndex extends baseView {
     this.initLand();
     //种子的框
     this._seedListClass.hide();
-    // this.recoveryBtn();
+    this.recoveryBtn();
   }
   // /**
   //  * 修改单个农田的状态
@@ -233,12 +234,10 @@ export default class farmIndex extends baseView {
     this.recoveryBtn(type);
     switch (type) {
       case 'building':
-        console.log('点击建筑物');
         this.onClickBuilding();
         break;
       case 'upgrade':
-        console.log('点击升级');
-        // this.onClickUpgrade();
+        this.onClickUpgrade();
         break;
       case 'email':
         console.log('点击邮箱');
@@ -258,25 +257,25 @@ export default class farmIndex extends baseView {
    */
   private recoveryBtn(type?: string) {
     this.muneClickStr = type;
-    // this.building_btn.url = 'ui://farm/btn_cangku1';
-    // this.upgrade_btn.url = 'ui://farm/btn_shengji1';
-    // this.email_btn.url = 'ui://farm/btn_youxiang1';
-    // this.order_btn.url = 'ui://farm/btn_dingdan1';
+    this.ui.building.skin = 'farm/btn_cangku1.png';
+    this.ui.upgrade.skin = 'farm/btn_shengji1.png';
+    this.ui.email.skin = 'farm/btn_youxiang1.png';
+    this.ui.order.skin = 'farm/btn_dingdan1.png';
 
   }
-  // /**
-  //  * 点击升级按钮
-  //  */
-  // private onClickUpgrade(){
-  // 	this.upgrade_btn.url = 'ui://farm/btn_shengji2';
-  // 	this.showBgKuan();
-  // 	farmController.getInstance().model.setClickLandStatic('upgrade');
-  // 	this.setLandStatic('upgrade');//设置花田状态为升级
-  // 	this.initLand();//重置下花田
-  // }
-  // /**
-  //  * 设置所有花田的状态
-  //  */
+  /**
+   * 点击升级按钮
+   */
+  private onClickUpgrade(){
+    this.ui.upgrade.skin = "main/btn_shengji2.png";
+  	this.showBgKuan();
+  	farmController.getInstance().model.setClickLandStatic('upgrade');
+  	this.setLandStatic('upgrade');//设置花田状态为升级
+  	this.initLand();//重置下花田
+  }
+  /**
+   * 设置所有花田的状态
+   */
   private setLandStatic(str: string) {
     var data = this.landArr;
     for (var i in data) {
@@ -287,7 +286,7 @@ export default class farmIndex extends baseView {
    * 点击建筑按钮
    */
   private onClickBuilding() {
-    // warehouseController.getInstance().onShowWarehouse();
+    warehouseController.getInstance().onShowWarehouse();
   }
   /**
    * 点击订单

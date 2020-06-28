@@ -157,7 +157,6 @@ export default class farmLand extends ui.farm.farmLandUI {
    */
   private timerFun() {
     var data = dataGlobal.getInstance().farmInfo[this.land_id];
-    // console.log(data.seed_data.mature_time, data.fat_time);
     if (data.seed_data.mature_time == 0 && data.fat_time == 0) {
       farmLand._timer.clear(this, this.timerFun);
     }
@@ -174,7 +173,7 @@ export default class farmLand extends ui.farm.farmLandUI {
       if (data.seed_data.mature_time <= 0) {
         this.grow_kuan.visible = false;
       }
-      console.log(data.seed_data.next_mature_time,'----',data.seed_data.mature_time)
+      // console.log(data.seed_data.next_mature_time,'----',data.seed_data.mature_time)
       // console.log(data.seed_data.next_mature_time)
       //判断是否到时间了，如果到时见那么久应该发送成长请求
       if (data.seed_data.next_mature_time <= 0) {
@@ -317,14 +316,18 @@ export default class farmLand extends ui.farm.farmLandUI {
   }
   /**
    * 扩建按钮
+   * 1 升级
+   * 2 解锁
    */
   private onGradeExtend(type) {
+
     //先获取这个花田的信息
     var data = dataGlobal.getInstance().farmInfo[this.land_id];
     var str = '';
     //判断是否可以升级
     // var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     var have_gold = 30000000;
+    console.log(data,'----------------------------------',type)
     if (type == 1) {
       if (Math.floor(data.ff_exp) < Math.floor(data.next_exp)) {//这个是不能升级的
         str = '经验不够，不能升级';
@@ -341,6 +344,7 @@ export default class farmLand extends ui.farm.farmLandUI {
         console.log(str)
       }
     }
+    
     if (str) {
       Laya.stage.event(GAMEEVENT.TIPSKUAN, [str, '确定', '取消', function () {
         tipController.getInstance().close();
@@ -374,13 +378,13 @@ export default class farmLand extends ui.farm.farmLandUI {
     // console.log(data.pic)
     // console.log(this.land,'now------------------------------')
     //设置土地的样式
-    // console.log("farm/"+ data.pic +".png")
+    console.log( data )
     // console.log(Laya.loader.getRes("farm/"+ data.pic +".png"))
-    this.land.graphics.drawTexture(Laya.loader.getRes("farm/" + data.pic + ".png"))
-    // console.log(this.land,'now------------------------------')
+    this.land.graphics.drawTexture(Laya.loader.getRes("farm/land_" + data.ff_vip + ".png"))
+    console.log(this.land,'now------------------------------')
     // sprite.graphics.drawTexture(texture);
-    // this._land.url = data.pic;
-    this.land.visible = true;
+    // this.land.url = data.pic;
+    
     //先去除掉田的事件
     this.land.off(Laya.Event.CLICK, this, this.onClickLand);
     this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
@@ -395,7 +399,7 @@ export default class farmLand extends ui.farm.farmLandUI {
       this.extend_kuan.visible = true;
       // //显示扩建按钮
       this.extend_btn.visible = true;
-      // this.land.touchable = true;
+      this.land.mouseEnabled = true;
 
       this.on(Laya.Event.CLICK, this, this.onClickLand);
       // //设置升级需要的金币
@@ -410,13 +414,13 @@ export default class farmLand extends ui.farm.farmLandUI {
       if (data.ff_vip >= data.max_grade) {//下一级的经验小于或者是等于这一级的经验时，就可以判断为满级
         this.upgrade_info.text = "<span style='color:#ffffff'>满级</span>";
         this.upgrade_info.visible = true;
-        // this._land.touchable = true;
+        this.land.mouseEnabled = true;
         this.land.on(Laya.Event.CLICK, this, function () {
         });
       } else {
         //没有满级的需要显示一下
         // this.upgrade_info.text = "<span style='color:#ffffff'>加成:" + data.seed + "%+</span><span style='color:#96fa65'>" + data.next_seed + "%</span>";
-        this.upgrade_info.text = "加成:" + data.seed + "%+" + data.next_seed + "%";
+        this.upgrade_info.text = "加速:" + data.seed + "%+" + data.next_seed + "%";
         this.upgrade_info.visible = true;
         this.upgrade_gold.text = data.next_ff_id_glod;
         this.upgrade_gold.visible = true;
@@ -424,7 +428,7 @@ export default class farmLand extends ui.farm.farmLandUI {
         this.upgrade_level.visible = true;
         this.upgrade_progressbar.value = Math.floor((data.ff_exp / data.next_exp) * 100) >= 100 ? 100 : Math.floor((data.ff_exp / data.next_exp) * 100);
         this.upgrade_progressbar.visible = true;
-        // this.land.touchable = true;
+        this.land.mouseEnabled = true;
         this.land.on(Laya.Event.CLICK, this, this.onClickLand);
       }
       return;
@@ -487,13 +491,15 @@ export default class farmLand extends ui.farm.farmLandUI {
       }
       //没有花需要监听一下点击事件
       this.land.on(Laya.Event.CLICK, this, this.onClickLand);
-      // this._land.touchable = true;
+      this.land.mouseEnabled = true;
       this.land_static = 'fertilizer';//施肥
     } else {//种种子
       this.land.on(Laya.Event.CLICK, this, this.onClickLand);
-      // this._land.touchable = true;
+      this.land.mouseEnabled = true;
       this.land_static = 'plant';//如果没有上面的，那么默认就是施肥和种植
     }
+
+    this.land.visible = true;
   }
   /**
    * 判断是否浇水或者收获
@@ -515,12 +521,12 @@ export default class farmLand extends ui.farm.farmLandUI {
         } else if (typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {//判断是否可以浇水
           //可以浇水
           this.land_static = 'water';
-          // this.land.touchable = true;
+          this.land.mouseEnabled = true;
           this.land.off(Laya.Event.CLICK, this, this.onClickLand);
           this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
           this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
           //显示可以收获的图标
-          // this.water_icon.touchable = true;
+          this.water_icon.mouseEnabled = true;
           this.water_icon.visible = true;
           return true;
         }

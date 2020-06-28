@@ -44,7 +44,6 @@ export default class BaseView extends Laya.View implements IBaseView {
       gameLayer.bglayer.addChild(obj);
       console.log(obj)
     }
-    console.log(index, '第几层啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊')
     if (index == 1) {
       var _index = gameLayer.bglayer;
     } else if (index == 3) {

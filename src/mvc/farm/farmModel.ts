@@ -37,7 +37,7 @@ export default class farmModel{
 		 * @param str ：状态
 		 */
 		public setClickLandStatic(str:string){
-			this.clickLandStatic = str;
+      this.clickLandStatic = str;
 		}
 	}
 	
