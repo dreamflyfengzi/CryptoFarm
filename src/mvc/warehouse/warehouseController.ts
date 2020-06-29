@@ -47,7 +47,8 @@ export default class warehouseController{
 		if(this._warehouseview){
 			this._warehouseview.initWarehouseInfo();
 		}
-	}
+  }
+  
 	/**
 	 * 出售框
 	 */
@@ -55,6 +56,7 @@ export default class warehouseController{
 		if(this._warehouseview){
 			this._warehouseview.showSellTip(id);
 		}
-	}
-	
+  }
+  
+  
 }

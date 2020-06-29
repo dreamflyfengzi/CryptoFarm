@@ -3,6 +3,7 @@
 //  */
 import { ui } from '../../ui/layaMaxUI'
 import dataGlobal from '../resconfig/dataGlobal'
+import dataJson from '../resconfig/dataJson'
 import farmController from './farmController'
 import globalFun from '../resconfig/globalFun'
 import NETWORKEVENT from '../event/NETWORKEVENT'
@@ -173,11 +174,9 @@ export default class farmLand extends ui.farm.farmLandUI {
       if (data.seed_data.mature_time <= 0) {
         this.grow_kuan.visible = false;
       }
-      // console.log(data.seed_data.next_mature_time,'----',data.seed_data.mature_time)
-      // console.log(data.seed_data.next_mature_time)
       //判断是否到时间了，如果到时见那么久应该发送成长请求
       if (data.seed_data.next_mature_time <= 0) {
-      // if (data.seed_data.mature_time <= 0) {
+        // if (data.seed_data.mature_time <= 0) {
         //             //试着进行websocke请求
         //             let tmp_websocket = net.webSocketJson.getInstance();
         //             let tmp_data = {
@@ -314,58 +313,177 @@ export default class farmLand extends ui.farm.farmLandUI {
       }]);
     }
   }
+
+  /**
+   * 花田升级升级按钮
+  */
+  private onLandUpGrade(type) {
+    var data = dataGlobal.getInstance().farmInfo[this.land_id];//获取用户这个花田的信息
+    var landInfo = dataJson.getInstance().GET_SYS_FLOWER_FIELD()[this.land_id][data.ff_vip];//配置表花田的信息
+    var str = '';
+    var gold_str = '';
+    var have_gold = dataGlobal.getInstance().userInfo.have_gold;//用户金币
+
+
+    if (Math.floor(have_gold) < Math.floor(landInfo.num2)) {
+      str = '宝石不足，不能升级';
+      gold_str = "<span style='color:#E92727'>" + have_gold + "</span><span style='color:#7D4815'>/" + data.next_ff_id_glod + "</span>";
+    } else {
+      gold_str = "<span style='color:#7D4815'>" + have_gold + "</span><span style='color:#7D4815'>/" + data.next_ff_id_glod + "</span>";
+    }
+    if (Math.floor(data.ff_exp) < Math.floor(landInfo.exp)) {//这个是不能升级的
+      str = '花田经验不足，请多多种植吧';
+    }
+
+    var confirm_fun = function () {
+      tipController.getInstance().close();
+      if (str) {
+        Laya.stage.event(GAMEEVENT.TIPSKUAN, [str]);
+      } else {
+        this.onGradeExtendAct(type);
+      }
+    }.bind(this);
+    var cancel_fun = function () {
+      tipController.getInstance().close();
+    }
+
+    Laya.stage.event(GAMEEVENT.GOLDTIP, ['升级', gold_str, '确定', '取消', confirm_fun, cancel_fun]);
+  }
   /**
    * 扩建按钮
    * 1 升级
    * 2 解锁
    */
   private onGradeExtend(type) {
-
-    //先获取这个花田的信息
-    var data = dataGlobal.getInstance().farmInfo[this.land_id];
+    tipController.getInstance()
+    var data = dataGlobal.getInstance().farmInfo[this.land_id];// 先获取这个花田的信息
+    var landInfo = dataJson.getInstance().GET_SYS_FLOWER_FIELD()[this.land_id][data.ff_vip];//配置表花田的信息
     var str = '';
-    //判断是否可以升级
-    // var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-    var have_gold = 30000000;
-    console.log(data,'----------------------------------',type)
-    if (type == 1) {
-      if (Math.floor(data.ff_exp) < Math.floor(data.next_exp)) {//这个是不能升级的
-        str = '经验不够，不能升级';
-        console.log(str)
-      }
+    var gold_str = '';
+    var have_gold = dataGlobal.getInstance().userInfo.have_gold;//用户金币
+    var grade = dataGlobal.getInstance().userInfo.grade;//用户等级
 
-      if (have_gold < data.next_ff_id_glod) {
-        str = '金币不够，不能升级';
-        console.log(str)
-      }
-    } else if (type == 2) {
-      if (have_gold < data.ff_id_unlocknum) {
-        str = '金币不够，不能升级';
-        console.log(str)
+    if (Math.floor(have_gold) < Math.floor(data.ff_id_unlocknum)) {
+      str = '钻石不足，不能扩建';
+    }
+
+    // 检查用户的田块等级是否达到
+    var member = dataJson.getInstance().GET_SYS_FLOWER_MEMBER();
+    var member_info = dataJson.getInstance().GET_SYS_FLOWER_MEMBER()[grade];
+    var userFarm = dataGlobal.getInstance().farmInfo;
+    var num = 0;
+    for (var i in userFarm) {
+      if (userFarm[i].ff_vip != 1) {
+        num++;
       }
     }
-    
+    console.log(member)
+    console.log(member_info.field, num, grade)
+
+    // 判断一下用户的等级
+    if (member_info.field < num) {//这里是不能开花田的，需要查询一下下一级可以开的花田
+      console.log('这里是不能开花田的，需要查询一下下一级可以开的花田')
+      for (var q in member) {
+        if (member[q].field > member_info.field) {
+          str = '达到' + member[q].grade + '级可扩建该花田';
+          break;
+        }
+      }
+    }
+    // gold_str = "<span style='color:#7D4815'>"+have_gold+"</span><span style='color:#7D4815'>/"+data.ff_id_unlocknum+"</span>";
+    gold_str = "" + have_gold + "/" + data.ff_id_unlocknum + "";
     if (str) {
-      Laya.stage.event(GAMEEVENT.TIPSKUAN, [str, '确定', '取消', function () {
-        tipController.getInstance().close();
-      }, function () {
-        tipController.getInstance().close();
-      }]);
+      Laya.stage.event(GAMEEVENT.TXTTIP, [str]);
+      // Laya.stage.event(GAMEEVENT.TIPSKUAN, [str, '确定', '取消', function () {
+      //   tipController.getInstance().close();
+      // }, function () {
+      //   tipController.getInstance().close();
+      // }]);
       return;
     }
+    //如果是符合升级和解锁经验的，那么就弹金币弹窗询问一下用户
+
+    var confirm_fun = function () {
+      this.onGradeExtendAct(type);
+      tipController.getInstance().close();
+    }.bind(this);
+    var cancel_fun = function () {
+      tipController.getInstance().close();
+    }
+
+    Laya.stage.event(GAMEEVENT.GOLDTIP, ['扩建', gold_str, '确定', '取消', confirm_fun, cancel_fun]);
+
+    // //判断是否可以升级
+    // // var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+    // var have_gold = 30000000;
+    // console.log(data, '----------------------------------', type)
+    // if (type == 1) {
+    //   if (Math.floor(data.ff_exp) < Math.floor(data.next_exp)) {//这个是不能升级的
+    //     str = '经验不够，不能升级';
+    //     console.log(str)
+    //   }
+
+    //   if (have_gold < data.next_ff_id_glod) {
+    //     str = '金币不够，不能升级';
+    //     console.log(str)
+    //   }
+    // } else if (type == 2) {
+    //   if (have_gold < data.ff_id_unlocknum) {
+    //     str = '金币不够，不能升级';
+    //     console.log(str)
+    //   }
+    // }
+
+    // if (str) {
+    //   Laya.stage.event(GAMEEVENT.TIPSKUAN, [str, '确定', '取消', function () {
+    //     tipController.getInstance().close();
+    //   }, function () {
+    //     tipController.getInstance().close();
+    //   }]);
+    //   return;
+    // }
+    // //试着进行websocke请求
+    // // let tmp_websocket = net.webSocketJson.getInstance();
+    // // let tmp_data = {
+    // // 	'a':"init_flower_grade",
+    // // 	'm':"init",
+    // // 	'd':{
+    // //               'ff_id':this.land_id,
+    // //               'type':type
+    // //           },
+    // // 	'code':1
+    // // };
+    // // tmp_websocket.sendMessage(tmp_data);
+
+    // //如果是符合升级和解锁经验的，那么就弹金币弹窗询问一下用户
+    // var confirm_fun = function () {
+    //   this.onGradeExtendAct(type);
+    //   tipController.getInstance().close();
+    // }.bind(this);
+    // var cancel_fun = function () {
+    //   tipController.getInstance().close();
+    // }
+
+    // Laya.stage.event(GAMEEVENT.GOLDTIP, ['扩建', gold_str, '确定', '取消', confirm_fun, cancel_fun]);
+    // // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, this.land_id);
+  }
+  /**
+  * 花田扩建和升级
+  */
+  private onGradeExtendAct(type) {
     //试着进行websocke请求
     // let tmp_websocket = net.webSocketJson.getInstance();
     // let tmp_data = {
-    // 	'a':"init_flower_grade",
-    // 	'm':"init",
-    // 	'd':{
-    //               'ff_id':this.land_id,
-    //               'type':type
-    //           },
-    // 	'code':1
+    //   'a': "init_flower_grade",
+    //   'm': "init",
+    //   'd': {
+    //     'ff_id': this.land_id,
+    //     'type': type
+    //   },
+    //   'code': 1
     // };
     // tmp_websocket.sendMessage(tmp_data);
-    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, this.land_id);
+    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE,this.land_id);
   }
   /**
    * 设置状态
@@ -378,13 +496,12 @@ export default class farmLand extends ui.farm.farmLandUI {
     // console.log(data.pic)
     // console.log(this.land,'now------------------------------')
     //设置土地的样式
-    console.log( data )
     // console.log(Laya.loader.getRes("farm/"+ data.pic +".png"))
-    this.land.graphics.drawTexture(Laya.loader.getRes("farm/land_" + data.ff_vip + ".png"))
-    console.log(this.land,'now------------------------------')
+    // this.land.graphics.drawTexture(Laya.loader.getRes("farm/land_" + data.ff_vip + ".png"))
+    this.land.skin = "farm/land_" + data.ff_vip + ".png";
     // sprite.graphics.drawTexture(texture);
     // this.land.url = data.pic;
-    
+
     //先去除掉田的事件
     this.land.off(Laya.Event.CLICK, this, this.onClickLand);
     this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
@@ -476,8 +593,7 @@ export default class farmLand extends ui.farm.farmLandUI {
     //     )
     // ),
     if (data.seed_data.id) {//有花，可以施肥
-      // this._flower.url = data.seed_data.pic;
-      this.flower.graphics.drawTexture(Laya.loader.getRes("farm/" + data.seed_data.id + "_" + data.seed_data.grade + ".png"))
+      this.flower.skin = "farm/" + data.seed_data.id + "_" + data.seed_data.grade + ".png";
       this.flower.visible = true;
       //判断是否可以浇水等
       if (this.isOperation(data)) {

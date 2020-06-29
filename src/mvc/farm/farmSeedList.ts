@@ -13,34 +13,29 @@ export default class farmSeedList extends ui.farm.seedListUI {
     super()
   }
   private _seedListScene: Laya.Sprite;//列表的组件 列表本页面
-  private _seedListObj: Laya.Sprite;//列表的对象 还没用到
+  private _seedListArray: Array<any>;//列表的数组
   private _seed_list: Laya.List; //列表本表
   public init() {
     this._seedListScene = this;
     this._seed_list = this.seed_list;
-    this._seed_list.repeatX = 5;
-    this._seed_list.repeatX = 1;
+    // this._seed_list.repeatX = 5;
+    // this._seed_list.repeatX = 1;
     this._seed_list.hScrollBarSkin = "";
-    // this._seed_list.itemRender = "";
-
-    // this._seed_list.foldInvisibleItems = true;//自动排列位置
-    // this._seed_list. = true;//自动排列位置
-    // this._seedListObj = this._seedListScene.displayObject;
-    // // this._seed_list.itemRenderer = Laya.Handler.create(this, this.RenderListItem, null, false);//当虚拟列表渲染的时候调用
-    // // this._seed_list.numItems = 5;//这个是虚拟列表的时候才用到的（目前选项不多，后期选项多的时候可以用虚拟列表）
     this._seedListScene.visible = false;
     return this._seedListScene;
   }
+
   // 虚拟列表渲染调用的函数
   // private RenderListItem(index: number, obj: fairygui.GObject) {
   //   console.log(index, obj)
   // }
+
   // 设置一下种子（data = {'seed_data':种子信息,'fat_data':肥料信息}）
   public addSeedListItem(data) {
     //添加种子选项
     // var seed_data = data.seed_data;
-    var seed_data = data;
-    this.addSeedItem(seed_data);
+    // var seed_data = data;
+    // this.addSeedItem(seed_data);
     // //添加肥料选项
     // var fat_data = data.fat_data;
     // this.addFertilizerItem(fat_data);
@@ -52,24 +47,27 @@ export default class farmSeedList extends ui.farm.seedListUI {
   }
   //添加种子选项
   private addSeedItem(data) {
+    this._seedListArray = [];
     for (var i in data) {
-      console.log(data[i])
-      var _seedItem = new seedItem();
-      _seedItem.name = 'seed_' + data[i].id;
-      console.log(data[i])
-      console.log(data[i])
-      console.log(data[i])
-      var ntn = parseInt(data[i].id.replace(/[^0-9]/ig, ""));
+      this._seedListArray.push(data[i])
+      // var seep_pic: Laya.Image = this._seed_list;
+      // var _seedItem = new seedItem();
+      // _seedItem.name = 'seed_' + data[i].id;
+      // var ntn = parseInt(data[i].id.replace(/[^0-9]/ig, ""));
 
-      _seedItem.x = (this._seed_list.width / 6) * (ntn - 2)
-      _seedItem.y = (this._seed_list.height - _seedItem.height) / 2 // todo 种子的坐标
-      _seedItem.gold.text = data[i].gold
-      _seedItem.seep_pic.graphics.drawTexture(Laya.loader.getRes("farm/" + data[i].id + "_seed.png"))
+      // _seedItem.x = (this._seed_list.width / 6) * (ntn - 2)
+      // _seedItem.y = (this._seed_list.height - _seedItem.height) / 2 // todo 种子的坐标
+      // _seedItem.gold.text = data[i].gold
+      // _seedItem.seep_pic.graphics.drawTexture(Laya.loader.getRes("farm/" + data[i].id + "_seed.png"))
       // _seedItem.getChild('seep_pic').asLoader.url = data[i].pic;
       // _seedItem.getChild('gold').asTextField.text = data[i].gold;
-      this.initSeedItem(_seedItem);
-      this._seed_list.addChild(_seedItem);
+      // this.initSeedItem(_seedItem);
+      // this._seed_list.addChild(_seedItem);
     }
+    this._seed_list.array = this._seedListArray;
+
+    console.log(this._seed_list.array, '------------------------')
+
   }
   //设置种子的信息
   public setSeedItem() {
@@ -77,36 +75,88 @@ export default class farmSeedList extends ui.farm.seedListUI {
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     //获取种子列表信息
     var seed_arr = farmController.getInstance().model.seedData;
-
+    console.log(seed_arr)
+    let dataSource = [];
     for (var i in seed_arr) {
-      console.log('seed_' + seed_arr[i].id)
-      console.log('这是列表', this._seed_list.getChildByName('seed_' + seed_arr[i].id))
-      var _seedItem = this._seed_list.getChildByName('seed_' + seed_arr[i].id);
-      // var _seedItem = this._seed_list.('seed_' + seed_arr[i].id).asCom;
-      this.initSeedItem(_seedItem);
-      _seedItem.off(Laya.Event.CLICK, this, this.onClick);
+      let data = null;
       if (grade >= seed_arr[i].grade2 && grade <= seed_arr[i].grade3) {
         //可以解锁
         if (have_gold >= seed_arr[i].gold) {//够钱
-          _seedItem.scene.gold.color = '#EDFF24';
-          _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['buy', { 'id': seed_arr[i].id }]);
+          data = {
+            suo_div: { visible: false },
+            seep_pic: {
+              skin: "farm/" + seed_arr[i].id + "_seed.png"
+            },
+            gold_num: {
+              text: seed_arr[i].gold,
+              color: "#EDFF24"
+            },
+          }
         } else {//不够钱
-          _seedItem.scene.gold.color = '#FF3E24';
-          _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['noMoney', { 'gold': seed_arr[i].gold }]);
+          data = {
+            suo_div: { visible: false },
+            seep_pic: {
+              skin: "farm/" + seed_arr[i].id + "_seed.png"
+            },
+            gold_num: {
+              text: seed_arr[i].gold,
+              color: "#FF3E24"
+            },
+          }
         }
-      } else {
-        //不可以解锁
-        // _seedItem.suo_div.visible = true;
-        _seedItem.scene.suo_div.visible = true;
-
-        _seedItem.scene.gold.color = '#274200';
-        _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['lock', { 'grade': seed_arr[i].grade2 }]);
+      } else {//不可以解锁
+        data = {
+          suo_div: { visible: true },
+          seep_pic: {
+            skin: "farm/" + seed_arr[i].id + "_seed.png"
+          },
+          gold_num: {
+            text: seed_arr[i].gold,
+            color: "#274200"
+          },
+        }
       }
-      console.log(_seedItem.scene.suo_div)
-    }
-    this._seedListScene.visible = true;
+      dataSource.push(data)
+      // this.initSeedItem(_seedItem);
+      //   _seedItem.off(Laya.Event.CLICK, this, this.onClick);
 
+    }
+    this._seed_list.dataSource = dataSource;
+    this._seed_list.selectEnable = true;
+    this._seed_list.selectHandler = new Laya.Handler(this, this.itemSelectHandler, null, false)
+    console.log(this._seed_list.dataSource)
+    this._seedListScene.visible = true;
   }
+  //点击列表项
+  private itemSelectHandler(index: number) {
+    var grade = dataGlobal.getInstance().userInfo.grade;
+    var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+    //获取种子列表信息
+    var seed_arr = farmController.getInstance().model.seedData;
+    console.log(index)
+    if (grade >= seed_arr[index].grade2 && grade <= seed_arr[index].grade3) {
+      //可以解锁
+      if (have_gold >= seed_arr[index].gold) {//够钱
+        this.onClick('buy', { 'id': seed_arr[index].id })
+        // _seedItem.scene.gold.color = '#EDFF24';
+        // _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['buy', { 'id': seed_arr[i].id }]);
+      } else {//不够钱
+        console.log('不够了')
+        this.onClick('noMoney', { 'id': seed_arr[index].id })
+        // _seedItem.scene.gold.color = '#FF3E24';
+        // _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['noMoney', { 'gold': seed_arr[i].gold }]);
+      }
+    } else {
+      //不可以解锁
+      console.log('取法解锁')
+      // _seedItem.suo_div.visible = true;
+      // _seedItem.scene.suo_div.visible = true;
+      this.onClick('lock', { 'id': seed_arr[index].id })
+      // _seedItem.scene.gold.color = '#274200';
+      // _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['lock', { 'grade': seed_arr[i].grade2 }]);
+    }
+  }
+
   //先初始化层
   private initSeedItem(itemObj) {
     itemObj.suo_div.visible = false;
@@ -167,6 +217,7 @@ export default class farmSeedList extends ui.farm.seedListUI {
    */
 
   private onClick(itemStatic: string, arr: any) {
+    console.log('daole -------------------')
     tipController.getInstance();
     if (itemStatic == 'buy') {//等级够了，钱也够
       console.log("等级够了，钱也够")
@@ -218,9 +269,9 @@ export default class farmSeedList extends ui.farm.seedListUI {
     // };
     // console.log("发送websocket数据",tmp_data);
     // tmp_websocket.sendMessage(tmp_data);
-    var  list = {
-       "htid": landId,
-       "hhid": id
+    var list = {
+      "htid": landId,
+      "hhid": id
     }
     Laya.stage.event(NETWORKEVENT.FARMINITPLANTFLOWER, list);
   }

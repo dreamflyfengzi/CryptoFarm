@@ -87,6 +87,7 @@
     GAMEEVENT.ONRESIZE = 'ONRESIZE';
     GAMEEVENT.GAMESTART = 'GAMESTART';
     GAMEEVENT.TIPSKUAN = 'TIPSKUAN';
+    GAMEEVENT.TXTTIP = 'TXTTIP';
     GAMEEVENT.GOLDTIP = 'GOLDTIP';
     GAMEEVENT.FARM = 'FARM';
     GAMEEVENT.ONPROGRESSFARM = 'ONPROGRESSFARM';
@@ -337,12 +338,12 @@
             this._ui = null;
         }
         tweenHide() {
-            this.off(Laya.Event.CLICK, this, this.onClick);
-            Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 1000, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
-            Laya.Tween.to(this, { alpha: 0 }, 1000, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
+            console.log('关闭窗口');
+            this.onAlphaComplete();
         }
         onClick() {
             console.log("onClick");
+            console.log(this);
         }
         onComplete() {
             gameLayer.windowlayer.removeChild(this);
@@ -355,15 +356,13 @@
             this.clearAll();
         }
         clearAll() {
-            this.visible = false;
             this.graphics.clear();
             this.off(Laya.Event.CLICK, this, this.onClick);
-            this.removeChildren();
             Laya.Tween.clearAll(this);
             this.visible = false;
+            this.removeFromParent();
         }
         tweenShow() {
-            console.log(this);
             this.visible = true;
             this.setCenter();
             this.scale(0, 0);
@@ -371,7 +370,6 @@
             Laya.Tween.to(this, { alpha: 1 }, 1000, Laya.Ease.linearIn);
             Laya.Tween.to(this, { scaleX: 1, scaleY: 1 }, 1000, Laya.Ease.elasticOut);
             this.showModal();
-            gameLayer.windowlayer.addChild(this);
         }
         showModal() {
             this.visible = true;
@@ -469,7 +467,7 @@
             this.query.system = this.get_sys();
             this.farmInfo = {};
             this.userInfo = {
-                "grade": 22,
+                "grade": 10,
                 "have_gold": 1000000
             };
             this.factory = {};
@@ -650,598 +648,6 @@
             for (var i in data) {
                 this.lotteryInfo[data[i].lottery_id] = data[i];
             }
-        }
-    }
-
-    class globalFun {
-        constructor() {
-        }
-        static getInstance() {
-            if (globalFun._instance == null) {
-                globalFun._instance = new globalFun;
-            }
-            return globalFun._instance;
-        }
-        formatSeconds(value) {
-            var secondTime = Math.floor(value);
-            var minuteTime = 0;
-            var hourTime = 0;
-            if (secondTime > 60) {
-                minuteTime = Math.floor(secondTime / 60);
-                secondTime = Math.floor(secondTime % 60);
-                if (minuteTime > 60) {
-                    hourTime = Math.floor(minuteTime / 60);
-                    minuteTime = Math.floor(minuteTime % 60);
-                }
-            }
-            if (hourTime > 0) {
-                var result = "";
-                result = "" + (Math.floor(minuteTime) < 10 ? '0' + Math.floor(minuteTime) : Math.floor(minuteTime)) + "分" + result;
-                result = "" + (Math.floor(hourTime) < 10 ? '0' + Math.floor(hourTime) : Math.floor(hourTime)) + "小时" + result;
-            }
-            else {
-                var result = "" + (Math.floor(secondTime) < 10 ? '0' + Math.floor(secondTime) : Math.floor(secondTime)) + "秒";
-                result = "" + (Math.floor(minuteTime) < 10 ? '0' + Math.floor(minuteTime) : Math.floor(minuteTime)) + "分" + result;
-            }
-            return result;
-        }
-        getCountDown(value) {
-            var secondTime = Math.floor(value);
-            var hour = secondTime % 86400 / 3600 < 10 ? '0' + Math.floor(secondTime % 86400 / 3600) : Math.floor(secondTime % 86400 / 3600);
-            var minute = secondTime % 86400 % 3600 / 60 < 10 ? '0' + Math.floor(secondTime % 86400 % 3600 / 60) : Math.floor(secondTime % 86400 % 3600 / 60);
-            var second = secondTime % 86400 % 3600 % 60 < 10 ? '0' + Math.floor(secondTime % 86400 % 3600 % 60) : Math.floor(secondTime % 86400 % 3600 % 60);
-            return hour + ':' + minute + ':' + second;
-        }
-        goBtn(type) {
-        }
-    }
-
-    class tipIndex extends BaseView {
-        constructor() {
-            super(ui.base.tishi_tipUI);
-        }
-        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            console.log(this.ui.scene);
-            var _tipKuan = this.ui.scene;
-            _tipKuan.content_txt.text = content_txt;
-            _tipKuan.confirm_btn.label = confirm_txt;
-            _tipKuan.cancel_btn.label = cancel_txt;
-            _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
-            _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, this.close);
-            this.tweenShow();
-        }
-        close() {
-            this.tweenHide();
-        }
-        gameFailTip(data) {
-            var myData = data.gd;
-            this.tipShow(myData.msg, '确定', '取消', function () {
-                this.close();
-            }.bind(this), function () {
-                this.close();
-            }.bind(this));
-        }
-        gameTxtTip(txt, call_fun) {
-        }
-        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            this.tweenShow();
-        }
-    }
-
-    class tipView {
-        constructor() {
-        }
-        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            if (this._tipCom == null) {
-                this._tipCom = new tipIndex;
-            }
-            this._tipCom.tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
-        }
-        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            if (this._tipCom == null) {
-                this._tipCom = new tipIndex;
-            }
-            this._tipCom.goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
-        }
-        gameTxtTip(txt, call_fun) {
-            if (this._tipCom == null) {
-                this._tipCom = new tipIndex;
-            }
-            this._tipCom.gameTxtTip(txt, call_fun);
-        }
-        gameFailTip(data) {
-            if (this._tipCom == null) {
-                this._tipCom = new tipIndex;
-            }
-            this._tipCom.gameFailTip(data);
-        }
-        close() {
-            if (this._tipCom == null) {
-                this._tipCom = new tipIndex;
-            }
-            this._tipCom.close();
-        }
-    }
-
-    class tipController {
-        constructor() {
-            Laya.stage.on(GAMEEVENT.TIPSKUAN, this, this.tipShow);
-            Laya.stage.on(GAMEEVENT.GOLDTIP, this, this.goldTipShow);
-            Laya.stage.on(NETWORKEVENT.GAMEFAILTIP, this, this.gameFailTip);
-        }
-        static getInstance() {
-            if (tipController._instance == null) {
-                tipController._instance = new tipController;
-            }
-            return tipController._instance;
-        }
-        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            if (this._tipview == null) {
-                this._tipview = new tipView();
-            }
-            this._tipview.tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
-        }
-        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            if (this._tipview == null) {
-                this._tipview = new tipView;
-            }
-            this._tipview.goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
-        }
-        gameTxtTip(txt, call_fun) {
-            if (this._tipview == null) {
-                this._tipview = new tipView;
-            }
-            this._tipview.gameTxtTip(txt, call_fun);
-        }
-        gameFailTip(data) {
-            if (this._tipview == null) {
-                this._tipview = new tipView;
-            }
-            this._tipview.gameFailTip(data);
-        }
-        close() {
-            if (this._tipview == null) {
-                this._tipview = new tipView;
-            }
-            this._tipview.close();
-        }
-    }
-
-    class farmLand extends ui.farm.farmLandUI {
-        constructor() {
-            super();
-        }
-        init(data) {
-            this.land_id = data.ff_id;
-            this.initLand();
-            this._farmland = this;
-            this._farmland.x = data.x;
-            this._farmland.y = data.y;
-            this._farmland.zOrder = data.zOrder;
-            this._farmland.name = data.ff_id;
-            this.setTimer();
-            this.water_icon.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
-            this.harvest_icon.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
-            return this._farmland;
-        }
-        initLand() {
-            this.initLandDiv();
-            this.initLandStatic();
-        }
-        initLandDiv() {
-            this.flower.visible = false;
-            this.extend_btn.visible = false;
-            this.extend_kuan.visible = false;
-            this.upgrade_kuan.visible = false;
-            this.xuanzhong.visible = false;
-            this.grow_kuan.visible = false;
-            this.fertilizer_kuan.visible = false;
-            this.harvest_icon.visible = false;
-            this.water_icon.visible = false;
-            var landId = farmController.getInstance().model.landId;
-            if (landId == this.land_id) {
-                this.xuanzhong.visible = true;
-            }
-            this.land.mouseEnabled = false;
-            this.flower.mouseEnabled = false;
-            this.extend_btn.mouseEnabled = false;
-            this.extend_gold.mouseEnabled = false;
-            this.upgrade_gold.mouseEnabled = false;
-            this.upgrade_level.mouseEnabled = false;
-            this.upgrade_info.mouseEnabled = false;
-            this.upgrade_progressbar.mouseEnabled = false;
-            this.xuanzhong.mouseEnabled = false;
-            this.extend_kuan.mouseEnabled = false;
-            this.upgrade_kuan.mouseEnabled = false;
-            this.grow_kuan.mouseEnabled = false;
-            this.fertilizer_kuan.mouseEnabled = false;
-            this.harvest_icon.mouseEnabled = false;
-            this.water_icon.mouseEnabled = false;
-        }
-        setTimer() {
-            var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            if (data.seed_data.mature_time > 0 || data.fat_time > 0) {
-                if (farmLand._timer) {
-                    farmLand._timer.clear(this, this.timerFun);
-                }
-                farmLand._timer = new Laya.Timer();
-                farmLand._timer.loop(1000, this, this.timerFun);
-            }
-        }
-        timerFun() {
-            var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            if (data.seed_data.mature_time == 0 && data.fat_time == 0) {
-                farmLand._timer.clear(this, this.timerFun);
-            }
-            if (data.seed_data.mature_time && data.seed_data.mature_time > 0) {
-                data.seed_data.mature_time--;
-                data.seed_data.next_mature_time--;
-                if (data.seed_data.water_time && data.seed_data.water_time > 0) {
-                    data.seed_data.water_time--;
-                    this.isOperation(data);
-                }
-                this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
-                this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
-                if (data.seed_data.mature_time <= 0) {
-                    this.grow_kuan.visible = false;
-                }
-                if (data.seed_data.next_mature_time <= 0) {
-                    Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER);
-                }
-            }
-            if (data.fat_time > 0) {
-                data.fat_time--;
-                this.fertilizer_time.text = globalFun.getInstance().formatSeconds(data.fat_time);
-                this.fertilizer_time_val.value = Math.floor((data.fat_time / data.fat_time_tol) * 100);
-                this.fertilizer_kuan.visible = true;
-                if (data.fat_time <= 0) {
-                    this.fertilizer_kuan.visible = false;
-                    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFAT);
-                }
-            }
-        }
-        onClickLand() {
-            if (farmController.getInstance().model.clickLandStatic == 'harvest' || farmController.getInstance().model.clickLandStatic == 'water') {
-                farmController.getInstance().model.setClickLandStatic('');
-                return;
-            }
-            console.log('点击', '--', this.land_id, '--', this.land_static);
-            farmController.getInstance().model.setLandId(this.land_id);
-            farmController.getInstance().initLand();
-            switch (this.land_static) {
-                case 'unlock':
-                    this.onGradeExtend(2);
-                    break;
-                case 'plant':
-                case 'fertilizer':
-                    farmController.getInstance().model.setClickLandStatic(this.land_static);
-                    farmController.getInstance().model.setLandId(this.land_id);
-                    farmController.getInstance().initLand();
-                    farmController.getInstance().showSeepList();
-                    this.xuanzhong.visible = true;
-                    break;
-                case 'upgrade':
-                    farmController.getInstance().initLand();
-                    this.xuanzhong.visible = true;
-                    this.onGradeExtend(1);
-                    break;
-                case 'harvest':
-                    farmController.getInstance().model.setClickLandStatic('harvest');
-                    farmController.getInstance().model.setLandId('');
-                    this.onHarvest();
-                    break;
-                case 'water':
-                    farmController.getInstance().model.setClickLandStatic('water');
-                    farmController.getInstance().model.setLandId('');
-                    this.onWater();
-                    break;
-            }
-        }
-        onWater() {
-            var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            if (data.seed_data.id && typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {
-                console.log('浇水');
-            }
-        }
-        onHarvest() {
-            var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            if (data.seed_data.id && data.seed_data.grow_static == 4) {
-                console.log('可以收获');
-            }
-            else {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['还不能收获', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
-            }
-        }
-        onGradeExtend(type) {
-            var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            var str = '';
-            var have_gold = 30000000;
-            console.log(data, '----------------------------------', type);
-            if (type == 1) {
-                if (Math.floor(data.ff_exp) < Math.floor(data.next_exp)) {
-                    str = '经验不够，不能升级';
-                    console.log(str);
-                }
-                if (have_gold < data.next_ff_id_glod) {
-                    str = '金币不够，不能升级';
-                    console.log(str);
-                }
-            }
-            else if (type == 2) {
-                if (have_gold < data.ff_id_unlocknum) {
-                    str = '金币不够，不能升级';
-                    console.log(str);
-                }
-            }
-            if (str) {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, [str, '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
-                return;
-            }
-            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, this.land_id);
-        }
-        initLandStatic() {
-            var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            console.log(data);
-            this.land.graphics.drawTexture(Laya.loader.getRes("farm/land_" + data.ff_vip + ".png"));
-            console.log(this.land, 'now------------------------------');
-            this.land.off(Laya.Event.CLICK, this, this.onClickLand);
-            this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
-            if (data.ff_vip == 1) {
-                this.land_static = 'unlock';
-                if (data.is_lock == 2) {
-                    return;
-                }
-                this.extend_kuan.visible = true;
-                this.extend_btn.visible = true;
-                this.land.mouseEnabled = true;
-                this.on(Laya.Event.CLICK, this, this.onClickLand);
-                this.extend_gold.text = data.ff_id_unlocknum;
-                this.extend_gold.visible = true;
-                return;
-            }
-            if (this.land_static == 'upgrade') {
-                this.upgrade_kuan.visible = true;
-                if (data.ff_vip >= data.max_grade) {
-                    this.upgrade_info.text = "<span style='color:#ffffff'>满级</span>";
-                    this.upgrade_info.visible = true;
-                    this.land.mouseEnabled = true;
-                    this.land.on(Laya.Event.CLICK, this, function () {
-                    });
-                }
-                else {
-                    this.upgrade_info.text = "加速:" + data.seed + "%+" + data.next_seed + "%";
-                    this.upgrade_info.visible = true;
-                    this.upgrade_gold.text = data.next_ff_id_glod;
-                    this.upgrade_gold.visible = true;
-                    this.upgrade_level.text = 'lv:' + (data.ff_vip - 1);
-                    this.upgrade_level.visible = true;
-                    this.upgrade_progressbar.value = Math.floor((data.ff_exp / data.next_exp) * 100) >= 100 ? 100 : Math.floor((data.ff_exp / data.next_exp) * 100);
-                    this.upgrade_progressbar.visible = true;
-                    this.land.mouseEnabled = true;
-                    this.land.on(Laya.Event.CLICK, this, this.onClickLand);
-                }
-                return;
-            }
-            if (this.land_static == 'fertilizer' || this.land_static == 'plant') {
-                if (data.fat_time > 0 && farmController.getInstance().model.landId == this.land_id) {
-                    this.fertilizer_time.text = globalFun.getInstance().formatSeconds(data.fat_time);
-                    this.fertilizer_time_val.value = Math.floor((data.fat_time / data.fat_time_tol) * 100) >= 100 ? 100 : Math.floor((data.fat_time / data.fat_time_tol) * 100);
-                    this.fertilizer_kuan.visible = true;
-                }
-            }
-            if (data.seed_data.id) {
-                this.flower.graphics.drawTexture(Laya.loader.getRes("farm/" + data.seed_data.id + "_" + data.seed_data.grade + ".png"));
-                this.flower.visible = true;
-                if (this.isOperation(data)) {
-                    return;
-                }
-                if (farmController.getInstance().model.landId == this.land_id && data.seed_data.mature_time > 0) {
-                    this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
-                    this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
-                    this.grow_kuan.visible = true;
-                }
-                this.land.on(Laya.Event.CLICK, this, this.onClickLand);
-                this.land.mouseEnabled = true;
-                this.land_static = 'fertilizer';
-            }
-            else {
-                this.land.on(Laya.Event.CLICK, this, this.onClickLand);
-                this.land.mouseEnabled = true;
-                this.land_static = 'plant';
-            }
-            this.land.visible = true;
-        }
-        isOperation(data) {
-            var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            var clickLandStatic = farmController.getInstance().model.clickLandStatic;
-            if (clickLandStatic == '' || clickLandStatic == 'harvest' || clickLandStatic == 'water') {
-                if (clickLandStatic == '') {
-                    if (data.seed_data.id && data.seed_data.grow_static == 4 && data.seed_data.mature_time <= 0) {
-                        this.land_static = 'harvest';
-                        this.land.off(Laya.Event.CLICK, this, this.onClickLand);
-                        this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
-                        this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
-                        this.harvest_icon.visible = true;
-                        return true;
-                    }
-                    else if (typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {
-                        this.land_static = 'water';
-                        this.land.mouseEnabled = true;
-                        this.land.off(Laya.Event.CLICK, this, this.onClickLand);
-                        this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
-                        this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
-                        this.water_icon.mouseEnabled = true;
-                        this.water_icon.visible = true;
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-
-    class seedItem extends ui.farm.itemUI {
-        constructor() {
-            super();
-        }
-        init() {
-            return this;
-        }
-    }
-
-    class farmSeedList extends ui.farm.seedListUI {
-        constructor() {
-            super();
-        }
-        init() {
-            this._seedListScene = this;
-            this._seed_list = this.seed_list;
-            this._seed_list.repeatX = 5;
-            this._seed_list.repeatX = 1;
-            this._seed_list.hScrollBarSkin = "";
-            this._seedListScene.visible = false;
-            return this._seedListScene;
-        }
-        addSeedListItem(data) {
-            var seed_data = data;
-            this.addSeedItem(seed_data);
-        }
-        setSeedListItem() {
-            this.setSeedItem();
-        }
-        addSeedItem(data) {
-            for (var i in data) {
-                console.log(data[i]);
-                var _seedItem = new seedItem();
-                _seedItem.name = 'seed_' + data[i].id;
-                console.log(data[i]);
-                console.log(data[i]);
-                console.log(data[i]);
-                var ntn = parseInt(data[i].id.replace(/[^0-9]/ig, ""));
-                _seedItem.x = (this._seed_list.width / 6) * (ntn - 2);
-                _seedItem.y = (this._seed_list.height - _seedItem.height) / 2;
-                _seedItem.gold.text = data[i].gold;
-                _seedItem.seep_pic.graphics.drawTexture(Laya.loader.getRes("farm/" + data[i].id + "_seed.png"));
-                this.initSeedItem(_seedItem);
-                this._seed_list.addChild(_seedItem);
-            }
-        }
-        setSeedItem() {
-            var grade = dataGlobal.getInstance().userInfo.grade;
-            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-            var seed_arr = farmController.getInstance().model.seedData;
-            for (var i in seed_arr) {
-                console.log('seed_' + seed_arr[i].id);
-                console.log('这是列表', this._seed_list.getChildByName('seed_' + seed_arr[i].id));
-                var _seedItem = this._seed_list.getChildByName('seed_' + seed_arr[i].id);
-                this.initSeedItem(_seedItem);
-                _seedItem.off(Laya.Event.CLICK, this, this.onClick);
-                if (grade >= seed_arr[i].grade2 && grade <= seed_arr[i].grade3) {
-                    if (have_gold >= seed_arr[i].gold) {
-                        _seedItem.scene.gold.color = '#EDFF24';
-                        _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['buy', { 'id': seed_arr[i].id }]);
-                    }
-                    else {
-                        _seedItem.scene.gold.color = '#FF3E24';
-                        _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['noMoney', { 'gold': seed_arr[i].gold }]);
-                    }
-                }
-                else {
-                    _seedItem.scene.suo_div.visible = true;
-                    _seedItem.scene.gold.color = '#274200';
-                    _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['lock', { 'grade': seed_arr[i].grade2 }]);
-                }
-                console.log(_seedItem.scene.suo_div);
-            }
-            this._seedListScene.visible = true;
-        }
-        initSeedItem(itemObj) {
-            itemObj.suo_div.visible = false;
-            itemObj.gold.color = '#EDFF24';
-        }
-        addFertilizerItem(data) {
-            for (var i in data) {
-            }
-        }
-        setFatItem() {
-            var grade = dataGlobal.getInstance().userInfo.grade;
-            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-            var fat_arr = farmController.getInstance().model.fatData;
-            for (var i in fat_arr) {
-            }
-            this._seedListScene.visible = true;
-        }
-        hide() {
-            this._seedListScene.visible = false;
-        }
-        onClick(itemStatic, arr) {
-            tipController.getInstance();
-            if (itemStatic == 'buy') {
-                console.log("等级够了，钱也够");
-                var landId = farmController.getInstance().model.landId;
-                this.onPlant(landId, arr.id);
-            }
-            else if (itemStatic == 'noMoney') {
-                console.log("等级够了，钱不够");
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.gold + '金币', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
-            }
-            else if (itemStatic == 'lock') {
-                console.log("等级不够");
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.grade + '级', '确定', '取消', function () {
-                        console.log('tanchuang');
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
-            }
-        }
-        onPlant(landId, id) {
-            var landData = dataGlobal.getInstance().farmInfo[landId];
-            if (landData.seed_data.id) {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['该田已经种植了', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
-                return;
-            }
-            var list = {
-                "htid": landId,
-                "hhid": id
-            };
-            Laya.stage.event(NETWORKEVENT.FARMINITPLANTFLOWER, list);
-        }
-        onFertilizer(data) {
-            var landId = farmController.getInstance().model.landId;
-            var landData = dataGlobal.getInstance().farmInfo[landId];
-            if (landData.fat_time > 0) {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['该田已经施过肥了', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
-            }
-            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-            if (have_gold < data.num) {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['施肥种子需要' + data.num + '金币', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
-                return;
-            }
-            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFERTILIZE);
         }
     }
 
@@ -8892,6 +8298,686 @@
         }
     }
 
+    class globalFun {
+        constructor() {
+        }
+        static getInstance() {
+            if (globalFun._instance == null) {
+                globalFun._instance = new globalFun;
+            }
+            return globalFun._instance;
+        }
+        formatSeconds(value) {
+            var secondTime = Math.floor(value);
+            var minuteTime = 0;
+            var hourTime = 0;
+            if (secondTime > 60) {
+                minuteTime = Math.floor(secondTime / 60);
+                secondTime = Math.floor(secondTime % 60);
+                if (minuteTime > 60) {
+                    hourTime = Math.floor(minuteTime / 60);
+                    minuteTime = Math.floor(minuteTime % 60);
+                }
+            }
+            if (hourTime > 0) {
+                var result = "";
+                result = "" + (Math.floor(minuteTime) < 10 ? '0' + Math.floor(minuteTime) : Math.floor(minuteTime)) + "分" + result;
+                result = "" + (Math.floor(hourTime) < 10 ? '0' + Math.floor(hourTime) : Math.floor(hourTime)) + "小时" + result;
+            }
+            else {
+                var result = "" + (Math.floor(secondTime) < 10 ? '0' + Math.floor(secondTime) : Math.floor(secondTime)) + "秒";
+                result = "" + (Math.floor(minuteTime) < 10 ? '0' + Math.floor(minuteTime) : Math.floor(minuteTime)) + "分" + result;
+            }
+            return result;
+        }
+        getCountDown(value) {
+            var secondTime = Math.floor(value);
+            var hour = secondTime % 86400 / 3600 < 10 ? '0' + Math.floor(secondTime % 86400 / 3600) : Math.floor(secondTime % 86400 / 3600);
+            var minute = secondTime % 86400 % 3600 / 60 < 10 ? '0' + Math.floor(secondTime % 86400 % 3600 / 60) : Math.floor(secondTime % 86400 % 3600 / 60);
+            var second = secondTime % 86400 % 3600 % 60 < 10 ? '0' + Math.floor(secondTime % 86400 % 3600 % 60) : Math.floor(secondTime % 86400 % 3600 % 60);
+            return hour + ':' + minute + ':' + second;
+        }
+        goBtn(type) {
+        }
+    }
+
+    class tipIndex extends BaseView {
+        constructor() {
+            super(ui.base.tishi_tipUI);
+        }
+        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            console.log(this.ui.scene);
+            var _tipKuan = this.ui.scene;
+            _tipKuan.content_txt.text = content_txt;
+            _tipKuan.confirm_btn.label = confirm_txt;
+            _tipKuan.cancel_btn.label = cancel_txt;
+            _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
+            _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, this.close);
+            this.tweenShow();
+        }
+        close() {
+            this.tweenHide();
+        }
+        gameFailTip(data) {
+            var myData = data.gd;
+            this.tipShow(myData.msg, '确定', '取消', function () {
+                this.close();
+            }.bind(this), function () {
+                this.close();
+            }.bind(this));
+        }
+        gameTxtTip(txt, call_fun) {
+            var txtNode = new Laya.Text();
+            txtNode.text = txt;
+            txtNode.pivotX = txtNode.width * .5;
+            txtNode.pivotY = txtNode.height * .5;
+            txtNode.x = CONST.STAGEWIDTH / 3;
+            txtNode.y = CONST.STAGEHEIGHT / 2;
+            txtNode.color = '#ffffff';
+            txtNode.fontSize = 65;
+            gameLayer.tipslayer.addChild(txtNode);
+            Laya.Tween.to(txtNode, { y: txtNode.y - 100, alpha: 0.5 }, 1000, null, Laya.Handler.create(this, function () {
+                txtNode.removeSelf();
+                call_fun ? call_fun : function () { };
+            }));
+        }
+        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            var _tipKuan = this.ui.scene;
+            _tipKuan.content_txt.text = content_txt;
+            _tipKuan.confirm_btn.label = confirm_txt;
+            _tipKuan.cancel_btn.label = cancel_txt;
+            _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
+            _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
+            this.tweenShow();
+        }
+    }
+
+    class tipView {
+        constructor() {
+        }
+        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        gameTxtTip(txt, call_fun) {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.gameTxtTip(txt, call_fun);
+        }
+        gameFailTip(data) {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.gameFailTip(data);
+        }
+        close() {
+            if (this._tipCom == null) {
+                this._tipCom = new tipIndex;
+            }
+            this._tipCom.close();
+        }
+    }
+
+    class tipController {
+        constructor() {
+            Laya.stage.on(GAMEEVENT.TIPSKUAN, this, this.tipShow);
+            Laya.stage.on(GAMEEVENT.GOLDTIP, this, this.goldTipShow);
+            Laya.stage.on(NETWORKEVENT.GAMEFAILTIP, this, this.gameFailTip);
+            Laya.stage.on(GAMEEVENT.TXTTIP, this, this.gameTxtTip);
+        }
+        static getInstance() {
+            if (tipController._instance == null) {
+                tipController._instance = new tipController;
+            }
+            return tipController._instance;
+        }
+        tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._tipview == null) {
+                this._tipview = new tipView();
+            }
+            this._tipview.tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._tipview == null) {
+                this._tipview = new tipView;
+            }
+            this._tipview.goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        gameTxtTip(txt, call_fun) {
+            if (this._tipview == null) {
+                this._tipview = new tipView;
+            }
+            this._tipview.gameTxtTip(txt, call_fun);
+        }
+        gameFailTip(data) {
+            if (this._tipview == null) {
+                this._tipview = new tipView;
+            }
+            this._tipview.gameFailTip(data);
+        }
+        close() {
+            if (this._tipview == null) {
+                this._tipview = new tipView;
+            }
+            this._tipview.close();
+        }
+    }
+
+    class farmLand extends ui.farm.farmLandUI {
+        constructor() {
+            super();
+        }
+        init(data) {
+            this.land_id = data.ff_id;
+            this.initLand();
+            this._farmland = this;
+            this._farmland.x = data.x;
+            this._farmland.y = data.y;
+            this._farmland.zOrder = data.zOrder;
+            this._farmland.name = data.ff_id;
+            this.setTimer();
+            this.water_icon.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+            this.harvest_icon.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+            return this._farmland;
+        }
+        initLand() {
+            this.initLandDiv();
+            this.initLandStatic();
+        }
+        initLandDiv() {
+            this.flower.visible = false;
+            this.extend_btn.visible = false;
+            this.extend_kuan.visible = false;
+            this.upgrade_kuan.visible = false;
+            this.xuanzhong.visible = false;
+            this.grow_kuan.visible = false;
+            this.fertilizer_kuan.visible = false;
+            this.harvest_icon.visible = false;
+            this.water_icon.visible = false;
+            var landId = farmController.getInstance().model.landId;
+            if (landId == this.land_id) {
+                this.xuanzhong.visible = true;
+            }
+            this.land.mouseEnabled = false;
+            this.flower.mouseEnabled = false;
+            this.extend_btn.mouseEnabled = false;
+            this.extend_gold.mouseEnabled = false;
+            this.upgrade_gold.mouseEnabled = false;
+            this.upgrade_level.mouseEnabled = false;
+            this.upgrade_info.mouseEnabled = false;
+            this.upgrade_progressbar.mouseEnabled = false;
+            this.xuanzhong.mouseEnabled = false;
+            this.extend_kuan.mouseEnabled = false;
+            this.upgrade_kuan.mouseEnabled = false;
+            this.grow_kuan.mouseEnabled = false;
+            this.fertilizer_kuan.mouseEnabled = false;
+            this.harvest_icon.mouseEnabled = false;
+            this.water_icon.mouseEnabled = false;
+        }
+        setTimer() {
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            if (data.seed_data.mature_time > 0 || data.fat_time > 0) {
+                if (farmLand._timer) {
+                    farmLand._timer.clear(this, this.timerFun);
+                }
+                farmLand._timer = new Laya.Timer();
+                farmLand._timer.loop(1000, this, this.timerFun);
+            }
+        }
+        timerFun() {
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            if (data.seed_data.mature_time == 0 && data.fat_time == 0) {
+                farmLand._timer.clear(this, this.timerFun);
+            }
+            if (data.seed_data.mature_time && data.seed_data.mature_time > 0) {
+                data.seed_data.mature_time--;
+                data.seed_data.next_mature_time--;
+                if (data.seed_data.water_time && data.seed_data.water_time > 0) {
+                    data.seed_data.water_time--;
+                    this.isOperation(data);
+                }
+                this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
+                this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
+                if (data.seed_data.mature_time <= 0) {
+                    this.grow_kuan.visible = false;
+                }
+                if (data.seed_data.next_mature_time <= 0) {
+                    Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER);
+                }
+            }
+            if (data.fat_time > 0) {
+                data.fat_time--;
+                this.fertilizer_time.text = globalFun.getInstance().formatSeconds(data.fat_time);
+                this.fertilizer_time_val.value = Math.floor((data.fat_time / data.fat_time_tol) * 100);
+                this.fertilizer_kuan.visible = true;
+                if (data.fat_time <= 0) {
+                    this.fertilizer_kuan.visible = false;
+                    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFAT);
+                }
+            }
+        }
+        onClickLand() {
+            if (farmController.getInstance().model.clickLandStatic == 'harvest' || farmController.getInstance().model.clickLandStatic == 'water') {
+                farmController.getInstance().model.setClickLandStatic('');
+                return;
+            }
+            console.log('点击', '--', this.land_id, '--', this.land_static);
+            farmController.getInstance().model.setLandId(this.land_id);
+            farmController.getInstance().initLand();
+            switch (this.land_static) {
+                case 'unlock':
+                    this.onGradeExtend(2);
+                    break;
+                case 'plant':
+                case 'fertilizer':
+                    farmController.getInstance().model.setClickLandStatic(this.land_static);
+                    farmController.getInstance().model.setLandId(this.land_id);
+                    farmController.getInstance().initLand();
+                    farmController.getInstance().showSeepList();
+                    this.xuanzhong.visible = true;
+                    break;
+                case 'upgrade':
+                    farmController.getInstance().initLand();
+                    this.xuanzhong.visible = true;
+                    this.onGradeExtend(1);
+                    break;
+                case 'harvest':
+                    farmController.getInstance().model.setClickLandStatic('harvest');
+                    farmController.getInstance().model.setLandId('');
+                    this.onHarvest();
+                    break;
+                case 'water':
+                    farmController.getInstance().model.setClickLandStatic('water');
+                    farmController.getInstance().model.setLandId('');
+                    this.onWater();
+                    break;
+            }
+        }
+        onWater() {
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            if (data.seed_data.id && typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {
+                console.log('浇水');
+            }
+        }
+        onHarvest() {
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            if (data.seed_data.id && data.seed_data.grow_static == 4) {
+                console.log('可以收获');
+            }
+            else {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['还不能收获', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+            }
+        }
+        onLandUpGrade(type) {
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            var landInfo = dataJson.getInstance().GET_SYS_FLOWER_FIELD()[this.land_id][data.ff_vip];
+            var str = '';
+            var gold_str = '';
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            if (Math.floor(have_gold) < Math.floor(landInfo.num2)) {
+                str = '宝石不足，不能升级';
+                gold_str = "<span style='color:#E92727'>" + have_gold + "</span><span style='color:#7D4815'>/" + data.next_ff_id_glod + "</span>";
+            }
+            else {
+                gold_str = "<span style='color:#7D4815'>" + have_gold + "</span><span style='color:#7D4815'>/" + data.next_ff_id_glod + "</span>";
+            }
+            if (Math.floor(data.ff_exp) < Math.floor(landInfo.exp)) {
+                str = '花田经验不足，请多多种植吧';
+            }
+            var confirm_fun = function () {
+                tipController.getInstance().close();
+                if (str) {
+                    Laya.stage.event(GAMEEVENT.TIPSKUAN, [str]);
+                }
+                else {
+                    this.onGradeExtendAct(type);
+                }
+            }.bind(this);
+            var cancel_fun = function () {
+                tipController.getInstance().close();
+            };
+            Laya.stage.event(GAMEEVENT.GOLDTIP, ['升级', gold_str, '确定', '取消', confirm_fun, cancel_fun]);
+        }
+        onGradeExtend(type) {
+            tipController.getInstance();
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            var landInfo = dataJson.getInstance().GET_SYS_FLOWER_FIELD()[this.land_id][data.ff_vip];
+            var str = '';
+            var gold_str = '';
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            if (Math.floor(have_gold) < Math.floor(data.ff_id_unlocknum)) {
+                str = '钻石不足，不能扩建';
+            }
+            var member = dataJson.getInstance().GET_SYS_FLOWER_MEMBER();
+            var member_info = dataJson.getInstance().GET_SYS_FLOWER_MEMBER()[grade];
+            var userFarm = dataGlobal.getInstance().farmInfo;
+            var num = 0;
+            for (var i in userFarm) {
+                if (userFarm[i].ff_vip != 1) {
+                    num++;
+                }
+            }
+            console.log(member);
+            console.log(member_info.field, num, grade);
+            if (member_info.field < num) {
+                console.log('这里是不能开花田的，需要查询一下下一级可以开的花田');
+                for (var q in member) {
+                    if (member[q].field > member_info.field) {
+                        str = '达到' + member[q].grade + '级可扩建该花田';
+                        break;
+                    }
+                }
+            }
+            gold_str = "" + have_gold + "/" + data.ff_id_unlocknum + "";
+            if (str) {
+                Laya.stage.event(GAMEEVENT.TXTTIP, [str]);
+                return;
+            }
+            var confirm_fun = function () {
+                this.onGradeExtendAct(type);
+                tipController.getInstance().close();
+            }.bind(this);
+            var cancel_fun = function () {
+                tipController.getInstance().close();
+            };
+            Laya.stage.event(GAMEEVENT.GOLDTIP, ['扩建', gold_str, '确定', '取消', confirm_fun, cancel_fun]);
+        }
+        onGradeExtendAct(type) {
+            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, this.land_id);
+        }
+        initLandStatic() {
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            this.land.skin = "farm/land_" + data.ff_vip + ".png";
+            this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+            this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+            if (data.ff_vip == 1) {
+                this.land_static = 'unlock';
+                if (data.is_lock == 2) {
+                    return;
+                }
+                this.extend_kuan.visible = true;
+                this.extend_btn.visible = true;
+                this.land.mouseEnabled = true;
+                this.on(Laya.Event.CLICK, this, this.onClickLand);
+                this.extend_gold.text = data.ff_id_unlocknum;
+                this.extend_gold.visible = true;
+                return;
+            }
+            if (this.land_static == 'upgrade') {
+                this.upgrade_kuan.visible = true;
+                if (data.ff_vip >= data.max_grade) {
+                    this.upgrade_info.text = "<span style='color:#ffffff'>满级</span>";
+                    this.upgrade_info.visible = true;
+                    this.land.mouseEnabled = true;
+                    this.land.on(Laya.Event.CLICK, this, function () {
+                    });
+                }
+                else {
+                    this.upgrade_info.text = "加速:" + data.seed + "%+" + data.next_seed + "%";
+                    this.upgrade_info.visible = true;
+                    this.upgrade_gold.text = data.next_ff_id_glod;
+                    this.upgrade_gold.visible = true;
+                    this.upgrade_level.text = 'lv:' + (data.ff_vip - 1);
+                    this.upgrade_level.visible = true;
+                    this.upgrade_progressbar.value = Math.floor((data.ff_exp / data.next_exp) * 100) >= 100 ? 100 : Math.floor((data.ff_exp / data.next_exp) * 100);
+                    this.upgrade_progressbar.visible = true;
+                    this.land.mouseEnabled = true;
+                    this.land.on(Laya.Event.CLICK, this, this.onClickLand);
+                }
+                return;
+            }
+            if (this.land_static == 'fertilizer' || this.land_static == 'plant') {
+                if (data.fat_time > 0 && farmController.getInstance().model.landId == this.land_id) {
+                    this.fertilizer_time.text = globalFun.getInstance().formatSeconds(data.fat_time);
+                    this.fertilizer_time_val.value = Math.floor((data.fat_time / data.fat_time_tol) * 100) >= 100 ? 100 : Math.floor((data.fat_time / data.fat_time_tol) * 100);
+                    this.fertilizer_kuan.visible = true;
+                }
+            }
+            if (data.seed_data.id) {
+                this.flower.skin = "farm/" + data.seed_data.id + "_" + data.seed_data.grade + ".png";
+                this.flower.visible = true;
+                if (this.isOperation(data)) {
+                    return;
+                }
+                if (farmController.getInstance().model.landId == this.land_id && data.seed_data.mature_time > 0) {
+                    this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
+                    this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
+                    this.grow_kuan.visible = true;
+                }
+                this.land.on(Laya.Event.CLICK, this, this.onClickLand);
+                this.land.mouseEnabled = true;
+                this.land_static = 'fertilizer';
+            }
+            else {
+                this.land.on(Laya.Event.CLICK, this, this.onClickLand);
+                this.land.mouseEnabled = true;
+                this.land_static = 'plant';
+            }
+            this.land.visible = true;
+        }
+        isOperation(data) {
+            var data = dataGlobal.getInstance().farmInfo[this.land_id];
+            var clickLandStatic = farmController.getInstance().model.clickLandStatic;
+            if (clickLandStatic == '' || clickLandStatic == 'harvest' || clickLandStatic == 'water') {
+                if (clickLandStatic == '') {
+                    if (data.seed_data.id && data.seed_data.grow_static == 4 && data.seed_data.mature_time <= 0) {
+                        this.land_static = 'harvest';
+                        this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+                        this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+                        this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+                        this.harvest_icon.visible = true;
+                        return true;
+                    }
+                    else if (typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {
+                        this.land_static = 'water';
+                        this.land.mouseEnabled = true;
+                        this.land.off(Laya.Event.CLICK, this, this.onClickLand);
+                        this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+                        this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+                        this.water_icon.mouseEnabled = true;
+                        this.water_icon.visible = true;
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    class farmSeedList extends ui.farm.seedListUI {
+        constructor() {
+            super();
+        }
+        init() {
+            this._seedListScene = this;
+            this._seed_list = this.seed_list;
+            this._seed_list.hScrollBarSkin = "";
+            this._seedListScene.visible = false;
+            return this._seedListScene;
+        }
+        addSeedListItem(data) {
+        }
+        setSeedListItem() {
+            this.setSeedItem();
+        }
+        addSeedItem(data) {
+            this._seedListArray = [];
+            for (var i in data) {
+                this._seedListArray.push(data[i]);
+            }
+            this._seed_list.array = this._seedListArray;
+            console.log(this._seed_list.array, '------------------------');
+        }
+        setSeedItem() {
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var seed_arr = farmController.getInstance().model.seedData;
+            console.log(seed_arr);
+            let dataSource = [];
+            for (var i in seed_arr) {
+                let data = null;
+                if (grade >= seed_arr[i].grade2 && grade <= seed_arr[i].grade3) {
+                    if (have_gold >= seed_arr[i].gold) {
+                        data = {
+                            suo_div: { visible: false },
+                            seep_pic: {
+                                skin: "farm/" + seed_arr[i].id + "_seed.png"
+                            },
+                            gold_num: {
+                                text: seed_arr[i].gold,
+                                color: "#EDFF24"
+                            },
+                        };
+                    }
+                    else {
+                        data = {
+                            suo_div: { visible: false },
+                            seep_pic: {
+                                skin: "farm/" + seed_arr[i].id + "_seed.png"
+                            },
+                            gold_num: {
+                                text: seed_arr[i].gold,
+                                color: "#FF3E24"
+                            },
+                        };
+                    }
+                }
+                else {
+                    data = {
+                        suo_div: { visible: true },
+                        seep_pic: {
+                            skin: "farm/" + seed_arr[i].id + "_seed.png"
+                        },
+                        gold_num: {
+                            text: seed_arr[i].gold,
+                            color: "#274200"
+                        },
+                    };
+                }
+                dataSource.push(data);
+            }
+            this._seed_list.dataSource = dataSource;
+            this._seed_list.selectEnable = true;
+            this._seed_list.selectHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
+            console.log(this._seed_list.dataSource);
+            this._seedListScene.visible = true;
+        }
+        itemSelectHandler(index) {
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var seed_arr = farmController.getInstance().model.seedData;
+            console.log(index);
+            if (grade >= seed_arr[index].grade2 && grade <= seed_arr[index].grade3) {
+                if (have_gold >= seed_arr[index].gold) {
+                    this.onClick('buy', { 'id': seed_arr[index].id });
+                }
+                else {
+                    console.log('不够了');
+                    this.onClick('noMoney', { 'id': seed_arr[index].id });
+                }
+            }
+            else {
+                console.log('取法解锁');
+                this.onClick('lock', { 'id': seed_arr[index].id });
+            }
+        }
+        initSeedItem(itemObj) {
+            itemObj.suo_div.visible = false;
+            itemObj.gold.color = '#EDFF24';
+        }
+        addFertilizerItem(data) {
+            for (var i in data) {
+            }
+        }
+        setFatItem() {
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var fat_arr = farmController.getInstance().model.fatData;
+            for (var i in fat_arr) {
+            }
+            this._seedListScene.visible = true;
+        }
+        hide() {
+            this._seedListScene.visible = false;
+        }
+        onClick(itemStatic, arr) {
+            console.log('daole -------------------');
+            tipController.getInstance();
+            if (itemStatic == 'buy') {
+                console.log("等级够了，钱也够");
+                var landId = farmController.getInstance().model.landId;
+                this.onPlant(landId, arr.id);
+            }
+            else if (itemStatic == 'noMoney') {
+                console.log("等级够了，钱不够");
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.gold + '金币', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+            }
+            else if (itemStatic == 'lock') {
+                console.log("等级不够");
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.grade + '级', '确定', '取消', function () {
+                        console.log('tanchuang');
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+            }
+        }
+        onPlant(landId, id) {
+            var landData = dataGlobal.getInstance().farmInfo[landId];
+            if (landData.seed_data.id) {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['该田已经种植了', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+                return;
+            }
+            var list = {
+                "htid": landId,
+                "hhid": id
+            };
+            Laya.stage.event(NETWORKEVENT.FARMINITPLANTFLOWER, list);
+        }
+        onFertilizer(data) {
+            var landId = farmController.getInstance().model.landId;
+            var landData = dataGlobal.getInstance().farmInfo[landId];
+            if (landData.fat_time > 0) {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['该田已经施过肥了', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+            }
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            if (have_gold < data.num) {
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['施肥种子需要' + data.num + '金币', '确定', '取消', function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+                return;
+            }
+            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFERTILIZE);
+        }
+    }
+
     class warehouseItem extends ui.warehouse.good_itemUI {
         constructor() {
             super();
@@ -9277,7 +9363,6 @@
             this.land_div.addChild(landObj.init(data));
         }
         cleanAllStatu() {
-            console.log(this.ui);
             this.ui.bg_kuan.visible = false;
             farmController.getInstance().model.setLandId('');
             farmController.getInstance().model.setClickLandStatic('');
@@ -9455,7 +9540,7 @@
                         "grow_static": 1,
                         "id": hhid,
                         "name": "\u7ea2\u73ab\u7470",
-                        "grade": "3",
+                        "grade": "1",
                         "pic": "hh01_1",
                         "ain": ""
                     };
@@ -9483,7 +9568,7 @@
     staticData.INDEX_DATA = [
         {
             "ff_id": "ht01",
-            "ff_vip": 2,
+            "ff_vip": 1,
             "ff_exp": 0,
             "ff_id_unlocknum": 50,
             "next_ff_id_glod": 0,
@@ -9507,7 +9592,7 @@
         },
         {
             "ff_id": "ht02",
-            "ff_vip": 4,
+            "ff_vip": 1,
             "ff_exp": 100,
             "ff_id_unlocknum": 100,
             "next_ff_id_glod": 0,
@@ -9531,7 +9616,7 @@
         },
         {
             "ff_id": "ht03",
-            "ff_vip": 5,
+            "ff_vip": 1,
             "ff_exp": 200,
             "ff_id_unlocknum": 200,
             "next_ff_id_glod": 0,
@@ -9555,7 +9640,7 @@
         },
         {
             "ff_id": "ht04",
-            "ff_vip": 2,
+            "ff_vip": 1,
             "ff_exp": 100,
             "ff_id_unlocknum": 300,
             "next_ff_id_glod": 0,
@@ -9579,7 +9664,7 @@
         },
         {
             "ff_id": "ht05",
-            "ff_vip": 3,
+            "ff_vip": 1,
             "ff_exp": 100,
             "ff_id_unlocknum": 400,
             "next_ff_id_glod": 0,
@@ -9603,7 +9688,7 @@
         },
         {
             "ff_id": "ht06",
-            "ff_vip": 2,
+            "ff_vip": 1,
             "ff_exp": 100,
             "ff_id_unlocknum": 500,
             "next_ff_id_glod": 0,
@@ -9627,7 +9712,7 @@
         },
         {
             "ff_id": "ht07",
-            "ff_vip": 2,
+            "ff_vip": 1,
             "ff_exp": 100,
             "ff_id_unlocknum": 600,
             "next_ff_id_glod": 0,
@@ -9651,7 +9736,7 @@
         },
         {
             "ff_id": "ht08",
-            "ff_vip": 2,
+            "ff_vip": 1,
             "ff_exp": 100,
             "ff_id_unlocknum": 700,
             "next_ff_id_glod": 0,
@@ -9675,7 +9760,7 @@
         },
         {
             "ff_id": "ht09",
-            "ff_vip": 2,
+            "ff_vip": 1,
             "ff_exp": 100,
             "ff_id_unlocknum": 800,
             "next_ff_id_glod": 0,
@@ -9771,7 +9856,6 @@
         }
         FarmInitSeedList(data) {
             data = staticData.getInstance().getFarmInitSeedList();
-            console.log(data.gd.seed_data, '/////////////////////');
             farmController.getInstance().model.setFarmSeed(data.gd);
             farmController.getInstance().onFarmInitSeedList(data.gd);
         }
@@ -9791,6 +9875,7 @@
             farmController.getInstance().initLand();
         }
         FarmInitPlantFlower(list) {
+            console.log('请求种植');
             var data = staticData.getInstance().farmInitPlantFlower(list.htid, list.hhid);
             var myData = data.gd;
             var tmp_arr = {
@@ -10019,7 +10104,6 @@
             super(ui.login.loginUI);
         }
         addEvents() {
-            console.log(this.ui);
             console.log(this.ui.login_btn);
             console.log("addEvents", this.ui.login_btn);
             this.ui.on(Laya.Event.CLICK, this, this.loginBtn);

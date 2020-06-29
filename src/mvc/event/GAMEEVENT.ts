@@ -17,6 +17,7 @@ export default class GAMEEVENT{
    * 游戏弹框
    */
   public static TIPSKUAN:string = 'TIPSKUAN';//游戏的弹窗
+  public static TXTTIP:string = 'TXTTIP';//飘字提醒
   public static GOLDTIP:string = 'GOLDTIP';//金币提醒弹窗
   /**农场 */
   public static FARM:string = 'FARM';//打开农场

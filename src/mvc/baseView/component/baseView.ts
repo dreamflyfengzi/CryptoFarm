@@ -176,13 +176,17 @@ export default class BaseView extends Laya.View implements IBaseView {
   // 窗口
   /** */
   public tweenHide() {
-    this.off(Laya.Event.CLICK, this, this.onClick);
-    Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 1000, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
-    Laya.Tween.to(this, { alpha: 0 }, 1000, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
+    console.log('关闭窗口')          
+    // this.off(Laya.Event.CLICK, this, this.onClick);
+    // Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
+    // Laya.Tween.to(this, { alpha: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
+    this.onAlphaComplete()
   }
   /** */
   public onClick() {
     console.log("onClick");
+    console.log(this)
+    
   }
   /** */
   private onComplete() {
@@ -198,16 +202,19 @@ export default class BaseView extends Laya.View implements IBaseView {
   }
   /** */
   public clearAll() {
-    this.visible = false;
+
     this.graphics.clear();
     this.off(Laya.Event.CLICK, this, this.onClick);
-    this.removeChildren();
+    // this.removeChildren();
     Laya.Tween.clearAll(this);
     this.visible = false;
+    this.removeFromParent()
+    // console.log(this,'this')
+    // console.log(gameLayer.windowlayer)
+
   }
   	/** */
 		public tweenShow(){
-      console.log(this)
 			this.visible = true;
 			this.setCenter();
 			this.scale(0,0);
@@ -215,7 +222,8 @@ export default class BaseView extends Laya.View implements IBaseView {
 			Laya.Tween.to(this,{alpha:1},1000,Laya.Ease.linearIn);
 			Laya.Tween.to(this,{scaleX:1,scaleY:1},1000,Laya.Ease.elasticOut);
 			this.showModal();
-			gameLayer.windowlayer.addChild(this);
+      // gameLayer.windowlayer.addChild(this);
+      // console.log(gameLayer.windowlayer)
     }
     	/** */
 		public showModal(){

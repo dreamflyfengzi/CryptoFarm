@@ -3,6 +3,8 @@
 */
 import baseView from '../../component/baseView'
 import {ui} from '../../../../ui/layaMaxUI'
+import gameLayer from '../../../gameLayer'
+import CONST from '../../../../const/CONST'
 export default class tipIndex extends baseView {
 
   constructor() {
@@ -57,19 +59,19 @@ export default class tipIndex extends baseView {
    * 
    */
   public gameTxtTip(txt: string, call_fun?: Function) {
-    // var txtNode: Laya.Text = new Laya.Text();
-    // txtNode.text = txt;
-    // txtNode.pivotX = txtNode.width * .5;
-    // txtNode.pivotY = txtNode.height * .5;
-    // txtNode.x = CONST.STAGEWIDTH / 2;
-    // txtNode.y = CONST.STAGEHEIGHT / 2;
-    // txtNode.color = '#ffffff';
-    // txtNode.fontSize = 15;
-    // gameLayer.tipslayer.addChild(txtNode);
-    // Laya.Tween.to(txtNode, { y: txtNode.y - 100, alpha: 0.5 }, 1000, null, Laya.Handler.create(this, function () {
-    //   txtNode.removeSelf();
-    //   call_fun ? call_fun : function () { };
-    // }));
+    var txtNode: Laya.Text = new Laya.Text();
+    txtNode.text = txt;
+    txtNode.pivotX = txtNode.width * .5;
+    txtNode.pivotY = txtNode.height * .5;
+    txtNode.x = CONST.STAGEWIDTH /3;
+    txtNode.y = CONST.STAGEHEIGHT / 2;
+    txtNode.color = '#ffffff';
+    txtNode.fontSize = 65;
+    gameLayer.tipslayer.addChild(txtNode);
+    Laya.Tween.to(txtNode, { y: txtNode.y - 100, alpha: 0.5 }, 1000, null, Laya.Handler.create(this, function () {
+      txtNode.removeSelf();
+      call_fun ? call_fun : function () { };
+    }));
 
   }
   /**
@@ -83,6 +85,12 @@ export default class tipIndex extends baseView {
   public goldTipShow(title: string, content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
     // var _goldTipKuan = fairygui.UIPackage.createObject('base', 'gold_tip').asCom;
     // _goldTipKuan.getChild('title').asTextField.text = title;
+    var _tipKuan = this.ui.scene;
+    _tipKuan.content_txt.text = content_txt;
+    _tipKuan.confirm_btn.label = confirm_txt;
+    _tipKuan.cancel_btn.label = cancel_txt;
+    _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
+    _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
     // _goldTipKuan.getChild('content_txt').asTextField.text = content_txt;
     // _goldTipKuan.getChild('confirm_txt').asTextField.text = confirm_txt;
     // _goldTipKuan.getChild('cancel_txt').asTextField.text = cancel_txt;

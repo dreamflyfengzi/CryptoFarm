@@ -24,7 +24,7 @@ export default class loginWin extends baseView {
 
   public addEvents() {
     // console.log(this.mouseEnabled)
-    console.log(this.ui)
+    
     console.log(this.ui.login_btn)
 
     // console.log(this.ui.login_btn.width)

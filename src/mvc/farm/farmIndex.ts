@@ -167,7 +167,6 @@ export default class farmIndex extends baseView {
    * 清除所有状态
    */
   private cleanAllStatu() {
-    console.log(this.ui)
     this.ui.bg_kuan.visible = false;
     // this.ui.bg_kuan.enabled = false;
     //重置一下农田

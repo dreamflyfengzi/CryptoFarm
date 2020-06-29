@@ -27,6 +27,7 @@ export default class tipController {
     Laya.stage.on(GAMEEVENT.TIPSKUAN, this, this.tipShow);
     Laya.stage.on(GAMEEVENT.GOLDTIP, this, this.goldTipShow);
     Laya.stage.on(NETWORKEVENT.GAMEFAILTIP, this, this.gameFailTip);
+    Laya.stage.on(GAMEEVENT.TXTTIP, this, this.gameTxtTip); //飘字提醒
 
 
   }

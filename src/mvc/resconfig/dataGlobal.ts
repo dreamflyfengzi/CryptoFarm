@@ -84,7 +84,7 @@ export default class dataGlobal{
       this.query.system = this.get_sys();
       this.farmInfo = {};
       this.userInfo = {
-        "grade":22,
+        "grade":10,
         "have_gold":1000000
       };
       this.factory = {};

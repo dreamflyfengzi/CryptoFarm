@@ -52,9 +52,9 @@ export module ui.farm {
     }
     REG("ui.farm.farmIndexsceneUI",farmIndexsceneUI);
     export class farmLandUI extends Laya.Scene {
-		public land:Laya.Sprite;
+		public land:Laya.Image;
 		public xuanzhong:Laya.Image;
-		public flower:Laya.Sprite;
+		public flower:Laya.Image;
 		public extend_btn:Laya.Button;
 		public extend_kuan:Laya.Box;
 		public n14:Laya.Sprite;
@@ -102,6 +102,15 @@ export module ui.farm {
     export class seedListUI extends Laya.Scene {
 		public n1:Laya.Image;
 		public seed_list:Laya.List;
+		public seed_item:Laya.Box;
+		public n9:Laya.Image;
+		public seep_pic:Laya.Image;
+		public n2:Laya.Image;
+		public n3:Laya.Sprite;
+		public gold_num:Laya.Label;
+		public suo_div:Laya.Box;
+		public n4:Laya.Image;
+		public n5:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
