@@ -75,7 +75,7 @@ export default class farmSeedList extends ui.farm.seedListUI {
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     //获取种子列表信息
     var seed_arr = farmController.getInstance().model.seedData;
-    console.log(seed_arr)
+    
     let dataSource = [];
     for (var i in seed_arr) {
       let data = null;
@@ -217,7 +217,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
    */
 
   private onClick(itemStatic: string, arr: any) {
-    console.log('daole -------------------')
     tipController.getInstance();
     if (itemStatic == 'buy') {//等级够了，钱也够
       console.log("等级够了，钱也够")

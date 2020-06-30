@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":7,
+    "selectedBox":26,
+    "selecteID":29,
     "searchKey":"Scene,farmLand",
     "props":{"width":400,"var":"farmLand","sceneColor":"#000000","height":400},
     "nodeParent":-1,
@@ -226,13 +226,14 @@
             "props":{"y":179,"x":79,"width":242,"var":"grow_kuan","stateNum":"3","height":41},
             "nodeParent":2,
             "label":"grow_kuan",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":26,
             "child":[
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,n24",
                     "props":{"var":"n24","text":"生长","strokeColor":"#884d37","stroke":4,"fontSize":36,"font":"SimHei","color":"#fdf8f8","bold":false},
@@ -246,6 +247,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"ProgressBar",
                     "searchKey":"ProgressBar,grow_time_val",
                     "props":{"y":-1,"x":84,"width":158,"var":"grow_time_val","skin":"main/pic_shengzhangtiao1.png","sizeGrid":"15,15,10,10","height":38},
@@ -259,9 +261,10 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,grow_time",
-                    "props":{"y":0,"x":108,"wordWrap":false,"width":129,"var":"grow_time","valign":"middle","text":"00时00秒","strokeColor":"#6b4522","stroke":3,"height":40,"fontSize":25,"font":"SimHei","color":"#ffffff","align":"right"},
+                    "props":{"y":0,"x":108,"wordWrap":false,"width":129,"var":"grow_time","valign":"middle","text":"00时00秒","strokeColor":"#6b4522","stroke":3,"height":40,"fontSize":30,"font":"SimHei","color":"#ffffff","align":"right"},
                     "nodeParent":26,
                     "label":"grow_time",
                     "isDirectory":false,

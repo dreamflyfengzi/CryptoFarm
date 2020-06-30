@@ -54,7 +54,7 @@ export default class BaseView extends Laya.View implements IBaseView {
       obj.zOrder = 1;
       this.tweenAlphaAllShow(obj);
     }.bind(this)))
-
+    
   }
   /**添加对象，并且渐显显示 */
   public tweenAlphaAllShow(obj: any) {
@@ -175,18 +175,16 @@ export default class BaseView extends Laya.View implements IBaseView {
 
   // 窗口
   /** */
-  public tweenHide() {
-    console.log('关闭窗口')          
-    // this.off(Laya.Event.CLICK, this, this.onClick);
-    // Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
-    // Laya.Tween.to(this, { alpha: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
-    this.onAlphaComplete()
+  public tweenHide() { 
+    console.log('关闭')     
+    this.off(Laya.Event.CLICK, this, this.onClick);
+    Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
+    Laya.Tween.to(this, { alpha: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
   }
   /** */
   public onClick() {
     console.log("onClick");
     console.log(this)
-    
   }
   /** */
   private onComplete() {
@@ -202,7 +200,6 @@ export default class BaseView extends Laya.View implements IBaseView {
   }
   /** */
   public clearAll() {
-
     this.graphics.clear();
     this.off(Laya.Event.CLICK, this, this.onClick);
     // this.removeChildren();
@@ -211,7 +208,6 @@ export default class BaseView extends Laya.View implements IBaseView {
     this.removeFromParent()
     // console.log(this,'this')
     // console.log(gameLayer.windowlayer)
-
   }
   	/** */
 		public tweenShow(){
@@ -229,12 +225,14 @@ export default class BaseView extends Laya.View implements IBaseView {
 		public showModal(){
 			this.visible = true;
 			this.graphics.clear();
-			// this.graphics.drawRect(0,0,Laya.stage.width,Laya.stage.height,'#000000');
-			this.alpha = .25;
+			this.graphics.drawRect(0,0,Laya.stage.width,Laya.stage.height,'#000000');
+      this.alpha = 0.25;
+      console.log(this.alpha)
 			this.width = Laya.stage.width;
       this.height = Laya.stage.height;
 			gameLayer.windowlayer.addChild(this);
-			this.on(Laya.Event.CLICK,this,this.onClick);
+      this.on(Laya.Event.CLICK,this,this.onClick);
+      console.log('开启')
 		}
     		/** */
 		public setCenter(){

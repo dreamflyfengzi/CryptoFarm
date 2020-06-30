@@ -4,6 +4,8 @@
 import farmController from './farmController'
 import dataGlobal from '../resconfig/dataGlobal'
 import staticData from '../resconfig/staticData'
+import GAMEEVENT from '../event/GAMEEVENT'
+import NETWORKEVENT from '../event/NETWORKEVENT'
 export default class farmNetwork {
   private _farmController: farmController;
   constructor() {
@@ -38,13 +40,12 @@ export default class farmNetwork {
    * 1 升级
    * 2 解锁
    */
-  public FarmInitFlowerGrade(id) {
+  public FarmInitFlowerGrade(msg) {
     // var _data = { "ga": "init_flower_grade", "gd": { "type": 2, "ff_id": "ht01", "ff_vip": 3, "ff_exp": 10, "next_exp": 100, "ff_id_unlocknum": 0, "next_ff_id_glod": 110, "pic": "land_3", "ain": "", "msg": "\u5347\u7ea7\/\u89e3\u9501\u6210\u529f" }, "code": 1 };
-    var data = staticData.getInstance().getFarmInitFlowerGrade(id);
+    var data = staticData.getInstance().getFarmInitFlowerGrade(msg);
     var myData = data.gd;
-    // // console.log(myData)
     var tmp_arr = {
-      'ff_id':myData.ff_id,
+      'ff_id': myData.ff_id,
       'ff_vip': myData.ff_vip,
       'ff_exp': myData.ff_exp,
       'next_exp': myData.next_exp,
@@ -54,32 +55,37 @@ export default class farmNetwork {
       // "next_seed": myData.next_seed,
       'pic': myData.pic,
     }
+    console.log(data.type)
+    if (data.type == 1) {//升级
 
-    // if (myData.type == 1) {//升级
-    // if (myData.ff_vip == 1) {//扩建
-
-    // // } else if (myData.type == 2) {//扩建
-    // //   //修改单个农田的状态
-    //   tmp_arr['is_lock'] = myData.is_lock;
-    // //   var landStatic = farmController.getInstance().model.clickLandStatic;
-    // //   if (myData.next_ht_lock) {
-    // //     var next_arr = {
-    // //       'is_lock': 1
-    // //     }
-    // //     dataGlobal.getInstance().setFarmInfo(next_arr, myData.next_ht_lock);//保存农田信息
-    // //   }
-    // }
-
-    dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);//保存农田信息
-
-    farmController.getInstance().initLand();//重置农田
+    } else if (data.type == 2) { //扩建
+      //修改单个农田的状态
+      tmp_arr['is_lock'] = myData.is_lock;
+      var landStatic = farmController.getInstance().model.clickLandStatic;
+      if (myData.next_ht_lock) {
+        var next_arr = {
+          'is_lock': 1
+        };
+        dataGlobal.getInstance().setFarmInfo(next_arr, myData.next_ht_lock); //保存农田信息
+      }
+    }
+    dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id); //保存农田信息
+    farmController.getInstance().initLand(); //重置农田
+    if (myData.msg) {
+      Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
+    }
   }
+
+  // dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);//保存农田信息
+
+  // farmController.getInstance().initLand();//重置农田
+  // }
   /**
    * 请求种植操作
    */
   public FarmInitPlantFlower(list) {
     console.log('请求种植')
-    var data = staticData.getInstance().farmInitPlantFlower(list.htid,list.hhid);
+    var data = staticData.getInstance().farmInitPlantFlower(list.htid, list.hhid);
     // data = { 
     //   "ga": "init_plant_flower", 
     //   "gd":
@@ -160,15 +166,18 @@ export default class farmNetwork {
    * 植物成长推送
    */
   public FarmInitGrowFlower(data) {
-    var myData = data.gd;
+    Laya.stage.off(NETWORKEVENT.FARMINITGROWFLOWER,this,this.FarmCollectFlower);//植物成长推送
+    // var myData = data.gd;
+    var _tmp_arr = staticData.getInstance().farmInitGrowFlower(data.ff_id, data.seed_data);
+    console.log(data.ff_id,'的花长大了',_tmp_arr.gd)
     var tmp_arr = {
-      'fat_time': myData.fat_time,
-      'fat_time_tol': myData.fat_time_tol,
-      'ff_exp': myData.ff_exp,
-      'seed_data': myData.seed_data
+      'fat_time':_tmp_arr.gd.fat_time,
+      'fat_time_tol': _tmp_arr.gd.fat_time_tol,
+      'ff_exp': _tmp_arr.gd.ff_exp,
+      'seed_data': _tmp_arr.gd.seed_data
     }
-    dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);//保存农田信息
-    console.log('成长了')
+    dataGlobal.getInstance().setFarmInfo(tmp_arr, _tmp_arr.gd.ff_id);//保存农田信息
+
     farmController.getInstance().initLand();//重置农田
   }
   /**

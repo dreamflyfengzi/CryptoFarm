@@ -84,8 +84,8 @@ export default class dataGlobal{
       this.query.system = this.get_sys();
       this.farmInfo = {};
       this.userInfo = {
-        "grade":10,
-        "have_gold":1000000
+        "grade":1, //用户等级
+        "have_gold":1000000 //用户金币
       };
       this.factory = {};
       this.userGoodInfo = {};

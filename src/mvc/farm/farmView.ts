@@ -47,14 +47,14 @@ export default class farmView{
 		 * 修改单个农田的状态
 		 */
 		public setThisLandStatic(id,str){
-			// this._indexCom.setThisLandStatic(id,str);
+			this._indexCom.setThisLandStatic(id,str);
 		}
 		/**
 		 * 设置单个农田的定时器
 		 * id：农田的ID
 		 */
 		public setThisLandTimer(id){
-			// this._indexCom.setThisLandTimer(id)
+			this._indexCom.setThisLandTimer(id)
 		}
 		/**
 		 * 重置农田信息

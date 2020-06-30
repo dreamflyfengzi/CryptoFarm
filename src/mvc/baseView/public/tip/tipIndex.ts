@@ -1,14 +1,14 @@
 /*
 * name;
 */
-import baseView from '../../component/baseView'
+import baseWindow from '../../component/baseWindow'
 import {ui} from '../../../../ui/layaMaxUI'
 import gameLayer from '../../../gameLayer'
 import CONST from '../../../../const/CONST'
-export default class tipIndex extends baseView {
+export default class tipIndex extends baseWindow {
 
   constructor() {
-    super(ui.base.tishi_tipUI);
+    super();
   }
   // private _tipKuan: fairygui.GComponent;
   // private content_txt: fairygui.GTextField;
@@ -27,8 +27,8 @@ export default class tipIndex extends baseView {
    * @param cancel_fun   ：取消监听函数
    */
   public tipShow(content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
-    console.log(this.ui.scene)
-    var _tipKuan = this.ui.scene;
+   
+    var _tipKuan = new ui.base.tishi_tipUI();
     _tipKuan.content_txt.text = content_txt;
     _tipKuan.confirm_btn.label = confirm_txt;
     _tipKuan.cancel_btn.label = cancel_txt;
@@ -83,9 +83,10 @@ export default class tipIndex extends baseView {
    * @param cancel_fun   ：取消监听函数
    */
   public goldTipShow(title: string, content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
-    // var _goldTipKuan = fairygui.UIPackage.createObject('base', 'gold_tip').asCom;
+     var _tipKuan = new ui.base.tishi_tipUI();
+     this.addChild(_tipKuan)
     // _goldTipKuan.getChild('title').asTextField.text = title;
-    var _tipKuan = this.ui.scene;
+
     _tipKuan.content_txt.text = content_txt;
     _tipKuan.confirm_btn.label = confirm_txt;
     _tipKuan.cancel_btn.label = cancel_txt;
@@ -96,11 +97,11 @@ export default class tipIndex extends baseView {
     // _goldTipKuan.getChild('cancel_txt').asTextField.text = cancel_txt;
     // _goldTipKuan.getChild('confirm_btn').asLoader.onClick(this, confirm_fun);
     // _goldTipKuan.getChild('cancel_btn').asLoader.onClick(this, cancel_fun);
-    // _goldTipKuan.getChild('close_btn').asLoader.onClick(this, this.close);
+    _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
     // this.setScale(_goldTipKuan.displayObject);
     // // console.log(this._tipKuan.displayObject.x,this._tipKuan.displayObject.y);
-    // _goldTipKuan.displayObject.pivotX = 0.5 * _goldTipKuan.displayObject.width;
-    // _goldTipKuan.displayObject.pivotY = 0.5 * _goldTipKuan.displayObject.height;
+    _tipKuan.pivotX = 0.5 * _tipKuan.width;
+    _tipKuan.pivotY = 0.5 * _tipKuan.height;
     // this.addChild(_goldTipKuan.displayObject);
     this.tweenShow();
   }

@@ -120,12 +120,12 @@ export default class farmIndex extends baseView {
   private getFarmLand() {
     //试着进行websocke请求
     // let tmp_websocket = net.webSocketJson.getInstance();
-    let tmp_data = {
-      'a': "init_field",
-      'm': "init",
-      'd': {},
-      'code': 1
-    };
+    // let tmp_data = {
+    //   'a': "init_field",
+    //   'm': "init",
+    //   'd': {},
+    //   'code': 1
+    // };
     // 	console.log("发送websocket数据",tmp_data);
     // 	tmp_websocket.sendMessage(tmp_data);
     Laya.stage.event(NETWORKEVENT.FARMINITFIELD);
@@ -178,19 +178,19 @@ export default class farmIndex extends baseView {
     this._seedListClass.hide();
     this.recoveryBtn();
   }
-  // /**
-  //  * 修改单个农田的状态
-  //  */
-  // public setThisLandStatic(id,str){
-  // 	this.landArr[id].land_static = str;
-  // }
-  // /**
-  //  * 设置单个农田的定时器
-  //  * id：农田的ID
-  //  */
-  // public setThisLandTimer(id){
-  // 	this.landArr[id].setTimer();
-  // }
+  /**
+   * 修改单个农田的状态
+   */
+  public setThisLandStatic(id,str){
+  	this.landArr[id].land_static = str;
+  }
+  /**
+   * 设置单个农田的定时器
+   * id：农田的ID
+   */
+  public setThisLandTimer(id){
+  	this.landArr[id].setTimer();
+  }
   // /**
   //  * 自动选择下一个农田
   //  */

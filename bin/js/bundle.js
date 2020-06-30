@@ -338,8 +338,10 @@
             this._ui = null;
         }
         tweenHide() {
-            console.log('关闭窗口');
-            this.onAlphaComplete();
+            console.log('关闭');
+            this.off(Laya.Event.CLICK, this, this.onClick);
+            Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
+            Laya.Tween.to(this, { alpha: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
         }
         onClick() {
             console.log("onClick");
@@ -374,11 +376,14 @@
         showModal() {
             this.visible = true;
             this.graphics.clear();
-            this.alpha = .25;
+            this.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, '#000000');
+            this.alpha = 0.25;
+            console.log(this.alpha);
             this.width = Laya.stage.width;
             this.height = Laya.stage.height;
             gameLayer.windowlayer.addChild(this);
             this.on(Laya.Event.CLICK, this, this.onClick);
+            console.log('开启');
         }
         setCenter() {
             this.pivotX = this.width * .5;
@@ -467,7 +472,7 @@
             this.query.system = this.get_sys();
             this.farmInfo = {};
             this.userInfo = {
-                "grade": 10,
+                "grade": 1,
                 "have_gold": 1000000
             };
             this.factory = {};
@@ -8341,13 +8346,93 @@
         }
     }
 
-    class tipIndex extends BaseView {
+    class baseWindow extends Laya.Sprite {
         constructor() {
-            super(ui.base.tishi_tipUI);
+            super();
+            this.delay = 1000;
+            this.modal = new Laya.Sprite;
+        }
+        init() {
+        }
+        showModal() {
+            this.modal.visible = true;
+            this.modal.graphics.clear();
+            this.modal.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, '#000000');
+            this.modal.alpha = .25;
+            this.modal.width = Laya.stage.width;
+            this.modal.height = Laya.stage.height;
+            gameLayer.windowlayer.addChild(this.modal);
+            this.modal.on(Laya.Event.CLICK, this, this.onClick);
+        }
+        tweenShow() {
+            this.visible = true;
+            this.setCenter();
+            this.scale(0, 0);
+            this.alpha = 0;
+            Laya.Tween.to(this, { alpha: 1 }, this.delay, Laya.Ease.linearIn);
+            Laya.Tween.to(this, { scaleX: 1, scaleY: 1 }, this.delay, Laya.Ease.elasticOut);
+            this.showModal();
+            gameLayer.windowlayer.addChild(this);
+        }
+        tweenHide() {
+            this.modal.off(Laya.Event.CLICK, this, this.onClick);
+            Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, this.delay, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
+            Laya.Tween.to(this, { alpha: 0 }, this.delay, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
+        }
+        onComplete() {
+            gameLayer.windowlayer.removeChild(this);
+            this.scale(1, 1);
+            this.clearAll();
+        }
+        onAlphaComplete() {
+            gameLayer.windowlayer.removeChild(this);
+            this.alpha = 1;
+            this.clearAll();
+        }
+        setCenter() {
+            this.pivotX = this.width * .5;
+            this.pivotY = this.height * .5;
+            this.x = Laya.stage.width * .5;
+            this.y = Laya.stage.height * .5;
+        }
+        showChild(obj) {
+            gameLayer.windowlayer.addChildAt(obj, 0);
+        }
+        onClick() {
+            console.log("onClick");
+        }
+        clearAll() {
+            this.modal.visible = false;
+            this.modal.graphics.clear();
+            this.modal.off(Laya.Event.CLICK, this, this.onClick);
+            this.removeChildren();
+            Laya.Tween.clearAll(this);
+            this.visible = false;
+        }
+        setScale(obj) {
+            var str = 0;
+            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > 1) {
+                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+            }
+            if (CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT > 1) {
+                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            }
+            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT) {
+                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+            }
+            else {
+                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            }
+            obj.scale(CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH, CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH);
+        }
+    }
+
+    class tipIndex extends baseWindow {
+        constructor() {
+            super();
         }
         tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            console.log(this.ui.scene);
-            var _tipKuan = this.ui.scene;
+            var _tipKuan = new ui.base.tishi_tipUI();
             _tipKuan.content_txt.text = content_txt;
             _tipKuan.confirm_btn.label = confirm_txt;
             _tipKuan.cancel_btn.label = cancel_txt;
@@ -8382,12 +8467,16 @@
             }));
         }
         goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            var _tipKuan = this.ui.scene;
+            var _tipKuan = new ui.base.tishi_tipUI();
+            this.addChild(_tipKuan);
             _tipKuan.content_txt.text = content_txt;
             _tipKuan.confirm_btn.label = confirm_txt;
             _tipKuan.cancel_btn.label = cancel_txt;
             _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
             _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
+            _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
+            _tipKuan.pivotX = 0.5 * _tipKuan.width;
+            _tipKuan.pivotY = 0.5 * _tipKuan.height;
             this.tweenShow();
         }
     }
@@ -8484,6 +8573,7 @@
             this._farmland.y = data.y;
             this._farmland.zOrder = data.zOrder;
             this._farmland.name = data.ff_id;
+            this._mature_time = data.seed_data.t;
             this.setTimer();
             this.water_icon.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
             this.harvest_icon.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
@@ -8525,7 +8615,8 @@
         }
         setTimer() {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            if (data.seed_data.mature_time > 0 || data.fat_time > 0) {
+            this._mature_time = data.seed_data.t;
+            if (this._mature_time > 0 || data.fat_time > 0) {
                 if (farmLand._timer) {
                     farmLand._timer.clear(this, this.timerFun);
                 }
@@ -8535,23 +8626,33 @@
         }
         timerFun() {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
-            if (data.seed_data.mature_time == 0 && data.fat_time == 0) {
+            if (this._mature_time == 0 && data.fat_time == 0) {
                 farmLand._timer.clear(this, this.timerFun);
             }
-            if (data.seed_data.mature_time && data.seed_data.mature_time > 0) {
-                data.seed_data.mature_time--;
+            if (this._mature_time && this._mature_time > 0) {
+                this._mature_time--;
                 data.seed_data.next_mature_time--;
                 if (data.seed_data.water_time && data.seed_data.water_time > 0) {
                     data.seed_data.water_time--;
                     this.isOperation(data);
                 }
-                this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
-                this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
-                if (data.seed_data.mature_time <= 0) {
+                console.log(data.seed_data.water_time);
+                console.log(data.seed_data.water_time);
+                console.log(data.seed_data.water_time);
+                console.log(data);
+                console.log(data);
+                console.log(data);
+                console.log(this._mature_time);
+                this.grow_time.text = globalFun.getInstance().formatSeconds(this._mature_time);
+                this.grow_time_val.value = Math.floor((this._mature_time / this._grow_time_tol) * 100) >= 100 ? 100 : Math.floor((this._mature_time / this._grow_time_tol) * 100);
+                if (this._mature_time <= 0) {
                     this.grow_kuan.visible = false;
+                    console.log('下一阶段');
+                    console.log(data.seed_data);
                 }
                 if (data.seed_data.next_mature_time <= 0) {
-                    Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER);
+                    console.log("判断是否到时间了，如果到时见那么久应该发送成长请求");
+                    Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER, data);
                 }
             }
             if (data.fat_time > 0) {
@@ -8612,6 +8713,7 @@
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
             if (data.seed_data.id && data.seed_data.grow_static == 4) {
                 console.log('可以收获');
+                Laya.stage.event(NETWORKEVENT.FARMINITCOLLECTFLOWER);
             }
             else {
                 Laya.stage.event(GAMEEVENT.TIPSKUAN, ['还不能收获', '确定', '取消', function () {
@@ -8671,9 +8773,7 @@
                     num++;
                 }
             }
-            console.log(member);
-            console.log(member_info.field, num, grade);
-            if (member_info.field < num) {
+            if (member_info.field <= num) {
                 console.log('这里是不能开花田的，需要查询一下下一级可以开的花田');
                 for (var q in member) {
                     if (member[q].field > member_info.field) {
@@ -8682,7 +8782,10 @@
                     }
                 }
             }
-            gold_str = "" + have_gold + "/" + data.ff_id_unlocknum + "";
+            gold_str = '是否消耗' + data.ff_id_unlocknum + '钻石解锁花田';
+            if (type == 1) {
+                gold_str = '是否消耗' + data.ff_id_unlocknum + '钻石升级花田';
+            }
             if (str) {
                 Laya.stage.event(GAMEEVENT.TXTTIP, [str]);
                 return;
@@ -8697,7 +8800,11 @@
             Laya.stage.event(GAMEEVENT.GOLDTIP, ['扩建', gold_str, '确定', '取消', confirm_fun, cancel_fun]);
         }
         onGradeExtendAct(type) {
-            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, this.land_id);
+            var msg = {
+                id: this.land_id,
+                type: type
+            };
+            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, msg);
         }
         initLandStatic() {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
@@ -8712,9 +8819,9 @@
                 this.extend_kuan.visible = true;
                 this.extend_btn.visible = true;
                 this.land.mouseEnabled = true;
-                this.on(Laya.Event.CLICK, this, this.onClickLand);
                 this.extend_gold.text = data.ff_id_unlocknum;
                 this.extend_gold.visible = true;
+                this.on(Laya.Event.CLICK, this, this.onClickLand);
                 return;
             }
             if (this.land_static == 'upgrade') {
@@ -8753,9 +8860,15 @@
                 if (this.isOperation(data)) {
                     return;
                 }
-                if (farmController.getInstance().model.landId == this.land_id && data.seed_data.mature_time > 0) {
-                    this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
-                    this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
+                console.log(farmController.getInstance().model.landId);
+                console.log(this.land_id);
+                console.log(this._mature_time);
+                console.log(data.seed_data);
+                console.log('-----------------------------==================0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-');
+                if (farmController.getInstance().model.landId == this.land_id && this._mature_time > 0) {
+                    console.log('如果是当前的土地就显示植物的成长时间');
+                    this.grow_time.text = globalFun.getInstance().formatSeconds(this._mature_time);
+                    this.grow_time_val.value = Math.floor((this._mature_time / this._grow_time_tol) * 100) >= 100 ? 100 : Math.floor((this._mature_time / this._grow_time_tol) * 100);
                     this.grow_kuan.visible = true;
                 }
                 this.land.on(Laya.Event.CLICK, this, this.onClickLand);
@@ -8774,7 +8887,7 @@
             var clickLandStatic = farmController.getInstance().model.clickLandStatic;
             if (clickLandStatic == '' || clickLandStatic == 'harvest' || clickLandStatic == 'water') {
                 if (clickLandStatic == '') {
-                    if (data.seed_data.id && data.seed_data.grow_static == 4 && data.seed_data.mature_time <= 0) {
+                    if (data.seed_data.id && data.seed_data.grow_static == 4 && this._mature_time <= 0) {
                         this.land_static = 'harvest';
                         this.land.off(Laya.Event.CLICK, this, this.onClickLand);
                         this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
@@ -8825,7 +8938,6 @@
             var grade = dataGlobal.getInstance().userInfo.grade;
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var seed_arr = farmController.getInstance().model.seedData;
-            console.log(seed_arr);
             let dataSource = [];
             for (var i in seed_arr) {
                 let data = null;
@@ -8914,7 +9026,6 @@
             this._seedListScene.visible = false;
         }
         onClick(itemStatic, arr) {
-            console.log('daole -------------------');
             tipController.getInstance();
             if (itemStatic == 'buy') {
                 console.log("等级够了，钱也够");
@@ -8978,56 +9089,34 @@
         }
     }
 
-    class warehouseItem extends ui.warehouse.good_itemUI {
+    class warehouseIndex extends baseWindow {
         constructor() {
             super();
         }
-        init() {
-            return this;
-        }
-    }
-
-    class warehouseIndex extends BaseView {
-        constructor() {
-            super(ui.warehouse.warehouseUI);
-        }
         onShowWarehouse() {
+            if (this._warehouse == null) {
+                this._warehouse = new ui.warehouse.warehouseUI();
+                this.setScale(this._warehouse);
+                this._warehouse.name = 'warehouse';
+                this._warehouse.pivotX = 0.5 * this._warehouse.width;
+                this._warehouse.pivotY = 0.5 * this._warehouse.height;
+                this.addChild(this._warehouse);
+            }
             this.tweenShow();
-            this.ui.item_all.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'all') {
-                    this.switchItem('all');
-                }
-            }.bind(this));
-            this.ui.item_flower.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'flower') {
-                    this.switchItem('flower');
-                }
-            }.bind(this));
-            this.ui.item_good.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'goods') {
-                    this.switchItem('goods');
-                }
-            }.bind(this));
-            this.switchItem('all');
-            this.store_info();
         }
         initWarehouseInfo() {
             var data = dataGlobal.getInstance().warehouseInfo;
-            this.ui.good_num.text = '容量：' + data.num2 + '/' + data.num;
             var store_info = dataJson.getInstance().GET_SYS_STORE_INFO();
             if (store_info[Math.floor(data.grade) + 1]) {
-                this.ui.upgrade_btn.visible = true;
                 this.setUpdrageDiv();
             }
             else {
-                this.ui.upgrade_btn.visible = false;
             }
         }
         setUpdrageDiv() {
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var data = dataGlobal.getInstance().warehouseInfo;
             console.log(have_gold, data, dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1]);
-            this.ui.upgrade_btn.off(Laya.Event.CLICK, this, this.showGoldTip);
             if (dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1]) {
                 var next_grade = dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1];
                 var good_list = next_grade.good;
@@ -9055,7 +9144,6 @@
                 var cancel_fun = function () {
                     tipController.getInstance().close();
                 };
-                this.ui.upgrade_btn.on(Laya.Event.CLICK, this, this.showGoldTip, ['仓库升级', str, '确定', '取消', confirm_fun, cancel_fun]);
             }
         }
         showGoldTip(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
@@ -9066,7 +9154,6 @@
         }
         initWarehouseGoodList() {
             var data = dataGlobal.getInstance().userGoodInfo;
-            this.ui.good_list.removeChildren();
             if (data) {
                 var isAdd = false;
                 for (var i in data) {
@@ -9087,58 +9174,9 @@
                 }
             }
         }
-        creator_good_item(id, num) {
-            var data = dataGlobal.getInstance().warehouseInfo;
-            var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
-            var good_item = new warehouseItem();
-            var gicon = good_item.gicon;
-            var gnum = good_item.gnum;
-            good_item.x = ((this.ui.n10.width - good_item.width * 3) / 4) * (this.ui.good_list._children.length + 1) + (good_item.width * this.ui.good_list._children.length);
-            if (this.ui.good_list._children.length <= 3) {
-                good_item.y = 30;
-            }
-            let index = good_info.pic.lastIndexOf("/");
-            var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
-            gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
-            var isNum = num - Math.floor(data.num3);
-            if (isNum > 0) {
-                gnum.text = data.num3;
-                this.ui.good_list.addChild(good_item);
-                this.creator_good_item(id, isNum);
-            }
-            else {
-                gnum.text = num;
-                this.ui.good_list.addChild(good_item);
-            }
-            console.log(this.ui.good_list);
-            good_item.on(Laya.Event.CLICK, this, this.showSellTip, [id]);
-        }
+        creator_good_item(id, num) { }
         switchItem(str) {
             this._type = str;
-            this.ui.item_all.skin = 'warehouse/btn_biaoqian2.png';
-            this.ui.item_flower.skin = 'warehouse/btn_biaoqian2.png';
-            this.ui.item_good.skin = 'warehouse/btn_biaoqian2.png';
-            this.ui.item_all.labelColors = '#7D4815';
-            this.ui.item_flower.labelColors = '#7D4815';
-            this.ui.item_good.labelColors = '#7D4815';
-            this.ui.item_all_biao.visible = false;
-            this.ui.item_flower_biao.visible = false;
-            this.ui.item_good_biao.visible = false;
-            if (this._type == 'all') {
-                this.ui.item_all.skin = 'warehouse/btn_biaoqian1.png';
-                this.ui.item_all.labelColors = '#fff';
-                this.ui.item_all_biao.visible = true;
-            }
-            else if (this._type == 'flower') {
-                this.ui.item_flower.skin = 'warehouse/btn_biaoqian1.png';
-                this.ui.item_flower.labelColors = '#fff';
-                this.ui.item_flower_biao.visible = true;
-            }
-            else if (this._type == 'goods') {
-                this.ui.item_good.skin = 'warehouse/btn_biaoqian1.png';
-                this.ui.item_good.labelColors = '#fff';
-                this.ui.item_good_biao.visible = true;
-            }
         }
         warehouseUpgrade() {
         }
@@ -9147,32 +9185,131 @@
         }
     }
 
-    class warehouseSellTip extends BaseView {
+    class baseTips extends Laya.Sprite {
         constructor() {
-            super(ui.warehouse.sell_tipUI);
+            super();
+            this.delay = 1000;
+            this.modal = new Laya.Sprite;
+        }
+        init() {
+        }
+        showModal() {
+            this.modal.visible = true;
+            this.modal.graphics.clear();
+            this.modal.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, '#000000');
+            this.modal.alpha = .5;
+            this.modal.width = Laya.stage.width;
+            this.modal.height = Laya.stage.height;
+            gameLayer.tipslayer.addChild(this.modal);
+            this.modal.on(Laya.Event.CLICK, this, this.onClick);
+        }
+        tweenShow() {
+            this.visible = true;
+            this.setCenter();
+            this.scale(0, 0);
+            this.alpha = 0;
+            Laya.Tween.to(this, { alpha: 1 }, this.delay, Laya.Ease.linearIn);
+            Laya.Tween.to(this, { scaleX: 1, scaleY: 1 }, this.delay, Laya.Ease.elasticOut);
+            this.showModal();
+            gameLayer.tipslayer.addChild(this);
+        }
+        showLayer() {
+            this.visible = true;
+            this.setCenter();
+            this.showModal();
+            gameLayer.tipslayer.addChild(this);
+        }
+        hideLayer() {
+            gameLayer.tipslayer.removeChild(this);
+            this.clearAll();
+        }
+        tweenHide() {
+            Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, this.delay, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
+            Laya.Tween.to(this, { alpha: 0 }, this.delay, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
+        }
+        onComplete() {
+            gameLayer.tipslayer.removeChild(this);
+            this.scale(1, 1);
+            this.clearAll();
+        }
+        onAlphaComplete() {
+            gameLayer.tipslayer.removeChild(this);
+            this.alpha = 1;
+            this.clearAll();
+        }
+        setCenter() {
+            this.pivotX = this.width * .5;
+            this.pivotY = this.height * .5;
+            this.x = Laya.stage.width * .5;
+            this.y = Laya.stage.height * .5;
+        }
+        onClick() {
+            console.log("onClick");
+        }
+        clearAll() {
+            this.modal.visible = false;
+            this.modal.graphics.clear();
+            this.modal.off(Laya.Event.CLICK, this, this.onClick);
+            this.modal.off(Laya.Event.CLICK, this, this.hideLayer);
+            this.removeChildren();
+            Laya.Tween.clearAll(this);
+            this.visible = false;
+        }
+        setScale(obj) {
+            var str = 0;
+            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > 1) {
+                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+            }
+            if (CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT > 1) {
+                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            }
+            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT) {
+                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+            }
+            else {
+                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            }
+            obj.scale(CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH, CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH);
+        }
+    }
+
+    class warehouseSellTip extends baseTips {
+        constructor() {
+            super();
         }
         showSellTip(id) {
             this._id = id;
+            this._sellTip = new ui.warehouse.sell_tipUI();
+            this.setScale(this._sellTip);
+            this._sellTip.pivotX = 0.5 * this._sellTip.width;
+            this._sellTip.pivotY = 0.5 * this._sellTip.height;
+            this.addChild(this._sellTip);
             this.tweenShow();
-            this.ui.jian_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [-1]);
-            this.ui.jia_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [1]);
-            this.ui.close_btn.on(Laya.Event.CLICK, this, this.closeSellTip);
-            this.ui.sell_btn.on(Laya.Event.CLICK, this, this.storeGoodDel);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
+            console.log(this._sellTip);
             this.initGoodInfo();
         }
         closeSellTip() {
             this.tweenHide();
         }
         initGoodInfo() {
-            var good_info = dataGlobal.getInstance().userGoodInfo[this._id];
-            this._num = Math.floor((Math.floor(good_info.num) / 2)) < 1 ? 1 : Math.floor((Math.floor(good_info.num) / 2));
-            this.ui.tot_num.text = 'X' + this._num;
-            this._good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[this._id];
-            let index = this._good_info.pic.lastIndexOf("/");
-            var _skin = this._good_info.pic.substring(index + 1, this._good_info.pic.length);
-            this.ui.gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
-            console.log(this._good_info.pic);
-            this.ui.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
         }
         setGoodNum(this_num) {
             var good_info = dataGlobal.getInstance().userGoodInfo[this._id];
@@ -9184,8 +9321,6 @@
                 this._num--;
                 this._num = this._num < 1 ? 1 : this._num;
             }
-            this.ui.tot_num.text = 'X' + this._num;
-            this.ui.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
         }
         storeGoodDel() {
             Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
@@ -9339,12 +9474,6 @@
             this._seedListClass.setSeedListItem();
         }
         getFarmLand() {
-            let tmp_data = {
-                'a': "init_field",
-                'm': "init",
-                'd': {},
-                'code': 1
-            };
             Laya.stage.event(NETWORKEVENT.FARMINITFIELD);
         }
         onShowFarmInitField(data) {
@@ -9370,6 +9499,12 @@
             this.initLand();
             this._seedListClass.hide();
             this.recoveryBtn();
+        }
+        setThisLandStatic(id, str) {
+            this.landArr[id].land_static = str;
+        }
+        setThisLandTimer(id) {
+            this.landArr[id].setTimer();
         }
         setPlantFramLand() {
             var landId = farmController.getInstance().model.landId;
@@ -9456,8 +9591,10 @@
             this._indexCom.showSeepList();
         }
         setThisLandStatic(id, str) {
+            this._indexCom.setThisLandStatic(id, str);
         }
         setThisLandTimer(id) {
+            this._indexCom.setThisLandTimer(id);
         }
         initLand() {
             this._indexCom.initLand();
@@ -9487,6 +9624,447 @@
         }
     }
 
+    class FLOWER_PLANTS {
+        static getPlants(id) {
+            for (var i in this.plants) {
+                if (this.plants[i].id == id) {
+                    return this.plants[i];
+                }
+            }
+        }
+    }
+    FLOWER_PLANTS.plants = [
+        {
+            'id': "hh01",
+            'name': "红玫瑰",
+            'grade': "1",
+            'grade2': "1",
+            'grade3': "100",
+            'gold': "0",
+            'num': "1",
+            'num2': "10",
+            't': "20",
+            'speed': "100",
+            'exp': "50",
+            'exp2': "50",
+            'pic': "ui://base/pic_3_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_3_1",
+            'ain2': "",
+            'time2': "10000",
+            'pic3': "ui://base/pic_3_3",
+            'ain3': "",
+            'time3': "10000",
+            'pic4': "ui://base/pic_3_3",
+            'ain4': "",
+            'time4': "10000",
+            'pic5': "ui://base/pic_3_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_3_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_3_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh02",
+            'name': "勿忘我",
+            'grade': "1",
+            'grade2': "1",
+            'grade3': "100",
+            'gold': "10",
+            'num': "1",
+            'num2': "15",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_4_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_4_1",
+            'ain2': "",
+            'time2': "20000",
+            'pic3': "ui://base/pic_4_2",
+            'ain3': "",
+            'time3': "20000",
+            'pic4': "ui://base/pic_4_3",
+            'ain4': "",
+            'time4': "20000",
+            'pic5': "ui://base/pic_4_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_4_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_4_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh03",
+            'name': "百合",
+            'grade': "1",
+            'grade2': "3",
+            'grade3': "100",
+            'gold': "20",
+            'num': "1",
+            'num2': "20",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_2_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_2_1",
+            'ain2': "",
+            'time2': "24000",
+            'pic3': "ui://base/pic_2_2",
+            'ain3': "",
+            'time3': "24000",
+            'pic4': "ui://base/pic_2_3",
+            'ain4': "",
+            'time4': "24000",
+            'pic5': "ui://base/pic_2_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_2_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_2_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh04",
+            'name': "紫罗兰",
+            'grade': "1",
+            'grade2': "3",
+            'grade3': "100",
+            'gold': "30",
+            'num': "1",
+            'num2': "20",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_5_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_5_1",
+            'ain2': "",
+            'time2': "25000",
+            'pic3': "ui://base/pic_5_2",
+            'ain3': "",
+            'time3': "25000",
+            'pic4': "ui://base/pic_5_3",
+            'ain4': "",
+            'time4': "25000",
+            'pic5': "ui://base/pic_5_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_5_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_5_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh05",
+            'name': "红花",
+            'grade': "1",
+            'grade2': "4",
+            'grade3': "100",
+            'gold': "40",
+            'num': "1",
+            'num2': "30",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_6_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_6_1",
+            'ain2': "",
+            'time2': "30000",
+            'pic3': "ui://base/pic_6_2",
+            'ain3': "",
+            'time3': "30000",
+            'pic4': "ui://base/pic_6_3",
+            'ain4': "",
+            'time4': "30000",
+            'pic5': "ui://base/pic_6_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_6_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_6_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh06",
+            'name': "澳洲腊梅",
+            'grade': "1",
+            'grade2': "4",
+            'grade3': "100",
+            'gold': "40",
+            'num': "1",
+            'num2': "30",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_10_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_6_1",
+            'ain2': "",
+            'time2': "30000",
+            'pic3': "ui://base/pic_6_2",
+            'ain3': "",
+            'time3': "30000",
+            'pic4': "ui://base/pic_6_3",
+            'ain4': "",
+            'time4': "30000",
+            'pic5': "ui://base/pic_6_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_10_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_10_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh07",
+            'name': "粉玫瑰",
+            'grade': "1",
+            'grade2': "4",
+            'grade3': "100",
+            'gold': "40",
+            'num': "1",
+            'num2': "30",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_6_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_6_1",
+            'ain2': "",
+            'time2': "30000",
+            'pic3': "ui://base/pic_6_2",
+            'ain3': "",
+            'time3': "30000",
+            'pic4': "ui://base/pic_6_3",
+            'ain4': "",
+            'time4': "30000",
+            'pic5': "ui://base/pic_6_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_8_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_8_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh08",
+            'name': "向日葵",
+            'grade': "1",
+            'grade2': "4",
+            'grade3': "100",
+            'gold': "40",
+            'num': "1",
+            'num2': "30",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_1_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_1_1",
+            'ain2': "",
+            'time2': "30000",
+            'pic3': "ui://base/pic_1_2",
+            'ain3': "",
+            'time3': "30000",
+            'pic4': "ui://base/pic_1_3",
+            'ain4': "",
+            'time4': "30000",
+            'pic5': "ui://base/pic_1_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_1_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_1_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh09",
+            'name': "雏菊",
+            'grade': "1",
+            'grade2': "4",
+            'grade3': "100",
+            'gold': "40",
+            'num': "1",
+            'num2': "30",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_9_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_6_1",
+            'ain2': "",
+            'time2': "30000",
+            'pic3': "ui://base/pic_6_2",
+            'ain3': "",
+            'time3': "30000",
+            'pic4': "ui://base/pic_6_3",
+            'ain4': "",
+            'time4': "30000",
+            'pic5': "ui://base/pic_6_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_9_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_9_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh10",
+            'name': "白桔梗",
+            'grade': "1",
+            'grade2': "4",
+            'grade3': "100",
+            'gold': "40",
+            'num': "1",
+            'num2': "30",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_11_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_6_1",
+            'ain2': "",
+            'time2': "30000",
+            'pic3': "ui://base/pic_6_2",
+            'ain3': "",
+            'time3': "30000",
+            'pic4': "ui://base/pic_6_3",
+            'ain4': "",
+            'time4': "30000",
+            'pic5': "ui://base/pic_6_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_11_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_11_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        },
+        {
+            'id': "hh11",
+            'name': "香槟玫瑰",
+            'grade': "1",
+            'grade2': "4",
+            'grade3': "100",
+            'gold': "40",
+            'num': "1",
+            'num2': "30",
+            't': "20",
+            'speed': "100",
+            'exp': "100",
+            'exp2': "100",
+            'pic': "ui://base/pic_7_5",
+            'ain': "",
+            'time': "0",
+            'pic2': "ui://base/pic_6_1",
+            'ain2': "",
+            'time2': "30000",
+            'pic3': "ui://base/pic_6_2",
+            'ain3': "",
+            'time3': "30000",
+            'pic4': "ui://base/pic_6_3",
+            'ain4': "",
+            'time4': "30000",
+            'pic5': "ui://base/pic_6_4",
+            'ain5': "",
+            'time5': "0",
+            'pic6': "ui://base/pic_7_6",
+            'ain6': "",
+            'pic7': "ui://base/pic_7_6",
+            'ain7': "",
+            'next_mature_time': "10",
+            'grow_time_tol': '',
+            'mature_time': 10,
+            'grow_static': 1,
+            'water_time': 100,
+            'is_water': 1,
+        }
+    ];
+
     class staticData {
         constructor() {
         }
@@ -9503,18 +10081,12 @@
                 "code": 1
             };
         }
-        getFarmInitFlowerGrade(id) {
+        getFarmInitFlowerGrade(msg) {
             for (var i in staticData.INDEX_DATA) {
-                if (staticData.INDEX_DATA[i].ff_id == id) {
-                    if (staticData.INDEX_DATA[i].ff_vip != 1) {
-                        var type = 2;
-                    }
-                    else {
-                        var type = 1;
-                    }
+                if (staticData.INDEX_DATA[i].ff_id == msg.id) {
                     staticData.INDEX_DATA[i].ff_vip = staticData.INDEX_DATA[i].ff_vip + 1;
                     return {
-                        "type": type,
+                        "type": msg.type,
                         "ga": "init_flower_grade",
                         "gd": staticData.INDEX_DATA[i],
                         "code": 1
@@ -9532,19 +10104,23 @@
         farmInitPlantFlower(id, hhid) {
             for (var i in staticData.INDEX_DATA) {
                 if (staticData.INDEX_DATA[i].ff_id == id) {
-                    console.log(staticData.INDEX_DATA[i]);
-                    staticData.INDEX_DATA[i].seed_data = {
-                        "grow_time_tol": 5000,
-                        "next_mature_time": 1000,
-                        "mature_time": 500,
-                        "grow_static": 1,
-                        "id": hhid,
-                        "name": "\u7ea2\u73ab\u7470",
-                        "grade": "1",
-                        "pic": "hh01_1",
-                        "ain": ""
-                    };
+                    staticData.INDEX_DATA[i].seed_data = FLOWER_PLANTS.getPlants(hhid);
                     staticData.INDEX_DATA[i].msg = "\u79cd\u690d\u6210\u529f";
+                    return {
+                        "ga": "init_plant_flower",
+                        "gd": staticData.INDEX_DATA[i],
+                        "code": 1
+                    };
+                }
+            }
+        }
+        farmInitGrowFlower(id, seed_data) {
+            for (var i in staticData.INDEX_DATA) {
+                if (staticData.INDEX_DATA[i].ff_id == id) {
+                    staticData.INDEX_DATA[i].seed_data = FLOWER_PLANTS.getPlants(seed_data.id);
+                    var _b = Number(staticData.INDEX_DATA[i].seed_data.grade) + 1;
+                    staticData.INDEX_DATA[i].seed_data.grade = String(_b);
+                    console.log(staticData.INDEX_DATA[i].seed_data.grade);
                     return {
                         "ga": "init_plant_flower",
                         "gd": staticData.INDEX_DATA[i],
@@ -9570,6 +10146,8 @@
             "ff_id": "ht01",
             "ff_vip": 1,
             "ff_exp": 0,
+            "is_lock": 1,
+            "next_ht_lock": "ht02",
             "ff_id_unlocknum": 50,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9579,21 +10157,45 @@
             "fat_time_tol": 0,
             "msg": "",
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
         {
             "ff_id": "ht02",
             "ff_vip": 1,
             "ff_exp": 100,
+            "is_lock": 1,
+            "next_ht_lock": "ht03",
             "ff_id_unlocknum": 100,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9603,21 +10205,45 @@
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
         {
             "ff_id": "ht03",
             "ff_vip": 1,
             "ff_exp": 200,
+            "is_lock": 1,
+            "next_ht_lock": "ht04",
             "ff_id_unlocknum": 200,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9627,21 +10253,45 @@
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
         {
             "ff_id": "ht04",
             "ff_vip": 1,
             "ff_exp": 100,
+            "is_lock": 1,
+            "next_ht_lock": "ht05",
             "ff_id_unlocknum": 300,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9651,21 +10301,45 @@
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
         {
             "ff_id": "ht05",
             "ff_vip": 1,
             "ff_exp": 100,
+            "is_lock": 1,
+            "next_ht_lock": "ht06",
             "ff_id_unlocknum": 400,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9675,21 +10349,45 @@
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
         {
             "ff_id": "ht06",
             "ff_vip": 1,
             "ff_exp": 100,
+            "is_lock": 1,
+            "next_ht_lock": "ht07",
             "ff_id_unlocknum": 500,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9699,21 +10397,45 @@
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
         {
             "ff_id": "ht07",
             "ff_vip": 1,
             "ff_exp": 100,
+            "is_lock": 1,
+            "next_ht_lock": "ht08",
             "ff_id_unlocknum": 600,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9723,21 +10445,45 @@
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
         {
             "ff_id": "ht08",
             "ff_vip": 1,
             "ff_exp": 100,
+            "is_lock": 1,
+            "next_ht_lock": "ht09",
             "ff_id_unlocknum": 700,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9747,21 +10493,45 @@
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
         {
             "ff_id": "ht09",
             "ff_vip": 1,
             "ff_exp": 100,
+            "is_lock": 1,
+            "next_ht_lock": "",
             "ff_id_unlocknum": 800,
             "next_ff_id_glod": 0,
             "next_exp": 0,
@@ -9771,15 +10541,37 @@
             "fat_time": 0,
             "fat_time_tol": 0,
             "seed_data": {
-                "mature_time": 100,
-                "next_mature_time": 499,
-                "grow_time_tol": 9000,
-                "grow_static": 2,
-                "id": "",
-                "name": "",
-                "grade": "",
-                "pic": "",
-                "ain": ""
+                'id': "",
+                'name': "",
+                'grade': "",
+                'grade2': "",
+                'grade3': "",
+                'gold': "",
+                'num': "",
+                'num2': "",
+                't': "",
+                'speed': "",
+                'exp': "",
+                'exp2': "",
+                'pic': "",
+                'ain': "",
+                'time': "",
+                'pic2': "",
+                'ain2': "",
+                'time2': "",
+                'pic3': "",
+                'ain3': "",
+                'time3': "",
+                'pic4': "",
+                'ain4': "",
+                'time4': "",
+                'pic5': "",
+                'ain5': "",
+                'time5': "",
+                'pic6': "",
+                'ain6': "",
+                'pic7': "",
+                'ain7': "",
             }
         },
     ];
@@ -9859,8 +10651,8 @@
             farmController.getInstance().model.setFarmSeed(data.gd);
             farmController.getInstance().onFarmInitSeedList(data.gd);
         }
-        FarmInitFlowerGrade(id) {
-            var data = staticData.getInstance().getFarmInitFlowerGrade(id);
+        FarmInitFlowerGrade(msg) {
+            var data = staticData.getInstance().getFarmInitFlowerGrade(msg);
             var myData = data.gd;
             var tmp_arr = {
                 'ff_id': myData.ff_id,
@@ -9871,8 +10663,24 @@
                 'next_ff_id_glod': myData.next_ff_id_glod,
                 'pic': myData.pic,
             };
+            console.log(data.type);
+            if (data.type == 1) {
+            }
+            else if (data.type == 2) {
+                tmp_arr['is_lock'] = myData.is_lock;
+                var landStatic = farmController.getInstance().model.clickLandStatic;
+                if (myData.next_ht_lock) {
+                    var next_arr = {
+                        'is_lock': 1
+                    };
+                    dataGlobal.getInstance().setFarmInfo(next_arr, myData.next_ht_lock);
+                }
+            }
             dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
             farmController.getInstance().initLand();
+            if (myData.msg) {
+                Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
+            }
         }
         FarmInitPlantFlower(list) {
             console.log('请求种植');
@@ -9916,15 +10724,16 @@
             farmController.getInstance().initLand();
         }
         FarmInitGrowFlower(data) {
-            var myData = data.gd;
+            Laya.stage.off(NETWORKEVENT.FARMINITGROWFLOWER, this, this.FarmCollectFlower);
+            var _tmp_arr = staticData.getInstance().farmInitGrowFlower(data.ff_id, data.seed_data);
+            console.log(data.ff_id, '的花长大了', _tmp_arr.gd);
             var tmp_arr = {
-                'fat_time': myData.fat_time,
-                'fat_time_tol': myData.fat_time_tol,
-                'ff_exp': myData.ff_exp,
-                'seed_data': myData.seed_data
+                'fat_time': _tmp_arr.gd.fat_time,
+                'fat_time_tol': _tmp_arr.gd.fat_time_tol,
+                'ff_exp': _tmp_arr.gd.ff_exp,
+                'seed_data': _tmp_arr.gd.seed_data
             };
-            dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
-            console.log('成长了');
+            dataGlobal.getInstance().setFarmInfo(tmp_arr, _tmp_arr.gd.ff_id);
             farmController.getInstance().initLand();
         }
         FarmCollectFlower(data) {
