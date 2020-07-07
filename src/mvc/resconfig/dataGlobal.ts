@@ -84,8 +84,8 @@ export default class dataGlobal{
       this.query.system = this.get_sys();
       this.farmInfo = {};
       this.userInfo = {
-        "grade":1, //用户等级
-        "have_gold":1000000 //用户金币
+        "grade":3, //用户等级
+        "have_gold":10000 //用户金币
       };
       this.factory = {};
       this.userGoodInfo = {};
@@ -365,11 +365,12 @@ export default class dataGlobal{
   ),
    */
   public setlotteryInfo(data,type?:boolean){
-      if(type){
-          this.lotteryInfo = {};
-      }
-      for(var i in data){
-          this.lotteryInfo[data[i].lottery_id] = data[i];
+    if(type){
+      this.lotteryInfo = {};
+    }
+    for(var i in data){
+      this.lotteryInfo[data[i].lottery_id] = data[i];
+      console.log('设置订单任务信息-1',type,data[i])
       }
   }
 

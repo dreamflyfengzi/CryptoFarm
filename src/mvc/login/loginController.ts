@@ -7,6 +7,7 @@ import loginView from "./loginView"
 import { loginNetwork } from "./loginNetwork"
 import resManger from '../resconfig/resManger'
 import resConfig from '../resconfig/resConfig'
+import infoController from '../info/infoController'
 
 export default class loginController {
 
@@ -63,7 +64,7 @@ export default class loginController {
     // net.webSocketJson.getInstance();
     this._loginview.showFarm();
     // //初始化用户信息的层
-    // infoController.getInstance().onShow();
+    infoController.getInstance().onShow();
   }
 
 	/**
@@ -99,7 +100,6 @@ export default class loginController {
    */
   private onResProgressFarm(x) {
     this._loginview.updateFarm(x);
-    console.log(x)
   }
   /**
    * 加载农场完成

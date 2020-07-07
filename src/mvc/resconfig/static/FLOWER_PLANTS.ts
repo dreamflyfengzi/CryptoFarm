@@ -32,12 +32,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_3_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+      'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:
     },
     {
       'id': "hh02",//'花卉ID',
@@ -71,12 +71,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_4_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh03",//'花卉ID',
@@ -110,12 +110,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_2_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh04",//'花卉ID',
@@ -149,12 +149,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_5_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
-      'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'next_mature_time':"20", //下一阶段成长时间
+      'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
+      'grow_static': 1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
+      'water_time': '4', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh05",//'花卉ID',
@@ -188,12 +188,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_6_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh06",//'花卉ID',
@@ -227,12 +227,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_10_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh07",//'花卉ID',
@@ -266,12 +266,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_8_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh08",//'花卉ID',
@@ -305,12 +305,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_1_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh09",//'花卉ID',
@@ -344,12 +344,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_9_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh10",//'花卉ID',
@@ -383,12 +383,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_11_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     },
     {
       'id': "hh11",//'花卉ID',
@@ -422,12 +422,12 @@ export default class FLOWER_PLANTS {
       'ain6': "",//'花卉收获时动画',
       'pic7': "ui://base/pic_7_6",//'花卉在仓库时图片',
       'ain7': "",//'花卉在仓库时动画',
-      'next_mature_time':"10", //下一阶段成长时间
-      'grow_time_tol':'', //生长总时间
-      'mature_time':10, //当前成熟时间
+      'next_mature_time':"20", //下一阶段成长时间
+       'grow_time_tol':'60', //生长总时间
+      'mature_time':'20', //当前成熟时间
       'grow_static':1,//当前生长状态 1发芽期、2生长期、3花苞期、4成熟期
-      'water_time': 100, //可以浇水时间
-      'is_water': 1, //是否可以浇水 1是2否:"10"
+      'water_time': '3', //可以浇水时间
+      'is_water': '1', //是否可以浇水 1是2否:"10"
     }
   ]
   public static getPlants(id) {

@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":18,
-    "selecteID":19,
+    "selectedBox":2,
+    "selecteID":25,
     "searchKey":"Scene",
     "props":{"width":1111,"sceneColor":"#000000","height":1663},
     "nodeParent":-1,
-    "maxID":21,
+    "maxID":26,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -222,16 +222,86 @@
             "x":15,
             "type":"List",
             "searchKey":"List,good_list",
-            "props":{"y":469,"x":109,"width":904,"var":"good_list","spaceY":90,"spaceX":30,"repeatY":4,"repeatX":4,"renderType":"render","height":991},
+            "props":{"y":465,"x":103.5,"width":904,"var":"good_list","spaceY":30,"spaceX":100,"repeatY":4,"repeatX":4,"renderType":"render","height":991},
             "nodeParent":2,
             "label":"good_list",
             "isOpen":true,
-            "isDirectory":false,
+            "isDirectory":true,
             "isAniNode":true,
-            "hasChild":false,
+            "hasChild":true,
             "compId":18,
             "child":[
-                ]
+                {
+                    "x":30,
+                    "type":"Box",
+                    "source":"warehouse/good_item.scene",
+                    "searchKey":"Box,good_item_box,good_item_box",
+                    "props":{"var":"good_item_box","renderType":"render","name":"good_item_box"},
+                    "nodeParent":18,
+                    "label":"good_item_box",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":false,
+                    "hasChild":true,
+                    "compId":21,
+                    "child":[
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,gnum,gnum",
+                            "props":{"y":153,"x":25,"width":101,"var":"gnum","valign":"middle","text":"5","name":"gnum","height":69,"fontSize":60,"color":"#7D4815","align":"center"},
+                            "nodeParent":21,
+                            "label":"gnum",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":24,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Sprite",
+                            "searchKey":"Sprite,n2,n2",
+                            "props":{"y":113,"x":11,"width":130,"var":"n2","texture":"main/pic_yingzi.png","name":"n2","height":53,"alpha":0.3},
+                            "nodeParent":21,
+                            "label":"n2",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":22,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,gicon,gicon",
+                            "props":{"y":10,"x":10,"width":130,"var":"gicon","skin":"farm/hh02_4.png","name":"gicon","height":130},
+                            "nodeParent":21,
+                            "label":"gicon",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":23,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,gid",
+                            "props":{"y":5,"x":1,"width":0,"visible":false,"valign":"middle","name":"gid","height":0,"fontSize":60,"font":"1","color":"#7D4815","align":"center"},
+                            "nodeParent":21,
+                            "label":"gid",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":25,
+                            "child":[
+                                ]
+                        }]
+                }]
         }],
     "animations":[
         {

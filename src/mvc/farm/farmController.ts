@@ -7,6 +7,7 @@ import farmModel from './farmModel'
 import farmNetwork from './farmNetwork'
 import GAMEEVENT from '../event/GAMEEVENT'
 import NETWORKEVENT from '../event/NETWORKEVENT'
+import infoController from '../info/infoController'
 export default class farmController {
 	private _farmview: farmView;
 	private static _instance:farmController;
@@ -44,7 +45,7 @@ export default class farmController {
 		}
 		this._farmview.onShow(type);
 		//发送显示农场底部按钮的信息
-		// infoController.getInstance();
+		infoController.getInstance();
     Laya.stage.event(GAMEEVENT.BOTTOMBTN,['farm']);
 		
 		// //试着进行websocke请求

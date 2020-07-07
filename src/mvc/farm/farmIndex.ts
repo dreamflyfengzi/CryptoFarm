@@ -2,14 +2,16 @@
 * name 
 */
 import { ui } from '../../ui/layaMaxUI'
-import baseView from '../baseView/component/baseView'
+import { baseScene } from '../baseView/component/baseScene'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import GAMECONFIG from '../../const/GAMECONFIG'
 import farmLand from './farmLand'
 import farmController from './farmController'
 import farmSeedList from './farmSeedList'
 import warehouseController from '../warehouse/warehouseController'
-export default class farmIndex extends baseView {
+import orderController from '../order/orderController'
+import CONST from '../../const/CONST'
+export default class farmIndex extends baseScene {
   private _farmIndex: Laya.Sprite;
   // private building_btn:fairygui.GLoader;//建筑按钮
   // private upgrade_btn:fairygui.GLoader;//升级按钮
@@ -24,33 +26,46 @@ export default class farmIndex extends baseView {
   private _seedList: Laya.Sprite;//种子列表
 
   constructor() {
-    super(ui.farm.farmIndexsceneUI);
+    super();
   }
   /** */
   public onShow(type) {
-    if (this._farmIndex == null) {
-      this._farmIndex = new Laya.Sprite();
+    if(this._farmIndex == null){
+      this._farmIndex =  new ui.farm.farmIndexsceneUI();
       this.width = this._farmIndex.width;
       this.height = this._farmIndex.height;
+
       this._farmIndex.name = 'farmIndex';
+      
+      // this._farmIndex.pivot(this._farmIndex.width/2,this._farmIndex.height/2);//设置轴心
+      // this._farmIndex.pos(CONST.STAGEWIDTH/2,CONST.STAGEHEIGHT/2);//设置坐标位置
+
+      //轴心在左上角，需要计算一下y轴的位置
+      // this._farmIndex.y = -CONST.STAGEADAPTION*2;
+
+      this.setScale(this._farmIndex);
+
       this.loadSeedList();
-      // this.setScale(this._farmIndex); //todo
       //初始化页面的参数
       this.showInit();
-
-      // //先添加一下农田的层
-      this.land_div = new Laya.Sprite();
+      
+      //先添加一下农田的层
+      this.land_div = new Laya.Sprite;
       this.land_div.name = 'land_div';
       this.land_div.x = 12;
       this.land_div.y = 1079;
       this._farmIndex.addChild(this.land_div);
-      this.addChild(this._farmIndex)
       //获取所有农田的状态
       this.getFarmLand();
       //获取农田的种子信息
       this.getFarmSeed();
     }
-    this.tweenAlphaAdd('farm', type, 1);
+    if(type == 2){
+      this.tweenAlphaAdd(this._farmIndex,'farmIndex',type);
+    }else{
+      this.tweenTranAdd(this._farmIndex,'farmIndex',type,'right');
+    }
+    console.log(this)
   }
 
   // /**
@@ -66,11 +81,11 @@ export default class farmIndex extends baseView {
     // 	this.order_btn = this._farmIndex.getChild('order').asLoader;
 
     //监听点击
-    this.ui.bg_kuan.on(Laya.Event.CLICK, this, this.cleanAllStatu);
-    this.ui.building.on(Laya.Event.CLICK, this, this.onMenuClick, ['building']); //右上角红色建筑
-    this.ui.order.on(Laya.Event.CLICK, this, this.onMenuClick, ['order']);//订单
-    this.ui.email.on(Laya.Event.CLICK, this, this.onMenuClick, ['email']);//邮件
-    this.ui.upgrade.on(Laya.Event.CLICK, this, this.onMenuClick, ['upgrade']);//邮件
+    this._farmIndex.scene.bg_kuan.on(Laya.Event.CLICK, this, this.cleanAllStatu);
+    this._farmIndex.scene.building.on(Laya.Event.CLICK, this, this.onMenuClick, ['building']); //右上角红色建筑
+    this._farmIndex.scene.order.on(Laya.Event.CLICK, this, this.onMenuClick, ['order']);//订单
+    this._farmIndex.scene.email.on(Laya.Event.CLICK, this, this.onMenuClick, ['email']);//邮件
+    this._farmIndex.scene.upgrade.on(Laya.Event.CLICK, this, this.onMenuClick, ['upgrade']);//邮件
     this.cleanAllStatu();//重置所有的按钮状态
   }
   /**
@@ -151,24 +166,14 @@ export default class farmIndex extends baseView {
    */
   private forFarmLand(data) {
     var landObj = new farmLand;
-    // console.log(landObj)
-    // console.log(data.ff_id)
     this.landArr[data.ff_id] = landObj;
-    // console.log(data.ff_id)
-    // console.log(landObj.init(data))
     this.land_div.addChild(landObj.init(data));
-    // console.log(this.land_div)
-    // console.log(this._farmIndex)
-    // landObj.init(data)
-    // console.log(this.landArr[data.ff_id])
-    // console.log('00000000000000000000000')
   }
   /**
    * 清除所有状态
    */
   private cleanAllStatu() {
-    this.ui.bg_kuan.visible = false;
-    // this.ui.bg_kuan.enabled = false;
+    this._farmIndex.scene.bg_kuan.visible = false;
     //重置一下农田
     farmController.getInstance().model.setLandId('');
     farmController.getInstance().model.setClickLandStatic('');
@@ -181,19 +186,19 @@ export default class farmIndex extends baseView {
   /**
    * 修改单个农田的状态
    */
-  public setThisLandStatic(id,str){
-  	this.landArr[id].land_static = str;
+  public setThisLandStatic(id, str) {
+    this.landArr[id].land_static = str;
   }
   /**
    * 设置单个农田的定时器
    * id：农田的ID
    */
-  public setThisLandTimer(id){
-  	this.landArr[id].setTimer();
+  public setThisLandTimer(id) {
+    this.landArr[id].setTimer();
   }
-  // /**
-  //  * 自动选择下一个农田
-  //  */
+  /**
+   * 自动选择下一个农田
+   */
   public setPlantFramLand() {
     //获取当前农田
     var landId = farmController.getInstance().model.landId;
@@ -206,20 +211,20 @@ export default class farmIndex extends baseView {
     }
     this.cleanAllStatu();//没有农田可以种植就直接关闭操作
   }
-  // /**
-  //  * 重置农田
-  //  */
+  /**
+   * 重置农田
+   */
   public initLand() {
     for (var i in this.landArr) {
       this.landArr[i].initLand();
     }
   }
-  // /**
-  //  * 显示虚拟背景
-  //  */
+  /**
+   * 显示虚拟背景
+   */
   private showBgKuan() {
     //显示模糊背景
-    this.ui.bg_kuan.visible = true;
+    this._farmIndex.scene.bg_kuan.visible = true;
   }
   /**
    * 建筑物点击:type:点击的按钮
@@ -233,6 +238,7 @@ export default class farmIndex extends baseView {
     this.recoveryBtn(type);
     switch (type) {
       case 'building':
+        this._farmIndex.scene.building.skin = 'main/btn_cangku2.png';
         this.onClickBuilding();
         break;
       case 'upgrade':
@@ -240,12 +246,12 @@ export default class farmIndex extends baseView {
         break;
       case 'email':
         console.log('点击邮箱');
-        // this.email_btn.url = 'ui://farm/btn_youxiang2';
+        this._farmIndex.scene.email.skin = 'main/btn_youxiang2.png';
         break;
       case 'order':
         console.log('点击订单');
-        // this.onClickOrder();
-        // this.order_btn.url = 'ui://farm/btn_dingdan2';
+        this.onClickOrder();
+        this._farmIndex.scene.order.skin = 'main/btn_dingdan2.png';
         break;
     }
 
@@ -256,21 +262,21 @@ export default class farmIndex extends baseView {
    */
   private recoveryBtn(type?: string) {
     this.muneClickStr = type;
-    this.ui.building.skin = 'farm/btn_cangku1.png';
-    this.ui.upgrade.skin = 'farm/btn_shengji1.png';
-    this.ui.email.skin = 'farm/btn_youxiang1.png';
-    this.ui.order.skin = 'farm/btn_dingdan1.png';
+    this._farmIndex.scene.building.skin = 'main/btn_cangku1.png';
+    this._farmIndex.scene.upgrade.skin = 'main/btn_shengji1.png';
+    this._farmIndex.scene.email.skin = 'main/btn_youxiang1.png';
+    this._farmIndex.scene.order.skin = 'main/btn_dingdan1.png';
 
   }
   /**
    * 点击升级按钮
    */
-  private onClickUpgrade(){
-    this.ui.upgrade.skin = "main/btn_shengji2.png";
-  	this.showBgKuan();
-  	farmController.getInstance().model.setClickLandStatic('upgrade');
-  	this.setLandStatic('upgrade');//设置花田状态为升级
-  	this.initLand();//重置下花田
+  private onClickUpgrade() {
+    this._farmIndex.scene.upgrade.skin = "main/btn_shengji2.png";
+    this.showBgKuan();
+    farmController.getInstance().model.setClickLandStatic('upgrade');
+    this.setLandStatic('upgrade');//设置花田状态为升级
+    this.initLand();//重置下花田
   }
   /**
    * 设置所有花田的状态
@@ -291,6 +297,6 @@ export default class farmIndex extends baseView {
    * 点击订单
    */
   private onClickOrder() {
-    // orderController.getInstance().onShowOrder();
+    orderController.getInstance().onShowOrder();
   }
 }

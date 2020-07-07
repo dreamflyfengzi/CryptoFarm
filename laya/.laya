@@ -32,7 +32,7 @@ import Scene=Laya.Scene;]]>   </codeImportsTS>
    <scaleMode>showall   </scaleMode>
    <screenMode>none   </screenMode>
    <alignV>top   </alignV>
-   <alignH>left   </alignH>
+   <alignH>center   </alignH>
    <designWidth>1242   </designWidth>
    <designHeight>2688   </designHeight>
    <codeViewExportPath>src/view   </codeViewExportPath>

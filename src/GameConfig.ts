@@ -9,7 +9,7 @@ export default class GameConfig{
     static scaleMode:string="showall";
     static screenMode:string="none";
     static alignV:string="top";
-    static alignH:string="left";
+    static alignH:string="center";
     static startScene:any="login/login.scene";
     static sceneRoot:string="";
     static debug:boolean=false;

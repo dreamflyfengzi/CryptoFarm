@@ -16,12 +16,13 @@ export default class NETWORKEVENT{
   public static FARMINITSEEDLIST:string = "init_seed_list";//获取所有农田的种子列表
   public static FARMINITFLOWERGRADE:string = 'init_flower_grade';//土地的扩建升级
   public static FARMINITPLANTFLOWER:string = 'init_plant_flower'//请求种植操作
-  public static FARMINITFLOWERFERTILIZE:string = 'init_flower_fertilize';//施肥操作
-  public static FARMINITFLOWERFAT:string = 'init_flower_fat';//肥力失效
   public static FARMINITFLOWERWATER:string = 'init_flower_water';//浇水操作
   public static FARMINITGROWFLOWER:string = 'init_grow_flower';//花田生长的操作
   public static FARMINITCOLLECTFLOWER:string = 'init_collect_flower';//花田收获
+  
+  public static FARMINITFLOWERFERTILIZE:string = 'init_flower_fertilize';//施肥操作
   public static FARMSENDFLOWERFATBAK:string = 'send_flower_fat_bak';//施肥通知
+  public static FARMINITFLOWERFAT:string = 'init_flower_fat';//肥力失效
   
   public static SENDFACTORYBAK:string = 'send_factory_bak';//获取用户工厂信息
   public static FACTORYCREATEBAK:string = 'factory_create_bak';//工厂建造的协议
@@ -39,4 +40,5 @@ export default class NETWORKEVENT{
   public static STOREGOODDEL:string = 'store_good_del_bak';//从仓库出售物品的协议
   public static LOTTERYINFOBAK:string = 'lottery_info_bak';//获取当天订单列表的协议
   public static LOTTERYACTBAK:string = 'lottery_act_bak';//提交订单的协议
+  public static SHOWSELLTIP:string = 'show_sell_tip';//暂时
 }

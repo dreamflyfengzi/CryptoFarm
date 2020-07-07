@@ -5,7 +5,7 @@ import gameLayer from '../../gameLayer'
 import CONST from '../../../const/CONST'
 export default class baseWindow extends Laya.Sprite {
   private modal: Laya.Sprite;
-  private delay = 1000;/*单位：毫秒 */
+  private delay = 300;/*单位：毫秒 */
 
   constructor() {
     super();
@@ -78,7 +78,7 @@ export default class baseWindow extends Laya.Sprite {
     this.modal.visible = false;
     this.modal.graphics.clear();
     this.modal.off(Laya.Event.CLICK, this, this.onClick);
-    this.removeChildren();
+    // this.removeChildren();
     Laya.Tween.clearAll(this);
     this.visible = false;
   }

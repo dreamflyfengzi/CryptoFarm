@@ -13,61 +13,47 @@ import warehouseController from './warehouseController'
 export default class warehouseIndex extends baseWindow {
 
   private _warehouse: Laya.Sprite;//顶层对象
-  // private _close:fairygui.GLoader;
   private _type: string;//当前选项的类型
-  // private _good_list:fairygui.GList;//商品列表
-  // private _item_all_bg:fairygui.GLoader;//‘所有’按钮
-  // private _item_flower_bg:fairygui.GLoader;//‘花卉’按钮
-  // private _item_good_bg:fairygui.GLoader;//‘商品’按钮
-  // private _upgrade_div:fairygui.GGroup;//升级层
-  // private _upgrade_btn:fairygui.GLoader;//升级按钮
+  private _good_list: Laya.List;
 
   constructor() {
     super();
   }
   /**显示工厂场景(type:1.当前页面隐藏切换，2.当前页面去除切换 */
   public onShowWarehouse() {
-    if(this._warehouse == null){
+    console.log('STEP_____1')
+    if (this._warehouse == null) {
       this._warehouse = new ui.warehouse.warehouseUI();
-    	this.setScale(this._warehouse);
-    	 this._warehouse.name = 'warehouse';
-    // // // 	// console.log(this._tipKuan. x,this._tipKuan. y);
-    	this._warehouse.pivotX = 0.5*this._warehouse.width;
-    	this._warehouse.pivotY = 0.5*this._warehouse.height;
-     this.addChild(this._warehouse);
+      // this.setScale(this._warehouse);
+      this._warehouse.name = 'warehouse';
+      this._warehouse.pivotX = 0.5 * this._warehouse.width;
+      this._warehouse.pivotY = 0.5 * this._warehouse.height;
+      this.addChild(this._warehouse);
     }
     this.tweenShow();
-    //获取对象
-    // this._close = this._warehouse.getChild('close').asLoader;
-    // this._item_all_bg = this._warehouse.getChild('item_all_bg').asLoader;
-    // this._item_flower_bg = this._warehouse.getChild('item_flower_bg').asLoader;
-    // this._item_good_bg = this._warehouse.getChild('item_good_bg').asLoader;
-    // this._good_list = this._warehouse.getChild('good_list').asList;//商品列表
-    // this._warehouse.item_all.on(Laya.Event.CLICK, this, function () {
-    //   if (this._type != 'all') {
-    //     this.switchItem('all');
-    //     // this.initWarehouseGoodList();
-    //   }
-    // }.bind(this));
-    // this.ui.item_flower.on(Laya.Event.CLICK, this, function () {
-    //   if (this._type != 'flower') {
-    //     this.switchItem('flower');
-    //     // this.initWarehouseGoodList();
-    //   }
-    // }.bind(this));
-    // this.ui.item_good.on(Laya.Event.CLICK, this, function () {
-    //   if (this._type != 'goods') {
-    //     this.switchItem('goods');
-    //     // this.initWarehouseGoodList();
-    //   }
-    // }.bind(this));
-    // // this.ui.upgrade_btn = this._warehouse.getChild('upgrade_div').asGroup;;//升级层
-    // // this._upgrade_btn = this._warehouse.getChild('upgrade_btn').asLoader;//升级按钮
-    // //初始化选项
-    // this.switchItem('all');
-    // //获取用户的物品数据
-    // this.store_info();
-    // // this._close.on(Laya.Event.CLICK,this,this.tweenHide);
+    this._warehouse.scene.item_all.on(Laya.Event.CLICK, this, function () {
+      if (this._type != 'all') {
+        this.switchItem('all');
+        this.initWarehouseGoodList();
+      }
+    }.bind(this));
+    this._warehouse.scene.item_flower.on(Laya.Event.CLICK, this, function () {
+      if (this._type != 'flower') {
+        this.switchItem('flower');
+        this.initWarehouseGoodList();
+      }
+    }.bind(this));
+    this._warehouse.scene.item_good.on(Laya.Event.CLICK, this, function () {
+      if (this._type != 'goods') {
+        this.switchItem('goods');
+        this.initWarehouseGoodList();
+      }
+    }.bind(this));
+    //初始化选项
+    this.switchItem('all');
+    //获取用户的物品数据
+    this.store_info();
+    this._warehouse.scene.close_btn.on(Laya.Event.CLICK, this, this.tweenHide);
 
   }
   /**
@@ -75,26 +61,40 @@ export default class warehouseIndex extends baseWindow {
    */
   public initWarehouseInfo() {
     var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
-    // var good_num = this._warehouse.getChild('good_num').asTextField;//容量文字
-    // this.ui.good_num.text = '容量：' + data.num2 + '/' + data.num;
+    console.log('仓库', data)
+    // 'store_id'=>'仓库系统ID',
+    // 'grade'=>'仓库等级',
+    // 'num'=>'仓库总大小',
+    // 'num2'=>'仓库已使用数量', num2/num , num3
+    // 'num3'=>'每格的大小',
+    // 'name'=>'仓库名称',
+    // 'data_info'=>array(//要获取的物品信息
+    //     array(
+    //         'good_id'=>'物品ID',
+    //         'pos'=>'仓库位置',
+    //         'num'=>'物品数量',
+    //     ),
+    // )
+    this._warehouse.scene.good_num.text = '容量：' + data.num2 + '/' + data.num;
     //判断是否可以升级
     var store_info = dataJson.getInstance().GET_SYS_STORE_INFO();
-    if (store_info[Math.floor(data.grade) + 1]) {//最高级了
-      // this.ui.upgrade_btn.visible = true;
+    console.log(data, store_info, store_info[Math.floor(data.grade) + 1])
+    if (store_info[Math.floor(data.grade) + 1]) {
+      this._warehouse.scene.upgrade_btn.visible = true;
       this.setUpdrageDiv();
     } else {
-      // this.ui.upgrade_btn.visible = false;
+      //最高
+      this._warehouse.scene.upgrade_btn.visible = false;
     }
   }
   /**
    * 设置升级按钮
-   * 
    */
   public setUpdrageDiv() {
+    console.log('设置升级按钮')
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;//获取用户信息金币信息
     var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
-    console.log(have_gold, data, dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1])
-    // this.ui.upgrade_btn.off(Laya.Event.CLICK, this, this.showGoldTip);
+    this._warehouse.scene.upgrade_btn.off(Laya.Event.CLICK, this, this.showGoldTip);
 
     //获取等级下一级的信息
     if (dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1]) {//有下一级
@@ -126,7 +126,8 @@ export default class warehouseIndex extends baseWindow {
       var cancel_fun = function () {
         tipController.getInstance().close();
       }
-      // this.ui.upgrade_btn.on(Laya.Event.CLICK, this, this.showGoldTip, ['仓库升级', str, '确定', '取消', confirm_fun, cancel_fun]);
+      console.log(str)
+      this._warehouse.scene.upgrade_btn.on(Laya.Event.CLICK, this, this.showGoldTip, ['仓库升级', str, '确定', '取消', confirm_fun, cancel_fun]);
     }
   }
 
@@ -157,14 +158,14 @@ export default class warehouseIndex extends baseWindow {
    */
   public initWarehouseGoodList() {
     var data = dataGlobal.getInstance().userGoodInfo;//查询仓库的信息
-
-    // this.ui.good_list.removeChildren();
+    this._good_list = this._warehouse.scene.good_list;
+    this._good_list.dataSource = []
+    var _dataSource = []
     if (data) {
       var isAdd = false;
       for (var i in data) {
         //获取物品的信息
         var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[data[i].id];
-
         if (this._type == 'all') {
           isAdd = true;
         } else if (this._type == 'flower' && good_info.type == 6) {//花卉
@@ -176,45 +177,82 @@ export default class warehouseIndex extends baseWindow {
         if (isAdd && Math.floor(data[i].num) > 0) {
           this.creator_good_item(data[i].id, data[i].num);
         }
+        // this._good_list.dataSource = source;
         isAdd = false;
       }
     }
+
+    // 添加点击事件
+    // this._good_list.setItem(1,{}) //改变单个数据
+    this._good_list.selectEnable = true;
+    // this._good_list.selectHandler = 
+    this._good_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, [data[i].id], false)
+  }
+  // 点击图标
+  private itemSelectHandler(id, cell) {
+    // var item = cell.getChildByName('gicon')
+    cell.on(Laya.Event.CLICK, this, this.clickItem, [cell])
+
+    // cell.on(Laya.Event.CLICK,this,)
+    // this.showSellTip(this._good_list.array[index].gicon.skin)
+    // console.log(this._good_list.getChildByName('gicon'))
+    // console.log(cell.getChildByName('gicon'))
+  }
+
+  private clickItem(cell) {
+    console.log(cell.dataSource.id)
+    this.showSellTip(cell.dataSource.id)
   }
   /**
-   * 创建图标
+   * 创建图标 单个商品
    * @param id 商品ID
    * @param num 商品图标
    */
-  private creator_good_item(id, num) {}
-  // private creator_good_item(id, num) {
+  private creator_good_item(id, num) {
+    var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
+    var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
+    console.log(id, num, data, good_info)
 
-  //   var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
-  //   // //获取物品的信息
-  //   var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
-  //   var good_item = new warehouseItem();
-    
-  //   var gicon = good_item.gicon;
-  //   var gnum = good_item.gnum;
-  //   //todo
-  //   good_item.x = ((this.ui.n10.width-good_item.width*3)/4)*(this.ui.good_list._children.length+1)+(good_item.width*this.ui.good_list._children.length)
-  //   if (this.ui.good_list._children.length<= 3 ) {
-  //     good_item.y = 30
-  //   }
-  //   let index = good_info.pic.lastIndexOf("/")
-  //   var _skin = good_info.pic.substring(index + 1, good_info.pic.length)
-  //   gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
-  //   var isNum = num - Math.floor(data.num3)
-  //   if (isNum > 0) {//需要放两格
-  //     gnum.text = data.num3;
-  //     this.ui.good_list.addChild(good_item);
-  //     this.creator_good_item(id, isNum);
-  //   } else {
-  //     gnum.text = num;
-  //     this.ui.good_list.addChild(good_item);
-  //   }
-  //   console.log( this.ui.good_list)
-  //   good_item.on(Laya.Event.CLICK, this, this.showSellTip, [id]);
-  // }
+    let index = good_info.pic.lastIndexOf("/")
+    var _skin = good_info.pic.substring(index + 1, good_info.pic.length)
+    // gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
+    var isNum = num - Math.floor(data.num3)
+    if (isNum > 0) {//需要放两格
+      var good_item = {
+        gnum: {
+          text: data.num3
+        },
+        gicon: {
+          skin: "main/" + _skin + ".png"
+        },
+        id:id
+      }
+
+      //   _dataSource.push(good_item)
+      this._good_list.addItem(good_item)
+      this.creator_good_item(id, isNum);
+    } else {
+      var good_item = {
+        gnum: {
+          text: num,
+        },
+        gicon: {
+          skin: "main/" + _skin + ".png"
+        },
+        id:id
+      }
+      //   // gnum.text = num;
+      //   // this._warehouse.scene.good_list.add(good_item);
+      //   _dataSource.push(good_item)
+      this._good_list.addItem(good_item)
+    }
+
+    // console.log(this._warehouse.scene.good_list.dataSource)
+    // // Laya.stage.event(NETWORKEVENT.SHOWSELLTIP,id);
+    // good_item.on(Laya.Event.CLICK, this, this.showSellTip, [id]);
+    // return _dataSource
+  }
+
 
   /**
    * 切换选项
@@ -223,28 +261,28 @@ export default class warehouseIndex extends baseWindow {
   private switchItem(str) {
     this._type = str;
     //先初始化各个选项
-    // this.ui.item_all.skin = 'warehouse/btn_biaoqian2.png';
-    // this.ui.item_flower.skin = 'warehouse/btn_biaoqian2.png';
-    // this.ui.item_good.skin = 'warehouse/btn_biaoqian2.png';
-    // this.ui.item_all.labelColors = '#7D4815';
-    // this.ui.item_flower.labelColors = '#7D4815';
-    // this.ui.item_good.labelColors = '#7D4815';
-    // this.ui.item_all_biao.visible = false;
-    // this.ui.item_flower_biao.visible = false;
-    // this.ui.item_good_biao.visible = false;
-    // if (this._type == 'all') {
-    //   this.ui.item_all.skin = 'warehouse/btn_biaoqian1.png';
-    //   this.ui.item_all.labelColors = '#fff';
-    //   this.ui.item_all_biao.visible = true;
-    // } else if (this._type == 'flower') {//花卉
-    //   this.ui.item_flower.skin = 'warehouse/btn_biaoqian1.png';
-    //   this.ui.item_flower.labelColors = '#fff';
-    //   this.ui.item_flower_biao.visible = true;
-    // } else if (this._type == 'goods') {//商品
-    //   this.ui.item_good.skin = 'warehouse/btn_biaoqian1.png';
-    //   this.ui.item_good.labelColors = '#fff';
-    //   this.ui.item_good_biao.visible = true;
-    // }
+    this._warehouse.scene.item_all.skin = 'warehouse/btn_biaoqian2.png';
+    this._warehouse.scene.item_flower.skin = 'warehouse/btn_biaoqian2.png';
+    this._warehouse.scene.item_good.skin = 'warehouse/btn_biaoqian2.png';
+    this._warehouse.scene.item_all.labelColors = '#7D4815';
+    this._warehouse.scene.item_flower.labelColors = '#7D4815';
+    this._warehouse.scene.item_good.labelColors = '#7D4815';
+    this._warehouse.scene.item_all_biao.visible = false;
+    this._warehouse.scene.item_flower_biao.visible = false;
+    this._warehouse.scene.item_good_biao.visible = false;
+    if (this._type == 'all') {
+      this._warehouse.scene.item_all.skin = 'warehouse/btn_biaoqian1.png';
+      this._warehouse.scene.item_all.labelColors = '#fff';
+      this._warehouse.scene.item_all_biao.visible = true;
+    } else if (this._type == 'flower') {//花卉
+      this._warehouse.scene.item_flower.skin = 'warehouse/btn_biaoqian1.png';
+      this._warehouse.scene.item_flower.labelColors = '#fff';
+      this._warehouse.scene.item_flower_biao.visible = true;
+    } else if (this._type == 'goods') {//商品
+      this._warehouse.scene.item_good.skin = 'warehouse/btn_biaoqian1.png';
+      this._warehouse.scene.item_good.labelColors = '#fff';
+      this._warehouse.scene.item_good_biao.visible = true;
+    }
   }
   /**
    * 仓库升级
@@ -262,7 +300,7 @@ export default class warehouseIndex extends baseWindow {
     // };
     // // console.log("发送websocket数据",tmp_data);
     // tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
-    //  Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
+    Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
   }
   /**
    * 出售框

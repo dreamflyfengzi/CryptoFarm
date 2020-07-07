@@ -13,7 +13,9 @@ export default class farmSeedList extends ui.farm.seedListUI {
     super()
   }
   private _seedListScene: Laya.Sprite;//列表的组件 列表本页面
+  private _nowScene: Laya.Sprite;//列表的组件 列表本页面
   private _seedListArray: Array<any>;//列表的数组
+  private _fatListArray: Array<any>;//列表的数组
   private _seed_list: Laya.List; //列表本表
   public init() {
     this._seedListScene = this;
@@ -22,7 +24,9 @@ export default class farmSeedList extends ui.farm.seedListUI {
     // this._seed_list.repeatX = 1;
     this._seed_list.hScrollBarSkin = "";
     this._seedListScene.visible = false;
-    return this._seedListScene;
+    var _nowScene = this._seedListScene;
+    // return this._seedListScene;
+    return _nowScene
   }
 
   // 虚拟列表渲染调用的函数
@@ -32,42 +36,25 @@ export default class farmSeedList extends ui.farm.seedListUI {
 
   // 设置一下种子（data = {'seed_data':种子信息,'fat_data':肥料信息}）
   public addSeedListItem(data) {
-    //添加种子选项
-    // var seed_data = data.seed_data;
-    // var seed_data = data;
-    // this.addSeedItem(seed_data);
-    // //添加肥料选项
-    // var fat_data = data.fat_data;
-    // this.addFertilizerItem(fat_data);
+    //添加肥料选项
+    var fat_data = data.fat_data;
+    this.addFertilizerItem(fat_data);
+    // 添加种子选项
+    var seed_data = data.seed_data;
+    this.addSeedItem(seed_data);
   }
   //设置施肥信息
   public setSeedListItem() {
+    this.setFatItem();//设置施肥信息
     this.setSeedItem();//设置种子信息
-    // this.setFatItem();//设置施肥信息
   }
   //添加种子选项
   private addSeedItem(data) {
     this._seedListArray = [];
     for (var i in data) {
       this._seedListArray.push(data[i])
-      // var seep_pic: Laya.Image = this._seed_list;
-      // var _seedItem = new seedItem();
-      // _seedItem.name = 'seed_' + data[i].id;
-      // var ntn = parseInt(data[i].id.replace(/[^0-9]/ig, ""));
-
-      // _seedItem.x = (this._seed_list.width / 6) * (ntn - 2)
-      // _seedItem.y = (this._seed_list.height - _seedItem.height) / 2 // todo 种子的坐标
-      // _seedItem.gold.text = data[i].gold
-      // _seedItem.seep_pic.graphics.drawTexture(Laya.loader.getRes("farm/" + data[i].id + "_seed.png"))
-      // _seedItem.getChild('seep_pic').asLoader.url = data[i].pic;
-      // _seedItem.getChild('gold').asTextField.text = data[i].gold;
-      // this.initSeedItem(_seedItem);
-      // this._seed_list.addChild(_seedItem);
     }
     this._seed_list.array = this._seedListArray;
-
-    console.log(this._seed_list.array, '------------------------')
-
   }
   //设置种子的信息
   public setSeedItem() {
@@ -75,7 +62,7 @@ export default class farmSeedList extends ui.farm.seedListUI {
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     //获取种子列表信息
     var seed_arr = farmController.getInstance().model.seedData;
-    
+
     let dataSource = [];
     for (var i in seed_arr) {
       let data = null;
@@ -124,11 +111,14 @@ export default class farmSeedList extends ui.farm.seedListUI {
     this._seed_list.dataSource = dataSource;
     this._seed_list.selectEnable = true;
     this._seed_list.selectHandler = new Laya.Handler(this, this.itemSelectHandler, null, false)
-    console.log(this._seed_list.dataSource)
+    // console.log(this._seed_list.dataSource)
     this._seedListScene.visible = true;
   }
-  //点击列表项
+  //点击种子列表项
   private itemSelectHandler(index: number) {
+    console.log(index)
+    console.log(this._seed_list.dataSource);
+    // return 
     var grade = dataGlobal.getInstance().userInfo.grade;
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     //获取种子列表信息
@@ -156,35 +146,24 @@ export default class farmSeedList extends ui.farm.seedListUI {
       // _seedItem.on(Laya.Event.CLICK, this, this.onClick, ['lock', { 'grade': seed_arr[i].grade2 }]);
     }
   }
-
+  //点击肥料列表
+  private fatItemSelectHandler(index: number) {
+    console.log('fatItemSelectHandler', index)
+  }
   //先初始化层
   private initSeedItem(itemObj) {
     itemObj.suo_div.visible = false;
     itemObj.gold.color = '#EDFF24';
-    // itemObj.getChild('suo_div').visible = false;
-    // itemObj.getChild('gold').asTextField.color = '#EDFF24';
   }
   /**
    * 添加施肥按钮
    */
   private addFertilizerItem(data) {
+    this._fatListArray = [];
     for (var i in data) {
-      // var _seedItem = fairygui.UIPackage.createObject('farm','item').asCom;
-      // var _seedItem = this._seedItem; //
-      // _seedItem.getChild('suo_div').visible = false;
-      // _seedItem.name = 'fat_'+data[i].id;
-      // _seedItem.getChild('seep_pic').asLoader.url = data[i].pic;
-      // _seedItem.getChild('gold').asTextField.text = data[i].num;
-      // var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-      // if(have_gold >= data[i].num){//够钱
-      //     _seedItem.getChild('gold').asTextField.color = '#EDFF24';
-      // }else{//不够钱
-      //     _seedItem.getChild('gold').asTextField.color = '#FF3E24';
-      // }
-      // _seedItem.on(Laya.Event.CLICK,this,this.onFertilizer,[{'id':data[i].id,'num':data[i].num}]);
-      // this._seed_list.addChild(_seedItem);
+      this._fatListArray.push(data[i])
     }
-
+    this._seed_list.array = this._fatListArray;
   }
   /**
    * 设置施肥信息
@@ -193,15 +172,44 @@ export default class farmSeedList extends ui.farm.seedListUI {
     var grade = dataGlobal.getInstance().userInfo.grade;//用户等级
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;//用户金币
     var fat_arr = farmController.getInstance().model.fatData;//获取肥料信息
+    let dataSource = [];
     for (var i in fat_arr) {
-      // var _seedItem = this._seed_list.getChild('fat_'+fat_arr[i].id).asCom;
-      // _seedItem.getChild('suo_div').visible = false;
-      //  if(have_gold >= fat_arr[i].num){//够钱
-      //     _seedItem.getChild('gold').asTextField.color = '#EDFF24';
-      // }else{//不够钱
-      //     _seedItem.getChild('gold').asTextField.color = '#FF3E24';
-      // }
+      let data = null;
+      if (have_gold >= fat_arr[i].num) {//够钱
+        data = {
+          suo_div: { visible: true },
+          seep_pic: {
+            skin: fat_arr[i].pic + ".png"
+          },
+          gold_num: {
+            text: fat_arr[i].num3,
+            color: "#EDFF24"
+          },
+        }
+      } else {//不够钱
+        data = {
+          suo_div: { visible: false },
+          seep_pic: {
+            skin: fat_arr[i].pic + ".png"
+          },
+          gold_num: {
+            text: fat_arr[i].num3,
+            color: "#FF3E24"
+          },
+        }
+      }
+      dataSource.push(data)
     }
+    this._seed_list.dataSource = dataSource;
+    this._seed_list.selectEnable = true;
+    // this._seed_list.selectedItem
+    this._seed_list.selectHandler = new Laya.Handler(this, this.fatItemSelectHandler, null, false)
+    // this._seed_list.on(Laya.Event.CLICK,this,this.fatItemSelectHandler)
+    // this._seed_list.getChildByName('btnBuyProps').on(Laya.Event.CLICK, this, function () {
+    //   // this.event(ShopLimitTimeView.PROPS_ID, data.shop_list[index].id)
+    //   console.log('点击')
+    // })
+    // console.log(this._seed_list.dataSource)
     this._seedListScene.visible = true;
   }
   /**

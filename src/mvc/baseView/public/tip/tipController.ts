@@ -33,6 +33,7 @@ export default class tipController {
   }
   /**提醒弹窗 */
   public tipShow(content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
+    console.log('飘窗弹框提醒')
     if (this._tipview == null) {
       this._tipview = new tipView();
     }
@@ -47,6 +48,7 @@ export default class tipController {
   }
   /**飘字提醒 */
   public gameTxtTip(txt: string, call_fun?: Function) {
+    console.log('飘字提醒')
     if (this._tipview == null) {
       this._tipview = new tipView;
     }

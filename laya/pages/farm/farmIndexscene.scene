@@ -32,7 +32,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,farmbg_2",
-            "props":{"y":1340,"x":0,"width":1242,"var":"farmbg_2","texture":"main/farmBg_2.png","height":1344},
+            "props":{"y":1336,"x":0,"width":1242,"var":"farmbg_2","texture":"main/farmBg_2.png","height":1344},
             "nodeParent":2,
             "label":"farmbg_2",
             "isDirectory":false,
@@ -115,189 +115,17 @@
         {
             "x":15,
             "type":"Box",
-            "searchKey":"Box,top_kuan",
-            "props":{"y":0,"x":0,"width":575,"var":"top_kuan","height":257},
-            "nodeParent":2,
-            "label":"top_kuan",
-            "isOpen":false,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":25,
-            "child":[
-                {
-                    "type":"Sprite",
-                    "searchKey":"Sprite,kuan",
-                    "props":{"width":575,"var":"kuan","texture":"main/pic_touxiangkuang.png","height":257},
-                    "nodeParent":25,
-                    "label":"kuan",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":26,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Sprite",
-                    "searchKey":"Sprite,uname_bg",
-                    "props":{"y":83,"x":215,"width":328,"var":"uname_bg","texture":"main/pic_jindutiaodi.png","height":47},
-                    "nodeParent":25,
-                    "label":"uname_bg",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":27,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Text",
-                    "searchKey":"Text,uname",
-                    "props":{"y":83,"x":216,"width":324,"var":"uname","text":"玩家","height":48,"fontSize":42,"font":"SimHei","color":"#fff9f9","bold":true,"align":"center"},
-                    "nodeParent":25,
-                    "label":"uname",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":28,
-                    "child":[
-                        ]
-                }]
-        },
-        {
-            "x":15,
-            "type":"Box",
-            "searchKey":"Box,bottom",
-            "props":{"y":2309,"x":-98,"width":1382,"var":"bottom","height":282},
-            "nodeParent":2,
-            "label":"bottom",
-            "isOpen":false,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":12,
-            "child":[
-                {
-                    "type":"Sprite",
-                    "searchKey":"Sprite,botton_bg",
-                    "props":{"y":215,"x":0,"width":1383,"var":"botton_bg","texture":"main/pic_dibu.png","height":167},
-                    "nodeParent":12,
-                    "label":"botton_bg",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":13,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Box",
-                    "searchKey":"Box,main_btn_kuan",
-                    "props":{"y":2432,"x":2,"width":803,"var":"main_btn_kuan","height":197},
-                    "nodeParent":12,
-                    "label":"main_btn_kuan",
-                    "isOpen":true,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":15,
-                    "child":[
-                        {
-                            "type":"Button",
-                            "searchKey":"Button,n26",
-                            "props":{"y":-2206,"x":75,"width":152,"var":"n26","stateNum":"1","skin":"main/btn_xuanzhong.png1.png","height":76},
-                            "nodeParent":15,
-                            "label":"n26",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":18,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Button",
-                            "searchKey":"Button,main_btn",
-                            "props":{"y":-2289,"x":227,"width":632,"var":"main_btn","stateNum":"1","skin":"main/btn_xuanzhong.png.png","height":197},
-                            "nodeParent":15,
-                            "label":"main_btn",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":19,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Sprite",
-                            "searchKey":"Sprite,main_btn_txt",
-                            "props":{"y":-2247.5,"x":401.5,"var":"main_btn_txt","texture":"main/pic_huatian2.png"},
-                            "nodeParent":15,
-                            "label":"main_btn_txt",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":21,
-                            "child":[
-                                ]
-                        }]
-                },
-                {
-                    "type":"Box",
-                    "searchKey":"Box,factory_kuan",
-                    "props":{"var":"factory_kuan"},
-                    "nodeParent":12,
-                    "label":"factory_kuan",
-                    "isOpen":false,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":22,
-                    "child":[
-                        {
-                            "type":"Button",
-                            "searchKey":"Button,factory_btn",
-                            "props":{"y":144,"x":1011,"var":"factory_btn","stateNum":"1","skin":"main/btn_weixuanzhong.png"},
-                            "nodeParent":22,
-                            "label":"factory_btn",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":23,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Sprite",
-                            "searchKey":"Sprite,factory_btn_txt",
-                            "props":{"y":199,"x":1105,"var":"factory_btn_txt","texture":"main/pic_gongchnag1.png"},
-                            "nodeParent":22,
-                            "label":"factory_btn_txt",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":24,
-                            "child":[
-                                ]
-                        }]
-                }]
-        },
-        {
-            "x":15,
-            "type":"Box",
             "searchKey":"Box,bg_kuan",
             "props":{"y":0,"x":0,"width":1242,"visible":true,"var":"bg_kuan","height":2688},
             "nodeParent":2,
             "label":"bg_kuan",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":29,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,n71",
                     "props":{"y":0,"x":0,"var":"n71","texture":"loading/pic_bg1.png"},
@@ -311,7 +139,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,n72",
                     "props":{"y":1344,"x":0,"var":"n72","texture":"loading/pic_bg2.png"},
@@ -325,7 +152,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,n74",
                     "props":{"y":1016,"x":379,"width":1095,"var":"n74","skin":"main/pic_huatiandi.png","skewY":-2,"sizeGrid":"120,315,120,335","rotation":34,"height":756},

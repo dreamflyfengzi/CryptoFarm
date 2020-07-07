@@ -3,7 +3,7 @@
 */
 import { ui } from '../../ui/layaMaxUI'
 // import loginController from './loginController'
-// import { baseScene } from '../baseView/component/baseScene'
+import { baseScene } from '../baseView/component/baseScene'
 import baseView from '../baseView/component/baseView'
 // import gameLayer from '../gameLayer'
 // import Event = Laya.Event;
@@ -11,45 +11,81 @@ import GAMEEVENT from '../event/GAMEEVENT'
 import farmController from '../farm/farmController'
 import resManger from '../resconfig/resManger'
 import resConfig from '../resconfig/resConfig'
+import CONST from '../../const/CONST'
 
 
 // export default class loginWin extends ui.login.loginUI {
 // export default class loginWin extends baseView {
-export default class loginWin extends baseView {
+export default class loginWin extends baseScene {
+  private _login_sence:Laya.Sprite;//显示列表
+		// private _loading_txt:Laya.GTextField;//加载文字
+		// private _loading_icon:Laya.GLoader;//加载图标
+		// private _loading_group:Laya.GGroup;//加载组
+		// private _login_group:Laya.GGroup;//登录组
+		// private _login_btn:Laya.GButton;//登录按钮
+		// private _login_check:Laya.GButton;//多选项
 
   constructor() {
-    super(ui.login.loginUI);
+    super();
   }
 
 
   public addEvents() {
     // console.log(this.mouseEnabled)
-    
-    console.log(this.ui.login_btn)
+    // this._login_sence =new ui.login.loginUI();
+    // console.log(this._login_sence.login_btn)
 
-    // console.log(this.ui.login_btn.width)
-    // console.log(this.ui.login_btn.height)
 
-    console.log("addEvents", this.ui.login_btn)
-    // this.ui.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
-    this.ui.on(Laya.Event.CLICK, this, this.loginBtn);
+    // console.log("addEvents", this._login_sence.login_btn)
+    this._login_sence.scene.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
+    this._login_sence.on(Laya.Event.CLICK, this, this.loginBtn);
+    // console.log(this._login_sence)
   }
 
   public onShow() {
-    // this.addEvents();
-    // console.log("loginWin", "onShow")
-    //这里显示登录
-    this.tweenAlphaAdd('login', 2, 1);
-  }
+    if(this._login_sence == null){
+      this._login_sence = new ui.login.loginUI();
+      this._login_sence.name = 'loading';
+    }
 
+    // this._loading_txt = this._login_sence.getChild('loading_txt').asTextField;
+    // this._loading_icon = this._login_sence.getChild('loading_icon').asLoader;
+    // this._loading_group = this._login_sence.getChild('loading_group').asGroup;
+    // this._login_group = this._login_sence.getChild('login_group').asGroup;
+    // this._login_btn = this._login_sence.getChild('login_btn').asButton;
+    // this._login_check = this._login_sence.getChild('login_check').asButton;
+    //显示
+    // this._login_sence.pivot(this._login_sence.width/2,this._login_sence.height/2);//设置轴心
+    // this._login_sence.pos(CONST.STAGEWIDTH/2,CONST.STAGEHEIGHT/2);//设置坐标位置
+    this.setScale(this._login_sence);
+    this.adaption();
+    
+    this._login_sence.name = 'login';
+
+    this.addEvents();
+    //这里显示登录
+    this.tweenAlphaAdd(this._login_sence,'login',2);
+  }
+		/**
+		 * 自适应
+		 */
+		private adaption(){
+			//轴心在左上角，需要计算一下y轴的位置
+			// this._login_sence.y = -CONST.STAGEADAPTION;
+			// console.log('this._login_group.y',this._login_group.y,CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH,CONST.DESIGNSTAGEHEIGHT);
+			var sc = CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH;
+			var a = (sc*CONST.DESIGNSTAGEHEIGHT-CONST.STAGEHEIGHT)/sc;
+			this._login_sence.scene.login_group.y = this._login_sence.scene.login_group.y - CONST.ADAPTION;
+			this._login_sence.scene.loading_group.y = this._login_sence.scene.loading_group.y - CONST.ADAPTION;
+		}
   /**
 		 * 展示登录按钮
 		 */
   public onShowLogin() {
     //这里显示登录
-    this.ui.loading_group.visible = false;
-    this.ui.login_group.visible = true;
-    this.ui.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
+    this._login_sence.scene.loading_group.visible = false;
+    this._login_sence.scene.login_group.visible = true;
+    this._login_sence.scene.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
   }
   /**
    * 点击登录按钮
@@ -118,14 +154,14 @@ export default class loginWin extends baseView {
    * 加载农场
    */
   public onupdateFarm(x) {
-    this.ui.loading_txt.text = x + '%';
+    this._login_sence.scene.loading_txt.text = x + '%';
     var num = Math.floor(x / (100 / 9)) - 1;
-    this.ui.loading_icon.url = "ui://login/0_0000" + num;
+    this._login_sence.scene.loading_icon.url = "ui://login/0_0000" + num;
   }
-  // /** */
-  // public onClick() {
-  //   // this.tweenHide();
-  // }
+  /** */
+  public onClick() {
+    // this.tweenHide();
+  }
 
   // //登陆成功之后显示首页
   public onShowFarm() {

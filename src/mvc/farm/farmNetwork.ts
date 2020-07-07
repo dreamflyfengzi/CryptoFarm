@@ -25,13 +25,14 @@ export default class farmNetwork {
    * 获取种子列表
    */
   public FarmInitSeedList(data) {
+    console.log('读取种子列表',data)
     // data = { "ga": "init_seed_list", "gd": [{ "id": "hh02", "name": "\u7ea2\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 100 }, { "id": "hh02", "name": "\u9ed1\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "100", "pic": "ui:\/\/farm\/hh01_2", "ain": "", "gold": 100 }, { "id": "hh03", "name": "\u9ec4\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "500", "pic": "ui:\/\/farm\/hh01_3", "ain": "", "gold": 100 }, { "id": "hh04", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "400", "pic": "ui:\/\/farm\/hh01_4", "ain": "", "gold": 150 }, { "id": "hh05", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "1", "grade3": "300", "pic": "ui:\/\/farm\/hh02_1", "ain": "", "gold": 200 }, { "id": "hh06", "name": "\u9752\u73ab\u7470", "grade": "1", "grade2": "20", "grade3": "200", "pic": "ui:\/\/farm\/hh02_2", "ain": "", "gold": 300 }], "code": 1 };
     data = staticData.getInstance().getFarmInitSeedList()
     //先存一份种子的数据
-    // farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
-    farmController.getInstance().model.setFarmSeed(data.gd);
+    farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
+    // farmController.getInstance().model.setFarmSeed(data.gd);
     //保存一份肥料的数据
-    // farmController.getInstance().model.setFatData(data.gd.fat_data);
+    farmController.getInstance().model.setFatData(data.gd.fat_data);
     //设置农田的信息
     farmController.getInstance().onFarmInitSeedList(data.gd);
   }
@@ -79,7 +80,7 @@ export default class farmNetwork {
   // dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);//保存农田信息
 
   // farmController.getInstance().initLand();//重置农田
-  // }
+
   /**
    * 请求种植操作
    */
@@ -147,8 +148,10 @@ export default class farmNetwork {
    * 请求浇水操作
    */
   public FarmInitFlowerWater(data) {
-    data = { "ga": "init_flower_water", "gd": { "ff_id": "ht02", "fat_time": 0, "fat_time_tol": 0, "ff_exp": 500, "seed_data": { "grow_time_tol": 5000, "mature_time": 900, "grow_static": 2, "id": "hh02", "name": "\u7ea2\u73ab\u7470", "grade": "1", "pic": "hh02_2", "ain": "" }, "exp_data": { "exp": "20", "exp2": "2", "t": "7200" }, "msg": "\u6d47\u6c34\u6210\u529f" }, "code": 1 };
-    var myData = data.gd;
+    console.log(data)
+    var _data = staticData.getInstance().farmInitFlowerWater(data)
+    // data = { "ga": "init_flower_water", "gd": { "ff_id": "ht02", "fat_time": 0, "fat_time_tol": 0, "ff_exp": 500, "seed_data": { "grow_time_tol": 5000, "mature_time": 900, "grow_static": 2, "id": "hh02", "name": "\u7ea2\u73ab\u7470", "grade": "1", "pic": "hh02_2", "ain": "" }, "exp_data": { "exp": "20", "exp2": "2", "t": "7200" }, "msg": "\u6d47\u6c34\u6210\u529f" }, "code": 1 };
+    var myData = _data.gd;
     var tmp_arr = {
       // 'ff_id':myData.ff_id,
       'fat_time': myData.fat_time,
@@ -166,7 +169,6 @@ export default class farmNetwork {
    * 植物成长推送
    */
   public FarmInitGrowFlower(data) {
-    Laya.stage.off(NETWORKEVENT.FARMINITGROWFLOWER,this,this.FarmCollectFlower);//植物成长推送
     // var myData = data.gd;
     var _tmp_arr = staticData.getInstance().farmInitGrowFlower(data.ff_id, data.seed_data);
     console.log(data.ff_id,'的花长大了',_tmp_arr.gd)
@@ -184,13 +186,15 @@ export default class farmNetwork {
    * 花田收获
    */
   public FarmCollectFlower(data) {
-    data = { "ga": "init_collect_flower", "gd": { "ff_id": "ht01", "fat_time": 500, "fat_time_tol": 5000, "ff_exp": 1000, "seed_data": { "grow_time_tol": 0, "mature_time": 0, "grow_static": 0, "id": "", "name": "", "grade": 0, "pic": "", "ain": "" }, "exp_data": { "exp": null, "exp2": null, "t": 0 }, "msg": "\u6536\u83b7\u6210\u529f" }, "code": 1 };
-    var myData = data.gd;
+    var _data = staticData.getInstance().farmCollectFlower(data);
+    // data = { "ga": "init_collect_flower", "gd": { "ff_id": "ht01", "fat_time": 500, "fat_time_tol": 5000, "ff_exp": 1000, "seed_data": { "grow_time_tol": 0, "mature_time": 0, "grow_static": 0, "id": "", "name": "", "grade": 0, "pic": "", "ain": "" }, "exp_data": { "exp": null, "exp2": null, "t": 0 }, "msg": "\u6536\u83b7\u6210\u529f" }, "code": 1 };
+    var myData = _data.gd;
     var tmp_arr = {
       'fat_time': myData.fat_time,
       'fat_time_tol': myData.fat_time_tol,
       'ff_exp': myData.ff_exp
     }
+    console.log(tmp_arr)
     dataGlobal.getInstance().setFlowerInfo(myData.ff_id);//重置花的信息
     dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);//保存农田信息
     farmController.getInstance().initLand();//重置农田
@@ -199,7 +203,8 @@ export default class farmNetwork {
    * 肥力失效请求
    */
   public FarmInitFlowerFat(data) {
-    var myData = data.gd;
+    var myData = data;
+
     //修改存储的数据
     var tmp_arr = {
       'fat_time': myData.fat_time,
@@ -207,7 +212,7 @@ export default class farmNetwork {
       'ff_exp': myData.ff_exp,
       'seed_data': myData.seed_data
     }
-    // dataGlobal.getInstance().setFarmInfo(tmp_arr,myData.ff_id);//保存农田信息
+    dataGlobal.getInstance().setFarmInfo(tmp_arr,myData.ff_id);//保存农田信息
     farmController.getInstance().initLand();//重置农田
   }
 }

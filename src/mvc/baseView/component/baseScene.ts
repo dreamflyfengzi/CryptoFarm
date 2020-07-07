@@ -1,253 +1,145 @@
-// import gameLayer from '../../gameLayer'
-// import CONST from '../../../const/CONST'
-// export class baseScene extends Laya.Sprite{
-//   private modal:Laya.Sprite;
-//   constructor(){
-//     super();
-//     this.modal = new Laya.Sprite;
-//     this.addChild(this.modal);
-//   }
-//   /** */
-//   public init(){
-    
-//   }
-//   /** */
-//   public showModal(){
-//     this.modal.graphics.clear();
-//     this.modal.graphics.drawRect(0,0,Laya.stage.width,Laya.stage.height,'#000000');
-//     this.modal.alpha = 0;
-//     this.modal.width = Laya.stage.width;
-//     this.modal.height = Laya.stage.height;
-//   }
-  
-//   /** */
-//   public clearAll(){
-//     this.modal.visible = false;
-//     this.modal.graphics.clear();
-//   }
-//   /* 清除在上层的子节点 */
-//   public clearChild(type){
-//     var obj:any = gameLayer.scenelayer.getChildAt(1);
-//     if(type == 1){
-//       obj.visible = false;
-//     }else if(type == 2){
-//       gameLayer.scenelayer.removeChildAt(1);
-//     }
-//   }
-//   /* 切换场景(obj:场景对象，name:名字，type=1.隐藏2.移除) */
-//   public tweenAlphaAdd(obj:any,name:string,type:number){
-//     //查找是否有该对象
-//     var node:any = gameLayer.scenelayer.getChildByName(name);
-//     if(node){//有该对象的话就显示就行了
-//       obj = node;
-//       obj.visible = true;
-//       obj.zOrder = 1;
-//     }else{//没有改对象的话就添加
-//       obj.zOrder = 1;
-//       gameLayer.scenelayer.addChild(obj);
-//     }
-    
-//     Laya.Tween.to(gameLayer.scenelayer,{alpha:0.1},300,Laya.Ease.elasticIn,Laya.Handler.create(this,function(){
-//       this.clearChild(type);
-//       obj.zOrder = 1;
-//       this.tweenAlphaAllShow(obj);
-//     }.bind(this)))
-//   }
-//   /**添加对象，并且渐显显示 */
-//   public tweenAlphaAllShow(obj:any){
-//     // gameLayer.scenelayer.addChild(obj);
-//     Laya.Tween.to(gameLayer.scenelayer,{alpha:1},300,Laya.Ease.elasticOut);
-//   }
-  
-//   //设置缩放比例
-//   public setScale(obj:any){
-//     var str = 0;
-//     if(CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH > 1){
-//       str = CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH;
-//     }
-//     if(CONST.STAGEHEIGHT/CONST.DESIGNSTAGEHEIGHT > 1){
-//       str = CONST.STAGEHEIGHT/CONST.DESIGNSTAGEHEIGHT;
-//     }
-//     if(CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH > CONST.STAGEHEIGHT/CONST.DESIGNSTAGEHEIGHT){
-//       str = CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH;
-//     }else{
-//       str = CONST.STAGEHEIGHT/CONST.DESIGNSTAGEHEIGHT;
-//     }
-//     obj.scale(CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH,CONST.STAGEHEIGHT/CONST.DESIGNSTAGEHEIGHT);
-//   }
-
-// }
-
-import IBaseView from './IBaseView'
-import gameLayer from "../../gameLayer";
+/**
+* baseScene
+*/
+import gameLayer from '../../gameLayer'
 import CONST from '../../../const/CONST'
-export default class BaseView extends Laya.View implements IBaseView {
-
-  public callback: Function;
-  public isRemoveBanner: boolean = true;
-
-  private _myParent: any;
-  private _isInit: boolean;
-  private _resources: string[] = null;
-  private _ui: any;
-  private _isShowMask: boolean;
-  private _datas: any[];
-
-  /** 构造函数 */
-  public constructor($class: any, isShowMask: boolean = true) {
+export class baseScene extends Laya.Sprite {
+  private modal: Laya.Sprite;
+  constructor() {
     super();
-    console.log("----------------第二层----------------")
+    this.modal = new Laya.Sprite;
+    this.addChild(this.modal);
+  }
+  /** */
+  public init() {
 
-    // this._myParent = $layer;
-    this._isInit = false;
-    this._isShowMask = isShowMask;
-    this._ui = $class;
-    this.initUIView();
+  }
+  /** */
+  public showModal() {
+    this.modal.graphics.clear();
+    this.modal.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, '#000000');
+    this.modal.alpha = 0;
+    this.modal.width = Laya.stage.width;
+    this.modal.height = Laya.stage.height;
   }
 
-  /** 获取我的父级 */
-  public get myParent(): any {
-    return this._myParent;
+  /** */
+  public clearAll() {
+    this.modal.visible = false;
+    this.modal.graphics.clear();
   }
-
-  /* 切换场景(obj:场景对象，name:名字，type=1.隐藏2.移除) */
-  public tweenAlphaAdd(name: string, type: number) {
-    var obj = this
-    //查找是否有该对象
-    var node: any = gameLayer.bglayer.getChildByName(name);
-    console.log("xxxx", node)
-    if (node) {//有该对象的话就显示就行了
-      obj = node;
-      obj.visible = true;
-      obj.zOrder = 0;
-    } else {//没有改对象的话就添加
-      obj.zOrder = 0;
-      gameLayer.bglayer.addChild(obj);
-      console.log(obj)
+  /* 清除在上层的子节点 */
+  public clearChild(type) {
+    var obj: any = gameLayer.scenelayer.getChildAt(1);
+    if (type == 1) {
+      obj.visible = false;
+    } else if (type == 2) {
+      gameLayer.scenelayer.removeChildAt(1);
     }
+  }
+  /* 切换场景(obj:场景对象，name:名字，type=1.隐藏2.移除) */
+  public tweenAlphaAdd(obj: any, name: string, type: number) {
+    // 先循环里面的场景，隐藏掉先
+    var num = gameLayer.scenelayer.numChildren;
 
-    Laya.Tween.to(gameLayer.bglayer, { alpha: 0.1 }, 300, Laya.Ease.elasticIn, Laya.Handler.create(this, function () {
-      this.clearChild(type);
-      obj.zOrder = 1;
+    if (num > 0) {//页面上有节点
+      for (var i = 0; i < num; i++) {
+        var sceneChild: any = gameLayer.scenelayer.getChildAt(i);
+        if (sceneChild.name == name) {//如果是自己，就不需要了；
+          continue;
+        }
+        sceneChild.visible = true;
+        // sceneChild.x = 0;
+  
+        var isShow = true;
+        Laya.Tween.to(sceneChild, { alpha: 0 }, 300, null, Laya.Handler.create(this, function () {
+          if (type == 1) {
+            sceneChild.visible = false;
+          } else {
+            // gameLayer.scenelayer.removeChildAt(i);//删除子节点
+            sceneChild.removeSelf();
+          }
+          if (isShow) {
+            isShow = false;
+            //查找是否有该对象
+            var node: any = gameLayer.scenelayer.getChildByName(name);
+            if (node) {//有该对象的话就显示就行了
+              obj = node;
+              obj.alpha = 0;
+              obj.visible = true;
+            } else {//没有改对象的话就添加
+              obj.alpha = 0;
+              gameLayer.scenelayer.addChild(obj);
+            }
+            this.tweenAlphaAllShow(obj);
+          }
+        }.bind(this)))
+
+      }
+    } else {//没有节点
+      obj.alpha = 0;
+      gameLayer.scenelayer.addChild(obj);
       this.tweenAlphaAllShow(obj);
-    }.bind(this)))
+    }
+  }
+  /* 切换场景左右滑动的(obj:场景对象，name:名字，type=1.隐藏2.移除,tran:移动的方向) */
+  public tweenTranAdd(obj: any, name: string, type: number, tran: string) {
+    // 先循环里面的场景，隐藏掉先
+    var num = gameLayer.scenelayer.numChildren;
+
+    if (num > 0) {//页面上有节点
+      for (var i = 0; i < num; i++) {
+        var sceneChild: any = gameLayer.scenelayer.getChildAt(i);
+        if (sceneChild.name == name) {//如果是自己，就不需要了；
+          continue;
+        }
+        if (tran == 'left') {
+          var tranX = -CONST.STAGEWIDTH;
+        } else {
+          var tranX = CONST.STAGEWIDTH;
+        }
+        sceneChild.visible = true;
+        Laya.Tween.to(sceneChild, { x: tranX }, 200, null, Laya.Handler.create(sceneChild, function () {
+          if (type == 1) {//如果是左右切换，那么就不需要隐藏了
+            this.visible = false;
+          } else {
+            this.removeSelf();
+          }
+        }))
+
+      }
+      //查找是否有该对象
+      var node: any = gameLayer.scenelayer.getChildByName(name);
+      if (node) {//有该对象的话就显示就行了
+        obj = node;
+        obj.alpha = 1;
+        obj.visible = true;
+      } else {//没有改对象的话就添加
+        obj.alpha = 1;
+        if (tran == 'left') {
+          obj.x = CONST.STAGEWIDTH;
+        } else {
+          obj.x = -CONST.STAGEWIDTH;
+        }
+        gameLayer.scenelayer.addChild(obj);
+      }
+    } else {//没有节点
+      if (tran == 'left') {
+        obj.x = CONST.STAGEWIDTH;
+      } else {
+        obj.x = -CONST.STAGEWIDTH;
+      }
+      obj.alpha = 1;
+      gameLayer.scenelayer.addChild(obj);
+    }
+    Laya.Tween.to(obj, { x: 0 }, 200, null, Laya.Handler.create(this, function () {
+    }.bind(this)));
 
   }
   /**添加对象，并且渐显显示 */
   public tweenAlphaAllShow(obj: any) {
-    // gameLayer.bglayer.addChild(obj);
-    Laya.Tween.to(gameLayer.bglayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
-    console.log(Laya.stage)
-  }
-  /* 清除在上层的子节点 */
-  public clearChild(type) {
-    var obj: any = gameLayer.bglayer.getChildAt(1);
-    if (type == 1) {
-      obj.visible = false;
-    } else if (type == 2) {
-      gameLayer.bglayer.removeChildAt(1);
-    }
-  }
-
-  /** 添加到父级 */
-  public addToParent(): void {
-    // AlignUtils.setToScreenGoldenPos(this); 位置调整
-    // todo
-    if (this._isShowMask) {
-      this._myParent.addChildWithMaskCall(this, () => {
-        this.removeFromParent();
-        this.close();
-      });
-    } else {
-      this._myParent.addChild(this);
-    }
-  }
-
-  /** 初始化UI界面 */
-  public initUIView(): void {
-    try {
-      this._ui = new this._ui();
-    } catch (error) {
-
-    } finally {
-      this.addChild(this._ui);
-    }
-  }
-
-  /** 从父级移除 */
-  public removeFromParent(): void {
-    this.removeSelf();
-  }
-
-  /** 对面板进行显示初始化，用于子类继承 */
-  public initUI(): void {
-    this._isInit = true;
-  }
-
-  /** 对面板数据的初始化，用于子类继承 */
-  public initData(): void {
-    this._isInit = true;
-  }
-
-  /** 添加监听事件 */
-  public addEvents(): void { }
-
-  /** 移除监听事件 */
-  public removeEvents(): void { }
-
-  /** 是否已经初始化 */
-  public isInit(): boolean {
-    return this._isInit;
-  }
-
-  /** 面板是否显示 */
-  public isShow(): boolean {
-    return this.stage != null && this.visible && this._myParent.contains(this);
-  }
-
-  /** 面板开启执行函数，用于子类继承 */
-  public open(...param: any[]): void {
-    this._datas = param;
-  }
-
-  /** 设置是否隐藏 */
-  public setVisible(value: boolean): void {
-    this.visible = value;
-  }
-
-  /** 设置初始加载资源 */
-  public setResources(resources: string[]): void {
-    this._resources = resources;
-  }
-
-  /** 加载面板所需资源 */
-  public loadResource(loadComplete: Function, initComplete: Function): void {
-    if (this._resources && this._resources.length > 0) {
-      // ResUtils.loadGroup(this._resources, () => {
-      //     loadComplete && loadComplete();
-      //     initComplete && initComplete();
-      // }, this);
-    } else {
-      loadComplete && loadComplete();
-      initComplete && initComplete();
-    }
-  }
-
-  /** 面板关闭执行函数，用于子类继承 */
-  public close(...param: any[]): void {
-    this.removeEvents();
-    if (this.isRemoveBanner) {
-      // SDKManager.Instance.closeBannerAd();
-    }
-  }
-
-  /** 销毁 */
-  public destroy(): void {
-    this.removeEvents();
-    this._myParent = null;
-    this._ui.removeSelf();
-    this._ui = null;
-    // SDKManager.Instance.closeBannerAd();
+    // gameLayer.scenelayer.addChild(obj);
+    Laya.Tween.to(obj, { alpha: 1 }, 300, null);
   }
 
   //设置缩放比例
@@ -264,12 +156,8 @@ export default class BaseView extends Laya.View implements IBaseView {
     } else {
       str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
     }
-    obj.scale(CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH, CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT);
+    // obj.scale(CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH, CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH);
+    obj.scale(1, 1);
   }
 
-  public get ui(): any { return this._ui; }
-  public set ui(value: any) { this._ui = value; }
-
-  public get datas(): any[] { return this._datas; }
-  public set datas(value: any[]) { this._datas = value; }
 }

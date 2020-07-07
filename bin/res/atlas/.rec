@@ -59,6 +59,7 @@ P A2044E7C pic_jiantou3.png
 R 3AC7AE1A pic_jiqi.png
 P DBC22502 pic_jiqi1.png
 P 1C9880FD pic_jiqi2.png
+P 08678A29 pic_jiqi3$bar.png
 P 0D31673C pic_jiqi3.png
 P 994D9CCA pic_jiqidi.png
 R C4EB9533 pic_jiqizhuozi.png
@@ -152,7 +153,7 @@ P D71D8671 pic_gongchnag2.png.png
 P 2EB1410A pic_huatian1.png
 P 47B559DB pic_huatian2.png
 R 2A450BFF pic_huatiandi.png
-P F1BBC5D1 pic_jindutiao.png
+P F1BBC5D1 pic_jindutiaodi$bar.png
 P 5D92F96B pic_jindutiaodi.png
 P 0E4B9AF2 pic_kuang2.png
 P 24393BE4 pic_suo.png
@@ -286,6 +287,7 @@ P AD8AF086 pic_huayang.png
 R FD5B4E62 pic_jianbiandi.png
 P 35E82DE7 pic_jiaoshui.png
 P 4B978664 pic_jindutiao.png
+P EF7F2D5D pic_jindutiaodi$bar.png
 P 5D92F96B pic_jindutiaodi.png
 P 08678A29 pic_kuang1$bar.png
 P CA75EB16 pic_kuang1.png
@@ -304,7 +306,6 @@ P 28683BB8 pic_shengzhangtiao1.png
 P ACD5EF62 pic_shifei.png
 P A7C712BC pic_shifei1.png
 P 08678A29 pic_shifeitiao1.png
-P EF7F2D5D pic_shifeitiao1.png.png
 P 08678A29 pic_shifeitiao2$bar.png
 P FD61808F pic_shifeitiao2.png
 P 45456C4B pic_shouhuo.png
@@ -320,10 +321,22 @@ P 188AF498 pic_zuanshi.png
 P 538214E9 pic_zuanshidikuang.png
 P 56746E5D shu.png
 D order
+P 5A4072EC btn_guanbi2.png
+P 99A82A00 btn_huang.png
+P 7703466D btn_hui.png
+P F24C9223 btn_lan.png
 P 6FD34DA3 pic_exp.png
+P 7E3D3F30 pic_gou.png
+P 027BE790 pic_guanbi2.png
 P 06C0372D pic_guanbi3.png
+P AD8AF086 pic_huayang.png
+P 2176964E pic_kuang8.png
+P 566058FB pic_kuang9.png
+P 83581C23 pic_liebiaokuang2.png
+P 67EA4CBE pic_liebiaokuang3.png
 P C9ECD5F4 pic_shoukuang2.png
 P 74B2BAF6 pic_tijiao.png
+R 82D84831 pic_tongyongdi.png
 P 2EE9BFA0 pic_touxiangkuang2.png
 P 37E0E7BA pic_tuding.png
 P 5A4BC2D1 pic_zhaungshi2.png

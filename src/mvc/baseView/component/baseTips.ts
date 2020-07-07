@@ -1,8 +1,8 @@
 /**
 * name 
 */
-import CONST from '../../../const/CONST'
 import gameLayer from '../../gameLayer'
+import CONST from '../../../const/CONST'
 export default class baseTips extends Laya.Sprite {
   public modal: Laya.Sprite;
   private delay = 1000;/*单位：毫秒 */

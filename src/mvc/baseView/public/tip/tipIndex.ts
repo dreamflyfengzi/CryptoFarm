@@ -86,7 +86,7 @@ export default class tipIndex extends baseWindow {
      var _tipKuan = new ui.base.tishi_tipUI();
      this.addChild(_tipKuan)
     // _goldTipKuan.getChild('title').asTextField.text = title;
-
+    console.log('金币提示弹框')
     _tipKuan.content_txt.text = content_txt;
     _tipKuan.confirm_btn.label = confirm_txt;
     _tipKuan.cancel_btn.label = cancel_txt;

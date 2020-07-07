@@ -42,7 +42,7 @@ export default class BaseView extends Laya.View implements IBaseView {
     } else {//没有改对象的话就添加
       obj.zOrder = 0;
       gameLayer.bglayer.addChild(obj);
-      console.log(obj)
+      
     }
     if (index == 1) {
       var _index = gameLayer.bglayer;
@@ -60,7 +60,7 @@ export default class BaseView extends Laya.View implements IBaseView {
   public tweenAlphaAllShow(obj: any) {
     // gameLayer.bglayer.addChild(obj);
     Laya.Tween.to(gameLayer.bglayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
-    console.log(Laya.stage)
+    // console.log(Laya.stage)
   }
   /* 清除在上层的子节点 */
   public clearChild(type) {
