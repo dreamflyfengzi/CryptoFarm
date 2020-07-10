@@ -609,6 +609,7 @@
     CONST.DESIGNSTAGEHEIGHT = 2688;
     CONST.DESIGNSTAGEWIDTH = 1242;
     CONST.DEBUGMODE = 1;
+    CONST.HEART_TIME = 20000;
     CONST.IS_TB = 2;
     CONST.LOGIN_URL = "https://farmapi.ones.games/index.php";
     CONST.SRC_URL = "http://192.168.0.226/pic/";

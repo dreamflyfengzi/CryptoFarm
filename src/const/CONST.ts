@@ -9,6 +9,7 @@ export default class CONST{
   public static DESIGNSTAGEWIDTH    = 1242;//设计图的宽
 
   public static DEBUGMODE     =1;//是否打开bug调试
+  public static HEART_TIME    =20000;//心跳间隔为10000毫秒
   public static IS_TB         =2;//是否淘宝登陆(1淘宝登陆,2不是淘宝登陆)
 
   // public static LOGIN_URL     ="http://192.168.0.226/index.php";//游戏地址

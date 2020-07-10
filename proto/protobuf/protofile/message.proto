@@ -1,0 +1,118 @@
+package protoMessage;
+syntax = "proto3";
+
+option java_package = "com.zhwyd.huafang.proto";
+option java_outer_classname = "MessageMsg";
+
+
+//返回状态定义
+enum RespType {
+	SUCCESS = 1;//操作成功返回
+	FAIL = 2;	//操作失败返回
+	OTHER = 3; //其它原因返回
+}
+
+//性别定义
+enum SexType {
+	SUCCESS = 1;//男
+	FAIL = 2;	//女
+	OTHER = 3; //其它
+}
+
+message Message
+{
+	enum DataType {
+
+		Login = 1000; //登陆(C->S)
+		LoginResp = 1001;//登陆返回(S->C)
+		
+		LoginLogout = 1002 //退出登陆(C->S)
+		LoginLogoutResp = 1003	//退出登陆返回(S->C)
+		
+		Plant = 1004; //花草的操作(C->S)
+		PlantResp = 1005; //花草的操作返回(S->C)
+	}
+
+	DataType type = 1; //协议类型
+
+	oneof dataMsg {//可选择协议
+		
+		Login login = 2;
+		LoginResp loginResp = 3;
+		
+		LoginLogout loginLogout = 4;
+		LoginLogoutResp loginLogoutResp = 5;
+
+		Plant plant = 6;
+		PlantResp plantResp = 7;
+	}
+}
+
+message Login
+{
+	string name = 1;//登陆名称
+	string key = 2;//登陆唯一的key
+}
+
+message LoginResp
+{
+	string name = 1;//登陆名称
+	string nickName = 2;//用户呢称
+	SexType sex = 3;//性别
+	string avatar = 4;//头像
+	string token = 5;//登陆成功的token
+	string exp = 6;//用户当前等级
+	string grade = 7;
+	
+	RespType code = 8;//登陆状态
+}
+
+
+message LoginLogout
+{
+	enum LoginoutType {
+		LOGIN = 0;
+		LOGOUT = 1;
+	}
+
+	LoginoutType action = 1;
+
+	string code = 2;
+}
+
+message LoginLogoutResp
+{
+
+}
+
+message Plant
+{
+
+	enum Action {
+		NEW = 0; // 种植
+		Watering = 1; // 浇水
+		Upgrade = 2; // 升级
+		Pick = 3; // 采摘
+	}
+
+	Action action = 1;
+
+	string target = 2;
+
+}
+
+message PlantResp
+{
+
+	enum Action {
+		NEW = 0; // 种植
+		Watering = 1; // 浇水
+		Upgrade = 2; // 升级
+		Pick = 3; // 采摘
+	}
+
+	Action action = 1;
+
+	string target = 2;
+
+}
