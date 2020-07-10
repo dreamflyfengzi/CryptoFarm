@@ -2,12 +2,13 @@
 * name 
 */
 import GAMEEVENT from "../event/GAMEEVENT"
-import { loginModel } from "./loginModel"
+import loginModel  from "./loginModel"
 import loginView from "./loginView"
-import { loginNetwork } from "./loginNetwork"
+import loginNetwork from "./loginNetwork"
 import resManger from '../resconfig/resManger'
 import resConfig from '../resconfig/resConfig'
 import infoController from '../info/infoController'
+import NETWORKEVENT from '../event/NETWORKEVENT'
 
 export default class loginController {
 
@@ -37,10 +38,10 @@ export default class loginController {
     Laya.stage.on(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
     Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
 
-    // //设置网络监听
-    // //设置登陆请求成功回调监听
+    //设置网络监听
+    //设置登陆请求成功回调监听
     // Laya.stage.on(NETWORKEVENT.HTTP_LOGIN_OK,this,this._network.onLoginOK);
-    // //设置登陆请求失败回调监听
+    //设置登陆请求失败回调监听
     // Laya.stage.on(NETWORKEVENT.HTTP_ERROR_BAK,this,this._network.onLoginErr);
 
     // //设置游戏显示主场景的请求监听（在建议完长连接之后会发送跳入主场景的事件）

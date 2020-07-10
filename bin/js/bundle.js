@@ -99,445 +99,6 @@
     GAMEEVENT.SHOWINFODIV = 'SHOWINFODIV';
     GAMEEVENT.TEST_LOGIN_FARM = 'FARM';
 
-    class loginModel {
-        constructor() {
-        }
-    }
-
-    var REG = Laya.ClassUtils.regClass;
-    var ui;
-    (function (ui) {
-        var base;
-        (function (base) {
-            var scene;
-            (function (scene) {
-                class topSceneUI extends Laya.Scene {
-                    constructor() { super(); }
-                    createChildren() {
-                        super.createChildren();
-                        this.loadScene("base/scene/topScene");
-                    }
-                }
-                scene.topSceneUI = topSceneUI;
-                REG("ui.base.scene.topSceneUI", topSceneUI);
-            })(scene = base.scene || (base.scene = {}));
-        })(base = ui.base || (ui.base = {}));
-    })(ui || (ui = {}));
-    (function (ui) {
-        var base;
-        (function (base) {
-            var tip;
-            (function (tip) {
-                class gold_tipUI extends Laya.Scene {
-                    constructor() { super(); }
-                    createChildren() {
-                        super.createChildren();
-                        this.loadScene("base/tip/gold_tip");
-                    }
-                }
-                tip.gold_tipUI = gold_tipUI;
-                REG("ui.base.tip.gold_tipUI", gold_tipUI);
-                class tishi_tip1UI extends Laya.Dialog {
-                    constructor() { super(); }
-                    createChildren() {
-                        super.createChildren();
-                        this.loadScene("base/tip/tishi_tip1");
-                    }
-                }
-                tip.tishi_tip1UI = tishi_tip1UI;
-                REG("ui.base.tip.tishi_tip1UI", tishi_tip1UI);
-                class upgrade_tipUI extends Laya.Scene {
-                    constructor() { super(); }
-                    createChildren() {
-                        super.createChildren();
-                        this.loadScene("base/tip/upgrade_tip");
-                    }
-                }
-                tip.upgrade_tipUI = upgrade_tipUI;
-                REG("ui.base.tip.upgrade_tipUI", upgrade_tipUI);
-                class user_info_tipUI extends Laya.Scene {
-                    constructor() { super(); }
-                    createChildren() {
-                        super.createChildren();
-                        this.loadScene("base/tip/user_info_tip");
-                    }
-                }
-                tip.user_info_tipUI = user_info_tipUI;
-                REG("ui.base.tip.user_info_tipUI", user_info_tipUI);
-            })(tip = base.tip || (base.tip = {}));
-        })(base = ui.base || (ui.base = {}));
-    })(ui || (ui = {}));
-    (function (ui) {
-        var base;
-        (function (base) {
-            class tishi_tipUI extends Laya.Dialog {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("base/tishi_tip");
-                }
-            }
-            base.tishi_tipUI = tishi_tipUI;
-            REG("ui.base.tishi_tipUI", tishi_tipUI);
-        })(base = ui.base || (ui.base = {}));
-    })(ui || (ui = {}));
-    (function (ui) {
-        var factory;
-        (function (factory) {
-            class factoryUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("factory/factory");
-                }
-            }
-            factory.factoryUI = factoryUI;
-            REG("ui.factory.factoryUI", factoryUI);
-            class factoryInfoUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("factory/factoryInfo");
-                }
-            }
-            factory.factoryInfoUI = factoryInfoUI;
-            REG("ui.factory.factoryInfoUI", factoryInfoUI);
-            class factoryMakeUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("factory/factoryMake");
-                }
-            }
-            factory.factoryMakeUI = factoryMakeUI;
-            REG("ui.factory.factoryMakeUI", factoryMakeUI);
-            class factoryUpgradeUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("factory/factoryUpgrade");
-                }
-            }
-            factory.factoryUpgradeUI = factoryUpgradeUI;
-            REG("ui.factory.factoryUpgradeUI", factoryUpgradeUI);
-        })(factory = ui.factory || (ui.factory = {}));
-    })(ui || (ui = {}));
-    (function (ui) {
-        var farm;
-        (function (farm) {
-            class farmIndexsceneUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("farm/farmIndexscene");
-                }
-            }
-            farm.farmIndexsceneUI = farmIndexsceneUI;
-            REG("ui.farm.farmIndexsceneUI", farmIndexsceneUI);
-            class farmLandUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("farm/farmLand");
-                }
-            }
-            farm.farmLandUI = farmLandUI;
-            REG("ui.farm.farmLandUI", farmLandUI);
-            class itemUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("farm/item");
-                }
-            }
-            farm.itemUI = itemUI;
-            REG("ui.farm.itemUI", itemUI);
-            class seedListUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("farm/seedList");
-                }
-            }
-            farm.seedListUI = seedListUI;
-            REG("ui.farm.seedListUI", seedListUI);
-        })(farm = ui.farm || (ui.farm = {}));
-    })(ui || (ui = {}));
-    (function (ui) {
-        var login;
-        (function (login) {
-            class loginUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("login/login");
-                }
-            }
-            login.loginUI = loginUI;
-            REG("ui.login.loginUI", loginUI);
-        })(login = ui.login || (ui.login = {}));
-    })(ui || (ui = {}));
-    (function (ui) {
-        var order;
-        (function (order) {
-            class goodGoTipUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("order/goodGoTip");
-                }
-            }
-            order.goodGoTipUI = goodGoTipUI;
-            REG("ui.order.goodGoTipUI", goodGoTipUI);
-            class orderIndexUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("order/orderIndex");
-                }
-            }
-            order.orderIndexUI = orderIndexUI;
-            REG("ui.order.orderIndexUI", orderIndexUI);
-        })(order = ui.order || (ui.order = {}));
-    })(ui || (ui = {}));
-    (function (ui) {
-        var warehouse;
-        (function (warehouse) {
-            class good_itemUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("warehouse/good_item");
-                }
-            }
-            warehouse.good_itemUI = good_itemUI;
-            REG("ui.warehouse.good_itemUI", good_itemUI);
-            class sell_tipUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("warehouse/sell_tip");
-                }
-            }
-            warehouse.sell_tipUI = sell_tipUI;
-            REG("ui.warehouse.sell_tipUI", sell_tipUI);
-            class warehouseUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("warehouse/warehouse");
-                }
-            }
-            warehouse.warehouseUI = warehouseUI;
-            REG("ui.warehouse.warehouseUI", warehouseUI);
-        })(warehouse = ui.warehouse || (ui.warehouse = {}));
-    })(ui || (ui = {}));
-
-    class CONST {
-    }
-    CONST.STAGEHEIGHT = Laya.Browser.clientHeight;
-    CONST.STAGEWIDTH = Laya.Browser.clientWidth;
-    CONST.DESIGNSTAGEHEIGHT = 2688;
-    CONST.DESIGNSTAGEWIDTH = 1242;
-    CONST.DEBUGMODE = 1;
-    CONST.IS_TB = 2;
-    CONST.LOGIN_URL = "http://192.168.0.226/index.php";
-    CONST.SRC_URL = "http://192.168.0.226/pic/";
-    CONST.ADAPTION = (CONST.DESIGNSTAGEHEIGHT - CONST.STAGEHEIGHT / (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH)) / 2;
-    CONST.STAGEADAPTION = (CONST.DESIGNSTAGEHEIGHT * CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH - CONST.STAGEHEIGHT) / 2;
-
-    class baseScene extends Laya.Sprite {
-        constructor() {
-            super();
-            this.modal = new Laya.Sprite;
-            this.addChild(this.modal);
-        }
-        init() {
-        }
-        showModal() {
-            this.modal.graphics.clear();
-            this.modal.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, '#000000');
-            this.modal.alpha = 0;
-            this.modal.width = Laya.stage.width;
-            this.modal.height = Laya.stage.height;
-        }
-        clearAll() {
-            this.modal.visible = false;
-            this.modal.graphics.clear();
-        }
-        clearChild(type) {
-            var obj = gameLayer.scenelayer.getChildAt(1);
-            if (type == 1) {
-                obj.visible = false;
-            }
-            else if (type == 2) {
-                gameLayer.scenelayer.removeChildAt(1);
-            }
-        }
-        tweenAlphaAdd(obj, name, type) {
-            var num = gameLayer.scenelayer.numChildren;
-            if (num > 0) {
-                for (var i = 0; i < num; i++) {
-                    var sceneChild = gameLayer.scenelayer.getChildAt(i);
-                    if (sceneChild.name == name) {
-                        continue;
-                    }
-                    sceneChild.visible = true;
-                    var isShow = true;
-                    Laya.Tween.to(sceneChild, { alpha: 0 }, 300, null, Laya.Handler.create(this, function () {
-                        if (type == 1) {
-                            sceneChild.visible = false;
-                        }
-                        else {
-                            sceneChild.removeSelf();
-                        }
-                        if (isShow) {
-                            isShow = false;
-                            var node = gameLayer.scenelayer.getChildByName(name);
-                            if (node) {
-                                obj = node;
-                                obj.alpha = 0;
-                                obj.visible = true;
-                            }
-                            else {
-                                obj.alpha = 0;
-                                gameLayer.scenelayer.addChild(obj);
-                            }
-                            this.tweenAlphaAllShow(obj);
-                        }
-                    }.bind(this)));
-                }
-            }
-            else {
-                obj.alpha = 0;
-                gameLayer.scenelayer.addChild(obj);
-                this.tweenAlphaAllShow(obj);
-            }
-        }
-        tweenTranAdd(obj, name, type, tran) {
-            var num = gameLayer.scenelayer.numChildren;
-            if (num > 0) {
-                for (var i = 0; i < num; i++) {
-                    var sceneChild = gameLayer.scenelayer.getChildAt(i);
-                    if (sceneChild.name == name) {
-                        continue;
-                    }
-                    if (tran == 'left') {
-                        var tranX = -CONST.STAGEWIDTH;
-                    }
-                    else {
-                        var tranX = CONST.STAGEWIDTH;
-                    }
-                    sceneChild.visible = true;
-                    Laya.Tween.to(sceneChild, { x: tranX }, 200, null, Laya.Handler.create(sceneChild, function () {
-                        if (type == 1) {
-                            this.visible = false;
-                        }
-                        else {
-                            this.removeSelf();
-                        }
-                    }));
-                }
-                var node = gameLayer.scenelayer.getChildByName(name);
-                if (node) {
-                    obj = node;
-                    obj.alpha = 1;
-                    obj.visible = true;
-                }
-                else {
-                    obj.alpha = 1;
-                    if (tran == 'left') {
-                        obj.x = CONST.STAGEWIDTH;
-                    }
-                    else {
-                        obj.x = -CONST.STAGEWIDTH;
-                    }
-                    gameLayer.scenelayer.addChild(obj);
-                }
-            }
-            else {
-                if (tran == 'left') {
-                    obj.x = CONST.STAGEWIDTH;
-                }
-                else {
-                    obj.x = -CONST.STAGEWIDTH;
-                }
-                obj.alpha = 1;
-                gameLayer.scenelayer.addChild(obj);
-            }
-            Laya.Tween.to(obj, { x: 0 }, 200, null, Laya.Handler.create(this, function () {
-            }.bind(this)));
-        }
-        tweenAlphaAllShow(obj) {
-            Laya.Tween.to(obj, { alpha: 1 }, 300, null);
-        }
-        setScale(obj) {
-            var str = 0;
-            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > 1) {
-                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
-            }
-            if (CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT > 1) {
-                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
-            }
-            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT) {
-                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
-            }
-            else {
-                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
-            }
-            obj.scale(1, 1);
-        }
-    }
-
-    class NETWORKEVENT {
-    }
-    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
-    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
-    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
-    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
-    NETWORKEVENT.GAMEFAILTIP = 'game_fail_tip';
-    NETWORKEVENT.INITINFO = "init_info";
-    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
-    NETWORKEVENT.FARMINITFIELD = "init_field";
-    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
-    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
-    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
-    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
-    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
-    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
-    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
-    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
-    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
-    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
-    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
-    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
-    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
-    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
-    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
-    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
-    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
-    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
-    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
-    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
-    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
-    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
-    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
-    NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
-
-    class GAMECONFIG {
-    }
-    GAMECONFIG.farmLand = {
-        "ht01": { "x": 425, "y": 576, "zOrder": 9 },
-        "ht02": { "x": 632, "y": 430, "zOrder": 8 },
-        "ht03": { "x": 841, "y": 280, "zOrder": 7 },
-        "ht04": { "x": 212, "y": 434, "zOrder": 6 },
-        "ht05": { "x": 425, "y": 289, "zOrder": 5 },
-        "ht06": { "x": 631, "y": 138, "zOrder": 4 },
-        "ht07": { "x": 0, "y": 296, "zOrder": 3 },
-        "ht08": { "x": 212, "y": 149, "zOrder": 2 },
-        "ht09": { "x": 422, "y": 0, "zOrder": 1 },
-    };
-
     class dataGlobal {
         constructor() {
             this.query = {
@@ -549,13 +110,21 @@
             this.query.system = this.get_sys();
             this.farmInfo = {};
             this.userInfo = {
-                "grade": 3,
+                "nickname": '魔动闪霸',
+                "uid": '7754555',
+                "exp": '700',
+                "upgrade_exp": '775',
+                "flower_num": '111',
+                "order_num": '11111',
+                "goods_num": '11',
+                "grade": 1,
                 "have_gold": 10000
             };
             this.factory = {};
             this.userGoodInfo = {};
             this.warehouseInfo = {};
             this.lotteryInfo = {};
+            this.marketInfo = {};
         }
         static getInstance() {
             if (dataGlobal._instance == null) {
@@ -723,16 +292,609 @@
                 this.warehouseInfo.data_info = data.data_info;
             }
         }
+        setMarketInfo(data) {
+            if (typeof data.store_id != 'undefined') {
+                this.marketInfo.store_id = data.store_id;
+            }
+            if (typeof data.num != 'undefined') {
+                this.marketInfo.num = data.num;
+            }
+            if (typeof data.data_info != 'undefined') {
+                this.marketInfo.data_info = data.data_info;
+            }
+        }
         setlotteryInfo(data, type) {
             if (type) {
                 this.lotteryInfo = {};
             }
             for (var i in data) {
                 this.lotteryInfo[data[i].lottery_id] = data[i];
-                console.log('设置订单任务信息-1', type, data[i]);
             }
         }
     }
+
+    class loginModel {
+        constructor() {
+        }
+        setUserInfo(data) {
+            dataGlobal.getInstance().setUserInfo(data);
+        }
+        setUserProp(data) {
+            dataGlobal.getInstance().setUserProp(data);
+        }
+        setGameWS(data) {
+            dataGlobal.getInstance().setGameWS(data);
+        }
+    }
+
+    var REG = Laya.ClassUtils.regClass;
+    var ui;
+    (function (ui) {
+        var base;
+        (function (base) {
+            var scene;
+            (function (scene) {
+                class topSceneUI extends Laya.Scene {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/scene/topScene");
+                    }
+                }
+                scene.topSceneUI = topSceneUI;
+                REG("ui.base.scene.topSceneUI", topSceneUI);
+            })(scene = base.scene || (base.scene = {}));
+        })(base = ui.base || (ui.base = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var base;
+        (function (base) {
+            var tip;
+            (function (tip) {
+                class gold_tipUI extends Laya.Scene {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/gold_tip");
+                    }
+                }
+                tip.gold_tipUI = gold_tipUI;
+                REG("ui.base.tip.gold_tipUI", gold_tipUI);
+                class tishi_tip1UI extends Laya.Dialog {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/tishi_tip1");
+                    }
+                }
+                tip.tishi_tip1UI = tishi_tip1UI;
+                REG("ui.base.tip.tishi_tip1UI", tishi_tip1UI);
+                class upgrade_tipUI extends Laya.Scene {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/upgrade_tip");
+                    }
+                }
+                tip.upgrade_tipUI = upgrade_tipUI;
+                REG("ui.base.tip.upgrade_tipUI", upgrade_tipUI);
+                class user_info_tipUI extends Laya.Scene {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/user_info_tip");
+                    }
+                }
+                tip.user_info_tipUI = user_info_tipUI;
+                REG("ui.base.tip.user_info_tipUI", user_info_tipUI);
+            })(tip = base.tip || (base.tip = {}));
+        })(base = ui.base || (ui.base = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var base;
+        (function (base) {
+            class tishi_tipUI extends Laya.Dialog {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("base/tishi_tip");
+                }
+            }
+            base.tishi_tipUI = tishi_tipUI;
+            REG("ui.base.tishi_tipUI", tishi_tipUI);
+        })(base = ui.base || (ui.base = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var exchange;
+        (function (exchange) {
+            class buyBulletUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("exchange/buyBullet");
+                }
+            }
+            exchange.buyBulletUI = buyBulletUI;
+            REG("ui.exchange.buyBulletUI", buyBulletUI);
+            class exchangeUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("exchange/exchange");
+                }
+            }
+            exchange.exchangeUI = exchangeUI;
+            REG("ui.exchange.exchangeUI", exchangeUI);
+            class selltipUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("exchange/selltip");
+                }
+            }
+            exchange.selltipUI = selltipUI;
+            REG("ui.exchange.selltipUI", selltipUI);
+        })(exchange = ui.exchange || (ui.exchange = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var factory;
+        (function (factory) {
+            class factoryUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("factory/factory");
+                }
+            }
+            factory.factoryUI = factoryUI;
+            REG("ui.factory.factoryUI", factoryUI);
+            class factoryInfoUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("factory/factoryInfo");
+                }
+            }
+            factory.factoryInfoUI = factoryInfoUI;
+            REG("ui.factory.factoryInfoUI", factoryInfoUI);
+            class factoryMakeUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("factory/factoryMake");
+                }
+            }
+            factory.factoryMakeUI = factoryMakeUI;
+            REG("ui.factory.factoryMakeUI", factoryMakeUI);
+            class factoryUpgradeUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("factory/factoryUpgrade");
+                }
+            }
+            factory.factoryUpgradeUI = factoryUpgradeUI;
+            REG("ui.factory.factoryUpgradeUI", factoryUpgradeUI);
+        })(factory = ui.factory || (ui.factory = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var farm;
+        (function (farm) {
+            class farmIndexsceneUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("farm/farmIndexscene");
+                }
+            }
+            farm.farmIndexsceneUI = farmIndexsceneUI;
+            REG("ui.farm.farmIndexsceneUI", farmIndexsceneUI);
+            class farmLandUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("farm/farmLand");
+                }
+            }
+            farm.farmLandUI = farmLandUI;
+            REG("ui.farm.farmLandUI", farmLandUI);
+            class itemUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("farm/item");
+                }
+            }
+            farm.itemUI = itemUI;
+            REG("ui.farm.itemUI", itemUI);
+            class seedListUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("farm/seedList");
+                }
+            }
+            farm.seedListUI = seedListUI;
+            REG("ui.farm.seedListUI", seedListUI);
+        })(farm = ui.farm || (ui.farm = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var login;
+        (function (login) {
+            class loginUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("login/login");
+                }
+            }
+            login.loginUI = loginUI;
+            REG("ui.login.loginUI", loginUI);
+        })(login = ui.login || (ui.login = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var order;
+        (function (order) {
+            class goodGoTipUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("order/goodGoTip");
+                }
+            }
+            order.goodGoTipUI = goodGoTipUI;
+            REG("ui.order.goodGoTipUI", goodGoTipUI);
+            class orderIndexUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("order/orderIndex");
+                }
+            }
+            order.orderIndexUI = orderIndexUI;
+            REG("ui.order.orderIndexUI", orderIndexUI);
+        })(order = ui.order || (ui.order = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var rank;
+        (function (rank) {
+            class rankUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("rank/rank");
+                }
+            }
+            rank.rankUI = rankUI;
+            REG("ui.rank.rankUI", rankUI);
+        })(rank = ui.rank || (ui.rank = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
+        var warehouse;
+        (function (warehouse) {
+            class good_itemUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("warehouse/good_item");
+                }
+            }
+            warehouse.good_itemUI = good_itemUI;
+            REG("ui.warehouse.good_itemUI", good_itemUI);
+            class sell_tipUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("warehouse/sell_tip");
+                }
+            }
+            warehouse.sell_tipUI = sell_tipUI;
+            REG("ui.warehouse.sell_tipUI", sell_tipUI);
+            class warehouseUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("warehouse/warehouse");
+                }
+            }
+            warehouse.warehouseUI = warehouseUI;
+            REG("ui.warehouse.warehouseUI", warehouseUI);
+        })(warehouse = ui.warehouse || (ui.warehouse = {}));
+    })(ui || (ui = {}));
+
+    class CONST {
+    }
+    CONST.STAGEHEIGHT = Laya.Browser.clientHeight;
+    CONST.STAGEWIDTH = Laya.Browser.clientWidth;
+    CONST.DESIGNSTAGEHEIGHT = 2688;
+    CONST.DESIGNSTAGEWIDTH = 1242;
+    CONST.DEBUGMODE = 1;
+    CONST.IS_TB = 2;
+    CONST.LOGIN_URL = "https://farmapi.ones.games/index.php";
+    CONST.SRC_URL = "http://192.168.0.226/pic/";
+    CONST.ADAPTION = (CONST.DESIGNSTAGEHEIGHT - CONST.STAGEHEIGHT / (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH)) / 2;
+    CONST.STAGEADAPTION = (CONST.DESIGNSTAGEHEIGHT * CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH - CONST.STAGEHEIGHT) / 2;
+
+    class baseScene extends Laya.Sprite {
+        constructor() {
+            super();
+            this.modal = new Laya.Sprite;
+            this.addChild(this.modal);
+        }
+        init() {
+        }
+        showModal() {
+            this.modal.graphics.clear();
+            this.modal.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, '#000000');
+            this.modal.alpha = 0;
+            this.modal.width = Laya.stage.width;
+            this.modal.height = Laya.stage.height;
+        }
+        clearAll() {
+            this.modal.visible = false;
+            this.modal.graphics.clear();
+        }
+        clearChild(type) {
+            var obj = gameLayer.scenelayer.getChildAt(1);
+            if (type == 1) {
+                obj.visible = false;
+            }
+            else if (type == 2) {
+                gameLayer.scenelayer.removeChildAt(1);
+            }
+        }
+        tweenAlphaAdd(obj, name, type) {
+            var num = gameLayer.scenelayer.numChildren;
+            if (num > 0) {
+                for (var i = 0; i < num; i++) {
+                    var sceneChild = gameLayer.scenelayer.getChildAt(i);
+                    if (sceneChild.name == name) {
+                        continue;
+                    }
+                    sceneChild.visible = true;
+                    var isShow = true;
+                    Laya.Tween.to(sceneChild, { alpha: 0 }, 300, null, Laya.Handler.create(this, function () {
+                        if (type == 1) {
+                            sceneChild.visible = false;
+                        }
+                        else {
+                            sceneChild.removeSelf();
+                        }
+                        if (isShow) {
+                            isShow = false;
+                            var node = gameLayer.scenelayer.getChildByName(name);
+                            if (node) {
+                                obj = node;
+                                obj.alpha = 0;
+                                obj.visible = true;
+                            }
+                            else {
+                                obj.alpha = 0;
+                                gameLayer.scenelayer.addChild(obj);
+                            }
+                            this.tweenAlphaAllShow(obj);
+                        }
+                    }.bind(this)));
+                }
+            }
+            else {
+                obj.alpha = 0;
+                gameLayer.scenelayer.addChild(obj);
+                this.tweenAlphaAllShow(obj);
+            }
+        }
+        tweenTranAdd(obj, name, type, tran) {
+            var num = gameLayer.scenelayer.numChildren;
+            if (num > 0) {
+                for (var i = 0; i < num; i++) {
+                    var sceneChild = gameLayer.scenelayer.getChildAt(i);
+                    if (sceneChild.name == name) {
+                        continue;
+                    }
+                    if (tran == 'left') {
+                        var tranX = -CONST.STAGEWIDTH;
+                    }
+                    else {
+                        var tranX = CONST.STAGEWIDTH;
+                    }
+                    sceneChild.visible = true;
+                    Laya.Tween.to(sceneChild, { x: tranX }, 200, null, Laya.Handler.create(sceneChild, function () {
+                        if (type == 1) {
+                            this.visible = false;
+                        }
+                        else {
+                            this.removeSelf();
+                        }
+                    }));
+                }
+                var node = gameLayer.scenelayer.getChildByName(name);
+                if (node) {
+                    obj = node;
+                    obj.alpha = 1;
+                    obj.visible = true;
+                }
+                else {
+                    obj.alpha = 1;
+                    if (tran == 'left') {
+                        obj.x = CONST.STAGEWIDTH;
+                    }
+                    else {
+                        obj.x = -CONST.STAGEWIDTH;
+                    }
+                    gameLayer.scenelayer.addChild(obj);
+                }
+            }
+            else {
+                if (tran == 'left') {
+                    obj.x = CONST.STAGEWIDTH;
+                }
+                else {
+                    obj.x = -CONST.STAGEWIDTH;
+                }
+                obj.alpha = 1;
+                gameLayer.scenelayer.addChild(obj);
+            }
+            Laya.Tween.to(obj, { x: 0 }, 200, null, Laya.Handler.create(this, function () {
+            }.bind(this)));
+        }
+        tweenAlphaAllShow(obj) {
+            Laya.Tween.to(obj, { alpha: 1 }, 300, null);
+        }
+        setScale(obj) {
+            var str = 0;
+            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > 1) {
+                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+            }
+            if (CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT > 1) {
+                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            }
+            if (CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH > CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT) {
+                str = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+            }
+            else {
+                str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            }
+            obj.scale(1, 1);
+        }
+    }
+
+    class httpJson {
+        constructor() {
+            this.xhr = new Laya.HttpRequest();
+        }
+        static getInstance() {
+            if (httpJson._instance == null) {
+                httpJson._instance = new httpJson;
+            }
+            return httpJson._instance;
+        }
+        processHandler(data) {
+            console.log(data);
+        }
+        errorHandler(data) {
+        }
+        completeHandler(data) {
+            console.log("返回的数据:", data);
+            if (data != "PONG") {
+                var o = JSON.parse(data);
+                if (typeof (o.ga) != "undefined") {
+                    Laya.stage.event(o.ga, o);
+                }
+                else {
+                    console.log("不存在事件", o);
+                }
+            }
+            else {
+                console.log("PONG");
+            }
+        }
+        httpPost(url, data) {
+            console.log(url, data);
+            if (url == "") {
+                console.log("没有输入提交地址");
+                return;
+            }
+            if (typeof (data.a) == "undefined" || typeof (data.m) == "undefined") {
+                console.log("请选择协议类型");
+                return;
+            }
+            var tmp_data = this.ProtoPack(data);
+            this.xhr.http.timeout = 10000;
+            this.xhr.once(Laya.Event.ERROR, this, this.errorHandler);
+            this.xhr.on(Laya.Event.PROGRESS, this, this.processHandler);
+            this.xhr.once(Laya.Event.COMPLETE, this, this.completeHandler);
+            this.xhr.send(url, tmp_data, "post", "text");
+        }
+        httpGet(url, data) {
+            if (url == "") {
+                console.log("没有输入提交地址");
+                return;
+            }
+            if (typeof (data.a) == "undefined" || typeof (data.m) == "undefined") {
+                console.log("请选择协议类型");
+                return;
+            }
+            var tmp_data = this.ProtoPack(data);
+            this.xhr.http.timeout = 10000;
+            this.xhr.once(Laya.Event.ERROR, this, this.errorHandler);
+            this.xhr.on(Laya.Event.PROGRESS, this, this.processHandler);
+            this.xhr.once(Laya.Event.COMPLETE, this, this.completeHandler);
+            this.xhr.send(url, tmp_data, "get", "text");
+        }
+        ProtoPack(data) {
+            var token = dataGlobal.getInstance().userInfo;
+            if (typeof (token) != "undefined" && token != "" && typeof (token.token) != "undefined" && token.token != "") {
+                data.token = token.token;
+            }
+            else {
+                data.token = "";
+            }
+            var s = "token=" + data.token;
+            for (var k in data) {
+                if (k == 'token') {
+                    continue;
+                }
+                if (k == 'd') {
+                    s += "&" + k + "=" + encodeURIComponent(JSON.stringify(data[k]));
+                }
+                else {
+                    s += "&" + k + "=" + data[k];
+                }
+            }
+            return s;
+        }
+        ;
+    }
+
+    class NETWORKEVENT {
+    }
+    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
+    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
+    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
+    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
+    NETWORKEVENT.GAMEFAILTIP = 'game_fail_tip';
+    NETWORKEVENT.INITINFO = "init_info";
+    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
+    NETWORKEVENT.FARMINITFIELD = "init_field";
+    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
+    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
+    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
+    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
+    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
+    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
+    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
+    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
+    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
+    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
+    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
+    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
+    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
+    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
+    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
+    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
+    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
+    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
+    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
+    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
+    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
+    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
+    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
+    NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
+    NETWORKEVENT.MARKETINFOBAK = 'market_info_bak';
+
+    class GAMECONFIG {
+    }
+    GAMECONFIG.farmLand = {
+        "ht01": { "x": 425, "y": 576, "zOrder": 9 },
+        "ht02": { "x": 632, "y": 430, "zOrder": 8 },
+        "ht03": { "x": 841, "y": 280, "zOrder": 7 },
+        "ht04": { "x": 212, "y": 434, "zOrder": 6 },
+        "ht05": { "x": 425, "y": 289, "zOrder": 5 },
+        "ht06": { "x": 631, "y": 138, "zOrder": 4 },
+        "ht07": { "x": 0, "y": 296, "zOrder": 3 },
+        "ht08": { "x": 212, "y": 149, "zOrder": 2 },
+        "ht09": { "x": 422, "y": 0, "zOrder": 1 },
+    };
 
     class dataJson {
         constructor() {
@@ -8515,6 +8677,9 @@
             _tipKuan.cancel_btn.label = cancel_txt;
             _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
             _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, this.close);
+            _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
+            _tipKuan.pivot(_tipKuan.width / 2, _tipKuan.height / 2);
+            this.addChild(_tipKuan);
             this.tweenShow();
         }
         close() {
@@ -9204,7 +9369,6 @@
             super();
         }
         onShowWarehouse() {
-            console.log('STEP_____1');
             if (this._warehouse == null) {
                 this._warehouse = new ui.warehouse.warehouseUI();
                 this._warehouse.name = 'warehouse';
@@ -9322,13 +9486,11 @@
             cell.on(Laya.Event.CLICK, this, this.clickItem, [cell]);
         }
         clickItem(cell) {
-            console.log(cell.dataSource.id);
             this.showSellTip(cell.dataSource.id);
         }
         creator_good_item(id, num) {
             var data = dataGlobal.getInstance().warehouseInfo;
             var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
-            console.log(id, num, data, good_info);
             let index = good_info.pic.lastIndexOf("/");
             var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
             var isNum = num - Math.floor(data.num3);
@@ -9486,10 +9648,7 @@
             super();
         }
         showSellTip(id) {
-            console.log(id);
             this._id = id;
-            console.log(this._id);
-            console.log('执行了');
             this._sellTip = new ui.warehouse.sell_tipUI();
             this._sellTip.pivotX = 0.5 * this._sellTip.width;
             this._sellTip.pivotY = 0.5 * this._sellTip.height;
@@ -9649,7 +9808,6 @@
             Laya.stage.event(NETWORKEVENT.LOTTERYINFOBAK, data);
         }
         sendGood(data) {
-            console.log('设置订单任务信息-3', data);
             var tmp_arr = [];
             for (var i in data) {
                 var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[data[i].lottery_id];
@@ -9905,6 +10063,9 @@
         factoryGoodGet(id) {
             Laya.stage.event(NETWORKEVENT.FACTORYGOODGETBAK);
         }
+        getCurrentFactory() {
+            return this._mf_id;
+        }
     }
 
     class factoryInfo extends baseWindow {
@@ -9913,7 +10074,7 @@
             this.thisProduction = {};
         }
         onShowFactoryInfo(id) {
-            console.log('显示工厂加工页面');
+            factoryController.getInstance().model._mf_id = id;
             this._factoryInfo = new ui.factory.factoryInfoUI;
             this._factoryInfo.name = 'factoryInfo';
             this._factoryInfo.pivot(this._factoryInfo.width / 2, this._factoryInfo.height / 2);
@@ -9922,7 +10083,6 @@
             this.tweenShow();
             this.initFactoryInfo(id);
             Laya.stage.event(GAMEEVENT.HIDEINFODIV);
-            factoryController.getInstance().model._mf_id = id;
             this._factoryInfo.scene.close_btn.on(Laya.Event.CLICK, this, this.closeFactoryInfo);
         }
         adaption() {
@@ -9952,6 +10112,7 @@
         }
         initProduction(id) {
             var data = dataGlobal.getInstance().factory[id];
+            console.log('获取用户这间工厂信息,', data);
             var myData = data.queue_goods;
             console.log(myData);
             var num = 1;
@@ -9963,11 +10124,8 @@
             for (var i in myData) {
                 this.thisProduction[num] = this._factoryInfo.scene.top_div.getChildByName('goods_' + num);
                 this.thisProduction[num].off(Laya.Event.CLICK, this, this.factory_open_seat_num);
-                console.log(this.thisProduction[num]);
                 var good_icon = this.thisProduction[num].getChildByName('good_div').getChildByName('good_icon');
                 var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[myData[i].id];
-                console.log(myData[i].id);
-                console.log(good_info);
                 let index = good_info.pic.lastIndexOf("/");
                 var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
                 good_icon.skin = 'factory/' + _skin + '.png';
@@ -10073,6 +10231,103 @@
             Laya.stage.event(NETWORKEVENT.SENDGOODBAK);
         }
         initProductionGoodList() {
+            console.log('添加工厂可生产物品信息');
+            var science_list = this._factoryInfo.scene.bottom_div.getChildByName('science_list');
+            science_list.dataSource = [];
+            var id = this._id;
+            var data = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id];
+            var level = dataGlobal.getInstance().userInfo.grade;
+            var user_good_info = dataGlobal.getInstance().userGoodInfo;
+            var _index = -1;
+            console.log(data);
+            console.log(user_good_info);
+            for (var i in data) {
+                var isshow = true;
+                if ((Math.floor(level) + 1) < Math.floor(data[i].grade2)) {
+                    continue;
+                }
+                var science = dataJson.getInstance().GET_SYS_GOOD_INFO()[data[i].id];
+                let index = science.pic.lastIndexOf("/");
+                var _skin = science.pic.substring(index + 1, science.pic.length);
+                var factoryGoodsItem = {
+                    name: 'factoryGoodsItem_' + data[i].id,
+                    id: 'factoryGoodsItem_' + data[i].id,
+                    good_pic: {
+                        skin: "factory/" + _skin + '.png'
+                    },
+                    good_num: {
+                        text: user_good_info[data[i].id].num
+                    },
+                    good_name: {
+                        text: science.name
+                    },
+                    good_lock_div: {
+                        visible: true
+                    },
+                    good_info: {
+                        visible: true
+                    }
+                };
+                _index++;
+                science_list.addItem(factoryGoodsItem);
+                console.log(science_list.getItem(_index));
+                console.log(science_list.getCell(_index));
+                if (Math.floor(level) >= Math.floor(data[i].grade2)) {
+                    factoryGoodsItem.good_info.visible = true;
+                    factoryGoodsItem.good_lock_div.visible = false;
+                    var goods_list = data[i].good;
+                    var goods_num = 1;
+                    var isMake = true;
+                    for (var q in goods_list) {
+                        var material_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[goods_list[q].id];
+                        console.log('查询材料物品信息', material_info);
+                        console.log(science_list.getItem(_index));
+                        if (science_list.getItem(_index)) {
+                            if (science_list.getItem(_index).name == factoryGoodsItem.name) {
+                                var factoryGoodsCell = science_list.getCell(_index);
+                                var material_num = factoryGoodsCell.getChildByName('good_info').getChildByName('good' + goods_num + '_num');
+                                var material_icon = factoryGoodsCell.getChildByName('good_info').getChildByName('good' + goods_num + '_icon');
+                                console.log(material_info.pic);
+                                let index = material_info.pic.lastIndexOf("/");
+                                var _skin = material_info.pic.substring(index + 1, material_info.pic.length);
+                                material_icon.skin = 'main/' + _skin + '.png';
+                                material_icon.visible = true;
+                                console.log(user_good_info);
+                                console.log(goods_list[q].id);
+                                var user_num = 3;
+                                if (Math.floor(user_num) >= Math.floor(goods_list[q].num)) {
+                                    material_num.color = '#A2613A';
+                                }
+                                else {
+                                    material_num.color = '#F8393B';
+                                    isMake = false;
+                                }
+                                material_num.text = goods_list[q].num;
+                                material_num.visible = true;
+                                goods_num++;
+                            }
+                        }
+                    }
+                    if (isMake) {
+                        factoryGoodsCell.off(Laya.Event.CLICK, this, this.factoryAct);
+                        factoryGoodsCell.on(Laya.Event.CLICK, this, this.factoryAct, [data[i].id]);
+                    }
+                    else {
+                        factoryGoodsCell.off(Laya.Event.CLICK, this, this.showFactoryMake);
+                        factoryGoodsCell.on(Laya.Event.CLICK, this, this.showFactoryMake, [id, data[i].id]);
+                    }
+                }
+                else {
+                    console.log("上面有判断是否下一级的生产商品", data[i]);
+                    if (isshow) {
+                        isshow = false;
+                        factoryGoodsItem.good_info.visible = false;
+                        factoryGoodsItem.good_lock_div.visible = true;
+                        var good_lock_info = factoryGoodsCell.getChildByName('good_lock_div').getChildByName('good_lock_info');
+                        good_lock_info.text = data[i].grade2 + '级可解锁';
+                    }
+                }
+            }
         }
         factoryAct(id) {
             var factory_id = factoryController.getInstance().model._mf_id;
@@ -10106,6 +10361,11 @@
             var data = dataGlobal.getInstance().factory[this._id];
             var factory_seed = dataJson.getInstance().GET_SYS_FACTORY_INFO()[this._id][data.grade].speed;
             if (data.being_goods && data.being_goods.id) {
+                var flower = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[this._id][data.being_goods.id];
+                var time_txt = this._factoryInfo.scene.center_div.getChildByName('pro_tool').getChildByName("time_txt");
+                time_txt.text = globalFun.getInstance().formatSeconds(data.being_goods.t);
+                var time_pro = this._factoryInfo.scene.center_div.getChildByName('pro_tool').getChildByName("time_pro");
+                time_pro.value = Math.floor(data.being_goods.t) / (Math.floor(flower.t));
             }
         }
     }
@@ -10155,7 +10415,6 @@
             var level = dataGlobal.getInstance().userInfo.grade;
             var num = 1;
             for (var id in data) {
-                console.log(num);
                 var factory_item = this._factory.scene.factory_div.cells[num - 1];
                 var factory_div = factory_item.getChildByName('open_div');
                 var unlock_div = factory_item.getChildByName('unlock_div');
@@ -10261,7 +10520,6 @@
         factory_good_save(id) {
         }
         onShowFactoryInfo(id) {
-            console.log('点击进入工厂');
             factoryController.getInstance().onShowFactoryInfo(id);
         }
     }
@@ -10290,11 +10548,78 @@
             var data = dataJson.getInstance().GET_SYS_FACTORY_INFO()[this._id];
             var myData = dataGlobal.getInstance().factory[this._id];
             var level = dataGlobal.getInstance().userInfo.grade;
+            var upgrad_list = this._factoryUpgrade.scene.getChildByName('upgrad_list');
+            var upgrade_icon = this._factoryUpgrade.scene.getChildByName('icon');
+            var upgrade_grade = this._factoryUpgrade.scene.getChildByName('grade');
+            var upgrad_div = this._factoryUpgrade.scene.getChildByName('upgrad_btn');
+            var upgrad_gold = upgrad_div.getChildByName('upgrade_gold');
+            upgrad_div.off(Laya.Event.CLICK, this, this.factoryUpGrade);
+            var is_grade = true;
+            upgrad_list.dataSource = [];
+            for (var i in data) {
+                if (Math.floor(myData.grade) == Math.floor(data[i].grade)) {
+                    upgrade_icon.url = data[i].pic;
+                    upgrade_grade.text = '' + myData.grade;
+                }
+                if (data[i].grade == 1) {
+                    continue;
+                }
+                var factoryUpgradeItem = {
+                    this_grade: {
+                        text: (Math.floor(data[i].grade) - 1) + ''
+                    },
+                    next_grade: {
+                        text: Math.floor(data[i].grade) + ''
+                    },
+                    list_icon: {
+                        skin: data[i].pic + '.png'
+                    },
+                    upgrade_time: {
+                        text: '-' + data[i].speed + '%'
+                    },
+                    upgrade_info: {
+                        text: '11',
+                        color: "",
+                        visible: true
+                    },
+                    kuan_xuan: {
+                        visible: false
+                    },
+                    bg: {
+                        skin: ''
+                    }
+                };
+                if (Math.floor(myData.grade) >= Math.floor(data[i].grade)) {
+                    factoryUpgradeItem.upgrade_info.text = '已解锁';
+                    factoryUpgradeItem.upgrade_info.color = '#EADEC6';
+                    factoryUpgradeItem.upgrade_info.visible = true;
+                    factoryUpgradeItem.bg.skin = 'factory/pic_kuang4.png';
+                }
+                else {
+                    factoryUpgradeItem.bg.skin = 'factory/pic_kuang5.png';
+                    factoryUpgradeItem.upgrade_info.visible = false;
+                    if (Math.floor(level) >= Math.floor(data[i].grade2)) {
+                        if (is_grade) {
+                            factoryUpgradeItem.kuan_xuan.visible = true;
+                            is_grade = false;
+                            this._isGrade = Math.floor(data[i].grade2);
+                            this._gold = Math.floor(data[i].num2);
+                            upgrad_gold.text = data[i].num2;
+                        }
+                    }
+                    else {
+                        factoryUpgradeItem.upgrade_info.text = data[i].grade2 + '级解锁';
+                        factoryUpgradeItem.upgrade_info.color = '#7d4815';
+                        factoryUpgradeItem.upgrade_info.visible = true;
+                    }
+                }
+                upgrad_list.addItem(factoryUpgradeItem);
+                console.log(upgrad_list.cells);
+            }
             this.isUpgrade();
         }
         isUpgrade() {
-            var upgrad_div = this._factoryUpgrade.scene.upgrad_btn;
-            console.log(upgrad_div);
+            var upgrad_div = this._factoryUpgrade.scene.getChildByName("upgrad_btn");
             if (this._isGrade > 0) {
                 upgrad_div.visible = true;
                 upgrad_div.off(Laya.Event.CLICK, this, this.factoryUpGrade);
@@ -10312,6 +10637,107 @@
                 return;
             }
             Laya.stage.event(NETWORKEVENT.FACTORYUPGRADEBAK);
+        }
+    }
+
+    class factoryMake extends baseTips {
+        constructor() {
+            super();
+        }
+        showFactoryMake(mf_id, id) {
+            this._factoryMake = new ui.factory.factoryMakeUI;
+            this._factoryMake.name = 'factoryMake';
+            this._factoryMake.pivot(this._factoryMake.width / 2, this._factoryMake.height / 2);
+            this.addChild(this._factoryMake);
+            this.tweenShow();
+            this._mf_id = mf_id;
+            this._id = id;
+            this._close = this._factoryMake.scene.getChildByName('close_btn');
+            this._close.on(Laya.Event.CLICK, this, this.onCliskClose);
+            this._index = -1;
+            this.initGoodList();
+            this.initGoodInfo();
+        }
+        onCliskClose() {
+            this._close.off(Laya.Event.CLICK, this, this.onCliskClose);
+            this.tweenHide();
+        }
+        initGoodList() {
+            var data = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[this._mf_id][this._id].good;
+            var user_good_info = dataGlobal.getInstance().userGoodInfo;
+            var num = 1;
+            var make_list = this._factoryMake.scene.getChildByName('make_list');
+            make_list.dataSource = [];
+            var makeItem = {
+                id: '',
+                good_icon: {
+                    skin: ''
+                },
+                gou: {
+                    visible: false
+                },
+                num_txt: {
+                    text: ""
+                },
+                go_div: {
+                    visible: false
+                },
+                bg: {
+                    skin: ""
+                },
+            };
+            for (var i in data) {
+                this._index++;
+                makeItem.id = this._index + '';
+                var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[data[i].id];
+                let index = good_info.pic.lastIndexOf("/");
+                var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
+                makeItem.good_icon.skin = 'main/' + _skin + '.png';
+                var user_num = 1;
+                if (num % 2 == 0) {
+                    makeItem.bg.skin = 'factory/pic_kuang4.png';
+                }
+                else {
+                    makeItem.bg.skin = 'factory/pic_kuang5.png';
+                }
+                if (Math.floor(user_num) >= Math.floor(data[i].num)) {
+                    makeItem.gou.visible = true;
+                    makeItem.num_txt.text = "" + user_num + "/" + data[i].num + "";
+                    makeItem.go_div.visible = false;
+                }
+                else {
+                    makeItem.gou.visible = false;
+                    makeItem.num_txt.text = "" + user_num + "/" + data[i].num + "";
+                    makeItem.go_div.visible = true;
+                    console.log(make_list.getCell(this._index).getChildByName("go_btn"));
+                    make_list.getCell(this._index).getChildByName("go_btn").on(Laya.Event.CLICK, this, this.goClick, [good_info.type]);
+                }
+                num++;
+                make_list.addItem(makeItem);
+                console.log(make_list);
+            }
+        }
+        initGoodInfo() {
+            var pic = dataJson.getInstance().GET_SYS_GOOD_INFO()[this._id].pic2;
+            var user_good_info = dataGlobal.getInstance().userGoodInfo;
+            var user_num = user_good_info[this._id].num;
+            var icon = this._factoryMake.scene.getChildByName('icon');
+            let index = pic.lastIndexOf("/");
+            var _skin = pic.substring(index + 1, pic.length);
+            icon.skin = 'factory/' + _skin + '.png';
+            var num = this._factoryMake.scene.getChildByName('num');
+            num.text = user_num;
+        }
+        goClick(type) {
+            this.onCliskClose();
+            factoryController.getInstance().closeFactoryInfo();
+            if (type == 5) {
+                infoController.getInstance().showBottonDiv('factory');
+            }
+            else if (type == 6) {
+                infoController.getInstance().showBottonDiv('farm');
+                farmController.getInstance().onShow(1);
+            }
         }
     }
 
@@ -10349,8 +10775,8 @@
             }
         }
         showFactoryMake(mf_id, id) {
-            var factoryMake = new factoryMake;
-            factoryMake.showFactoryMake(mf_id, id);
+            var _factoryMake = new factoryMake;
+            _factoryMake.showFactoryMake(mf_id, id);
         }
         showFactoryUpgrade(id) {
             this._factoryUpgradeCom = new factoryUpgrade;
@@ -10390,7 +10816,7 @@
             factoryController.getInstance().model.setTimeout();
         }
         FactoryCreateBak(data) {
-            data = { "ga": "factory_create_bak", "gd": { "mf_id": "gc002", "grade": "1", "open_seat_num": "1", "being_goods": [], "queue_goods": [{ "id": "wp5011", "t": "600000", "t2": "5000000" }, { "id": "wp5012", "t": "600000", "t2": "5000000" }], "succ_goods": [] }, "code": 1 };
+            data = { "ga": "factory_create_bak", "gd": { "mf_id": "gc002", "grade": "1", "open_seat_num": "2", "being_goods": { "id": "wp5041", "t": "1100" }, "queue_goods": [{ "id": "wp5041", "t": "600000", "t2": "5000000" }, { "id": "wp5042", "t": "600000", "t2": "5000000" }], "succ_goods": [] }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setFactory(data, data.mf_id);
             factoryController.getInstance().showFactory();
@@ -10414,7 +10840,7 @@
             Laya.stage.event(GAMEEVENT.TXTTIP, ['成功购买队列']);
         }
         SendGoodBak(data) {
-            data = { "ga": "send_good_bak", "gd": { "hh6001": { "id": "hh6001", "num": 8 }, "hh6002": { "id": "hh6002", "num": 10 }, "hh6003": { "id": "hh6003", "num": 8 }, "hh6006": { "id": "hh6006", "num": 10 }, "hh6007": { "id": "hh6007", "num": 8 }, "hh6004": { "id": "hh6004", "num": 10 }, "hh6008": { "id": "hh6008", "num": 10 }, "hh6009": { "id": "hh6009", "num": 8 }, "hh6010": { "id": "hh6010", "num": 10 }, "wp5001": { "id": "wp5001", "num": 10 }, "wp5002": { "id": "wp5002", "num": 10 }, "wp5011": { "id": "wp5011", "num": 10 }, "wp5004": { "id": "wp5004", "num": 10 }, "wp5005": { "id": "wp5005", "num": 10 } }, "code": 1 };
+            data = { "ga": "send_good_bak", "gd": { "wp5041": { "id": "wp5041", "num": 8 }, "wp5042": { "id": "wp5042", "num": 10 }, "wp5043": { "id": "wp5043", "num": 8 }, "wp5044": { "id": "wp5044", "num": 10 }, "wp5045": { "id": "wp5045", "num": 8 } }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setUserGoodInfo(data);
             factoryController.getInstance().initProductionGoodList();
@@ -10529,12 +10955,17 @@
             this._topSence.scene.top_kuan.on(Laya.Event.CLICK, this, this.userCountInfo);
             this._topSence.scene.farm_green_btn.on(Laya.Event.CLICK, this, this.showSecen, ['factory']);
             this._topSence.scene.factory_fu_btn.on(Laya.Event.CLICK, this, this.showSecen, ['farm']);
+            this._topSence.scene.top_kuan.on(Laya.Event.CLICK, this, function () {
+                Laya.stage.event(NETWORKEVENT.USERCOUNTINFO);
+            });
+            this._topSence.scene.gold_kuan.on(Laya.Event.CLICK, this, function () {
+                Laya.stage.event(NETWORKEVENT.SENDUSERGRADEUP);
+            });
             this.adaption();
             this.showChild(this._topSence);
             this._topSence.mouseThrough = true;
         }
         adaption() {
-            console.log(this._topSence);
         }
         showSecen(data) {
             if (data == 'factory') {
@@ -10582,6 +11013,88 @@
         }
     }
 
+    class infoUserTip extends baseTips {
+        constructor() {
+            super();
+        }
+        showUserInfoTip() {
+            this._userInfoTip = new ui.base.tip.user_info_tipUI;
+            this._userInfoTip.pivotX = 0.5 * this._userInfoTip.width;
+            this._userInfoTip.pivotY = 0.5 * this._userInfoTip.height;
+            this.addChild(this._userInfoTip);
+            this.tweenShow();
+            var data = dataGlobal.getInstance().userInfo;
+            this._userInfoTip.scene.uname.text = data.nickname;
+            this._userInfoTip.scene.id.text = data.uid;
+            this._userInfoTip.scene.grade.text = data.grade;
+            this._userInfoTip.scene.exp.text = Math.floor(data.exp) + '/' + Math.floor(data.upgrade_exp);
+            this._userInfoTip.scene.exp_progress.value = Math.floor(data.exp) / Math.floor(data.upgrade_exp);
+            this._userInfoTip.scene.flower_num.text = data.flower_num;
+            this._userInfoTip.scene.order_num.text = data.order_num;
+            this._userInfoTip.scene.good_num.text = data.goods_num;
+            this._userInfoTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeUserInfoKuan);
+        }
+        closeUserInfoKuan() {
+            this.tweenHide();
+        }
+    }
+
+    class infoUserUpgradeTip extends baseTips {
+        constructor() {
+            super();
+        }
+        infoUserUpgradeTip(data) {
+            this._userInfoTip = new ui.base.tip.upgrade_tipUI;
+            this._userInfoTip.pivotX = 0.5 * this._userInfoTip.width;
+            this._userInfoTip.pivotY = 0.5 * this._userInfoTip.height;
+            this.addChild(this._userInfoTip);
+            this.tweenShow();
+            this._userInfoTip.scene.y_btn.on(Laya.Event.CLICK, this, this.closeUserUpgradeTip);
+            this.good_list = this._userInfoTip.scene.good_div.getChildByName('good_list');
+            console.log(this.good_list);
+            this._userInfoTip.scene.new_grade.text = 'LV' + data.grade2;
+            this._userInfoTip.scene.add_gold.text = '+' + (data.num ? data.num : 0);
+            var good_list = data.up_data;
+            this.good_list.dataSource = [];
+            if (good_list) {
+                for (var i in good_list) {
+                    var thisList = {
+                        gicon: {
+                            skin: ''
+                        },
+                        gname: {
+                            text: ""
+                        }
+                    };
+                    var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[good_list[i].id];
+                    if (good_info) {
+                        let index = good_info.pic.lastIndexOf("/");
+                        var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
+                        thisList.gicon.skin = "factory/" + _skin + '.png';
+                        thisList.gname.text = good_info.name;
+                        this.good_list.addItem(thisList);
+                    }
+                }
+                if (this.good_list.cells.length > 0) {
+                    this._userInfoTip.scene.good_div.visible = true;
+                    this._userInfoTip.scene.n10.visible = true;
+                    this._userInfoTip.scene.n11.visible = true;
+                    this._userInfoTip.scene.t9.visible = true;
+                }
+                else {
+                    this._userInfoTip.scene.good_div.visible = false;
+                    this._userInfoTip.scene.n10.visible = false;
+                    this._userInfoTip.scene.n11.visible = false;
+                    this._userInfoTip.scene.t9.visible = false;
+                }
+            }
+            console.log(this.good_list.cells, this._userInfoTip.scene.n10);
+        }
+        closeUserUpgradeTip() {
+            this.tweenHide();
+        }
+    }
+
     class infoView {
         constructor() {
         }
@@ -10611,8 +11124,12 @@
             this._infoCom.hideInfoDiv();
         }
         showUserInfoTip() {
+            this._userInfoTip = new infoUserTip;
+            this._userInfoTip.showUserInfoTip();
         }
         infoUserUpgradeTip(data) {
+            this._userUgradeTip = new infoUserUpgradeTip;
+            this._userUgradeTip.infoUserUpgradeTip(data);
         }
     }
 
@@ -10623,11 +11140,15 @@
             dataGlobal.getInstance().setUserInfo(data.gd);
         }
         SendUserGradeUp(data) {
+            data = { "ga": "send_user_grade_up", "gd": { "grade": "10", "grade2": "11", "num": "689", "up_data": [{ "id": "wp5041", "num": "1" }, { "id": "wp5042", "num": "2" }, { "id": "wp5043", "num": "3" }, { "id": "wp5044", "num": "4" }], "msg": "\u5347\u7ea7\u8bf4\u660e\u6587\u5b57" }, "code": 1 };
             data = data.gd;
+            infoController.getInstance().infoUserUpgradeTip(data);
         }
         UserCountInfo(data) {
+            data = { "ga": "send_user_grade_up", "gd": { "grade": "10", "grade2": "11", "num": "689", "up_data": [{ "id": "wp5005", "num": "1" }, { "id": "wp5004", "num": "2" }, { "id": "wp5004", "num": "3" }, { "id": "wp5004", "num": "4" }], "msg": "\u5347\u7ea7\u8bf4\u660e\u6587\u5b57" }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setUserInfo(data);
+            infoController.getInstance().showUserInfoTip();
         }
     }
 
@@ -10726,7 +11247,12 @@
                     }
                 }
                 if (factoryId) {
+                    factoryController.getInstance().onShowFactoryInfo(factoryId);
+                    console.log('设置需要打开工厂的ID');
+                    factoryController.getInstance().model._mf_id = factoryId;
+                    factoryController.getInstance().model._is_open = true;
                 }
+                factoryController.getInstance().onShow(1);
             }
             else if (type == 6) {
                 infoController.getInstance().showBottonDiv('farm');
@@ -10879,7 +11405,6 @@
             if (this._orderview == null) {
                 this._orderview = new orderView;
             }
-            console.log('设置订单任务信息-2', data);
             this._orderview.sendGood(data);
         }
         setLotteryList() {
@@ -10899,6 +11424,523 @@
         }
         closeOrder() {
             this._orderview.closeOrder();
+        }
+    }
+
+    class exchangeIndex extends baseWindow {
+        constructor() {
+            super();
+            this._exchangeItem = {};
+        }
+        onShowexchange() {
+            console.log('显示订单弹窗');
+            this._exchangeIndex = new ui.exchange.exchangeUI();
+            this._exchangeIndex.name = 'exchangeIndex';
+            this._exchangeIndex.pivot(this._exchangeIndex.width / 2, this._exchangeIndex.height / 2);
+            this.addChild(this._exchangeIndex);
+            this.tweenShow();
+            this._my_list = this._exchangeIndex.scene.getChildByName('my_list');
+            this._market_list = this._exchangeIndex.scene.getChildByName('market_list');
+            this._material_btn = this._exchangeIndex.scene.getChildByName('material_btn');
+            this._market_btn = this._exchangeIndex.scene.getChildByName('market_btn');
+            this._exchangeIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeexchange);
+            this.switchItem('market');
+            this.store_info();
+            this.changeSceneList();
+        }
+        changeSceneList() {
+            this._market_btn.on(Laya.Event.CLICK, this, function () {
+                if (this._type != 'market') {
+                    this.switchItem('market');
+                }
+            }.bind(this));
+            this._material_btn.on(Laya.Event.CLICK, this, function () {
+                if (this._type != 'material') {
+                    this.switchItem('material');
+                }
+            }.bind(this));
+        }
+        store_info() {
+            console.log(this._type);
+            if (this._type == 'market') {
+                Laya.stage.event(NETWORKEVENT.MARKETINFOBAK);
+            }
+        }
+        initMarketGoodList() {
+            var data = dataGlobal.getInstance().marketInfo;
+            var _data_info = data.data_info;
+            this._market_list.dataSource = [];
+            console.log(_data_info);
+            for (var i in _data_info) {
+                var dataItem = {
+                    id: _data_info[i].good_id,
+                    detailed: {
+                        skin: "factory/pic_" + _data_info[i].good_id + ".png"
+                    },
+                    order_gold_val: {
+                        text: _data_info[i].price + 'ONES'
+                    }
+                };
+                this._market_list.addItem(dataItem);
+                this.bindClickMarketItem(this._market_list.getCell(Number(i)), Number(i));
+            }
+        }
+        initMyGoodList() {
+            var data = dataGlobal.getInstance().marketInfo;
+            var _data_info = data.data_info;
+            this._my_list.dataSource = [];
+            for (var i in _data_info) {
+                console.log(_data_info[i]);
+                var dataItem = {
+                    id: _data_info[i].good_id,
+                    icon: {
+                        skin: "factory/pic_" + _data_info[i].good_id + ".png"
+                    },
+                    order_gold_val: {
+                        text: _data_info[i].good_name
+                    }
+                };
+                this._my_list.addItem(dataItem);
+                this.bindClickMyItem(this._my_list.getCell(Number(i)), Number(i));
+            }
+        }
+        bindClickMarketItem(cell, index) {
+            if (this._flagMarket) {
+                return;
+            }
+            cell.on(Laya.Event.CLICK, this, function () {
+                this._flagMarket = true;
+                this.showBuyTip(this._market_list.getItem(index).id);
+            }.bind(this));
+        }
+        bindClickMyItem(cell, index) {
+            if (this._flagMy) {
+                return;
+            }
+            cell.on(Laya.Event.CLICK, this, function () {
+                this._flagMy = true;
+                this.showSellTip(this._market_list.getItem(index).id);
+            }.bind(this));
+        }
+        switchItem(str) {
+            this._type = str;
+            if (this._type == 'market') {
+                this._material_btn.skin = 'main/btn_hui.png';
+                this._market_btn.skin = 'main/btn_huang.png';
+                this._my_list.visible = false;
+                this._market_list.visible = true;
+                this._exchangeIndex.scene.n5.text = '交易市场';
+                this.initMarketGoodList();
+            }
+            if (this._type == 'material') {
+                this._my_list.visible = true;
+                this._market_list.visible = false;
+                this._market_btn.skin = 'main/btn_hui.png';
+                this._material_btn.skin = 'main/btn_huang.png';
+                this._exchangeIndex.scene.n5.text = '我的材料';
+                this.initMyGoodList();
+            }
+        }
+        closeexchange() {
+            this.tweenHide();
+        }
+        showBuyTip(id) {
+            console.log('购买');
+            exchangeController.getInstance().showBuyTip(id);
+        }
+        showSellTip(id) {
+            exchangeController.getInstance().showSellTip(id);
+        }
+    }
+
+    class warehouseSellTip$1 extends baseTips {
+        constructor() {
+            super();
+        }
+        showSellTip(id) {
+            this._id = id;
+            this._sellTip = new ui.exchange.buyBulletUI();
+            this._sellTip.pivotX = 0.5 * this._sellTip.width;
+            this._sellTip.pivotY = 0.5 * this._sellTip.height;
+            this.addChild(this._sellTip);
+            this.tweenShow();
+            this._sellTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeSellTip);
+            this._sellTip.scene.cancel.on(Laya.Event.CLICK, this, this.closeSellTip);
+            this.initInfo();
+        }
+        closeSellTip() {
+            this.tweenHide();
+        }
+        initInfo() {
+            var good_info = dataGlobal.getInstance().marketInfo.data_info;
+            for (var i in good_info) {
+                if (good_info[i].good_id == this._id) {
+                    var _good_info = good_info[i];
+                }
+            }
+            this._sellTip.scene.good_name.text = _good_info.good_name;
+            this._sellTip.scene.icon.skin = "factory/pic_" + _good_info.good_id + ".png";
+            this._sellTip.scene.seller.text = _good_info.seller;
+            this._sellTip.scene.price.text = _good_info.price;
+            this._sellTip.scene.describe.text = _good_info.good_name;
+            this._sellTip.scene.buy_btn.on(Laya.Event.CLICK, this, this.purchaseItems);
+        }
+        purchaseItems() {
+            this.closeSellTip();
+        }
+    }
+
+    class exchangeSellTip extends baseTips {
+        constructor() {
+            super();
+        }
+        showSellTip(id) {
+            this._id = id;
+            this._sellTip = new ui.exchange.selltipUI();
+            this._sellTip.pivotX = 0.5 * this._sellTip.width;
+            this._sellTip.pivotY = 0.5 * this._sellTip.height;
+            this.addChild(this._sellTip);
+            this.tweenShow();
+            this._sellTip.scene.jian_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [-1]);
+            this._sellTip.scene.jia_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [1]);
+            this._sellTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeSellTip);
+            this._sellTip.scene.sell_btn.on(Laya.Event.CLICK, this, this.storeGoodDel);
+            this.initGoodInfo();
+        }
+        closeSellTip() {
+            this.tweenHide();
+        }
+        initGoodInfo() {
+            var good_info = dataGlobal.getInstance().userGoodInfo[this._id];
+            this._num = Math.floor((Math.floor(good_info.num) / 2)) < 1 ? 1 : Math.floor((Math.floor(good_info.num) / 2));
+            this._sellTip.scene.tot_num.text = 'X' + this._num;
+            this._good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[this._id];
+            let index = this._good_info.pic.lastIndexOf("/");
+            var _skin = this._good_info.pic.substring(index + 1, this._good_info.pic.length);
+            this._sellTip.scene.gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
+            this._sellTip.scene.gdescribe.text = this._good_info.info;
+            this._sellTip.scene.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
+        }
+        setGoodNum(this_num) {
+            var good_info = dataGlobal.getInstance().userGoodInfo[this._id];
+            if (this_num > 0) {
+                this._num++;
+                this._num = (Math.floor(good_info.num) >= this._num) ? this._num : Math.floor(good_info.num);
+            }
+            else {
+                this._num--;
+                this._num = this._num < 1 ? 1 : this._num;
+            }
+            this._sellTip.scene.tot_num.text = 'X' + this._num;
+            this._sellTip.scene.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
+        }
+        storeGoodDel() {
+            Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
+            this.closeSellTip();
+        }
+    }
+
+    class exchangeView {
+        constructor() {
+        }
+        onShowExchange() {
+            this._exchangeCom = new exchangeIndex;
+            this._exchangeCom.onShowexchange();
+        }
+        initMarketGoodList() {
+            this._exchangeCom.initMarketGoodList();
+        }
+        sendGood(data) {
+        }
+        setLotteryList() {
+        }
+        clickexchangeItem(id) {
+        }
+        getLotteryInfo() {
+        }
+        showexchangeTime() {
+        }
+        closeexchange() {
+            this._exchangeCom.closeexchange();
+        }
+        showBuyTip(id) {
+            this._exchangeBuyCom = new warehouseSellTip$1;
+            this._exchangeBuyCom.showSellTip(id);
+        }
+        showSellTip(id) {
+            this._exchangeSellCom = new exchangeSellTip;
+            this._exchangeSellCom.showSellTip(id);
+        }
+    }
+
+    class exchangeNetwork {
+        constructor() {
+        }
+        MarketInfoBak(data) {
+            console.log("exchangeNetwork", '获取市场的信息');
+            data = {
+                "ga": "market_info_bak",
+                "code": 1,
+                "gd": {
+                    "store_id": "45",
+                    "num": "5",
+                    "data_info": [
+                        {
+                            "good_id": "bouquet3",
+                            "price": "1.884",
+                            "num": "105",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        },
+                        {
+                            "good_id": "bouquet1",
+                            "price": "2.23421",
+                            "num": "145",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        },
+                        {
+                            "good_id": "bouquet2",
+                            "price": "1.884",
+                            "num": "105",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        },
+                        {
+                            "good_id": "bouquet5",
+                            "price": "2.23421",
+                            "num": "111",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        },
+                        {
+                            "good_id": "bouquet4",
+                            "price": "14",
+                            "num": "1",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        }
+                    ]
+                }
+            };
+            data = data.gd;
+            dataGlobal.getInstance().setMarketInfo(data);
+            var good_arr = [];
+            for (var i in data.data_info) {
+                var tmp_arr = {
+                    'id': data.data_info[i].good_id,
+                    'num': data.data_info[i].num,
+                    'price': data.data_info[i].price,
+                };
+                good_arr.push(tmp_arr);
+            }
+            dataGlobal.getInstance().setMarketInfo(good_arr);
+            exchangeController.getInstance().initMarketGoodList();
+        }
+    }
+
+    class exchangeController {
+        constructor() {
+            this._network = new exchangeNetwork;
+            Laya.stage.on(NETWORKEVENT.MARKETINFOBAK, this, this._network.MarketInfoBak);
+        }
+        static getInstance() {
+            if (exchangeController._instance == null) {
+                exchangeController._instance = new exchangeController;
+            }
+            return exchangeController._instance;
+        }
+        onShowExchange() {
+            if (this._exchangeView == null) {
+                this._exchangeView = new exchangeView;
+            }
+            this._exchangeView.onShowExchange();
+        }
+        initMarketGoodList() {
+            if (this._exchangeView) {
+                this._exchangeView.initMarketGoodList();
+            }
+        }
+        showBuyTip(id) {
+            if (this._exchangeView) {
+                this._exchangeView.showBuyTip(id);
+            }
+        }
+        showSellTip(id) {
+            if (this._exchangeView) {
+                this._exchangeView.showSellTip(id);
+            }
+        }
+    }
+
+    class rankIndex extends baseWindow {
+        constructor() {
+            super();
+            this._rankItem = {};
+        }
+        onShowRank() {
+            this._rankIndex = new ui.rank.rankUI;
+            this._rankIndex.name = 'rankIndex';
+            this._rankIndex.pivot(this._rankIndex.width / 2, this._rankIndex.height / 2);
+            this.addChild(this._rankIndex);
+            this.tweenShow();
+            this._rankIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeRank);
+            this._rankIndex.scene.item_all.on(Laya.Event.CLICK, this, function () {
+                if (this._type != '1') {
+                    this.switchItem('1');
+                    this.firstFrame();
+                }
+            }.bind(this));
+            this._rankIndex.scene.item_flower.on(Laya.Event.CLICK, this, function () {
+                if (this._type != '2') {
+                    this.switchItem('2');
+                    this.SecondFrame();
+                }
+            }.bind(this));
+            this.switchItem('1');
+        }
+        switchItem(str) {
+            this._type = str;
+            this._rankIndex.scene.item_all.skin = 'warehouse/btn_biaoqian2.png';
+            this._rankIndex.scene.item_flower.skin = 'warehouse/btn_biaoqian2.png';
+            this._rankIndex.scene.item_all.labelColors = '#7D4815';
+            this._rankIndex.scene.item_flower.labelColors = '#7D4815';
+            this._rankIndex.scene.item_all_biao.visible = false;
+            this._rankIndex.scene.item_flower_biao.visible = false;
+            this._rankIndex.scene.n1box.visible = false;
+            this._rankIndex.scene.n2box.visible = false;
+            if (this._type == '1') {
+                this._rankIndex.scene.item_all.skin = 'warehouse/btn_biaoqian1.png';
+                this._rankIndex.scene.item_all.labelColors = '#fff';
+                this._rankIndex.scene.item_all_biao.visible = true;
+                this._rankIndex.scene.n1box.visible = true;
+            }
+            else if (this._type == '2') {
+                this._rankIndex.scene.item_flower.skin = 'warehouse/btn_biaoqian1.png';
+                this._rankIndex.scene.item_flower.labelColors = '#fff';
+                this._rankIndex.scene.item_flower_biao.visible = true;
+                this._rankIndex.scene.n2box.visible = true;
+            }
+        }
+        closeRank() {
+            this.tweenHide();
+        }
+        firstFrame() {
+        }
+        SecondFrame() {
+        }
+    }
+
+    class rankView {
+        constructor() {
+        }
+        onShowRank() {
+            this._rankCom = new rankIndex;
+            this._rankCom.onShowRank();
+        }
+        initMarketGoodList() {
+        }
+        sendGood(data) {
+        }
+        setLotteryList() {
+        }
+        clickrankItem(id) {
+        }
+        getLotteryInfo() {
+        }
+        showrankTime() {
+        }
+        closerank() {
+        }
+    }
+
+    class exchangeNetwork$1 {
+        constructor() {
+        }
+        MarketInfoBak(data) {
+            console.log("exchangeNetwork", '获取市场的信息');
+            data = {
+                "ga": "market_info_bak",
+                "code": 1,
+                "gd": {
+                    "store_id": "45",
+                    "num": "5",
+                    "data_info": [
+                        {
+                            "good_id": "bouquet3",
+                            "price": "1.884",
+                            "num": "105",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        },
+                        {
+                            "good_id": "bouquet1",
+                            "price": "2.23421",
+                            "num": "145",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        },
+                        {
+                            "good_id": "bouquet2",
+                            "price": "1.884",
+                            "num": "105",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        },
+                        {
+                            "good_id": "bouquet5",
+                            "price": "2.23421",
+                            "num": "111",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        },
+                        {
+                            "good_id": "bouquet4",
+                            "price": "14",
+                            "num": "1",
+                            'seller': 'xsefrty',
+                            'good_name': '花卉',
+                        }
+                    ]
+                }
+            };
+            data = data.gd;
+            dataGlobal.getInstance().setMarketInfo(data);
+            var good_arr = [];
+            for (var i in data.data_info) {
+                var tmp_arr = {
+                    'id': data.data_info[i].good_id,
+                    'num': data.data_info[i].num,
+                    'price': data.data_info[i].price,
+                };
+                good_arr.push(tmp_arr);
+            }
+            dataGlobal.getInstance().setMarketInfo(good_arr);
+            rankController.getInstance().initMarketGoodList();
+        }
+    }
+
+    class rankController {
+        constructor() {
+            this._network = new exchangeNetwork$1;
+            Laya.stage.on(NETWORKEVENT.MARKETINFOBAK, this, this._network.MarketInfoBak);
+        }
+        static getInstance() {
+            if (rankController._instance == null) {
+                rankController._instance = new rankController;
+            }
+            return rankController._instance;
+        }
+        onShowRank() {
+            if (this._rankView == null) {
+                this._rankView = new rankView;
+            }
+            this._rankView.onShowRank();
+        }
+        initMarketGoodList() {
+            if (this._rankView) {
+                this._rankView.initMarketGoodList();
+            }
         }
     }
 
@@ -10938,6 +11980,8 @@
             this._farmIndex.scene.order.on(Laya.Event.CLICK, this, this.onMenuClick, ['order']);
             this._farmIndex.scene.email.on(Laya.Event.CLICK, this, this.onMenuClick, ['email']);
             this._farmIndex.scene.upgrade.on(Laya.Event.CLICK, this, this.onMenuClick, ['upgrade']);
+            this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);
+            this._farmIndex.scene.rank.on(Laya.Event.CLICK, this, this.onMenuClick, ['rank']);
             this.cleanAllStatu();
         }
         loadSeedList() {
@@ -11011,9 +12055,6 @@
             this._farmIndex.scene.bg_kuan.visible = true;
         }
         onMenuClick(type) {
-            if (this.muneClickStr == type) {
-                return;
-            }
             this.recoveryBtn(type);
             switch (type) {
                 case 'building':
@@ -11031,6 +12072,15 @@
                     console.log('点击订单');
                     this.onClickOrder();
                     this._farmIndex.scene.order.skin = 'main/btn_dingdan2.png';
+                    break;
+                case 'exchange':
+                    console.log('点击市场');
+                    this.onClickExchange();
+                    this._farmIndex.scene.exchange.skin = 'farm/pic_factory3a.png';
+                    break;
+                case 'rank':
+                    console.log('点击排行榜');
+                    this.onClickRank();
                     break;
             }
         }
@@ -11059,6 +12109,12 @@
         }
         onClickOrder() {
             orderController.getInstance().onShowOrder();
+        }
+        onClickExchange() {
+            exchangeController.getInstance().onShowExchange();
+        }
+        onClickRank() {
+            rankController.getInstance().onShowRank();
         }
     }
 
@@ -12577,7 +13633,39 @@
             this._login_sence.scene.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
         }
         loginBtn() {
+            console.log("点击登录按钮");
             Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
+            return;
+            var tmp_dataGlobal = dataGlobal.getInstance();
+            var userid = Laya.LocalStorage.getItem("WYD:GAME:USER");
+            if (!userid || userid.length < 8) {
+                var myDate = new Date();
+                var year = myDate.getFullYear();
+                var month = myDate.getMonth() + 1;
+                var date = myDate.getDate();
+                var hour = myDate.getHours();
+                var minute = myDate.getMinutes();
+                var second = myDate.getSeconds();
+                userid = "WYD" + year + month + date + hour + minute + second + dataGlobal.getRound(10000, 99999);
+                Laya.LocalStorage.setItem("WYD:GAME:USER", userid);
+                console.log("用户保存的ID", userid);
+            }
+            let mydata = {
+                "a": "login",
+                "m": "init",
+                "d": {
+                    "code": userid,
+                    "reid": '',
+                    "sid": '',
+                    "sid2": '',
+                    "sys": '',
+                    "tid": CONST.IS_TB
+                }
+            };
+            console.log(tmp_dataGlobal.query);
+            console.log("这是登陆要提交的数据:", mydata);
+            let tmp_http = httpJson.getInstance();
+            tmp_http.httpPost(CONST.LOGIN_URL, mydata);
         }
         onupdateFarm(x) {
             this._login_sence.scene.loading_txt.text = x + '%';
@@ -12615,6 +13703,17 @@
 
     class loginNetwork {
         constructor() {
+        }
+        onLoginOK(data) {
+            if (!data) {
+                return;
+            }
+            console.log("onLoginOK的数据是：", data);
+            let _loginC = loginController.getInstance();
+            _loginC.model.setUserInfo(data.gd.info);
+        }
+        onLoginErr(data) {
+            console.log("登陆出错的数据是：", data);
         }
     }
 

@@ -41,7 +41,7 @@ export default class warehouseView {
    * 出售框
    */
   public showSellTip(id: string) {
-    this._warehouseSellCom = new  warehouseSellTip;
+    this._warehouseSellCom = new warehouseSellTip;
     this._warehouseSellCom.showSellTip(id);
   }
 }

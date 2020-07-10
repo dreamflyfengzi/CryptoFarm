@@ -41,4 +41,7 @@ export default class NETWORKEVENT{
   public static LOTTERYINFOBAK:string = 'lottery_info_bak';//获取当天订单列表的协议
   public static LOTTERYACTBAK:string = 'lottery_act_bak';//提交订单的协议
   public static SHOWSELLTIP:string = 'show_sell_tip';//暂时
+  
+  public static MARKETINFOBAK:string = 'market_info_bak';//获取仓库信息
+  
 }

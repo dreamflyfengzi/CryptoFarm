@@ -10,7 +10,9 @@ import farmController from './farmController'
 import farmSeedList from './farmSeedList'
 import warehouseController from '../warehouse/warehouseController'
 import orderController from '../order/orderController'
+import exchangeController from '../exchange/exchangeController'
 import CONST from '../../const/CONST'
+import rankController from '../rank/rankController'
 export default class farmIndex extends baseScene {
   private _farmIndex: Laya.Sprite;
   // private building_btn:fairygui.GLoader;//建筑按钮
@@ -21,7 +23,6 @@ export default class farmIndex extends baseScene {
   private muneClickStr: string;//当前所在的菜单操作
   // private bg_kuan:Laya.Sprite;//背景框
   private landArr: any;//花田的数组
-
   private _seedListClass: farmSeedList;
   private _seedList: Laya.Sprite;//种子列表
 
@@ -30,13 +31,13 @@ export default class farmIndex extends baseScene {
   }
   /** */
   public onShow(type) {
-    if(this._farmIndex == null){
-      this._farmIndex =  new ui.farm.farmIndexsceneUI();
+    if (this._farmIndex == null) {
+      this._farmIndex = new ui.farm.farmIndexsceneUI();
       this.width = this._farmIndex.width;
       this.height = this._farmIndex.height;
 
       this._farmIndex.name = 'farmIndex';
-      
+
       // this._farmIndex.pivot(this._farmIndex.width/2,this._farmIndex.height/2);//设置轴心
       // this._farmIndex.pos(CONST.STAGEWIDTH/2,CONST.STAGEHEIGHT/2);//设置坐标位置
 
@@ -48,7 +49,7 @@ export default class farmIndex extends baseScene {
       this.loadSeedList();
       //初始化页面的参数
       this.showInit();
-      
+
       //先添加一下农田的层
       this.land_div = new Laya.Sprite;
       this.land_div.name = 'land_div';
@@ -60,10 +61,10 @@ export default class farmIndex extends baseScene {
       //获取农田的种子信息
       this.getFarmSeed();
     }
-    if(type == 2){
-      this.tweenAlphaAdd(this._farmIndex,'farmIndex',type);
-    }else{
-      this.tweenTranAdd(this._farmIndex,'farmIndex',type,'right');
+    if (type == 2) {
+      this.tweenAlphaAdd(this._farmIndex, 'farmIndex', type);
+    } else {
+      this.tweenTranAdd(this._farmIndex, 'farmIndex', type, 'right');
     }
     console.log(this)
   }
@@ -86,6 +87,9 @@ export default class farmIndex extends baseScene {
     this._farmIndex.scene.order.on(Laya.Event.CLICK, this, this.onMenuClick, ['order']);//订单
     this._farmIndex.scene.email.on(Laya.Event.CLICK, this, this.onMenuClick, ['email']);//邮件
     this._farmIndex.scene.upgrade.on(Laya.Event.CLICK, this, this.onMenuClick, ['upgrade']);//邮件
+    this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);//市场
+    this._farmIndex.scene.rank.on(Laya.Event.CLICK, this, this.onMenuClick, ['rank']);//排行榜
+
     this.cleanAllStatu();//重置所有的按钮状态
   }
   /**
@@ -231,9 +235,9 @@ export default class farmIndex extends baseScene {
    */
   private onMenuClick(type) {
     //判断一下当前是否在这个菜单里面了
-    if (this.muneClickStr == type) {
-      return;
-    }
+    // if (this.muneClickStr == type) {
+    //   return;
+    // }
     //恢复所有的按钮状态
     this.recoveryBtn(type);
     switch (type) {
@@ -252,6 +256,16 @@ export default class farmIndex extends baseScene {
         console.log('点击订单');
         this.onClickOrder();
         this._farmIndex.scene.order.skin = 'main/btn_dingdan2.png';
+        break;
+      case 'exchange':
+        console.log('点击市场');
+        this.onClickExchange();
+        this._farmIndex.scene.exchange.skin = 'farm/pic_factory3a.png';
+        break;
+      case 'rank':
+        console.log('点击排行榜');
+        this.onClickRank();
+        // this._farmIndex.scene.exchange.skin = 'farm/pic_factory3a.png';
         break;
     }
 
@@ -298,5 +312,17 @@ export default class farmIndex extends baseScene {
    */
   private onClickOrder() {
     orderController.getInstance().onShowOrder();
+  }
+  /**
+   * 点击市场
+   */
+  private onClickExchange() {
+    exchangeController.getInstance().onShowExchange();
+  }
+   /**
+   * 点击排行榜
+   */
+  private onClickRank() {
+    rankController.getInstance().onShowRank();
   }
 }

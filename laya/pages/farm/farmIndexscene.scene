@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":29,
+    "selecteID":47,
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
-    "maxID":34,
+    "maxID":48,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -72,6 +72,20 @@
         },
         {
             "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,rank,rank",
+            "props":{"y":902,"x":672,"width":194,"var":"rank","texture":"main/rank_icon.png","name":"rank","height":192},
+            "nodeParent":2,
+            "label":"rank",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":47,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
             "type":"Button",
             "searchKey":"Button,order",
             "props":{"y":1924,"x":-164,"width":629,"var":"order","stateNum":"1","skin":"main/btn_dingdan1.png","label":"label","height":561},
@@ -114,18 +128,33 @@
         },
         {
             "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,exchange",
+            "props":{"y":467,"x":-350,"width":942,"var":"exchange","texture":"farm/pic_factory3.png","height":869},
+            "nodeParent":2,
+            "label":"exchange",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":46,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
             "type":"Box",
             "searchKey":"Box,bg_kuan",
             "props":{"y":0,"x":0,"width":1242,"visible":true,"var":"bg_kuan","height":2688},
             "nodeParent":2,
             "label":"bg_kuan",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":29,
             "child":[
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,n71",
                     "props":{"y":0,"x":0,"var":"n71","texture":"loading/pic_bg1.png"},
@@ -139,6 +168,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,n72",
                     "props":{"y":1344,"x":0,"var":"n72","texture":"loading/pic_bg2.png"},
@@ -152,6 +182,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,n74",
                     "props":{"y":1016,"x":379,"width":1095,"var":"n74","skin":"main/pic_huatiandi.png","skewY":-2,"sizeGrid":"120,315,120,335","rotation":34,"height":756},
@@ -163,7 +194,8 @@
                     "compId":33,
                     "child":[
                         ]
-                }]
+                }],
+            "$HIDDEN":true
         }],
     "animations":[
         {

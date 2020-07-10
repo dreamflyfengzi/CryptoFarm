@@ -7,6 +7,7 @@ import dataJson from '../resconfig/dataJson'
 import orderController from './orderController'
 import { ui } from '../../ui/layaMaxUI';
 import infoController from '../info/infoController'
+import factoryController from '../factory/factoryController'
 export default class orderGoodGoTip extends baseTips {
 
   private _orderGoodGoTip: Laya.Sprite;//对象层
@@ -73,11 +74,12 @@ export default class orderGoodGoTip extends baseTips {
         }
       }
       if (factoryId) {
-        // factoryController.getInstance().onShowFactoryInfo(factoryId);
-        // factoryController.getInstance().model._mf_id = factoryId;//设置需要打开工厂的ID
-        // factoryController.getInstance().model._is_open = true;//设置是否需要打开工厂
+        factoryController.getInstance().onShowFactoryInfo(factoryId);
+        console.log('设置需要打开工厂的ID')
+        factoryController.getInstance().model._mf_id = factoryId;//设置需要打开工厂的ID
+        factoryController.getInstance().model._is_open = true;//设置是否需要打开工厂
       }
-      // factoryController.getInstance().onShow(1);
+      factoryController.getInstance().onShow(1);
 
     } else if (type == 6) {
       infoController.getInstance().showBottonDiv('farm');

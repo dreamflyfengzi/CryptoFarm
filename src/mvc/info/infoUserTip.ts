@@ -2,9 +2,11 @@
 * name 
 */
  import baseTips from '../baseView/component/baseTips'
+import { ui } from '../../ui/layaMaxUI';
+import dataGlobal from '../resconfig/dataGlobal'
 	export default class infoUserTip extends baseTips{
 		
-		// private _userInfoTip:fairygui.GComponent;//顶层对象
+		private _userInfoTip:Laya.Sprite;//顶层对象
 		// //用户的信息
 		// private uname:fairygui.GTextField;//用户姓名
 		// private grade:fairygui.GTextField;//用户等级
@@ -19,42 +21,32 @@
 			super();
 			
 		}
-		// /** */
-		// public showUserInfoTip(){
-		// 	this._userInfoTip = fairygui.UIPackage.createObject('base','user_info_tip').asCom;
-		// 	this.setScale(this._userInfoTip.displayObject);
-		// 	this._userInfoTip.displayObject.pivotX = 0.5*this._userInfoTip.displayObject.width;
-		// 	this._userInfoTip.displayObject.pivotY = 0.5*this._userInfoTip.displayObject.height;
-		// 	this.addChild(this._userInfoTip.displayObject);
-		// 	this.tweenShow();
-		// 	//赋值
-		// 	this.close = this._userInfoTip.getChild('close').asLoader;
-		// 	this.uname = this._userInfoTip.getChild('uname').asTextField;
-		// 	this.grade = this._userInfoTip.getChild('grade').asTextField;
-		// 	this.id = this._userInfoTip.getChild('id').asTextField;
-		// 	this.exp_progress = this._userInfoTip.getChild('exp_progress').asProgress;
-		// 	this.exp = this._userInfoTip.getChild('exp').asTextField;
-		// 	this.flower_num = this._userInfoTip.getChild('flower_num').asTextField;
-		// 	this.order_num = this._userInfoTip.getChild('order_num').asTextField;
-		// 	this.good_num = this._userInfoTip.getChild('good_num').asTextField;
+		/** */
+		public showUserInfoTip(){
+			this._userInfoTip = new ui.base.tip.user_info_tipUI;
+			// this.setScale(this._userInfoTip.displayObject);
+			this._userInfoTip.pivotX = 0.5*this._userInfoTip.width;
+			this._userInfoTip.pivotY = 0.5*this._userInfoTip.height;
+			this.addChild(this._userInfoTip);
+			this.tweenShow();
 			
-		// 	//获取用户的信息
-		// 	var data = dataGlobal.getInstance().userInfo;
-		// 	this.uname.text = data.nickname;
-		// 	this.id.text = data.uid;
-		// 	this.grade.text = data.grade;
-		// 	this.exp.text = Math.floor(data.exp)+'/'+Math.floor(data.upgrade_exp);
-		// 	this.exp_progress.value = Math.floor(data.exp)/Math.floor(data.upgrade_exp)*100;
+			//获取用户的信息
+      var data = dataGlobal.getInstance().userInfo;
+			this._userInfoTip.scene.uname.text = data.nickname;
+			this._userInfoTip.scene.id.text = data.uid;
+			this._userInfoTip.scene.grade.text = data.grade;
+			this._userInfoTip.scene.exp.text = Math.floor(data.exp)+'/'+Math.floor(data.upgrade_exp);
+			this._userInfoTip.scene.exp_progress.value = Math.floor(data.exp)/Math.floor(data.upgrade_exp);
 
-		// 	this.flower_num.text = data.flower_num;
-		// 	this.order_num.text = data.order_num;
-		// 	this.good_num.text = data.goods_num;
+			this._userInfoTip.scene.flower_num.text = data.flower_num;
+			this._userInfoTip.scene.order_num.text = data.order_num;
+			this._userInfoTip.scene.good_num.text = data.goods_num;
 			
-		// 	this.close.displayObject.on(Laya.Event.CLICK,this,this.closeUserInfoKuan);
-		// }
-		// private closeUserInfoKuan(){
-		// 	this.tweenHide();
-		// }
+			this._userInfoTip.scene.close_btn.on(Laya.Event.CLICK,this,this.closeUserInfoKuan);
+		}
+		private closeUserInfoKuan(){
+			this.tweenHide();
+		}
 		
 		
 	}

@@ -18,10 +18,7 @@ export default class warehouseSellTip extends baseTips {
   }
   /** */
   public showSellTip(id) {
-    console.log(id)
     this._id = id;
-    console.log(this._id)
-    console.log('执行了')
     //请求种植操作
     this._sellTip = new ui.warehouse.sell_tipUI();
     // // this.setScale(this._sellTip);
@@ -29,15 +26,6 @@ export default class warehouseSellTip extends baseTips {
     this._sellTip.pivotY = 0.5*this._sellTip.height;
     this.addChild(this._sellTip);
     this.tweenShow();
-    // // //赋值
-    // // this._gicon = this._sellTip.getChild('gicon').asLoader;
-    // // this._tot_num = this._sellTip.getChild('tot_num').asTextField;
-    // // this._tot_price = this._sellTip.getChild('tot_price').asTextField;
-    // // this._jian_btn = this._sellTip.getChild('jian_btn').asLoader;
-    // // this._jia_btn = this._sellTip.getChild('jia_btn').asLoader;
-    // // this._sell_btn = this._sellTip.getChild('sell_btn').asLoader;
-    // // this._close = this._sellTip.getChild('close').asLoader;
-
     this._sellTip.scene.jian_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [-1]);
     this._sellTip.scene.jia_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [1]);
     this._sellTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeSellTip);

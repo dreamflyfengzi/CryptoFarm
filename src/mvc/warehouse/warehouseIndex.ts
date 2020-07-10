@@ -21,7 +21,6 @@ export default class warehouseIndex extends baseWindow {
   }
   /**显示工厂场景(type:1.当前页面隐藏切换，2.当前页面去除切换 */
   public onShowWarehouse() {
-    console.log('STEP_____1')
     if (this._warehouse == null) {
       this._warehouse = new ui.warehouse.warehouseUI();
       // this.setScale(this._warehouse);
@@ -200,7 +199,6 @@ export default class warehouseIndex extends baseWindow {
   }
 
   private clickItem(cell) {
-    console.log(cell.dataSource.id)
     this.showSellTip(cell.dataSource.id)
   }
   /**
@@ -211,7 +209,6 @@ export default class warehouseIndex extends baseWindow {
   private creator_good_item(id, num) {
     var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
     var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
-    console.log(id, num, data, good_info)
 
     let index = good_info.pic.lastIndexOf("/")
     var _skin = good_info.pic.substring(index + 1, good_info.pic.length)
@@ -308,5 +305,4 @@ export default class warehouseIndex extends baseWindow {
   private showSellTip(id: string) {
     warehouseController.getInstance().showSellTip(id);
   }
-
 }	

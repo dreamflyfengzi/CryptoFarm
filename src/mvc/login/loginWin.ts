@@ -5,13 +5,13 @@ import { ui } from '../../ui/layaMaxUI'
 // import loginController from './loginController'
 import { baseScene } from '../baseView/component/baseScene'
 import baseView from '../baseView/component/baseView'
-// import gameLayer from '../gameLayer'
-// import Event = Laya.Event;
+import httpJson from '../../net/httpJson'
 import GAMEEVENT from '../event/GAMEEVENT'
 import farmController from '../farm/farmController'
 import resManger from '../resconfig/resManger'
 import resConfig from '../resconfig/resConfig'
 import CONST from '../../const/CONST'
+import dataGlobal from '../resconfig/dataGlobal'
 
 
 // export default class loginWin extends ui.login.loginUI {
@@ -92,64 +92,67 @@ export default class loginWin extends baseScene {
    */
 
   public loginBtn() {
+    console.log("点击登录按钮")
     Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
+    return
     // if (this._login_check.selected) {
-    //   //获取一下公共的数据
-    //   var tmp_dataGlobal = dataGlobal.getInstance();
+      //获取一下公共的数据
+      var tmp_dataGlobal = dataGlobal.getInstance();
 
-    //   var userid = Laya.LocalStorage.getItem("WYD:GAME:USER");
-    //   if (!userid || userid.length < 8) {
-    //     var myDate = new Date();
-    //     var year = myDate.getFullYear();
-    //     var month = myDate.getMonth() + 1;
-    //     var date = myDate.getDate();
-    //     var hour = myDate.getHours();
-    //     var minute = myDate.getMinutes();
-    //     var second = myDate.getSeconds();
-    //     userid = "WYD" + year + month + date + hour + minute + second + dataGlobal.getRound(10000, 99999);
-    //     Laya.LocalStorage.setItem("WYD:GAME:USER", userid);
-    //     console.log("用户保存的ID", userid);
-    //   }
-    //   //这里发送用户的code给服务端
-    //   let mydata = {
-    //     "a": "login",
-    //     "m": "init",
-    //     "d": {
-    //       "code": userid,
-    //       "reid": '',
-    //       "sid": '',
-    //       "sid2": '',
-    //       "sys": '',
-    //       "tid": CONST.IS_TB //非淘宝注册
-    //     }
-    //   };
-    //   //看看有没有推广参数
-    //   console.log(tmp_dataGlobal.query);
-    //   if (typeof (tmp_dataGlobal.query) != "undefined" && tmp_dataGlobal.query.uid != "") {
-    //     mydata.d.reid = tmp_dataGlobal.query.uid;
-    //   } else {
-    //     console.log("参数2：", typeof (tmp_dataGlobal.query.uid));
-    //   }
-    //   if (typeof (tmp_dataGlobal.query.sid) != "undefined" && tmp_dataGlobal.query.sid != "") {
-    //     mydata.d.sid = tmp_dataGlobal.query.sid;
-    //   }
-    //   if (typeof (tmp_dataGlobal.query.sid2) != "undefined" && tmp_dataGlobal.query.sid2 != "") {
-    //     mydata.d.sid2 = tmp_dataGlobal.query.sid2;
-    //   }
+      var userid = Laya.LocalStorage.getItem("WYD:GAME:USER");
+      if (!userid || userid.length < 8) {
+        var myDate = new Date();
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth() + 1;
+        var date = myDate.getDate();
+        var hour = myDate.getHours();
+        var minute = myDate.getMinutes();
+        var second = myDate.getSeconds();
+        userid = "WYD" + year + month + date + hour + minute + second + dataGlobal.getRound(10000, 99999);
+        Laya.LocalStorage.setItem("WYD:GAME:USER", userid);
+        console.log("用户保存的ID", userid);
+      }
+      //这里发送用户的code给服务端
+      let mydata = {
+        "a": "login",
+        "m": "init",
+        "d": {
+          "code": userid,
+          "reid": '',
+          "sid": '',
+          "sid2": '',
+          "sys": '',
+          "tid": CONST.IS_TB //非淘宝注册
+        }
+      };
+      //看看有没有推广参数
+      console.log(tmp_dataGlobal.query);
+      // if (typeof (tmp_dataGlobal.query) != "undefined" && tmp_dataGlobal.query.uid != "") {
+      //   mydata.d.reid = tmp_dataGlobal.query.uid;
+      // } else {
+      //   console.log("参数2：", typeof (tmp_dataGlobal.query.uid));
+      // }
+      // if (typeof (tmp_dataGlobal.query.sid) != "undefined" && tmp_dataGlobal.query.sid != "") {
+      //   mydata.d.sid = tmp_dataGlobal.query.sid;
+      // }
+      // if (typeof (tmp_dataGlobal.query.sid2) != "undefined" && tmp_dataGlobal.query.sid2 != "") {
+      //   mydata.d.sid2 = tmp_dataGlobal.query.sid2;
+      // }
 
-    //   //操作系统
-    //   if (typeof (tmp_dataGlobal.query.system) != "undefined" && tmp_dataGlobal.query.system != "") {
-    //     mydata.d.sys = tmp_dataGlobal.query.system;
-    //   }
-    //   console.log("这是登陆要提交的数据:", mydata);
-    //   let tmp_http = net.httpJson.getInstance();
-    //   // tmp_http.httpPost(CONST.LOGIN_URL,mydata);
+      // //操作系统
+      // if (typeof (tmp_dataGlobal.query.system) != "undefined" && tmp_dataGlobal.query.system != "") {
+      //   mydata.d.sys = tmp_dataGlobal.query.system;
+      // }
+      console.log("这是登陆要提交的数据:", mydata);
+      let tmp_http = httpJson.getInstance();
+      tmp_http.httpPost(CONST.LOGIN_URL,mydata);
 
     // } else {
     //   console.log('请阅读手册');
     // }
 
-  }
+  
+}
   /**
    * 加载农场
    */

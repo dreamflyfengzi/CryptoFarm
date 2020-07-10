@@ -29,7 +29,7 @@ export default class factoryInfo extends baseWindow {
   }
   /**显示工厂加工页面 */
   public onShowFactoryInfo(id: string) {
-    console.log('显示工厂加工页面')
+    factoryController.getInstance().model._mf_id = id;
     this._factoryInfo = new ui.factory.factoryInfoUI;
     // //赋值
     // this._top_div = this._factoryInfo.getChildByName('top_div');
@@ -47,7 +47,6 @@ export default class factoryInfo extends baseWindow {
     //初始化这间工厂信息
     this.initFactoryInfo(id);
     Laya.stage.event(GAMEEVENT.HIDEINFODIV);//隐藏最上层的浮框
-    factoryController.getInstance().model._mf_id = id;
     this._factoryInfo.scene.close_btn.on(Laya.Event.CLICK, this, this.closeFactoryInfo);
   }
   /**
@@ -123,6 +122,7 @@ export default class factoryInfo extends baseWindow {
    */
   public initProduction(id: string) {
     var data = dataGlobal.getInstance().factory[id];//获取用户这间工厂信息
+    console.log('获取用户这间工厂信息,',data)
     var myData = data.queue_goods;//等待生产的位置
     console.log(myData)
     var num: number = 1;//当前处理的槽位
@@ -135,44 +135,41 @@ export default class factoryInfo extends baseWindow {
     for (var i in myData) {
       this.thisProduction[num] = this._factoryInfo.scene.top_div.getChildByName('goods_' + num);
       this.thisProduction[num].off(Laya.Event.CLICK, this, this.factory_open_seat_num);
-      console.log(this.thisProduction[num])
-      // console.log(this._factoryInfo.scene.top_div)
       var good_icon = this.thisProduction[num].getChildByName('good_div').getChildByName('good_icon');
       var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[myData[i].id];//配置表物品信息
-      console.log(myData[i].id)
-      console.log(good_info)
       let index = good_info.pic.lastIndexOf("/")
       var _skin = good_info.pic.substring(index + 1, good_info.pic.length)
-    
-      good_icon.skin = 'factory/'+_skin+'.png';
+
+      good_icon.skin = 'factory/' + _skin + '.png';
       good_div = this.thisProduction[num].getChildByName('good_div');
       good_div.visible = true;
       unlock_div = this.thisProduction[num].getChildByName('unlock_div');
       unlock_div.visible = false;
       num++;
     }
-    for(num; num<=3;num++){//
+   
+    for (num; num <= 3; num++) {//
       this.thisProduction[num] = this._factoryInfo.scene.top_div.getChildByName('goods_' + num);
-    	good_div = this.thisProduction[num].getChildByName('good_div');
-    	unlock_div = this.thisProduction[num].getChildByName('unlock_div');
-    	if(num <= data.open_seat_num){//有该槽位，并且没有生产的东西
-    		good_div.visible = false;
-    		unlock_div.visible = false;
-    	}else{//需要购买的
-    		if(num == 2){
-    			var pirce = dataJson.getInstance().GET_SYS_FACTORY_INFO()[id][data.grade].buy_num;//获取槽位的信息
-    		}else if(num == 3){
-    			var pirce = dataJson.getInstance().GET_SYS_FACTORY_INFO()[id][data.grade].buy_num2;//获取槽位的信息
-    		}
-        var gold =  unlock_div.getChildByName('gold');
-    		this.thisProduction[num].getChildByName('unlock_div').getChildByName('gold').text = pirce;  //莫名其妙
-    		good_div.visible = false;
-    		unlock_div.visible = true;
-    		//监听购买槽位
-    		var seat_num = num-1;
-    		this.thisProduction[num].off(Laya.Event.CLICK,this,this.factory_open_seat_num);
-    		this.thisProduction[num].on(Laya.Event.CLICK,this,this.factory_open_seat_num,[id,seat_num]);
-    	}
+      good_div = this.thisProduction[num].getChildByName('good_div');
+      unlock_div = this.thisProduction[num].getChildByName('unlock_div');
+      if (num <= data.open_seat_num) {//有该槽位，并且没有生产的东西
+        good_div.visible = false;
+        unlock_div.visible = false;
+      } else {//需要购买的
+        if (num == 2) {
+          var pirce = dataJson.getInstance().GET_SYS_FACTORY_INFO()[id][data.grade].buy_num;//获取槽位的信息
+        } else if (num == 3) {
+          var pirce = dataJson.getInstance().GET_SYS_FACTORY_INFO()[id][data.grade].buy_num2;//获取槽位的信息
+        }
+        var gold = unlock_div.getChildByName('gold');
+        this.thisProduction[num].getChildByName('unlock_div').getChildByName('gold').text = pirce;
+        good_div.visible = false;
+        unlock_div.visible = true;
+        //监听购买槽位
+        var seat_num = num - 1;
+        this.thisProduction[num].off(Laya.Event.CLICK, this, this.factory_open_seat_num);
+        this.thisProduction[num].on(Laya.Event.CLICK, this, this.factory_open_seat_num, [id, seat_num]);
+      }
     }
   }
   /**
@@ -182,32 +179,32 @@ export default class factoryInfo extends baseWindow {
     var data = dataGlobal.getInstance().factory[id];//获取用户这间工厂信息
     var myData = data.being_goods;//获取正在生产的物品
     var pro_tool = this._factoryInfo.scene.center_div.getChildAt(1)
-    
+
     var good_icon = pro_tool.getChildByName('good_now');//物品的图标
     var good_txt = pro_tool.getChildByName('good_txt');//制作中字样
     var time_txt = pro_tool.getChildByName('time_txt');//时间倒计时文字
     var time_pro = pro_tool.getChildByName('time_pro');//时间倒计时进度条
     var factory_info = dataJson.getInstance().GET_SYS_FACTORY_INFO()[id][data.grade];//获取工厂生产物品的信息
 
-    console.log(good_icon,good_txt,time_txt)
-    if(myData && myData.id){//有物品在生产
-    	var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[myData.id];//配置表物品信息
-    	var factory_good_info = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id][myData.id];//获取工厂生产物品的信息
+    console.log(good_icon, good_txt, time_txt)
+    if (myData && myData.id) {//有物品在生产
+      var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[myData.id];//配置表物品信息
+      var factory_good_info = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id][myData.id];//获取工厂生产物品的信息
       let index = good_info.pic2.lastIndexOf("/")
       var _skin = good_info.pic2.substring(index + 1, good_info.pic.length)
 
-    	good_icon.skin =  'factory/'+_skin+'.png';
-    	good_icon.visible = true;
-    	good_txt.visible = true;
-    	time_txt.text = globalFun.getInstance().formatSeconds(myData.t);
-    	time_txt.visible = true;
+      good_icon.skin = 'factory/' + _skin + '.png';
+      good_icon.visible = true;
+      good_txt.visible = true;
+      time_txt.text = globalFun.getInstance().formatSeconds(myData.t);
+      time_txt.visible = true;
 
-    	time_pro.value = Math.floor(myData.t)/(Math.floor(factory_good_info.t)/(Math.floor(factory_good_info.speed)+Math.floor(factory_info.speed)))*100;
-    }else{//没有物品
-    	good_icon.visible = false;
-    	good_txt.visible = false;
+      time_pro.value = Math.floor(myData.t) / (Math.floor(factory_good_info.t) / (Math.floor(factory_good_info.speed) + Math.floor(factory_info.speed))) * 100;
+    } else {//没有物品
+      good_icon.visible = false;
+      good_txt.visible = false;
       time_txt.visible = false;
-    	time_pro.value = 0;
+      time_pro.value = 0;
     }
   }
   /**
@@ -298,74 +295,114 @@ export default class factoryInfo extends baseWindow {
    * 添加工厂可生产物品信息
    */
   public initProductionGoodList() {
-    // var science_list = this._factoryInfo.getChildByName('science_list').asList;
-    // science_list.removeChildren();
-    // var id = this._id;
-    // var data = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id];//获取配置表工厂的物品信息
-    // var level = dataGlobal.getInstance().userInfo.grade;//玩家等级
-    // var user_good_info = dataGlobal.getInstance().userGoodInfo;//用户的物品信息
-    // for(var i in data){
-    // 	var isshow = true;//是否需要显示了下一个了
-    // 	if((Math.floor(level)+1) < Math.floor(data[i].grade2)){//如果大于下一级的，则跳过
-    // 		continue;
-    // 	}
-    // 	var factoryGoodsItem = Laya.UIPackage.createObject('factory','factoryGoodsItem').asCom;
-    // 	factoryGoodsItem.name = 'factoryGoodsItem_'+data[i].id;
-    // 	science_list.addChild(factoryGoodsItem);
-    // 	var science_icon = factoryGoodsItem.getChildByName('good_pic').asLoader;//UI的生产物品图片
-    // 	var science = dataJson.getInstance().GET_SYS_GOOD_INFO()[data[i].id];//获取生产物品信息
-    // 	science_icon.url = science.pic;
-    // 	var good_num = factoryGoodsItem.getChildByName('good_num').asTextField;//UI的生产物品数量
-    // 	good_num.text = user_good_info[data[i].id].num;
-    // 	var good_name = factoryGoodsItem.getChildByName('good_name').asTextField;//UI的生产物品名称
-    // 	good_name.text = science.name;
-    // 	var good_lock_div = factoryGoodsItem.getChildByName('good_lock_div');//UI的锁定层
-    // 	var good_info = factoryGoodsItem.getChildByName('good_info');//UI的锁定层
+    console.log('添加工厂可生产物品信息')
+    var science_list = this._factoryInfo.scene.bottom_div.getChildByName('science_list');
+    science_list.dataSource = [];
+    var id = this._id;
+    var data = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id];//获取配置表工厂的物品信息
+    var level = dataGlobal.getInstance().userInfo.grade;//玩家等级
+    var user_good_info = dataGlobal.getInstance().userGoodInfo;//用户的物品信息
+    var _index = -1;
+    console.log(data)
+    console.log(user_good_info)
+    for (var i in data) {
+      var isshow = true;//是否需要显示了下一个了
+      if ((Math.floor(level) + 1) < Math.floor(data[i].grade2)) {//如果大于下一级的，则跳过
+        continue;
+      }
+      // var factoryGoodsItem = Laya.UIPackage.createObject('factory','factoryGoodsItem').asCom;
+      var science = dataJson.getInstance().GET_SYS_GOOD_INFO()[data[i].id];//获取生产物品信息
 
-    // 	if(Math.floor(level) >= Math.floor(data[i].grade2)){//够等级，只需要判断是否够材料
-    // 		good_info.visible = true;
-    // 		good_lock_div.visible = false;
-    // 		var goods_list = data[i].good;
-    // 		var goods_num = 1;
-    // 		var isMake = true;
-    // 		for(var q in goods_list){
-    // 			//查询材料物品信息
-    // 			var material_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[goods_list[q].id];//物品的信息
-    // 			var material_icon = factoryGoodsItem.getChildByName('good'+goods_num+'_icon').asLoader;
-    // 			var material_num = factoryGoodsItem.getChildByName('good'+goods_num+'_num').asTextField;
-    // 			material_icon.url= material_info.pic;
-    // 			material_icon.visible = true;
-    // 			var user_num = user_good_info[goods_list[q].id].num;
-    // 			if(Math.floor(user_num) >= Math.floor(goods_list[q].num)){
-    // 				material_num.color = '#A2613A';
-    // 			}else{
-    // 				material_num.color = '#F8393B';
-    // 				isMake = false;
-    // 			}
-    // 			material_num.text = goods_list[q].num;
-    // 			material_num.visible = true;
-    // 			goods_num++;
-    // 			// var good_sprite = this.getGoodInfo(goods_list[q].id,goods_list[q].num);//
-    // 			// factoryGoodsItem.addChild(good_sprite);
-    // 		}
-    // 		if(isMake){//可以制造
-    // 			factoryGoodsItem.off(Laya.Event.CLICK,this,this.factoryAct);
-    // 			factoryGoodsItem.on(Laya.Event.CLICK,this,this.factoryAct,[data[i].id]);
-    // 		}else{//不能制造
-    // 			factoryGoodsItem.off(Laya.Event.CLICK,this,this.showFactoryMake);
-    // 			factoryGoodsItem.on(Laya.Event.CLICK,this,this.showFactoryMake,[id,data[i].id]);
-    // 		}
+      let index = science.pic.lastIndexOf("/")
+      var _skin = science.pic.substring(index + 1, science.pic.length)
+      var factoryGoodsItem = {
+        name: 'factoryGoodsItem_' + data[i].id,
+        id: 'factoryGoodsItem_' + data[i].id,
+        good_pic: {
+          skin: "factory/" + _skin + '.png'
+        },
+        good_num: {
+          text: user_good_info[data[i].id].num
+        },
+        good_name: {
+          text: science.name
+        },
+        good_lock_div: {
+          visible: true
+        },
+        good_info: {
+          visible: true
+        }
+      }
+      _index++
+      science_list.addItem(factoryGoodsItem)
 
-    // 	}else{//上面有判断是否下一级的生产商品
-    // 		if(isshow){
-    // 			isshow = false;
-    // 			good_info.visible = false;
-    // 			good_lock_div.visible = true;
-    // 			var good_lick_info = factoryGoodsItem.getChildByName('good_lick_info').asTextField;
-    // 			good_lick_info.text = data[i].grade2+'级可解锁';
-    // 		}
-    // 	}
-    // }
+      console.log(science_list.getItem(_index))
+      console.log(science_list.getCell(_index))
+
+      if (Math.floor(level) >= Math.floor(data[i].grade2)) {//够等级，只需要判断是否够材料
+          factoryGoodsItem.good_info.visible = true;
+          factoryGoodsItem.good_lock_div.visible = false;
+          var goods_list = data[i].good;
+          var goods_num = 1;
+          var isMake = true;
+          for (var q in goods_list) {
+            //查询材料物品信息
+            var material_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[goods_list[q].id];//物品的信息
+            console.log('查询材料物品信息', material_info)
+            console.log(science_list.getItem(_index))
+            if (science_list.getItem(_index)) {
+              if (science_list.getItem(_index).name == factoryGoodsItem.name) {
+                var factoryGoodsCell = science_list.getCell(_index);
+                var material_num = factoryGoodsCell.getChildByName('good_info').getChildByName('good' + goods_num + '_num');
+                var material_icon = factoryGoodsCell.getChildByName('good_info').getChildByName('good' + goods_num + '_icon');
+                console.log(material_info.pic)
+                let index = material_info.pic.lastIndexOf("/")
+                var _skin = material_info.pic.substring(index + 1, material_info.pic.length)
+                material_icon.skin = 'main/' + _skin + '.png';
+                material_icon.visible = true;
+                console.log(user_good_info)
+                console.log(goods_list[q].id)
+                // var user_num = user_good_info[goods_list[q].id].num;
+                var user_num = 3;
+                if (Math.floor(user_num) >= Math.floor(goods_list[q].num)) {
+                  material_num.color = '#A2613A';
+                } else {
+                  material_num.color = '#F8393B';
+                  isMake = false;
+                }
+
+                material_num.text = goods_list[q].num;
+                material_num.visible = true;
+                goods_num++;
+                // var good_sprite = this.getGoodInfo(goods_list[q].id, goods_list[q].num);//
+                // factoryGoodsItem.addChild(good_sprite);
+              }
+            }
+
+          }
+          if (isMake) {//可以制造
+            factoryGoodsCell.off(Laya.Event.CLICK, this, this.factoryAct);
+            factoryGoodsCell.on(Laya.Event.CLICK, this, this.factoryAct, [data[i].id]);
+          } else {//不能制造
+            factoryGoodsCell.off(Laya.Event.CLICK, this, this.showFactoryMake);
+            factoryGoodsCell.on(Laya.Event.CLICK, this, this.showFactoryMake, [id, data[i].id]);
+          }
+
+        } else {//上面有判断是否下一级的生产商品
+          console.log("上面有判断是否下一级的生产商品",data[i])
+          if (isshow) {
+            isshow = false;
+            factoryGoodsItem.good_info.visible = false;
+            factoryGoodsItem.good_lock_div.visible = true;
+            var good_lock_info = factoryGoodsCell.getChildByName('good_lock_div').getChildByName('good_lock_info');
+            good_lock_info.text = data[i].grade2 + '级可解锁';
+          }
+        }
+
+      
+
+    }
   }
   /**
    * 工厂生产产品协议
@@ -409,12 +446,12 @@ export default class factoryInfo extends baseWindow {
     var upgare_btn = this._factoryInfo.scene.bottom_div.getChildAt(4);
     var data = dataGlobal.getInstance().factory[id];//获取用户这间工厂信息
     var factory_info = dataJson.getInstance().GET_SYS_FACTORY_INFO()[id];
-    if(data.grade >= factory_info.lenght){
-    	upgare_btn.visible = false;
-    }else{
-    	upgare_btn.off(Laya.Event.CLICK,this,this.showFactoryUpgrade);
-    	upgare_btn.on(Laya.Event.CLICK,this,this.showFactoryUpgrade,[id]);
-    	upgare_btn.visible = true;
+    if (data.grade >= factory_info.lenght) {
+      upgare_btn.visible = false;
+    } else {
+      upgare_btn.off(Laya.Event.CLICK, this, this.showFactoryUpgrade);
+      upgare_btn.on(Laya.Event.CLICK, this, this.showFactoryUpgrade, [id]);
+      upgare_btn.visible = true;
     }
   }
   /**
@@ -433,12 +470,13 @@ export default class factoryInfo extends baseWindow {
     var factory_seed = dataJson.getInstance().GET_SYS_FACTORY_INFO()[this._id][data.grade].speed;
     if (data.being_goods && data.being_goods.id) {
       //获取花的倒计时
-      // var flower = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[this._id][data.being_goods.id];
-      // var time_txt:Laya.GTextField = this._factoryInfo.getChildByName('time_txt').asTextField;//时间倒计时文字
-      // var time_pro:Laya.GProgressBar = this._factoryInfo.getChildByName('time_pro').asProgress;//时间倒计时进度条
-      // time_txt.text = globalFun.getInstance().formatSeconds(data.being_goods.t);
-      // time_txt.visible = true;
+      var flower = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[this._id][data.being_goods.id];
+      var time_txt = this._factoryInfo.scene.center_div.getChildByName('pro_tool').getChildByName("time_txt");//时间倒计时文字
+      time_txt.text = globalFun.getInstance().formatSeconds(data.being_goods.t);
+      var time_pro= this._factoryInfo.scene.center_div.getChildByName('pro_tool').getChildByName("time_pro");//时间倒计时进度条
       // time_pro.value = Math.floor(data.being_goods.t)/(Math.floor(flower.t)/(Math.floor(flower.speed)+Math.floor(factory_seed)))*100;
+      time_pro.value = Math.floor(data.being_goods.t)/(Math.floor(flower.t));
+      // time_txt.visible = true;
     }
   }
 }

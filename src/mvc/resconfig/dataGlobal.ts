@@ -73,6 +73,7 @@ export default class dataGlobal{
   public userGoodInfo:any;//用户物品信息
   public warehouseInfo:any;//仓库的信息
   public lotteryInfo:any;//订单任务
+  public marketInfo:any;//市场信息
   public query={//推广的参数
       "uid":'',
       "sid":'',
@@ -84,13 +85,21 @@ export default class dataGlobal{
       this.query.system = this.get_sys();
       this.farmInfo = {};
       this.userInfo = {
-        "grade":3, //用户等级
+        "nickname":'魔动闪霸',
+        "uid":'7754555',
+        "exp":'700',
+        "upgrade_exp":'775',
+        "flower_num":'111',
+        "order_num":'11111',
+        "goods_num":'11',
+        "grade":1, //用户等级
         "have_gold":10000 //用户金币
       };
       this.factory = {};
       this.userGoodInfo = {};
       this.warehouseInfo = {};
       this.lotteryInfo = {};
+      this.marketInfo = {};
   }
 
   public static getInstance(){
@@ -343,6 +352,27 @@ export default class dataGlobal{
       if(typeof data.name != 'undefined'){ this.warehouseInfo.name = data.name }
       if(typeof data.data_info != 'undefined'){ this.warehouseInfo.data_info = data.data_info }
   }
+
+  /**
+   * 保存市场的信息
+   * @param data 市场信息
+   * array(
+      'store_id'=>'系统ID',
+      'num'=>'市场总出售物品数量',
+      'data_info'=>array(//要获取的物品信息
+          array(
+              'good_id'=>'物品ID',
+              'num'=>'物品数量',
+              'price'=>'物品单个价格'
+          ),
+      )
+  ),
+   */
+  public setMarketInfo(data:any){
+    if(typeof data.store_id != 'undefined'){ this.marketInfo.store_id = data.store_id }
+    if(typeof data.num != 'undefined'){ this.marketInfo.num = data.num }
+    if(typeof data.data_info != 'undefined'){ this.marketInfo.data_info = data.data_info }
+}
   /**
    * 设置订单任务信息
    * @param data :任务数据
@@ -370,7 +400,6 @@ export default class dataGlobal{
     }
     for(var i in data){
       this.lotteryInfo[data[i].lottery_id] = data[i];
-      console.log('设置订单任务信息-1',type,data[i])
       }
   }
 

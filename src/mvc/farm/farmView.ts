@@ -4,17 +4,8 @@
 import farmIndex from './farmIndex'
 export default class farmView{
 		private _indexCom:farmIndex;//场景的对象
-		// private user_name:fairygui.GTextField;//名字
-		// private user_level:fairygui.GTextField;//等级
-		// private user_pic:fairygui.GLoader;//图片
 
 		constructor(){
-		// 	//先添加包
-		// 	fairygui.UIConfig.packageFileExtension = 'json';
-		// 	var base = resConfig.getResUrl('base').split(".");
-		// 	fairygui.UIPackage.addPackage(base[0]);
-		// 	var farm = resConfig.getResUrl('farm').split(".");
-		// 	fairygui.UIPackage.addPackage(farm[0]);
 		}
 		/**显示农场场景(type:1.当前页面隐藏切换，2.当前页面去除切换) */
 		public onShow(type){

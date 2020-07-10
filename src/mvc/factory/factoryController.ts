@@ -26,7 +26,7 @@ export default class factoryController{
 		Laya.stage.on(NETWORKEVENT.FACTORYCREATEBAK,this,this._network.FactoryCreateBak);//工厂建造的协议
 		Laya.stage.on(NETWORKEVENT.FACTORYGOODSAVEBAK,this,this._network.FactoryGoodSave);//工厂生产产品完成后用户点击收获
 		Laya.stage.on(NETWORKEVENT.FACTORYOPENSEATNUMBAK,this,this._network.FactoryOpenSeatNumBak);//工厂生产产品完成后用户点击收获
-		Laya.stage.on(NETWORKEVENT.SENDGOODBAK,this,this._network.SendGoodBak);//获取玩家某些物品数量的协议
+		Laya.stage.on(NETWORKEVENT.SENDGOODBAK,this,this._network.SendGoodBak);//获取玩家某些物品数量的协议   2222
 		Laya.stage.on(NETWORKEVENT.FACTORYACTBAK,this,this._network.FactoryAct);//工厂生产产品协议
 		Laya.stage.on(NETWORKEVENT.FACTORYUPGRADEBAK,this,this._network.FactoryUpGrade);//工厂升级的协议
 		Laya.stage.on(NETWORKEVENT.FACTORYGOODGETBAK,this,this._network.FactoryGoodGet);//工厂生产产品完成的协议

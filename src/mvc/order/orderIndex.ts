@@ -67,7 +67,6 @@ export default class orderIndex extends baseWindow {
    * 获取物品
    */
   public sendGood(data) {
-    console.log('设置订单任务信息-3', data)
     var tmp_arr = [];
     for (var i in data) {
       //查找任务的ID

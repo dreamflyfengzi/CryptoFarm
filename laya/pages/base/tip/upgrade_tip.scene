@@ -88,7 +88,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,n13",
-            "props":{"y":1051,"x":184,"width":873,"visible":true,"var":"n13","skin":"character/pic_kuang6.png","sizeGrid":"45,45,45,45","height":650},
+            "props":{"y":1031,"x":200,"width":842,"visible":true,"var":"n13","skin":"character/pic_kuang6.png","sizeGrid":"45,45,45,45","height":844},
             "nodeParent":2,
             "label":"n13",
             "isDirectory":false,
@@ -226,8 +226,8 @@
                 {
                     "x":30,
                     "type":"List",
-                    "searchKey":"List,good_list",
-                    "props":{"y":88,"x":0,"width":708,"var":"good_list","spaceY":60,"spaceX":120,"repeatY":2,"repeatX":2,"renderType":"render","height":355,"elasticEnabled":false},
+                    "searchKey":"List,good_list,good_list",
+                    "props":{"y":88,"x":0,"width":708,"var":"good_list","spaceY":60,"spaceX":120,"repeatX":2,"renderType":"render","name":"good_list","height":355,"elasticEnabled":false},
                     "nodeParent":14,
                     "label":"good_list",
                     "isOpen":false,
@@ -260,12 +260,13 @@
                                     "hasChild":false,
                                     "compId":20,
                                     "child":[
-                                        ]
+                                        ],
+                                    "$HIDDEN":false
                                 },
                                 {
-                                    "type":"Sprite",
-                                    "searchKey":"Sprite,gicon",
-                                    "props":{"y":12,"x":79,"width":139,"var":"gicon","texture":"character/pic_huahui.png","height":139},
+                                    "type":"Image",
+                                    "searchKey":"Image,gicon,gicon",
+                                    "props":{"y":12,"x":79,"width":139,"var":"gicon","skin":"character/pic_huahui.png","name":"gicon","height":139},
                                     "nodeParent":19,
                                     "label":"gicon",
                                     "isDirectory":false,
@@ -277,8 +278,8 @@
                                 },
                                 {
                                     "type":"Label",
-                                    "searchKey":"Label,gname",
-                                    "props":{"y":165,"x":0,"width":290,"var":"gname","valign":"middle","text":"玫瑰种子","height":67,"fontSize":50,"font":"Microsoft YaHei","color":"#c38752","bold":true,"align":"center"},
+                                    "searchKey":"Label,gname,gname",
+                                    "props":{"y":165,"x":0,"width":290,"var":"gname","valign":"middle","text":"玫瑰种子","name":"gname","height":67,"fontSize":50,"font":"Microsoft YaHei","color":"#c38752","bold":true,"align":"center"},
                                     "nodeParent":19,
                                     "label":"gname",
                                     "isDirectory":false,
@@ -289,7 +290,8 @@
                                         ]
                                 }]
                         }]
-                }]
+                }],
+            "$HIDDEN":false
         }],
     "animations":[
         {

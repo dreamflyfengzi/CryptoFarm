@@ -41,7 +41,6 @@ export default class orderController{
 			//初始化视图的类
 			this._orderview = new  orderView;
     }
-    console.log('设置订单任务信息-2',data)
 		this._orderview.sendGood(data);
 	}
 	/**

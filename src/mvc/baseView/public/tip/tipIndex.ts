@@ -35,12 +35,13 @@ export default class tipIndex extends baseWindow {
     // _tipKuan.confirm_btn.on(Laya.event.Click,this, confirm_fun);
     _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
     _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, this.close);
+    _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
+    _tipKuan.pivot(_tipKuan.width / 2, _tipKuan.height / 2);//设置轴心
     // _tipKuan.cancel_btn.asLoader.onClick(this, cancel_fun);
     // _tipKuan.close_btn.asLoader.onClick(this, this.close);
-    // // console.log(this._tipKuan.displayObject.x,this._tipKuan.displayObject.y);
     // _tipKuan.displayObject.pivotX = 0.5 * _tipKuan.displayObject.width;
     // _tipKuan.displayObject.pivotY = 0.5 * _tipKuan.displayObject.height;
-    // this.addChild(_tipKuan.displayObject);
+    this.addChild(_tipKuan);
     this.tweenShow();
   }
   public close() {

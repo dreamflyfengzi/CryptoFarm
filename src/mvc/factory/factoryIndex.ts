@@ -95,7 +95,6 @@ export default class factoryIndex extends baseScene {
     var level = dataGlobal.getInstance().userInfo.grade;
     var num = 1;
     for (var id in data) {
-      console.log(num)
       var factory_item = this._factory.scene.factory_div.cells[num - 1];//单个工厂
       var factory_div = factory_item.getChildByName('open_div');//解锁层
       var unlock_div = factory_item.getChildByName('unlock_div');//未解锁层
@@ -264,7 +263,6 @@ export default class factoryIndex extends baseScene {
    * @param id：工厂ID 
    */
   private onShowFactoryInfo(id: string) {
-    console.log('点击进入工厂')
     //这里进入工厂
     factoryController.getInstance().onShowFactoryInfo(id);
   }

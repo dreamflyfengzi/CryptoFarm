@@ -50,7 +50,14 @@ import factoryController from '../factory/factoryController'
 			this._topSence.scene.top_kuan.on(Laya.Event.CLICK,this,this.userCountInfo);
 			this._topSence.scene.farm_green_btn.on(Laya.Event.CLICK,this,this.showSecen,['factory']);
 			this._topSence.scene.factory_fu_btn.on(Laya.Event.CLICK,this,this.showSecen,['farm']);
-			
+			this._topSence.scene.top_kuan.on(Laya.Event.CLICK,this,function(){
+        Laya.stage.event(NETWORKEVENT.USERCOUNTINFO)
+      });
+      //暂时
+      this._topSence.scene.gold_kuan.on(Laya.Event.CLICK,this,function(){
+        Laya.stage.event(NETWORKEVENT.SENDUSERGRADEUP)
+      });
+
 			//显示，自适应要在缩放之前做
 			//  this._topSence.pivot(this._topSence.width/2,this._topSence.height/2);//设置轴心
 			//  this._topSence.pos(CONST.STAGEWIDTH/2,CONST.STAGEHEIGHT/2);//设置坐标位置
@@ -68,7 +75,7 @@ import factoryController from '../factory/factoryController'
 			// console.log('this._login_group.y',this._login_group.y,CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH,CONST.DESIGNSTAGEHEIGHT);
 			// var sc = CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH;
       // var a = (sc*CONST.DESIGNSTAGEHEIGHT-CONST.STAGEHEIGHT)/sc;
-      console.log(this._topSence)
+     
 			// this._topSence.scene._top_div.y = this._topSence.y + CONST.ADAPTION;
 			// this._topSence.y = this._topSence.y - CONST.ADAPTION;
 		}

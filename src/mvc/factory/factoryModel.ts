@@ -57,6 +57,10 @@ import NETWORKEVENT from '../event/NETWORKEVENT'
 			// console.log("发送websocket数据",tmp_data);
 			// tmp_websocket.sendMessage(tmp_data);
 			Laya.stage.event(NETWORKEVENT.FACTORYGOODGETBAK);
-		}
+    }
+    // 当前工厂
+    public getCurrentFactory(){
+      return this._mf_id
+    }
 	}
 	

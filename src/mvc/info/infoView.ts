@@ -62,14 +62,14 @@
 		 * 展示用户信息框
 		 */
 		public showUserInfoTip(){
-			// this._userInfoTip = new mvc.info.infoUserTip;
-			// this._userInfoTip.showUserInfoTip();
+			this._userInfoTip = new infoUserTip;
+			this._userInfoTip.showUserInfoTip();
 		}
 		/**
 		 * 用户升级弹窗
 		 */
 		public infoUserUpgradeTip(data){
-			// this._userUgradeTip = new mvc.info.infoUserUpgradeTip;
-			// this._userUgradeTip.infoUserUpgradeTip(data);
+			this._userUgradeTip = new infoUserUpgradeTip;
+			this._userUgradeTip.infoUserUpgradeTip(data);
 		}
 	}

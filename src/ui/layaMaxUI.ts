@@ -95,7 +95,7 @@ export module ui.base.tip {
 		public good_list:Laya.List;
 		public good_item:Laya.Box;
 		public item_n0:Laya.Sprite;
-		public gicon:Laya.Sprite;
+		public gicon:Laya.Image;
 		public gname:Laya.Label;
         constructor(){ super()}
         createChildren():void {
@@ -158,6 +158,73 @@ export module ui.base {
     }
     REG("ui.base.tishi_tipUI",tishi_tipUI);
 }
+export module ui.exchange {
+    export class buyBulletUI extends Laya.Scene {
+		public n0:Laya.Image;
+		public close_btn:Laya.Sprite;
+		public icon:Laya.Image;
+		public good_name:Laya.Label;
+		public item_n1:Laya.Image;
+		public n2:Laya.Label;
+		public seller:Laya.Label;
+		public n3:Laya.Label;
+		public price:Laya.Label;
+		public company:Laya.Label;
+		public describe:Laya.Label;
+		public buy_btn:Laya.Button;
+		public cancel:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("exchange/buyBullet");
+        }
+    }
+    REG("ui.exchange.buyBulletUI",buyBulletUI);
+    export class exchangeUI extends Laya.Scene {
+		public n1:Laya.Image;
+		public n0:Laya.Image;
+		public n4:Laya.Image;
+		public n2:Laya.Sprite;
+		public n3:Laya.Sprite;
+		public n5:Laya.Label;
+		public close_btn:Laya.Sprite;
+		public my_list:Laya.List;
+		public market_list:Laya.List;
+		public order_item:Laya.Box;
+		public order_n0:Laya.Image;
+		public order_gold_val:Laya.Label;
+		public detailed:Laya.Image;
+		public n8:Laya.Image;
+		public material_btn:Laya.Button;
+		public market_btn:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("exchange/exchange");
+        }
+    }
+    REG("ui.exchange.exchangeUI",exchangeUI);
+    export class selltipUI extends Laya.Scene {
+		public n0:Laya.Image;
+		public close_btn:Laya.Button;
+		public jian_btn:Laya.Button;
+		public jia_btn:Laya.Button;
+		public gname:laya.display.Text;
+		public n7:Laya.Sprite;
+		public sell_btn:Laya.Button;
+		public tot_price:laya.display.Text;
+		public n14:Laya.Sprite;
+		public gicon:Laya.Sprite;
+		public tot_num:laya.display.Text;
+		public gdescribe:laya.display.Text;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("exchange/selltip");
+        }
+    }
+    REG("ui.exchange.selltipUI",selltipUI);
+}
 export module ui.factory {
     export class factoryUI extends Laya.Scene {
 		public n0:Laya.Sprite;
@@ -213,22 +280,22 @@ export module ui.factory {
 		public n13:Laya.Sprite;
 		public good_lock_div:Laya.Box;
 		public n15:Laya.Sprite;
-		public good_lick_info:Laya.Label;
+		public good_lock_info:Laya.Label;
 		public good_info:Laya.Box;
 		public n6:Laya.Sprite;
 		public n10:Laya.Sprite;
 		public n21:Laya.Label;
-		public good1_icon:Laya.Sprite;
+		public good1_icon:Laya.Image;
 		public good1_num:Laya.Label;
-		public good2_icon:Laya.Sprite;
+		public good2_icon:Laya.Image;
 		public good2_num:Laya.Label;
-		public good3_icon:Laya.Sprite;
+		public good3_icon:Laya.Image;
 		public good3_num:Laya.Label;
-		public good4_icon:Laya.Sprite;
+		public good4_icon:Laya.Image;
 		public good4_num:Laya.Label;
-		public good5_icon:Laya.Sprite;
+		public good5_icon:Laya.Image;
 		public good5_num:Laya.Label;
-		public good6_icon:Laya.Sprite;
+		public good6_icon:Laya.Image;
 		public good6_num:Laya.Label;
 		public n19:Laya.Sprite;
 		public n30:Laya.Sprite;
@@ -243,12 +310,12 @@ export module ui.factory {
     export class factoryMakeUI extends Laya.Scene {
 		public n0:Laya.Image;
 		public close_btn:Laya.Sprite;
-		public icon:Laya.Sprite;
-		public num:laya.display.Text;
+		public icon:Laya.Image;
+		public num:Laya.Label;
 		public make_list:Laya.List;
 		public listItem:Laya.Box;
 		public bg:Laya.Image;
-		public good_icon:Laya.Sprite;
+		public good_icon:Laya.Image;
 		public num_txt:Laya.Label;
 		public gou:Laya.Sprite;
 		public go_btn:Laya.Button;
@@ -276,7 +343,9 @@ export module ui.factory {
 		public next_grade:Laya.Label;
 		public n10:Laya.Sprite;
 		public upgrade_time:Laya.Label;
-		public upgrad__btn:Laya.Box;
+		public upgrade_info:Laya.Label;
+		public kuan_xuan:Laya.Image;
+		public upgrad_btn:Laya.Box;
 		public upgrade_btn:Laya.Button;
 		public upgrade_gold:laya.display.Text;
 		public n9:laya.display.Text;
@@ -294,9 +363,11 @@ export module ui.farm {
 		public farmbg_2:Laya.Sprite;
 		public building:Laya.Button;
 		public n40:Laya.Sprite;
+		public rank:Laya.Sprite;
 		public order:Laya.Button;
 		public email:Laya.Button;
 		public upgrade:Laya.Button;
+		public exchange:Laya.Sprite;
 		public bg_kuan:Laya.Box;
 		public n71:Laya.Sprite;
 		public n72:Laya.Sprite;
@@ -448,6 +519,59 @@ export module ui.order {
         }
     }
     REG("ui.order.orderIndexUI",orderIndexUI);
+}
+export module ui.rank {
+    export class rankUI extends Laya.Scene {
+		public n0:Laya.Sprite;
+		public n5:laya.display.Text;
+		public close_btn:Laya.Button;
+		public n10:Laya.Image;
+		public item_title_div:Laya.Box;
+		public item_all:Laya.Button;
+		public item_all_biao:Laya.Sprite;
+		public item_flower:Laya.Button;
+		public item_flower_biao:Laya.Sprite;
+		public n1box:Laya.Box;
+		public x1:Laya.Sprite;
+		public clock:Laya.Sprite;
+		public countdown:laya.display.Text;
+		public goods_list:Laya.List;
+		public gooditem:Laya.Box;
+		public n4:Laya.Image;
+		public icon:Laya.Image;
+		public n7:laya.display.Text;
+		public reward:laya.display.Text;
+		public n12:Laya.Label;
+		public n13:Laya.Sprite;
+		public n14:Laya.Sprite;
+		public n15:Laya.Image;
+		public good_list:Laya.List;
+		public good_item:Laya.Box;
+		public bg1:Laya.Sprite;
+		public pn1:laya.display.Text;
+		public pn2:laya.display.Text;
+		public pn3:laya.display.Text;
+		public prize1:laya.display.Text;
+		public prize2:laya.display.Text;
+		public prize3:laya.display.Text;
+		public prize_winner1:laya.display.Text;
+		public prize_winner2:laya.display.Text;
+		public prize_winner3:laya.display.Text;
+		public submit:Laya.Button;
+		public rank_list:Laya.List;
+		public rank_item:Laya.Box;
+		public item_bg:Laya.Image;
+		public nth:Laya.Label;
+		public user_name:Laya.Label;
+		public price:Laya.Sprite;
+		public n2box:Laya.Box;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("rank/rank");
+        }
+    }
+    REG("ui.rank.rankUI",rankUI);
 }
 export module ui.warehouse {
     export class good_itemUI extends Laya.Scene {

@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":58,
-    "selecteID":92,
+    "selectedBox":61,
+    "selecteID":74,
     "searchKey":"Scene",
     "props":{"width":1246,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
@@ -598,14 +598,13 @@
                     "props":{"y":880,"x":213,"width":894,"var":"pro_tool","name":"pro_tool","height":955},
                     "nodeParent":49,
                     "label":"pro_tool",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":51,
                     "child":[
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,n35",
                             "props":{"var":"n35","texture":"factory/pic_jiqi.png"},
@@ -619,7 +618,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,good_txt,good_txt",
                             "props":{"y":717,"x":213,"width":438,"var":"good_txt","valign":"middle","text":"制作中...","strokeColor":"#71350c","stroke":7,"name":"good_txt","height":127,"fontSize":50,"font":"Microsoft YaHei","color":"#f9f9f9","align":"center"},
@@ -633,7 +631,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,n5",
                             "props":{"y":844,"x":123,"var":"n5","texture":"factory/pic_jiqi1.png"},
@@ -647,7 +644,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,n9",
                             "props":{"y":844,"x":715,"width":179,"var":"n9","texture":"factory/pic_jiqi1.png","scaleX":-1,"rotation":0,"height":84},
@@ -661,7 +657,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"ProgressBar",
                             "searchKey":"ProgressBar,time_pro,time_pro",
                             "props":{"y":855,"x":302,"width":234,"var":"time_pro","skin":"factory/pic_jiqi3.png","sizeGrid":"14,13,14,15","name":"time_pro","height":69},
@@ -675,7 +670,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,time_txt,time_txt",
                             "props":{"y":866,"x":284,"width":270,"var":"time_txt","valign":"middle","text":"2分20秒","strokeColor":"#71350c","stroke":0,"name":"time_txt","height":58,"fontSize":50,"font":"Microsoft YaHei","color":"#71350c","align":"center"},
@@ -689,7 +683,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,good_now",
                             "props":{"y":147,"x":237.5,"width":389,"skin":"factory/pic_bouquet1.png","name":"good_now","height":554},
@@ -734,17 +727,18 @@
                 {
                     "x":30,
                     "type":"List",
-                    "searchKey":"List,science_list",
-                    "props":{"y":47,"x":34.5,"width":1222,"var":"science_list","renderType":"render","height":594},
+                    "searchKey":"List,science_list,science_list",
+                    "props":{"y":31,"x":34.5,"width":1222,"var":"science_list","renderType":"render","name":"science_list","height":594},
                     "nodeParent":58,
                     "label":"science_list",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":60,
                     "child":[
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,factoryGoodsItem,factoryGoodsItem",
                             "props":{"y":0,"x":0,"width":439,"var":"factoryGoodsItem","renderType":"render","name":"factoryGoodsItem","height":601},
@@ -757,6 +751,7 @@
                             "compId":61,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,item_n0",
                                     "props":{"y":0,"x":0,"width":439,"var":"item_n0","skin":"factory/pic_liebiaokuang1.png","sizeGrid":"100,110,70,110","height":601},
@@ -770,6 +765,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,item_n1",
                                     "props":{"y":56,"x":37,"width":379,"var":"item_n1","skin":"factory/pic_liebiaokuang2.png","sizeGrid":"50,50,50,50","height":153},
@@ -783,9 +779,10 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
-                                    "searchKey":"Image,good_pic",
-                                    "props":{"y":71,"x":46,"width":143,"var":"good_pic","skin":"factory/pic_jiantou.png","sizeGrid":"50,50,50,50","height":144},
+                                    "searchKey":"Image,good_pic,good_pic",
+                                    "props":{"y":72.5,"x":54,"width":138,"var":"good_pic","skin":"factory/pic_jiantou.png","name":"good_pic","height":120},
                                     "nodeParent":61,
                                     "label":"good_pic",
                                     "isDirectory":false,
@@ -796,9 +793,10 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
-                                    "searchKey":"Label,good_name",
-                                    "props":{"y":71,"x":189,"width":224,"var":"good_name","valign":"middle","text":"商品名称","strokeColor":"#71350c","stroke":0,"height":80,"fontSize":45,"font":"Microsoft YaHei","color":"#d67b33","bold":true,"align":"center"},
+                                    "searchKey":"Label,good_name,good_name",
+                                    "props":{"y":71,"x":189,"width":224,"var":"good_name","valign":"middle","text":"商品名称","strokeColor":"#71350c","stroke":0,"name":"good_name","height":80,"fontSize":45,"font":"Microsoft YaHei","color":"#d67b33","bold":true,"align":"center"},
                                     "nodeParent":61,
                                     "label":"good_name",
                                     "isDirectory":false,
@@ -809,9 +807,10 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
-                                    "searchKey":"Label,good_num",
-                                    "props":{"y":135,"x":192,"width":224,"var":"good_num","valign":"middle","text":"22","strokeColor":"#71350c","stroke":4,"height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#fffbf8","bold":true,"align":"center"},
+                                    "searchKey":"Label,good_num,good_num",
+                                    "props":{"y":135,"x":192,"width":224,"var":"good_num","valign":"middle","text":"22","strokeColor":"#71350c","stroke":4,"name":"good_num","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#fffbf8","bold":true,"align":"center"},
                                     "nodeParent":61,
                                     "label":"good_num",
                                     "isDirectory":false,
@@ -822,6 +821,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Sprite",
                                     "searchKey":"Sprite,n11",
                                     "props":{"y":241,"x":58,"width":372,"var":"n11","texture":"factory/pic_zhuangshi.png","height":84},
@@ -835,6 +835,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Sprite",
                                     "searchKey":"Sprite,n12",
                                     "props":{"y":352,"x":58,"width":372,"var":"n12","texture":"factory/pic_zhuangshi.png","height":84},
@@ -848,6 +849,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Sprite",
                                     "searchKey":"Sprite,n13",
                                     "props":{"y":459,"x":58,"width":372,"var":"n13","texture":"factory/pic_zhuangshi.png","height":84},
@@ -861,9 +863,10 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
-                                    "searchKey":"Box,good_lock_div",
-                                    "props":{"y":266,"x":-12,"width":486,"var":"good_lock_div","height":170},
+                                    "searchKey":"Box,good_lock_div,good_lock_div",
+                                    "props":{"y":266,"x":-12,"width":486,"var":"good_lock_div","name":"good_lock_div","height":170},
                                     "nodeParent":61,
                                     "label":"good_lock_div",
                                     "isOpen":true,
@@ -873,6 +876,7 @@
                                     "compId":71,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Sprite",
                                             "searchKey":"Sprite,n15",
                                             "props":{"y":0,"x":0,"width":486,"var":"n15","texture":"factory/pic_liebiaozhezhao.png","height":170},
@@ -883,29 +887,33 @@
                                             "hasChild":false,
                                             "compId":72,
                                             "child":[
-                                                ]
+                                                ],
+                                            "$HIDDEN":false
                                         },
                                         {
+                                            "x":75,
                                             "type":"Label",
-                                            "searchKey":"Label,good_lick_info",
-                                            "props":{"y":0,"x":36,"width":407,"var":"good_lick_info","valign":"middle","text":"19级解锁","strokeColor":"#71350c","stroke":4,"height":167,"fontSize":60,"font":"Microsoft YaHei","color":"#ff4700","bold":true,"align":"center"},
+                                            "searchKey":"Label,good_lock_info,good_lock_info",
+                                            "props":{"y":0,"x":36,"width":407,"var":"good_lock_info","valign":"middle","text":"19级解锁","strokeColor":"#71350c","stroke":4,"name":"good_lock_info","height":167,"fontSize":60,"font":"Microsoft YaHei","color":"#ff4700","bold":true,"align":"center"},
                                             "nodeParent":71,
-                                            "label":"good_lick_info",
+                                            "label":"good_lock_info",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
                                             "compId":73,
                                             "child":[
                                                 ]
-                                        }]
+                                        }],
+                                    "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
-                                    "searchKey":"Box,good_info",
-                                    "props":{"y":243,"x":44,"width":358,"var":"good_info","height":294},
+                                    "searchKey":"Box,good_info,good_info",
+                                    "props":{"y":243,"x":44,"width":358,"var":"good_info","name":"good_info","height":294},
                                     "nodeParent":61,
                                     "label":"good_info",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
@@ -951,9 +959,9 @@
                                                 ]
                                         },
                                         {
-                                            "type":"Sprite",
-                                            "searchKey":"Sprite,good1_icon",
-                                            "props":{"y":18,"x":63,"width":50,"var":"good1_icon","texture":"factory/pic_bouquet4.png","height":50},
+                                            "type":"Image",
+                                            "searchKey":"Image,good1_icon,good1_icon",
+                                            "props":{"y":18,"x":63,"width":50,"visible":false,"var":"good1_icon","skin":"factory/pic_bouquet4.png","name":"good1_icon","height":50},
                                             "nodeParent":74,
                                             "label":"good1_icon",
                                             "isDirectory":false,
@@ -965,8 +973,8 @@
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label,good1_num",
-                                            "props":{"y":17,"x":121,"wordWrap":false,"width":83,"var":"good1_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
+                                            "searchKey":"Label,good1_num,good1_num",
+                                            "props":{"y":17,"x":121,"wordWrap":false,"width":83,"visible":false,"var":"good1_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"name":"good1_num","height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
                                             "nodeParent":74,
                                             "label":"good1_num",
                                             "isDirectory":false,
@@ -977,9 +985,9 @@
                                                 ]
                                         },
                                         {
-                                            "type":"Sprite",
-                                            "searchKey":"Sprite,good2_icon",
-                                            "props":{"y":17,"x":229,"width":50,"var":"good2_icon","texture":"factory/pic_bouquet4.png","height":50},
+                                            "type":"Image",
+                                            "searchKey":"Image,good2_icon,good2_icon",
+                                            "props":{"y":17,"x":229,"width":50,"visible":false,"var":"good2_icon","skin":"factory/pic_bouquet4.png","name":"good2_icon","height":50},
                                             "nodeParent":74,
                                             "label":"good2_icon",
                                             "isDirectory":false,
@@ -991,8 +999,8 @@
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label,good2_num",
-                                            "props":{"y":17,"x":288,"wordWrap":false,"width":83,"var":"good2_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
+                                            "searchKey":"Label,good2_num,good2_num",
+                                            "props":{"y":17,"x":288,"wordWrap":false,"width":83,"visible":false,"var":"good2_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"name":"good2_num","height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
                                             "nodeParent":74,
                                             "label":"good2_num",
                                             "isDirectory":false,
@@ -1003,9 +1011,9 @@
                                                 ]
                                         },
                                         {
-                                            "type":"Sprite",
-                                            "searchKey":"Sprite,good3_icon",
-                                            "props":{"y":89,"x":63,"width":50,"var":"good3_icon","texture":"factory/pic_bouquet4.png","height":50},
+                                            "type":"Image",
+                                            "searchKey":"Image,good3_icon,good3_icon",
+                                            "props":{"y":89,"x":63,"width":50,"visible":false,"var":"good3_icon","skin":"factory/pic_bouquet4.png","name":"good3_icon","height":50},
                                             "nodeParent":74,
                                             "label":"good3_icon",
                                             "isDirectory":false,
@@ -1017,8 +1025,8 @@
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label,good3_num",
-                                            "props":{"y":86,"x":121,"wordWrap":false,"width":83,"var":"good3_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
+                                            "searchKey":"Label,good3_num,good3_num",
+                                            "props":{"y":86,"x":121,"wordWrap":false,"width":83,"visible":false,"var":"good3_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"name":"good3_num","height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
                                             "nodeParent":74,
                                             "label":"good3_num",
                                             "isDirectory":false,
@@ -1029,9 +1037,9 @@
                                                 ]
                                         },
                                         {
-                                            "type":"Sprite",
-                                            "searchKey":"Sprite,good4_icon",
-                                            "props":{"y":86,"x":229,"width":50,"var":"good4_icon","texture":"factory/pic_bouquet4.png","height":50},
+                                            "type":"Image",
+                                            "searchKey":"Image,good4_icon,good4_icon",
+                                            "props":{"y":86,"x":229,"width":50,"visible":false,"var":"good4_icon","skin":"factory/pic_bouquet4.png","name":"good4_icon","height":50},
                                             "nodeParent":74,
                                             "label":"good4_icon",
                                             "isDirectory":false,
@@ -1043,8 +1051,8 @@
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label,good4_num",
-                                            "props":{"y":86,"x":288,"wordWrap":false,"width":83,"var":"good4_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
+                                            "searchKey":"Label,good4_num,good4_num",
+                                            "props":{"y":86,"x":288,"wordWrap":false,"width":83,"visible":false,"var":"good4_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"name":"good4_num","height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
                                             "nodeParent":74,
                                             "label":"good4_num",
                                             "isDirectory":false,
@@ -1055,9 +1063,9 @@
                                                 ]
                                         },
                                         {
-                                            "type":"Sprite",
-                                            "searchKey":"Sprite,good5_icon",
-                                            "props":{"y":160,"x":63,"width":50,"var":"good5_icon","texture":"factory/pic_bouquet4.png","height":50},
+                                            "type":"Image",
+                                            "searchKey":"Image,good5_icon,good5_icon",
+                                            "props":{"y":160,"x":63,"width":50,"visible":false,"var":"good5_icon","skin":"factory/pic_bouquet4.png","name":"good5_icon","height":50},
                                             "nodeParent":74,
                                             "label":"good5_icon",
                                             "isDirectory":false,
@@ -1069,8 +1077,8 @@
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label,good5_num",
-                                            "props":{"y":162,"x":121,"wordWrap":false,"width":83,"var":"good5_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
+                                            "searchKey":"Label,good5_num,good5_num",
+                                            "props":{"y":162,"x":121,"wordWrap":false,"width":83,"visible":false,"var":"good5_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"name":"good5_num","height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
                                             "nodeParent":74,
                                             "label":"good5_num",
                                             "isDirectory":false,
@@ -1081,9 +1089,9 @@
                                                 ]
                                         },
                                         {
-                                            "type":"Sprite",
-                                            "searchKey":"Sprite,good6_icon",
-                                            "props":{"y":162,"x":229,"width":50,"var":"good6_icon","texture":"factory/pic_bouquet4.png","height":50},
+                                            "type":"Image",
+                                            "searchKey":"Image,good6_icon,good6_icon",
+                                            "props":{"y":162,"x":229,"width":50,"visible":false,"var":"good6_icon","skin":"factory/pic_bouquet4.png","name":"good6_icon","height":50},
                                             "nodeParent":74,
                                             "label":"good6_icon",
                                             "isDirectory":false,
@@ -1095,8 +1103,8 @@
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label,good6_num",
-                                            "props":{"y":162,"x":288,"wordWrap":false,"width":83,"var":"good6_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
+                                            "searchKey":"Label,good6_num,good6_num",
+                                            "props":{"y":162,"x":288,"wordWrap":false,"width":83,"visible":false,"var":"good6_num","valign":"middle","text":"材料","strokeColor":"#71350c","stroke":0,"name":"good6_num","height":52,"fontSize":36,"font":"Microsoft YaHei","color":"#000000","bold":true,"align":"center"},
                                             "nodeParent":74,
                                             "label":"good6_num",
                                             "isDirectory":false,
@@ -1105,7 +1113,8 @@
                                             "compId":89,
                                             "child":[
                                                 ]
-                                        }]
+                                        }],
+                                    "$HIDDEN":false
                                 }]
                         }]
                 },
