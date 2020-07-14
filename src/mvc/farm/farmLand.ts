@@ -9,21 +9,9 @@ import globalFun from '../resconfig/globalFun'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import GAMEEVENT from '../event/GAMEEVENT'
 import tipController from '../baseView/public/tip/tipController'
+import webSocketJson from '../../net/webSocketJson'
+import httpJson from '../../net/httpJson'
 export default class farmLand extends ui.farm.farmLandUI {
-  // ui文件 
-  //  ---land 田地
-  //  ---xuanzhong 选中框
-  //  ---flower 花种
-  //  ---extend_btn 扩建按钮
-  //  ---extend_kuan 扩建钻石框 -- extend_gold
-  //  ---upgrade_kuan 升级加速框 -- upgrade_gold升级钻石  ---upgrade_info升级信息
-  //  ---upgrade_kuan 升级加速框 -- upgrade_gold升级钻石  ---upgrade_info升级信息 -- upgrade_progressbar升级进度条 --upgrade_level土地等级
-  //  ---grow_kuan生长框 --grow_time_val生长进度条 -- grow_time生长时间
-  //  ---fertilizer_kuan施肥进度框 --fertilizer_time_va施肥进度条 -- fertilizer_time施肥时间
-  //  ---harvest_icon收获图标
-  //  ---water_icon浇水图标
-
-
   // private _farmland:fairygui.GComponent;//整块田的组件
   private _farmland: Laya.Sprite;//整块田的组件
   public _farmlandObject: Laya.Sprite;//整块田的显示列表
@@ -37,7 +25,6 @@ export default class farmLand extends ui.farm.farmLandUI {
     super();
   }
   public init(data) {
-
     this.land_id = data.ff_id;
     this.initLand();
     this._farmland = this;
@@ -139,21 +126,20 @@ export default class farmLand extends ui.farm.farmLandUI {
         this.grow_kuan.visible = false;
       }
       if (data.seed_data.next_mature_time <= 0) {
-        // console.log("判断是否到时间了，如果到时见那么久应该发送成长请求")
-        // if (data.seed_data.mature_time <= 0) {
-        //             //试着进行websocke请求
-        //             let tmp_websocket = net.webSocketJson.getInstance();
-        //             let tmp_data = {
-        //                 'a':"init_grow_flower",
-        //                 'm':"init",
-        //                 'd':{
-        //                     'ff_id':this.land_id,
-        //                 },
-        //                 'code':1
-        //             };
-        //             console.log("发送websocket数据",tmp_data);
-        //             tmp_websocket.sendMessage(tmp_data);
-        Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER, data);
+        console.log("判断是否到时间了，如果到时见那么久应该发送成长请求")
+        //试着进行websocke请求
+        let tmp_websocket = webSocketJson.getInstance();
+        let tmp_data = {
+          'a': "init_grow_flower",
+          'm': "init",
+          'd': {
+            'ff_id': this.land_id,
+          },
+          'code': 1
+        };
+        console.log("发送websocket数据", tmp_data);
+        tmp_websocket.sendMessage(tmp_data);
+        // Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER, data);
       }
     }
 
@@ -166,18 +152,18 @@ export default class farmLand extends ui.farm.farmLandUI {
       if (data.fat_time <= 0) {
         //这里隐藏掉肥力的框
         this.fertilizer_kuan.visible = false;
-        //     //试着进行websocke请求
-        //     let tmp_websocket = net.webSocketJson.getInstance();
-        //     let tmp_data = {
-        //         'a':"init_flower_fat",
-        //         'm':"init",
-        //         'd':{
-        //             'ff_id':this.land_id,
-        //         },
-        //         'code':1
-        //     };
-        //     tmp_websocket.sendMessage(tmp_data);
-        Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFAT,data);
+        //试着进行websocke请求
+        let tmp_websocket = webSocketJson.getInstance();
+        let tmp_data = {
+          'a': "init_flower_fat",
+          'm': "init",
+          'd': {
+            'ff_id': this.land_id,
+          },
+          'code': 1
+        };
+        tmp_websocket.sendMessage(tmp_data);
+        // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFAT, data);
       }
     }
 
@@ -235,18 +221,18 @@ export default class farmLand extends ui.farm.farmLandUI {
     //这里可以先判断一下
     var data = dataGlobal.getInstance().farmInfo[this.land_id];
     if (data.seed_data.id && typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {//可以浇水
-      //试着进行websocke请求
-      //  let tmp_websocket = net.webSocketJson.getInstance();
-      //  let tmp_data = {
-      //      'a':"init_flower_water",
-      //      'm':"init",
-      //      'd':{
-      //          'ff_id':this.land_id,
-      //      },
-      //      'code':1
-      //  };
-      //  tmp_websocket.sendMessage(tmp_data);
-      Laya.stage.event(NETWORKEVENT.FARMINITFLOWERWATER,data);
+      // 试着进行websocke请求
+       let tmp_websocket = webSocketJson.getInstance();
+       let tmp_data = {
+           'a':"init_flower_water",
+           'm':"init",
+           'd':{
+               'ff_id':this.land_id,
+           },
+           'code':1
+       };
+       tmp_websocket.sendMessage(tmp_data);
+      // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERWATER, data);
     }
 
   }
@@ -258,17 +244,17 @@ export default class farmLand extends ui.farm.farmLandUI {
     //判断一下是否真的可以收获
     if (data.seed_data.id && data.seed_data.grow_static == 4) {//可以收获
       //试着进行websocke请求
-      // let tmp_websocket = net.webSocketJson.getInstance();
-      // let tmp_data = {
-      //   'a': "init_collect_flower",
-      //   'm': "init",
-      //   'd': {
-      //     'ff_id': this.land_id,
-      //   },
-      //   'code': 1
-      // };
-      // tmp_websocket.sendMessage(tmp_data);
-      Laya.stage.event(NETWORKEVENT.FARMINITCOLLECTFLOWER,data);
+      let tmp_websocket = webSocketJson.getInstance();
+      let tmp_data = {
+        'a': "init_collect_flower",
+        'm': "init",
+        'd': {
+          'ff_id': this.land_id,
+        },
+        'code': 1
+      };
+      tmp_websocket.sendMessage(tmp_data);
+      // Laya.stage.event(NETWORKEVENT.FARMINITCOLLECTFLOWER, data);
     } else {//花田不能收获
       Laya.stage.event(GAMEEVENT.TIPSKUAN, ['还不能收获', '确定', '取消', function () {
         tipController.getInstance().close();
@@ -334,6 +320,7 @@ export default class farmLand extends ui.farm.farmLandUI {
     // 检查用户的田块等级是否达到
     var member = dataJson.getInstance().GET_SYS_FLOWER_MEMBER(); //玩家初始数据
     var member_info = dataJson.getInstance().GET_SYS_FLOWER_MEMBER()[grade]; //当前用户等级对应的初始数据
+    console.log(member_info)
     var userFarm = dataGlobal.getInstance().farmInfo; //当前用户花田数据
     var num = 0;
     for (var i in userFarm) {
@@ -342,6 +329,8 @@ export default class farmLand extends ui.farm.farmLandUI {
       }
     }
     // 判断一下用户的等级  todo 逻辑问题
+    console.log(num)
+    console.log(member_info)
     if (member_info.field <= num) {//这里是不能开花田的，需要查询一下下一级可以开的花田
       console.log('这里是不能开花田的，需要查询一下下一级可以开的花田')
       for (var q in member) {
@@ -384,23 +373,24 @@ export default class farmLand extends ui.farm.farmLandUI {
   * 花田扩建和升级
   */
   private onGradeExtendAct(type) {
+    console.log('进行扩建')
     //试着进行websocke请求
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    //   'a': "init_flower_grade",
-    //   'm': "init",
-    //   'd': {
-    //     'ff_id': this.land_id,
-    //     'type': type
-    //   },
-    //   'code': 1
-    // };
-    // tmp_websocket.sendMessage(tmp_data);
-    var msg = {
-      id: this.land_id,
-      type: type
-    }
-    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, msg);
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+      'a': "init_flower_grade",
+      'm': "init",
+      'd': {
+        'ff_id': this.land_id,
+        'type': type
+      },
+      'code': 1
+    };
+    tmp_websocket.sendMessage(tmp_data);
+    // var msg = {
+    //   id: this.land_id,
+    //   type: type
+    // }
+    // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, msg);
   }
   /**
    * 设置状态
@@ -474,16 +464,16 @@ export default class farmLand extends ui.farm.farmLandUI {
     //判断是否有花种
     if (data.seed_data.id) {//有花，可以施肥
       // 展示了花种
-      this.flower.skin = "farm/" + data.seed_data.id + "_" + data.seed_data.grade + ".png";
+      let index = data.seed_data.pic.lastIndexOf("/");
+       var _skin = data.seed_data.pic.substring(index + 1, data.seed_data.pic.length);
+      this.flower.skin = "main/" + _skin + ".png";
       this.flower.visible = true;
       //判断是否可以浇水等
       if (this.isOperation(data)) {
-        console.log('可以进行',this.land_static )
         return;
       }
       //如果是当前的土地就显示植物的成长时间
       if (farmController.getInstance().model.landId == this.land_id && data.seed_data.mature_time > 0) {
-        console.log('显示植物的成长时间')
         this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
         this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
         this.grow_kuan.visible = true;
@@ -506,7 +496,7 @@ export default class farmLand extends ui.farm.farmLandUI {
   private isOperation(data) {
     var data = dataGlobal.getInstance().farmInfo[this.land_id];
     var clickLandStatic = farmController.getInstance().model.clickLandStatic;
-    
+
     if (clickLandStatic == '') {
       if (data.seed_data.id && data.seed_data.grow_static == 4 && data.seed_data.mature_time <= 0) {
         //可以收获

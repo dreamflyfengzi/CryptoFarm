@@ -6,57 +6,57 @@ export default class exchangeNetwork {
   //获取市场的信息
   public MarketInfoBak(data) {
     console.log("exchangeNetwork",'获取市场的信息')
-    data = {
-      "ga":"market_info_bak",
-      "code":1,
-      "gd":{
-        "store_id":"45",
-        "num":"5",
-        "data_info":[
-          {
-            "good_id":"bouquet3",
-            "price":"1.884",
-            "num":"105",
-            'seller':'xsefrty',
-            'good_name':'花卉',
+    // data = {
+    //   "ga":"market_info_bak",
+    //   "code":1,
+    //   "gd":{
+    //     "store_id":"45",
+    //     "num":"5",
+    //     "data_info":[
+    //       {
+    //         "good_id":"bouquet3",
+    //         "price":"1.884",
+    //         "num":"105",
+    //         'seller':'xsefrty',
+    //         'good_name':'花卉',
             
 
-          },
-          {
-            "good_id":"bouquet1",
-            "price":"2.23421",
-            "num":"145",
-            'seller':'xsefrty',
-            'good_name':'花卉',
+    //       },
+    //       {
+    //         "good_id":"bouquet1",
+    //         "price":"2.23421",
+    //         "num":"145",
+    //         'seller':'xsefrty',
+    //         'good_name':'花卉',
             
-          },
-          {
-            "good_id":"bouquet2",
-            "price":"1.884",
-            "num":"105",
-            'seller':'xsefrty',
-            'good_name':'花卉',
+    //       },
+    //       {
+    //         "good_id":"bouquet2",
+    //         "price":"1.884",
+    //         "num":"105",
+    //         'seller':'xsefrty',
+    //         'good_name':'花卉',
             
-          },
-          {
-            "good_id":"bouquet5",
-            "price":"2.23421",
-            "num":"111",
-            'seller':'xsefrty',
-            'good_name':'花卉',
+    //       },
+    //       {
+    //         "good_id":"bouquet5",
+    //         "price":"2.23421",
+    //         "num":"111",
+    //         'seller':'xsefrty',
+    //         'good_name':'花卉',
             
-          },
-          {
-            "good_id":"bouquet4",
-            "price":"14",
-            "num":"1",
-            'seller':'xsefrty',
-            'good_name':'花卉',
+    //       },
+    //       {
+    //         "good_id":"bouquet4",
+    //         "price":"14",
+    //         "num":"1",
+    //         'seller':'xsefrty',
+    //         'good_name':'花卉',
             
-          }
-        ]
-      }
-    };
+    //       }
+    //     ]
+    //   }
+    // };
     //保存市场的信息
     data = data.gd;
     dataGlobal.getInstance().setMarketInfo(data);

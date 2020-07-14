@@ -9,6 +9,8 @@ import dataGlobal from '../resconfig/dataGlobal'
 import infoController from './infoController'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import factoryController from '../factory/factoryController'
+import webSocketJson from '../../net/webSocketJson'
+import  httpJson from '../../net/httpJson'
 	export class infoIndex extends baseWindow{
 		
 		private _topSence:Laya.Sprite;//顶层对象
@@ -92,25 +94,25 @@ import factoryController from '../factory/factoryController'
 
 		//获取用户信息
 		public getUserInfo(){
-			// //试着进行websocke请求
-			// let tmp_websocket = net.webSocketJson.getInstance();
-			// let tmp_data = {
-			// 	'a':"init_info",
-			// 	'm':"init",
-			// 	'd':{},
-			// 	'code':1
-			// };
-			// tmp_websocket.sendMessage(tmp_data);
+			//试着进行websocke请求
+			let tmp_websocket = webSocketJson.getInstance();
+			let tmp_data = {
+				'a':"init_info",
+				'm':"init",
+				'd':{},
+				'code':1
+			};
+			tmp_websocket.sendMessage(tmp_data);
 		}
 		/**
 		 * 展示用户的信息
 		 */
 		public onShowUserInfo(){
 			//获取用户的信息
-			var data = dataGlobal.getInstance().userInfo;
+      var data = dataGlobal.getInstance().userInfo;
 			this._topSence.scene.upic.skin = data.pic;
 			this._topSence.scene.uname.text = data.nickname;
-			this._topSence.scene.level.text = data.grade;
+      this._topSence.scene.level.text = data.grade;
 			this._topSence.scene.uexp.value = Math.floor(data.exp/data.upgrade_exp*100)>100?100:Math.floor(data.exp/data.upgrade_exp*100);
 			this._topSence.scene.gold_val.text = Math.floor(data.have_gold)+'';
 		}
@@ -152,15 +154,15 @@ import factoryController from '../factory/factoryController'
 		 * 获取用户信息
 		 */
 		public userCountInfo(){
-			// let tmp_http = net.httpJson.getInstance();
-			// let tmp_data = {
-			// 	'a':"user_count_info",
-			// 	'm':"init",
-			// 	'd':{},
-			// 	'code':1
-			// };
-			// // console.log("发送websocket数据",tmp_data);
-			// tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
-			Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
+			let tmp_http = httpJson.getInstance();
+			let tmp_data = {
+				'a':"user_count_info",
+				'm':"init",
+				'd':{},
+				'code':1
+			};
+			// console.log("发送websocket数据",tmp_data);
+			tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
+			// Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
     }
   }

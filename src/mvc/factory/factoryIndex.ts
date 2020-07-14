@@ -11,6 +11,8 @@ import dataJson from '../resconfig/dataJson'
 import GAMEEVENT from '../event/GAMEEVENT'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import tipController from '../baseView/public/tip/tipController'
+import webSocketJson from '../../net/webSocketJson'
+import httpJson from '../../net/httpJson'
 export default class factoryIndex extends baseScene {
 
   private _factory: Laya.Sprite;//顶层对象
@@ -70,15 +72,15 @@ export default class factoryIndex extends baseScene {
   }
   //获取用户的工厂信息
   private get_factory_info() {
-    // let tmp_http = net.httpJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"send_factory",
-    // 	'm':"init",
-    // 	'd':{},
-    // 	'code':1
-    // };
-    // console.log("发送http数据",tmp_data);
-    // tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
+    let tmp_http = httpJson.getInstance();
+    let tmp_data = {
+    	'a':"send_factory",
+    	'm':"init",
+    	'd':{},
+    	'code':1
+    };
+    console.log("发送http数据",tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
     Laya.stage.event(NETWORKEVENT.SENDFACTORYBAK);
   }
   /**
@@ -226,18 +228,18 @@ export default class factoryIndex extends baseScene {
    */
   private factory_create_act(id: string) {
     console.log('工厂ID')
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"factory_create",
-    // 	'm':"gzhq_factory",
-    // 	'd':{
-    // 		'mf_id':id
-    // 	},
-    // 	'code':1
-    // };
-    // console.log("发送websocket数据",tmp_data);
-    // tmp_websocket.sendMessage(tmp_data);
-    Laya.stage.event(NETWORKEVENT.FACTORYCREATEBAK);
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+    	'a':"factory_create",
+    	'm':"gzhq_factory",
+    	'd':{
+    		'mf_id':id
+    	},
+    	'code':1
+    };
+    console.log("发送websocket数据",tmp_data);
+    tmp_websocket.sendMessage(tmp_data);
+    // Laya.stage.event(NETWORKEVENT.FACTORYCREATEBAK);
 
   }
   /**
@@ -245,17 +247,17 @@ export default class factoryIndex extends baseScene {
    * @param id 工厂ID
    */
   public factory_good_save(id: string) {
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"factory_good_save",
-    // 	'm':"gzhq_factory",
-    // 	'd':{
-    // 		'mf_id':id
-    // 	},
-    // 	'code':1
-    // };
-    // console.log("发送websocket数据",tmp_data);
-    // tmp_websocket.sendMessage(tmp_data);
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+    	'a':"factory_good_save",
+    	'm':"gzhq_factory",
+    	'd':{
+    		'mf_id':id
+    	},
+    	'code':1
+    };
+    console.log("发送websocket数据",tmp_data);
+    tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FACTORYGOODSAVEBAK);
   }
   /**

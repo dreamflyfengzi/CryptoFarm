@@ -10,17 +10,16 @@ import { ui } from '../../ui/layaMaxUI'
 import GAMEEVENT from '../event/GAMEEVENT'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import globalFun from '../resconfig/globalFun'
+import webSocketJson from '../../net/webSocketJson'
+import httpJson from '../../net/httpJson'
+import CONST from '../../const/CONST'
 // import net from '../event/NETWORKEVENT'
 export default class orderIndex extends baseWindow {
 
   private _orderIndex: Laya.Sprite;//顶层对象
   private _orderItem: any;//任务列表子对象
   private _orderList: Laya.List;
-  // private _y_btn: fairygui.GLoader;//提交按钮
-  // private _close: fairygui.GLoader;//关闭按钮
   private _good_list: Laya.List;//物品列表
-  // private _gold_val: fairygui.GTextField;//下面金币
-  // private _exp_val: fairygui.GTextField;//下面经验
   private _time: any;//倒计时时间
 
   constructor() {
@@ -36,14 +35,8 @@ export default class orderIndex extends baseWindow {
     this._orderIndex.pivot(this._orderIndex.width / 2, this._orderIndex.height / 2);//设置轴心
     this.addChild(this._orderIndex);
     this.tweenShow();
-    // //初始化参数
-    // this._good_list = this._orderIndex.getChild('good_list').asList;
-    // this._gold_val = this._orderIndex.getChild('gold_val').asTextField;
-    // this._exp_val = this._orderIndex.getChild('exp_val').asTextField;
-    // this._time = this._orderIndex.getChild('time').asTextField;
-    // this._y_btn = this._orderIndex.getChild('y_btn').asLoader;
-    // this._close = this._orderIndex.getChild('close').asLoader;
     this._orderIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeOrder);
+    this._orderIndex.scene.order_list.visible = false;
     //获取订单列表
     this.getLotteryInfo();
   }
@@ -51,17 +44,16 @@ export default class orderIndex extends baseWindow {
    * 获取订单列表的信息
    */
   public getLotteryInfo() {
-    // let tmp_http = net.httpJson.getInstance();
-    // let tmp_data = {
-    //   'a': "lottery_info",
-    //   'm': "init",
-    //   'd': {},
-    //   'code': 1
-    // };
-    // console.log("发送数据", tmp_data);
-    // tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-    var data = {}
-    Laya.stage.event(NETWORKEVENT.LOTTERYINFOBAK, data)
+    let tmp_http = httpJson.getInstance();
+    let tmp_data = {
+      'a': "lottery_info",
+      'm': "init",
+      'd': {},
+      'code': 1
+    };
+    console.log("发送数据", tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+    // Laya.stage.event(NETWORKEVENT.LOTTERYINFOBAK, data)
   }
   /**
    * 获取物品
@@ -76,19 +68,19 @@ export default class orderIndex extends baseWindow {
         tmp_arr.push(good_list[i].id);
       }
     }
-    // let tmp_http = net.httpJson.getInstance();
-    // let tmp_data = {
-    //   'a': "send_good",
-    //   'm': "init",
-    //   'd': {
-    //     'good_id': tmp_arr
-    //   },
-    //   'code': 1
-    // };
-    // console.log("发送数据", tmp_data);
-    // tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+    let tmp_http = httpJson.getInstance();
+    let tmp_data = {
+      'a': "send_good",
+      'm': "init",
+      'd': {
+        'good_id': tmp_arr
+      },
+      'code': 1
+    };
+    console.log("发送数据", tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
 
-    Laya.stage.event(NETWORKEVENT.SENDGOODBAK)
+    // Laya.stage.event(NETWORKEVENT.SENDGOODBAK)
   }
   /**
    * 展示任务列表
@@ -127,23 +119,21 @@ export default class orderIndex extends baseWindow {
         var level = dataGlobal.getInstance().userInfo.grade;
         if (Math.floor(level) >= Math.floor(lottery_info.grade) && Math.floor(level) <= Math.floor(lottery_info.grade2)) {
           //创建任务的选项
-          // this._orderItem[lottery_info.id] = fairygui.UIPackage.createObject('order', 'orderItem').asCom;
           this._orderItem.name = lottery_info.id + '_item';
           this._orderItem.id = lottery_info.id;
           var lottery_goods = lottery_info.goods3;//奖励的物品
           for (var q in lottery_goods) {
             if (lottery_goods[q].id == 'g001') {//金币
               this._orderItem.order_gold_val.text = lottery_goods[q].num;
-              // this._orderItem[lottery_info.id].getChild('gold_val').asTextField.text = lottery_goods[q].num;
             } else if (lottery_goods[q].id == 'exp001') {//经验
               this._orderItem.order_exp_val.text = lottery_goods[q].num;
-              // this._orderItem[lottery_info.id].getChild('exp_val').asTextField.text = lottery_goods[q].num;
             }
           }
           // this._orderItem[lottery_info.id].on(Laya.Event.CLICK, this, this.clickOrderItem, [lottery_list[i].lottery_id]);//设置选项点击监听
           this._orderList.addItem(this._orderItem);
           this._orderList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, this._orderItem[lottery_info.id], false)
           this.setOrderStatu(lottery_list[i].lottery_id);//设置订单的状态
+          this._orderList.visible = true;
           if (num == 1) {
             key = i;
           }
@@ -247,17 +237,18 @@ export default class orderIndex extends baseWindow {
     if (this._orderItem.id == id) {
       for (var j = 0; j < this._orderList.cells.length; j++) {
         if (this._orderList.getItem(j)) {
-          var source =  this._orderList.getItem(j)
-          source.aperture.visible = true;
-          this._orderList.setItem(j,source)
+          var source = this._orderList.getItem(j)
+          console.log(source)
+          // source.aperture.visible = true;
+          // this._orderList.setItem(j,source)
         }
       }
     } else {
       for (var j = 0; j < this._orderList.cells.length; j++) {
         if (this._orderList.getItem(j)) {
-          var source =  this._orderList.getItem(j)
+          var source = this._orderList.getItem(j)
           source.aperture.visible = false;
-          this._orderList.setItem(j,source)
+          this._orderList.setItem(j, source)
         }
       }
     }
@@ -271,7 +262,7 @@ export default class orderIndex extends baseWindow {
     var lottery_good = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id].goods;
     var user_good_info = dataGlobal.getInstance().userGoodInfo;
     this._good_list = this._orderIndex.scene.good_list;
-    this._good_list.dataSource=[]
+    this._good_list.dataSource = []
     for (var i in lottery_good) {
       var tmp_arr = [];
       tmp_arr.push({ 'id': lottery_good[i].id, 'num': lottery_good[i].num });
@@ -286,15 +277,14 @@ export default class orderIndex extends baseWindow {
       console.log(_skin)
       //创建列表项
       var good_item = {
-        name:good_info.id,
-        gicon :{
-          skin:"main/"+_skin+".png"
+        name: good_info.id,
+        gicon: {
+          skin: "main/" + _skin + ".png"
         },
-        gnum:{
-          text:''
+        gnum: {
+          text: ''
         }
       }
-    console.log(good_item)
       // good_item.getChild('gicon').asLoader.url = good_info.pic;
       if (result) {//够了
         var str = "" + user_good_info[lottery_good[i].id].num + "/" + lottery_good[i].num + '';
@@ -303,7 +293,7 @@ export default class orderIndex extends baseWindow {
       }
       good_item.gnum.text = str;
       this._good_list.addItem(good_item);
-      this._good_list.renderHandler =  new Laya.Handler(this, this.goodSelectHandler, [good_item, good_info.id], false)
+      this._good_list.renderHandler = new Laya.Handler(this, this.goodSelectHandler, [good_item, good_info.id], false)
       // good_item.on(Laya.Event.CLICK, this, this.clickGoodItem, [good_item, good_info.id]);
     }
 
@@ -311,18 +301,18 @@ export default class orderIndex extends baseWindow {
   /**
    * 订单详情渲染完成
    */
-  private goodSelectHandler(item,id,cell){
-    cell.on(Laya.Event.CLICK, this, this.clickGoodItem, [item,id])
+  private goodSelectHandler(item, id, cell) {
+    cell.on(Laya.Event.CLICK, this, this.clickGoodItem, [item, id])
   }
   /**
    * 展示物品的信息
    */
   public clickGoodItem(obj, id) {
-    for (var i = 0 ; i <this._good_list.cells.length;i++ ) {
-      if(this._good_list.getCell(i).name == id){
+    for (var i = 0; i < this._good_list.cells.length; i++) {
+      if (this._good_list.getCell(i).name == id) {
         console.log(this._good_list.getCell(i))
-        var x = this._good_list.getCell(i).x+this._good_list.x;
-        var y = this._good_list.getCell(i).y+this._good_list.y;
+        var x = this._good_list.getCell(i).x + this._good_list.x;
+        var y = this._good_list.getCell(i).y + this._good_list.y;
         orderController.getInstance().showOrderGoodGoTip(x, y, id)
       }
     }
@@ -360,17 +350,17 @@ export default class orderIndex extends baseWindow {
       return;
     }
     var id = orderController.getInstance().model._order_id;
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    //   'a': "lottery_act",
-    //   'm': "gzhq_lottery",
-    //   'd': {
-    //     'lottery_id': id
-    //   },
-    //   'code': 1
-    // };
-    // tmp_websocket.sendMessage(tmp_data);
-    console.log('提交')
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+      'a': "lottery_act",
+      'm': "gzhq_lottery",
+      'd': {
+        'lottery_id': id
+      },
+      'code': 1
+    };
+    tmp_websocket.sendMessage(tmp_data);
+
     // Laya.stage.event(NETWORKEVENT.LOTTERYACTBAK);
   }
   /**

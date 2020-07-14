@@ -23,16 +23,15 @@ export default class webSocketJson {
 
   constructor() {
 
-    console.log("开始进行网络长连接", "ws://" + dataGlobal.getInstance().gameWS + "?token=" + dataGlobal.getInstance().userInfo.token);
+    console.log("开始进行网络长连接", "wss://" + dataGlobal.getInstance().gameWS + "?token=" + dataGlobal.getInstance().userInfo.token);
 
-    this.connect("ws://" + dataGlobal.getInstance().gameWS + "?token=" + dataGlobal.getInstance().userInfo.token);
+    this.connect("wss://" + dataGlobal.getInstance().gameWS + "?token=" + dataGlobal.getInstance().userInfo.token);
     //监听连接相关的事件
     //连接关闭
     Laya.stage.off(NETWORKEVENT.CONNECTONCLOSE, this, this.re_connect);
     Laya.stage.on(NETWORKEVENT.CONNECTONCLOSE, this, this.re_connect);
-
   }
-  /** */
+            
   public static getInstance(): webSocketJson {
     if (webSocketJson._instance == null) {
       webSocketJson._instance = new webSocketJson;
@@ -45,6 +44,7 @@ export default class webSocketJson {
       this.websocket = new WebSocket(url);
     }
     //this.websocket.binaryType = 'arraybuffer';
+
     this.websocket.onopen = this.onOpen;
     this.websocket.onclose = this.onClose;
     this.websocket.onmessage = this.onMessage;
@@ -113,7 +113,7 @@ export default class webSocketJson {
 
      webSocketJson.send_pack_time_count++;
     //定时执行一次心跳包
-    Laya.timer.once(CONST.HEART_TIME, this,  webSocketJson.getInstance().timeSendPack);
+    Laya.timer.once(CONST.HEART_TIME, this, webSocketJson.getInstance().timeSendPack);
      webSocketJson.send_pack_time_count--;
   }
 
@@ -133,15 +133,17 @@ export default class webSocketJson {
   }
   /** */
   private onOpen(evt) {
+    console.log('onopen')
      webSocketJson.isConnectting = false;
     this.isConnect = true;
     //Laya.stage.event(NETWORKEVENT.CONNECTONOPEN);  
     console.log("网络连接成功！");
-
+    
     //定时执行一次心跳包
     Laya.timer.once(CONST.HEART_TIME, this,  webSocketJson.getInstance().timeSendPack);
 
     //发送跳入主场景的事件
+   
     Laya.stage.event(GAMEEVENT.LOGIN_FARM);
   }
   /**
@@ -183,6 +185,7 @@ export default class webSocketJson {
    * 断线重连
    */
   public re_connect() {
+    console.log('断线重连')
      webSocketJson.getInstance();
   }
 

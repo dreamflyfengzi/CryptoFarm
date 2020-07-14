@@ -13,17 +13,8 @@ import resConfig from '../resconfig/resConfig'
 import CONST from '../../const/CONST'
 import dataGlobal from '../resconfig/dataGlobal'
 
-
-// export default class loginWin extends ui.login.loginUI {
-// export default class loginWin extends baseView {
 export default class loginWin extends baseScene {
   private _login_sence:Laya.Sprite;//显示列表
-		// private _loading_txt:Laya.GTextField;//加载文字
-		// private _loading_icon:Laya.GLoader;//加载图标
-		// private _loading_group:Laya.GGroup;//加载组
-		// private _login_group:Laya.GGroup;//登录组
-		// private _login_btn:Laya.GButton;//登录按钮
-		// private _login_check:Laya.GButton;//多选项
 
   constructor() {
     super();
@@ -31,15 +22,8 @@ export default class loginWin extends baseScene {
 
 
   public addEvents() {
-    // console.log(this.mouseEnabled)
-    // this._login_sence =new ui.login.loginUI();
-    // console.log(this._login_sence.login_btn)
-
-
-    // console.log("addEvents", this._login_sence.login_btn)
     this._login_sence.scene.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
     this._login_sence.on(Laya.Event.CLICK, this, this.loginBtn);
-    // console.log(this._login_sence)
   }
 
   public onShow() {
@@ -47,13 +31,6 @@ export default class loginWin extends baseScene {
       this._login_sence = new ui.login.loginUI();
       this._login_sence.name = 'loading';
     }
-
-    // this._loading_txt = this._login_sence.getChild('loading_txt').asTextField;
-    // this._loading_icon = this._login_sence.getChild('loading_icon').asLoader;
-    // this._loading_group = this._login_sence.getChild('loading_group').asGroup;
-    // this._login_group = this._login_sence.getChild('login_group').asGroup;
-    // this._login_btn = this._login_sence.getChild('login_btn').asButton;
-    // this._login_check = this._login_sence.getChild('login_check').asButton;
     //显示
     // this._login_sence.pivot(this._login_sence.width/2,this._login_sence.height/2);//设置轴心
     // this._login_sence.pos(CONST.STAGEWIDTH/2,CONST.STAGEHEIGHT/2);//设置坐标位置
@@ -94,7 +71,7 @@ export default class loginWin extends baseScene {
   public loginBtn() {
     console.log("点击登录按钮")
     Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
-    return
+    // return
     // if (this._login_check.selected) {
       //获取一下公共的数据
       var tmp_dataGlobal = dataGlobal.getInstance();

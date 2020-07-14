@@ -62,7 +62,7 @@ export default class staticData {
     // 01
     {
       "ff_id": "ht01",
-      "ff_vip": 1,
+      "ff_vip": 3,
       "ff_exp": 0,
       "is_lock": 1,
       "next_ht_lock": "ht02",

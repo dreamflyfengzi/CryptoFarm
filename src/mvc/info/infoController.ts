@@ -37,7 +37,8 @@ export default class infoController{
 			//初始化视图的类
 			this._infoview = new infoview;
 		}
-		this._infoview.onShow();
+    this._infoview.onShow();
+    this.onShowUserInfo() //暂时
 	}
 	/**
 	 * 设置页面用户信息

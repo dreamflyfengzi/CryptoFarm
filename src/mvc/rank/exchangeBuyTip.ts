@@ -4,8 +4,8 @@
 import baseTips from '../baseView/component/baseTips'
 import { ui } from '../../ui/layaMaxUI'
 import dataGlobal from '../resconfig/dataGlobal'
-import NETWORKEVENT from '../event/NETWORKEVENT'
-import dataJson from '../resconfig/dataJson'
+import httpJson from '../../net/httpJson'
+import CONST from '../../const/CONST'
 export default class warehouseSellTip extends baseTips {
 
   private _sellTip:Laya.Sprite;//顶层对象
@@ -54,18 +54,18 @@ export default class warehouseSellTip extends baseTips {
    * 购买商品
    */
   private purchaseItems() {
-    // let tmp_http = net.httpJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"store_good_del",
-    // 	'm':"store",
-    // 	'd':{
-    // 		'good_id':this._id,
-    // 		'num':this._num
-    // 	},
-    // 	'code':1
-    // };
-    // console.log("发送websocket数据",tmp_data);
-    // tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
+    let tmp_http = httpJson.getInstance();
+    let tmp_data = {
+    	'a':"store_good_del",
+    	'm':"store",
+    	'd':{
+    		'good_id':this._id,
+    		'num':this._num
+    	},
+    	'code':1
+    };
+    console.log("发送websocket数据",tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
     // Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK); // todo
     this.closeSellTip();
   }

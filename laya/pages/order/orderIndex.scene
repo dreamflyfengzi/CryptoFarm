@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":25,
+    "selectedBox":26,
+    "selecteID":31,
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
@@ -161,13 +161,14 @@
             "props":{"y":555,"x":81,"width":1066,"var":"order_list","repeatY":2,"repeatX":2,"renderType":"render","name":"order_list","height":1072},
             "nodeParent":2,
             "label":"order_list",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":15,
             "child":[
                 {
+                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,order_item,order_item",
                     "props":{"y":0,"x":0,"width":549,"var":"order_item","renderType":"render","name":"order_item","height":490},
@@ -180,6 +181,7 @@
                     "compId":26,
                     "child":[
                         {
+                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,order_n0,order_n0",
                             "props":{"y":0,"x":0,"width":548,"var":"order_n0","texture":"order/pic_zhi.png","name":"order_n0","height":532},
@@ -193,6 +195,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,gou",
                             "props":{"y":393,"x":369,"visible":true,"skin":"order/pic_gou.png","name":"gou"},
@@ -206,6 +209,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,tijiao",
                             "props":{"y":363.5,"x":318,"skin":"order/pic_tijiao.png","name":"tijiao"},
@@ -219,6 +223,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,aperture",
                             "props":{"y":-16,"x":-14,"width":576,"visible":true,"skin":"order/pic_zhixuanzhongzhi.png","name":"aperture","height":557},
@@ -230,9 +235,11 @@
                             "hasChild":false,
                             "compId":31,
                             "child":[
-                                ]
+                                ],
+                            "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,order_n6,order_n6",
                             "props":{"y":1,"x":237,"var":"order_n6","texture":"order/pic_tuding.png","name":"order_n6"},
@@ -246,6 +253,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,order_n7,order_n7",
                             "props":{"y":284,"x":132,"var":"order_n7","texture":"factory/pic_zhuangshi.png","name":"order_n7"},
@@ -259,6 +267,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,order_n5,order_n5",
                             "props":{"y":267.5,"x":75,"var":"order_n5","texture":"order/pic_exp.png","name":"order_n5"},
@@ -272,6 +281,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,order_n8",
                             "props":{"y":149,"x":132,"var":"order_n8","texture":"factory/pic_zhuangshi.png"},
@@ -285,6 +295,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Sprite",
                             "searchKey":"Sprite,order_n4,order_n4",
                             "props":{"y":122,"x":78.5,"var":"order_n4","texture":"main/pic_zuanshi.png","name":"order_n4"},
@@ -298,6 +309,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,order_gold_val,order_gold_val",
                             "props":{"y":124,"x":218,"width":223,"var":"order_gold_val","valign":"bottom","text":"12467","strokeColor":"#A46223","stroke":7,"name":"order_gold_val","height":90,"fontSize":60,"font":"Microsoft YaHei","color":"#f9f8f6","align":"center"},
@@ -311,6 +323,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,order_exp_val,order_exp_val",
                             "props":{"y":267.5,"x":218,"width":223,"var":"order_exp_val","valign":"bottom","text":"12467","strokeColor":"#A46223","stroke":7,"name":"order_exp_val","height":90,"fontSize":60,"font":"Microsoft YaHei","color":"#f9f8f6","align":"center"},

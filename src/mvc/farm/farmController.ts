@@ -8,6 +8,7 @@ import farmNetwork from './farmNetwork'
 import GAMEEVENT from '../event/GAMEEVENT'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import infoController from '../info/infoController'
+import webSocketJson from '../../net/webSocketJson'
 export default class farmController {
 	private _farmview: farmView;
 	private static _instance:farmController;
@@ -45,21 +46,20 @@ export default class farmController {
 		}
 		this._farmview.onShow(type);
 		//发送显示农场底部按钮的信息
-		infoController.getInstance();
+    infoController.getInstance();
+    Laya.stage.event(GAMEEVENT.GETINITINFO) //获取用户信息
     Laya.stage.event(GAMEEVENT.BOTTOMBTN,['farm']);
 		
-		// //试着进行websocke请求
-		// /*
-		// let tmp_websocket = net.webSocketJson.getInstance();
-		// let tmp_data = {
-		// 	'a':"send_data",
-		// 	'm':"gzhq_game",
-		// 	'd':{'bs':100},
-		// 	'code':1
-		// };
-		// console.log("发送websocket数据",tmp_data);
-		// tmp_websocket.sendMessage(tmp_data);
-		// */
+		//试着进行websocke请求
+		let tmp_websocket = webSocketJson.getInstance();
+		let tmp_data = {
+			'a':"send_data",
+			'm':"gzhq_game",
+			'd':{'bs':100},
+			'code':1
+		};
+		tmp_websocket.sendMessage(tmp_data);
+	
 
 	}
 	

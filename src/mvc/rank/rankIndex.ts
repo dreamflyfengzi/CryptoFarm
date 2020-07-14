@@ -34,7 +34,7 @@ export default class rankIndex extends baseWindow {
     this._rankIndex.scene.item_all.on(Laya.Event.CLICK, this, function () {
       if (this._type != '1') {
         this.switchItem('1');
-        this.firstFrame();
+
       }
     }.bind(this));
     this._rankIndex.scene.item_flower.on(Laya.Event.CLICK, this, function () {
@@ -45,12 +45,13 @@ export default class rankIndex extends baseWindow {
     }.bind(this));
     //初始化选项
     this.switchItem('1');
+    this.firstFrame();
   }
 
   /**
    * 切换tab
    */
-  private switchItem(str){
+  private switchItem(str) {
     this._type = str;
     //先初始化各个选项
     this._rankIndex.scene.item_all.skin = 'warehouse/btn_biaoqian2.png';
@@ -71,7 +72,7 @@ export default class rankIndex extends baseWindow {
       this._rankIndex.scene.item_flower.labelColors = '#fff';
       this._rankIndex.scene.item_flower_biao.visible = true;
       this._rankIndex.scene.n2box.visible = true;
-    } 
+    }
   }
   /**
    * 关闭窗口
@@ -83,21 +84,57 @@ export default class rankIndex extends baseWindow {
   /**
    * box1
    */
-  public firstFrame(){
-    //  1.任务倒计时
-    //  2.任务列表
-    //  3.奖励数额
-    //  4.订单详情
-    //  5.一二三等奖
-    // 提交事件绑定
+  public firstFrame() {
+    var container = this._rankIndex.scene.n1box;
+    //  修改任务倒计时
+    var count_time = container.getChildByName('countdown');
+    count_time.text = '21:09:11'
+    //  修改任务列表
+    var taskList = container.getChildByName('goods_list');
+    this.taskListInit(taskList)
+    //  修改奖励数额
+    var reward = container.getChildByName('reward');
+    reward.text = '222 ONES'
+    //  订单详情
+    var taskDetailsList = container.getChildByName('details_list');
+    this.detailsListInit(taskDetailsList)
+
+    //  一二三等奖
+    var prize1 = container.getChildByName('prize1');
+    var prize2 = container.getChildByName('prize2');
+    var prize3 = container.getChildByName('prize3');
+    prize1.text = '9999 ONES'
+    prize2.text = '999 ONES'
+    prize3.text = '99 ONES'
+    var prize_winner1 = container.getChildByName('prize_winner1');
+    var prize_winner2 = container.getChildByName('prize_winner2');
+    var prize_winner3 = container.getChildByName('prize_winner3');
+    prize_winner1.text = '小吴'
+    prize_winner2.text = 'Taddy'
+    prize_winner3.text = '99dcew'
     // 排行榜
+    // 提交事件绑定
   }
 
   /**
    * box2
    */
-  public SecondFrame(){
+  public SecondFrame() {
 
   }
 
+  /**
+  * 修改任务列表
+  */
+  private taskListInit(taskList) {
+    taskList.dataSource = []
+  }
+
+
+  /**
+  * 修改任务详情列表
+  */
+  private detailsListInit(taskDetailsList) {
+    taskDetailsList.dataSource = []
+  }
 }

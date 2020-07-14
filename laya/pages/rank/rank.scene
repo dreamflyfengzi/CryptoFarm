@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":211,
+    "selectedBox":73,
+    "selecteID":108,
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
@@ -151,13 +151,14 @@
             "props":{"y":445,"x":133.5,"width":1004,"var":"n1box","height":1976},
             "nodeParent":2,
             "label":"n1box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":73,
             "child":[
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,x1",
                     "props":{"y":153,"x":-7,"width":973,"var":"x1","texture":"character/pic_xian.png","height":10},
@@ -171,6 +172,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,clock",
                     "props":{"y":41,"x":280,"width":94,"var":"clock","texture":"factory/pic_shizhong.png","height":92},
@@ -184,6 +186,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,countdown,countdown",
                     "props":{"y":41,"x":414,"width":312,"var":"countdown","valign":"middle","text":"00:00:00","strokeColor":"#602b07","stroke":3,"padding":"2","name":"countdown","height":92,"fontSize":60,"font":"Microsoft YaHei","color":"#fdfbfb","align":"center"},
@@ -198,6 +201,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"List",
                     "searchKey":"List,goods_list,goods_list",
                     "props":{"y":202,"x":75,"width":851,"var":"goods_list","spaceX":20,"renderType":"render","name":"goods_list","height":151},
@@ -250,6 +254,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":381,"x":3,"width":973,"texture":"character/pic_xian.png","height":10},
@@ -263,6 +268,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,n7",
                     "props":{"y":407,"x":337,"width":312,"var":"n7","valign":"middle","text":"总奖励","strokeColor":"#602b07","stroke":0,"padding":"2","height":92,"fontSize":60,"font":"Microsoft YaHei","color":"#bc7443","bold":true,"align":"center"},
@@ -277,6 +283,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,reward,reward",
                     "props":{"y":484,"x":19,"width":948,"var":"reward","valign":"middle","text":"100.00EOS","strokeColor":"#602b07","stroke":0,"padding":"2","name":"reward","height":121,"fontSize":60,"font":"Microsoft YaHei","color":"#bc7443","bold":true,"align":"center"},
@@ -291,6 +298,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":595,"x":3,"width":973,"texture":"character/pic_xian.png","height":10},
@@ -304,6 +312,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,n12",
                     "props":{"y":605,"x":264,"width":431,"var":"n12","valign":"middle","text":"订单详情","strokeColor":"#0a7792","stroke":0,"height":121,"fontSize":60,"font":"Microsoft YaHei","color":"#884A0E","align":"center"},
@@ -317,6 +326,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,n13",
                     "props":{"y":628,"x":645,"var":"n13","texture":"order/pic_huayang.png"},
@@ -330,6 +340,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,n14",
                     "props":{"y":684,"x":316,"var":"n14","texture":"order/pic_huayang.png","rotation":180},
@@ -343,6 +354,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,n15",
                     "props":{"y":716,"x":3,"width":981,"var":"n15","skin":"order/pic_kuang8.png","sizeGrid":"50,74,48,71","height":235},
@@ -356,11 +368,12 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"List",
-                    "searchKey":"List,good_list,good_list",
-                    "props":{"y":734,"x":-39,"width":1020,"visible":false,"var":"good_list","spaceX":25,"repeatY":1,"repeatX":5,"renderType":"render","name":"good_list","height":217},
+                    "searchKey":"List,details_list,details_list",
+                    "props":{"y":734,"x":-39,"width":1020,"visible":false,"var":"details_list","spaceX":25,"repeatY":1,"repeatX":5,"renderType":"render","name":"details_list","height":217},
                     "nodeParent":73,
-                    "label":"good_list",
+                    "label":"details_list",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -421,6 +434,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,bg1",
                     "props":{"y":989,"x":188,"width":372,"var":"bg1","texture":"factory/pic_zhuangshi.png","height":84},
@@ -434,6 +448,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,pn1",
                     "props":{"y":989,"x":29,"width":265,"var":"pn1","valign":"middle","text":"一等奖","strokeColor":"#602b07","padding":"2","height":80,"fontSize":50,"font":"Microsoft YaHei","color":"#a66f49","bold":true,"align":"left"},
@@ -448,6 +463,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,pn2",
                     "props":{"y":1103,"x":29,"width":265,"var":"pn2","valign":"middle","text":"二等奖","strokeColor":"#602b07","padding":"2","height":80,"fontSize":50,"font":"Microsoft YaHei","color":"#a66f49","bold":true,"align":"left"},
@@ -462,6 +478,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,pn3",
                     "props":{"y":1217,"x":29,"width":265,"var":"pn3","valign":"middle","text":"三等奖","strokeColor":"#602b07","padding":"2","height":80,"fontSize":50,"font":"Microsoft YaHei","color":"#a66f49","bold":true,"align":"left"},
@@ -476,9 +493,10 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Text",
-                    "searchKey":"Text,prize1",
-                    "props":{"y":991,"x":251,"width":265,"var":"prize1","valign":"middle","text":"40 ONES","strokeColor":"#602b07","padding":"2","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#fffefb","bold":true,"align":"left"},
+                    "searchKey":"Text,prize1,prize1",
+                    "props":{"y":991,"x":251,"width":265,"var":"prize1","valign":"middle","text":"40 ONES","strokeColor":"#602b07","padding":"2","name":"prize1","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#fffefb","bold":true,"align":"left"},
                     "nodeParent":73,
                     "label":"prize1",
                     "isDirectory":false,
@@ -490,6 +508,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":1217,"x":198,"width":372,"texture":"factory/pic_zhuangshi.png","height":84},
@@ -503,6 +522,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":1103,"x":188,"width":372,"texture":"factory/pic_zhuangshi.png","height":84},
@@ -516,9 +536,10 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Text",
-                    "searchKey":"Text,prize2",
-                    "props":{"y":1103,"x":251,"width":265,"var":"prize2","valign":"middle","text":"40 ONES","strokeColor":"#602b07","padding":"2","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#fffefb","bold":true,"align":"left"},
+                    "searchKey":"Text,prize2,prize2",
+                    "props":{"y":1103,"x":251,"width":265,"var":"prize2","valign":"middle","text":"40 ONES","strokeColor":"#602b07","padding":"2","name":"prize2","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#fffefb","bold":true,"align":"left"},
                     "nodeParent":73,
                     "label":"prize2",
                     "isDirectory":false,
@@ -530,9 +551,10 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Text",
-                    "searchKey":"Text,prize3",
-                    "props":{"y":1217,"x":251,"width":265,"var":"prize3","valign":"middle","text":"40 ONES","strokeColor":"#602b07","padding":"2","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#fffefb","bold":true,"align":"left"},
+                    "searchKey":"Text,prize3,prize3",
+                    "props":{"y":1217,"x":251,"width":265,"var":"prize3","valign":"middle","text":"40 ONES","strokeColor":"#602b07","padding":"2","name":"prize3","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#fffefb","bold":true,"align":"left"},
                     "nodeParent":73,
                     "label":"prize3",
                     "isDirectory":false,
@@ -544,6 +566,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":968,"x":530,"width":98,"texture":"factory/pic_xing.png","height":105},
@@ -557,6 +580,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":1082,"x":530,"width":98,"texture":"factory/pic_xing.png","height":105},
@@ -570,6 +594,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite",
                     "props":{"y":1196,"x":530,"width":98,"texture":"factory/pic_xing.png","height":105},
@@ -583,9 +608,10 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Text",
-                    "searchKey":"Text,prize_winner1",
-                    "props":{"y":989,"x":644,"width":265,"var":"prize_winner1","valign":"middle","text":"XXXX","strokeColor":"#fff","stroke":5,"padding":"2","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#f3e28c","bold":true,"align":"left"},
+                    "searchKey":"Text,prize_winner1,prize_winner1",
+                    "props":{"y":989,"x":644,"width":265,"var":"prize_winner1","valign":"middle","text":"XXXX","strokeColor":"#fff","stroke":5,"padding":"2","name":"prize_winner1","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#f3e28c","bold":true,"align":"left"},
                     "nodeParent":73,
                     "label":"prize_winner1",
                     "isDirectory":false,
@@ -597,9 +623,10 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Text",
-                    "searchKey":"Text,prize_winner2",
-                    "props":{"y":1101,"x":649,"width":265,"var":"prize_winner2","valign":"middle","text":"$$$gyfd","strokeColor":"#fff","stroke":5,"padding":"2","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#f3e28c","bold":true,"align":"left"},
+                    "searchKey":"Text,prize_winner2,prize_winner2",
+                    "props":{"y":1101,"x":649,"width":265,"var":"prize_winner2","valign":"middle","text":"$$$gyfd","strokeColor":"#fff","stroke":5,"padding":"2","name":"prize_winner2","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#f3e28c","bold":true,"align":"left"},
                     "nodeParent":73,
                     "label":"prize_winner2",
                     "isDirectory":false,
@@ -611,9 +638,10 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Text",
-                    "searchKey":"Text,prize_winner3",
-                    "props":{"y":1215,"x":649,"width":265,"var":"prize_winner3","valign":"middle","text":"6666","strokeColor":"#fff","stroke":5,"padding":"2","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#f3e28c","bold":true,"align":"left"},
+                    "searchKey":"Text,prize_winner3,prize_winner3",
+                    "props":{"y":1215,"x":649,"width":265,"var":"prize_winner3","valign":"middle","text":"6666","strokeColor":"#fff","stroke":5,"padding":"2","name":"prize_winner3","height":80,"fontSize":40,"font":"Microsoft YaHei","color":"#f3e28c","bold":true,"align":"left"},
                     "nodeParent":73,
                     "label":"prize_winner3",
                     "isDirectory":false,
@@ -625,6 +653,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Button",
                     "searchKey":"Button,submit",
                     "props":{"y":1340,"x":631,"width":336,"var":"submit","stateNum":"1","skin":"main/btn_lan.png","sizeGrid":"62,48,62,48","labelStrokeColor":"#532b06","labelStroke":4,"labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#fff","labelBold":true,"label":"提交","height":139},
@@ -639,6 +668,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"List",
                     "searchKey":"List,rank_list",
                     "props":{"y":1525,"x":-36,"width":1040,"var":"rank_list","renderType":"render","height":412},
@@ -1370,7 +1400,7 @@
                         }]
                 }],
             "$LOCKED":false,
-            "$HIDDEN":false
+            "$HIDDEN":true
         }],
     "animations":[
         {

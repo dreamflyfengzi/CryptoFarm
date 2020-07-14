@@ -4,6 +4,8 @@
 import dataGlobal from '../resconfig/dataGlobal'
 import factoryController from './factoryController'
 import NETWORKEVENT from '../event/NETWORKEVENT'
+import webSocketJson from '../../net/webSocketJson'
+import httpJson from '../../net/httpJson'
 	export default class factoryModel{
 		constructor(){
 			this._mf_id = '';
@@ -45,18 +47,18 @@ import NETWORKEVENT from '../event/NETWORKEVENT'
 			}
 		}
 		private factoryGoodGet(id){
-			// let tmp_websocket = net.webSocketJson.getInstance();
-			// let tmp_data = {
-			// 	'a':"factory_good_get",
-			// 	'm':"gzhq_factory",
-			// 	'd':{
-			// 		'mf_id':id
-			// 	},
-			// 	'code':1
-			// };
-			// console.log("发送websocket数据",tmp_data);
-			// tmp_websocket.sendMessage(tmp_data);
-			Laya.stage.event(NETWORKEVENT.FACTORYGOODGETBAK);
+			let tmp_websocket = webSocketJson.getInstance();
+			let tmp_data = {
+				'a':"factory_good_get",
+				'm':"gzhq_factory",
+				'd':{
+					'mf_id':id
+				},
+				'code':1
+			};
+			console.log("发送websocket数据",tmp_data);
+			tmp_websocket.sendMessage(tmp_data);
+			// Laya.stage.event(NETWORKEVENT.FACTORYGOODGETBAK);
     }
     // 当前工厂
     public getCurrentFactory(){

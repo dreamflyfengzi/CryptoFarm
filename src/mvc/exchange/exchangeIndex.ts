@@ -10,6 +10,8 @@ import dataGlobal from '../resconfig/dataGlobal'
 import GAMEEVENT from '../event/GAMEEVENT'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import globalFun from '../resconfig/globalFun'
+import httpJson from '../../net/httpJson'
+import CONST from '../../const/CONST'
 // import net from '../event/NETWORKEVENT'
 export default class exchangeIndex extends baseWindow {
 
@@ -40,8 +42,11 @@ export default class exchangeIndex extends baseWindow {
     this.tweenShow();
     //初始化参数
     this._my_list = this._exchangeIndex.scene.getChildByName('my_list'); //我的物品列表
+    this._my_list.visible = false;
     this._market_list = this._exchangeIndex.scene.getChildByName('market_list'); //市场物品列表
+    this._market_list.visible = false;
     this._material_btn = this._exchangeIndex.scene.getChildByName('material_btn'); //我的材料按钮
+
     this._market_btn = this._exchangeIndex.scene.getChildByName('market_btn'); //我的材料按钮
     this._exchangeIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeexchange);
 
@@ -59,14 +64,12 @@ export default class exchangeIndex extends baseWindow {
     this._market_btn.on(Laya.Event.CLICK, this, function () {
       if (this._type != 'market') {
         this.switchItem('market');
-        
       }
     }.bind(this));
 
     this._material_btn.on(Laya.Event.CLICK, this, function () {
       if (this._type != 'material') {
         this.switchItem('material');
-        // this.initWarehouseGoodList();
       }
     }.bind(this));
   }
@@ -79,15 +82,15 @@ export default class exchangeIndex extends baseWindow {
     if (this._type == 'market' ) {
        Laya.stage.event(NETWORKEVENT.MARKETINFOBAK);
     }
-    // let tmp_http = net.httpJson.getInstance();
-    // let tmp_data = {
-    //   'a': "store_info",
-    //   'm': "store",
-    //   'd': {},
-    //   'code': 1
-    // };
-    // // console.log("发送websocket数据",tmp_data);
-    // tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+    let tmp_http = httpJson.getInstance();
+    let tmp_data = {
+      'a': "store_info",
+      'm': "store",
+      'd': {},
+      'code': 1
+    };
+    // console.log("发送websocket数据",tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
     // Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
   }
   /**
@@ -110,6 +113,16 @@ export default class exchangeIndex extends baseWindow {
         }
       }
       this._market_list.addItem(dataItem)
+      console.log(this._market_list)
+      console.log(this._market_list)
+      console.log(this._market_list)
+      console.log(this._market_list)
+      console.log(this._market_list)
+      console.log(this._market_list)
+      console.log(this._market_list)
+      console.log(this._market_list)
+      console.log(this._market_list)
+      this._market_list.visible = true;
       this.bindClickMarketItem(this._market_list.getCell(Number(i)),Number(i))
     }
     // this._market_list.cells
@@ -136,6 +149,16 @@ export default class exchangeIndex extends baseWindow {
         }
       }
       this._my_list.addItem(dataItem)
+      console.log(this._my_list)
+      console.log(this._my_list)
+      console.log(this._my_list)
+      console.log(this._my_list)
+      console.log(this._my_list)
+      console.log(this._my_list)
+      console.log(this._my_list)
+      console.log(this._my_list)
+      console.log(this._my_list)
+      this._my_list.visible = true;
       this.bindClickMyItem(this._my_list.getCell(Number(i)),Number(i))
     }
     // this._market_list.cells

@@ -2,6 +2,7 @@
 * name 
 */
  import loginController from "./loginController"
+ import webSocketJson from '../../net/webSocketJson'
   export default class loginNetwork {
 
 
@@ -12,7 +13,7 @@
     public onLoginOK(data) {
       if (!data) {
         //初始化websocket网络(一定要在登陆成功之后初始化网络连接，否则无法用websocket)
-        // net.webSocketJson.getInstance();
+        webSocketJson.getInstance();
         return
       }
 
@@ -23,10 +24,10 @@
       //存用户的基本资料
       _loginC.model.setUserInfo(data.gd.info);
       //存长连接的地址
-      // _loginC.model.setGameWS(data.gd.ws.ws.ws)
+      _loginC.model.setGameWS(data.gd.ws.ws.ws)
 
       //初始化websocket网络(一定要在登陆成功之后初始化网络连接，否则无法用websocket)
-      // net.webSocketJson.getInstance();
+      webSocketJson.getInstance();
 
     }
     //登陆失败的回调

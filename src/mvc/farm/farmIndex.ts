@@ -13,6 +13,8 @@ import orderController from '../order/orderController'
 import exchangeController from '../exchange/exchangeController'
 import CONST from '../../const/CONST'
 import rankController from '../rank/rankController'
+import webSocketJson from '../../net/webSocketJson'
+import httpJson from '../../net/httpJson'
 export default class farmIndex extends baseScene {
   private _farmIndex: Laya.Sprite;
   // private building_btn:fairygui.GLoader;//建筑按钮
@@ -107,17 +109,17 @@ export default class farmIndex extends baseScene {
    * 获取农田种子信息
    */
   private getFarmSeed() {
-    //试着进行websocke请求
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"init_seed_list",
-    // 	'm':"init",
-    // 	'd':{},
-    // 	'code':1
-    // };
-    // console.log("发送websocket数据",tmp_data);
-    // tmp_websocket.sendMessage(tmp_data);
-    Laya.stage.event(NETWORKEVENT.FARMINITSEEDLIST);
+    // 试着进行websocke请求
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+    	'a':"init_seed_list",
+    	'm':"init",
+    	'd':{},
+    	'code':1
+    };
+    console.log("发送websocket数据",tmp_data);
+    tmp_websocket.sendMessage(tmp_data);
+    // Laya.stage.event(NETWORKEVENT.FARMINITSEEDLIST);
   }
   /**
    * 设置种子列表信息
@@ -138,16 +140,16 @@ export default class farmIndex extends baseScene {
    */
   private getFarmLand() {
     //试着进行websocke请求
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    //   'a': "init_field",
-    //   'm': "init",
-    //   'd': {},
-    //   'code': 1
-    // };
-    // 	console.log("发送websocket数据",tmp_data);
-    // 	tmp_websocket.sendMessage(tmp_data);
-    Laya.stage.event(NETWORKEVENT.FARMINITFIELD);
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+      'a': "init_field",
+      'm': "init",
+      'd': {},
+      'code': 1
+    };
+    	console.log("发送websocket数据",tmp_data);
+    	tmp_websocket.sendMessage(tmp_data);
+    // Laya.stage.event(NETWORKEVENT.FARMINITFIELD);
   }
   /**
    * 展示农田信息

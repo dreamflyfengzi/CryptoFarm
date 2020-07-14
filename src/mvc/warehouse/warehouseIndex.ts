@@ -10,6 +10,8 @@ import tipController from '../baseView/public/tip/tipController'
 import GAMEEVENT from '../event/GAMEEVENT'
 import warehouseItem from './warehouseItem'
 import warehouseController from './warehouseController'
+import httpJson from '../../net/httpJson'
+import CONST from '../../const/CONST'
 export default class warehouseIndex extends baseWindow {
 
   private _warehouse: Laya.Sprite;//顶层对象
@@ -23,7 +25,6 @@ export default class warehouseIndex extends baseWindow {
   public onShowWarehouse() {
     if (this._warehouse == null) {
       this._warehouse = new ui.warehouse.warehouseUI();
-      // this.setScale(this._warehouse);
       this._warehouse.name = 'warehouse';
       this._warehouse.pivotX = 0.5 * this._warehouse.width;
       this._warehouse.pivotY = 0.5 * this._warehouse.height;
@@ -140,16 +141,16 @@ export default class warehouseIndex extends baseWindow {
    * 获取仓库信息
    */
   public store_info() {
-    // let tmp_http = net.httpJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"store_info",
-    // 	'm':"store",
-    // 	'd':{},
-    // 	'code':1
-    // };
-    // // console.log("发送websocket数据",tmp_data);
-    // tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
-    Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
+    let tmp_http = httpJson.getInstance();
+    let tmp_data = {
+    	'a':"store_info",
+    	'm':"store",
+    	'd':{},
+    	'code':1
+    };
+    // console.log("发送websocket数据",tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
+    // Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
   }
 
   /**
@@ -182,9 +183,7 @@ export default class warehouseIndex extends baseWindow {
     }
 
     // 添加点击事件
-    // this._good_list.setItem(1,{}) //改变单个数据
     this._good_list.selectEnable = true;
-    // this._good_list.selectHandler = 
     this._good_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, [data[i].id], false)
   }
   // 点击图标
@@ -227,6 +226,7 @@ export default class warehouseIndex extends baseWindow {
 
       //   _dataSource.push(good_item)
       this._good_list.addItem(good_item)
+      this._good_list.visible = true
       this.creator_good_item(id, isNum);
     } else {
       var good_item = {
@@ -242,6 +242,7 @@ export default class warehouseIndex extends baseWindow {
       //   // this._warehouse.scene.good_list.add(good_item);
       //   _dataSource.push(good_item)
       this._good_list.addItem(good_item)
+      this._good_list.visible = true
     }
 
     // console.log(this._warehouse.scene.good_list.dataSource)
@@ -285,19 +286,19 @@ export default class warehouseIndex extends baseWindow {
    * 仓库升级
    */
   private warehouseUpgrade() {
-    // var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
-    // let tmp_http = net.httpJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"store_up_gread",
-    // 	'm':"store",
-    // 	'd':{
-    // 		'store_id':data.store_id
-    // 	},
-    // 	'code':1
-    // };
-    // // console.log("发送websocket数据",tmp_data);
-    // tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
-    Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
+    var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
+    let tmp_http = httpJson.getInstance();
+    let tmp_data = {
+    	'a':"store_up_gread",
+    	'm':"store",
+    	'd':{
+    		'store_id':data.store_id
+    	},
+    	'code':1
+    };
+    // console.log("发送websocket数据",tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
+    // Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
   }
   /**
    * 出售框

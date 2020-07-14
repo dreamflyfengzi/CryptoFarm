@@ -11,6 +11,8 @@ import dataJson from '../resconfig/dataJson'
 import globalFun from '../resconfig/globalFun'
 import tipController from '../baseView/public/tip/tipController'
 import NETWORKEVENT from '../event/NETWORKEVENT'
+import webSocketJson from '../../net/webSocketJson'
+import httpJson from '../../net/httpJson'
 export default class factoryInfo extends baseWindow {
 
   private _factoryInfo: Laya.Sprite;//顶层对象
@@ -249,19 +251,19 @@ export default class factoryInfo extends baseWindow {
    */
   private factory_open_seat_num_act(id: string, num: number) {
 
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"factory_open_seat_num",
-    // 	'm':"gzhq_factory",
-    // 	'd':{
-    // 		'mf_id':id,
-    // 		'num':num
-    // 	},
-    // 	'code':1
-    // };
-    // console.log("发送websocket数据",tmp_data);
-    // tmp_websocket.sendMessage(tmp_data);
-    Laya.stage.event(NETWORKEVENT.FACTORYOPENSEATNUMBAK);
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+    	'a':"factory_open_seat_num",
+    	'm':"gzhq_factory",
+    	'd':{
+    		'mf_id':id,
+    		'num':num
+    	},
+    	'code':1
+    };
+    console.log("发送websocket数据",tmp_data);
+    tmp_websocket.sendMessage(tmp_data);
+    // Laya.stage.event(NETWORKEVENT.FACTORYOPENSEATNUMBAK);
   }
   /**
    * 设置生产列表
@@ -278,18 +280,18 @@ export default class factoryInfo extends baseWindow {
         good_arr.push(good_data[q].id);
       }
     }
-    // let tmp_http = net.httpJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"send_good",
-    // 	'm':"init",
-    // 	'd':{
-    // 		'good_id':good_arr
-    // 	},
-    // 	'code':1
-    // };
-    // console.log("发送websocket数据",tmp_data);
-    // tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
-    Laya.stage.event(NETWORKEVENT.SENDGOODBAK);
+    let tmp_http = httpJson.getInstance();
+    let tmp_data = {
+    	'a':"send_good",
+    	'm':"init",
+    	'd':{
+    		'good_id':good_arr
+    	},
+    	'code':1
+    };
+    console.log("发送websocket数据",tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
+    // Laya.stage.event(NETWORKEVENT.SENDGOODBAK);
   }
   /**
    * 添加工厂可生产物品信息
@@ -417,19 +419,19 @@ export default class factoryInfo extends baseWindow {
       return;
     }
     // open_seat_num
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    // 	'a':"factory_act",
-    // 	'm':"gzhq_factory",
-    // 	'd':{
-    // 		'mf_id':this._id,
-    // 		'id':id
-    // 	},
-    // 	'code':1
-    // };
-    // console.log("发送websocket数据",tmp_data);
-    // tmp_websocket.sendMessage(tmp_data);
-    Laya.stage.event(NETWORKEVENT.FACTORYACTBAK);
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+    	'a':"factory_act",
+    	'm':"gzhq_factory",
+    	'd':{
+    		'mf_id':this._id,
+    		'id':id
+    	},
+    	'code':1
+    };
+    console.log("发送websocket数据",tmp_data);
+    tmp_websocket.sendMessage(tmp_data);
+    // Laya.stage.event(NETWORKEVENT.FACTORYACTBAK);
   }
   /**
    * 打开界面

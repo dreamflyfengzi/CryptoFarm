@@ -7,6 +7,8 @@ import dataGlobal from '../resconfig/dataGlobal'
 import dataJson from '../resconfig/dataJson'
 import GAMEEVENT from '../event/GAMEEVENT'
 import NETWORKEVENT from '../event/NETWORKEVENT'
+import webSocketJson from '../../net/webSocketJson'
+import httpJson from '../../net/httpJson'
 export default class factoryUpgrade extends baseTips {
 
   private _factoryUpgrade: Laya.Sprite;//顶层对象
@@ -141,17 +143,17 @@ export default class factoryUpgrade extends baseTips {
       Laya.stage.event(GAMEEVENT.TXTTIP, ['宝石不足']);
       return;
     }
-    // let tmp_websocket = net.webSocketJson.getInstance();
-    // let tmp_data = {
-    //   'a': "factory_up_grade",
-    //   'm': "gzhq_factory",
-    //   'd': {
-    //     'mf_id': this._id
-    //   },
-    //   'code': 1
-    // };
-    // console.log("发送websocket数据", tmp_data);
-    // tmp_websocket.sendMessage(tmp_data);
+    let tmp_websocket = webSocketJson.getInstance();
+    let tmp_data = {
+      'a': "factory_up_grade",
+      'm': "gzhq_factory",
+      'd': {
+        'mf_id': this._id
+      },
+      'code': 1
+    };
+    console.log("发送websocket数据", tmp_data);
+    tmp_websocket.sendMessage(tmp_data);
     Laya.stage.event(NETWORKEVENT.FACTORYUPGRADEBAK);
     // this.onCliskClose();
   }

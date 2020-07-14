@@ -84,17 +84,18 @@ export default class dataGlobal{
   constructor(){
       this.query.system = this.get_sys();
       this.farmInfo = {};
-      this.userInfo = {
-        "nickname":'魔动闪霸',
-        "uid":'7754555',
-        "exp":'700',
-        "upgrade_exp":'775',
-        "flower_num":'111',
-        "order_num":'11111',
-        "goods_num":'11',
-        "grade":1, //用户等级
-        "have_gold":10000 //用户金币
-      };
+      this.userInfo = {};
+      // this.userInfo = {
+      //   "nickname":'魔动闪霸',
+      //   "uid":'7754555',
+      //   "exp":'700',
+      //   "upgrade_exp":'775',
+      //   "flower_num":'111',
+      //   "order_num":'11111',
+      //   "goods_num":'11',
+      //   "grade": 12, //用户等级
+      //   "have_gold":10000 //用户金币
+      // };
       this.factory = {};
       this.userGoodInfo = {};
       this.warehouseInfo = {};
@@ -160,6 +161,8 @@ export default class dataGlobal{
       if(typeof data.sid2 != 'undefined'){
           this.query.uid = data.uid;
       }
+
+      console.log('用户信息是',data)
   }
  
   //设置用户的属性

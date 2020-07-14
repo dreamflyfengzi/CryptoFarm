@@ -8,8 +8,17 @@ export default class warehouseNetwork {
   }
   //获取工厂的信息
   public StoreInfoBak(data) {
-    data = {"ga":"store_info_bak","code":1,"gd":{"store_id":"45","grade":"1","num":"10","num2":"0","num3":"99","name":"1","data_info":[{"good_id":"hh6003","pos":"1","num":"105"},{"good_id":"hh6006","pos":"2","num":"1"}]}};
-
+    // data = {"ga":"store_info_bak","code":1,"gd":{"store_id":"45","grade":"1","num":"10","num2":"0","num3":"99","name":"1","data_info":[{"good_id":"hh6003","pos":"1","num":"105"},{"good_id":"hh6006","pos":"2","num":"1"}]}};
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
+    console.log("获取工厂的信息",data);
     //保存仓库的信息
     data = data.gd;
     dataGlobal.getInstance().setWarehouseInfo(data);

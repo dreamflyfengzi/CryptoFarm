@@ -430,12 +430,10 @@ export module ui.farm {
     export class seedListUI extends Laya.Scene {
 		public n1:Laya.Image;
 		public seed_list:Laya.List;
-		public seed_item:Laya.Box;
 		public n9:Laya.Image;
 		public seep_pic:Laya.Image;
 		public n2:Laya.Image;
 		public n3:Laya.Sprite;
-		public gold_num:Laya.Label;
 		public suo_div:Laya.Box;
 		public n4:Laya.Image;
 		public n5:Laya.Sprite;
@@ -545,7 +543,7 @@ export module ui.rank {
 		public n13:Laya.Sprite;
 		public n14:Laya.Sprite;
 		public n15:Laya.Image;
-		public good_list:Laya.List;
+		public details_list:Laya.List;
 		public good_item:Laya.Box;
 		public bg1:Laya.Sprite;
 		public pn1:laya.display.Text;

@@ -109,17 +109,7 @@
             };
             this.query.system = this.get_sys();
             this.farmInfo = {};
-            this.userInfo = {
-                "nickname": '魔动闪霸',
-                "uid": '7754555',
-                "exp": '700',
-                "upgrade_exp": '775',
-                "flower_num": '111',
-                "order_num": '11111',
-                "goods_num": '11',
-                "grade": 1,
-                "have_gold": 10000
-            };
+            this.userInfo = {};
             this.factory = {};
             this.userGoodInfo = {};
             this.warehouseInfo = {};
@@ -187,6 +177,7 @@
             if (typeof data.sid2 != 'undefined') {
                 this.query.uid = data.uid;
             }
+            console.log('用户信息是', data);
         }
         setUserProp(data) {
             this.userProp = data;
@@ -846,42 +837,6 @@
         }
         ;
     }
-
-    class NETWORKEVENT {
-    }
-    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
-    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
-    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
-    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
-    NETWORKEVENT.GAMEFAILTIP = 'game_fail_tip';
-    NETWORKEVENT.INITINFO = "init_info";
-    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
-    NETWORKEVENT.FARMINITFIELD = "init_field";
-    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
-    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
-    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
-    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
-    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
-    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
-    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
-    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
-    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
-    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
-    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
-    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
-    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
-    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
-    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
-    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
-    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
-    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
-    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
-    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
-    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
-    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
-    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
-    NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
-    NETWORKEVENT.MARKETINFOBAK = 'market_info_bak';
 
     class GAMECONFIG {
     }
@@ -8760,6 +8715,42 @@
         }
     }
 
+    class NETWORKEVENT {
+    }
+    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
+    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
+    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
+    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
+    NETWORKEVENT.GAMEFAILTIP = 'game_fail_tip';
+    NETWORKEVENT.INITINFO = "init_info";
+    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
+    NETWORKEVENT.FARMINITFIELD = "init_field";
+    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
+    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
+    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
+    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
+    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
+    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
+    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
+    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
+    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
+    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
+    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
+    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
+    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
+    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
+    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
+    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
+    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
+    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
+    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
+    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
+    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
+    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
+    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
+    NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
+    NETWORKEVENT.MARKETINFOBAK = 'market_info_bak';
+
     class tipController {
         constructor() {
             Laya.stage.on(GAMEEVENT.TIPSKUAN, this, this.tipShow);
@@ -8806,6 +8797,138 @@
             this._tipview.close();
         }
     }
+
+    class webSocketJson {
+        constructor() {
+            this.isConnect = false;
+            this.send_pack_time = 0;
+            console.log("开始进行网络长连接", "wss://" + dataGlobal.getInstance().gameWS + "?token=" + dataGlobal.getInstance().userInfo.token);
+            this.connect("wss://" + dataGlobal.getInstance().gameWS + "?token=" + dataGlobal.getInstance().userInfo.token);
+            Laya.stage.off(NETWORKEVENT.CONNECTONCLOSE, this, this.re_connect);
+            Laya.stage.on(NETWORKEVENT.CONNECTONCLOSE, this, this.re_connect);
+        }
+        static getInstance() {
+            if (webSocketJson._instance == null) {
+                webSocketJson._instance = new webSocketJson;
+            }
+            return webSocketJson._instance;
+        }
+        connect(url) {
+            if (this.websocket == null) {
+                this.websocket = new WebSocket(url);
+            }
+            this.websocket.onopen = this.onOpen;
+            this.websocket.onclose = this.onClose;
+            this.websocket.onmessage = this.onMessage;
+            this.websocket.onerror = this.onError;
+        }
+        sendMessage(data) {
+            if (this.websocket == null) {
+                return;
+            }
+            if (typeof (data.a) == "undefined" || data.a == "" || typeof (data.m) == "undefined" || data.m == "") {
+                console.log("请选择协议类型");
+                return;
+            }
+            var d = new Date();
+            webSocketJson.getInstance().send_pack_time = d.getTime();
+            console.log('发送的数据', data);
+            var tmp_data = JSON.stringify(data);
+            try {
+                this.websocket.send(tmp_data);
+            }
+            catch (e) {
+                console.log("网络没有连上", e);
+            }
+            return true;
+        }
+        timeSendPack() {
+            var d = new Date();
+            let t = d.getTime() - webSocketJson.getInstance().send_pack_time;
+            if (t > CONST.HEART_TIME) {
+                var data = {
+                    a: "heartbeat",
+                    m: "gzhq_game",
+                    d: { t: webSocketJson.getInstance().send_pack_time },
+                    code: 1
+                };
+                webSocketJson.getInstance().sendMessage(data);
+            }
+            else {
+                console.log("不用发心跳", t);
+            }
+            if (webSocketJson.isConnectting == true || webSocketJson._instance == null) {
+                console.log("正在连接中。。。。");
+                return;
+            }
+            if (webSocketJson.send_pack_time_count > 1) {
+                webSocketJson.send_pack_time_count--;
+                console.log("正在连接中2。。。。");
+                return;
+            }
+            webSocketJson.send_pack_time_count++;
+            Laya.timer.once(CONST.HEART_TIME, this, webSocketJson.getInstance().timeSendPack);
+            webSocketJson.send_pack_time_count--;
+        }
+        onClose(evt) {
+            this.isConnect = false;
+            this.websocket = null;
+            webSocketJson._instance = null;
+            if (webSocketJson.isConnectting == true) {
+                console.log("正在连接中。。。。");
+                return;
+            }
+            else {
+                webSocketJson.isConnectting = true;
+            }
+            Laya.stage.event(NETWORKEVENT.CONNECTONCLOSE);
+        }
+        onOpen(evt) {
+            console.log('onopen');
+            webSocketJson.isConnectting = false;
+            this.isConnect = true;
+            console.log("网络连接成功！");
+            Laya.timer.once(CONST.HEART_TIME, this, webSocketJson.getInstance().timeSendPack);
+            Laya.stage.event(GAMEEVENT.LOGIN_FARM);
+        }
+        onMessage(evt) {
+            console.log("onMessage", evt.data);
+            if (evt.data != "PONG" && evt.data != "pong") {
+                var tmp_data = JSON.parse(evt.data);
+                if (typeof (tmp_data.ga) != "undefined") {
+                    console.log('进来了', tmp_data.ga);
+                    Laya.stage.event(tmp_data.ga, tmp_data);
+                }
+                else {
+                    console.log("不存在事件", tmp_data.ga);
+                }
+            }
+            else {
+                console.log("PONG");
+            }
+        }
+        onError(evt) {
+            console.log("网络连接出错！");
+            this.isConnect = false;
+            this.websocket = null;
+            webSocketJson._instance = null;
+            if (webSocketJson.isConnectting == true) {
+                console.log("正在连接中。。。。");
+                return;
+            }
+            else {
+                webSocketJson.isConnectting = true;
+            }
+            Laya.stage.event(NETWORKEVENT.CONNECTONCLOSE);
+        }
+        re_connect() {
+            console.log('断线重连');
+            webSocketJson.getInstance();
+        }
+    }
+    webSocketJson.isConnectting = false;
+    webSocketJson.send_pack_time_count = 0;
+    webSocketJson._instance = null;
 
     class farmLand extends ui.farm.farmLandUI {
         constructor() {
@@ -8886,7 +9009,18 @@
                     this.grow_kuan.visible = false;
                 }
                 if (data.seed_data.next_mature_time <= 0) {
-                    Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER, data);
+                    console.log("判断是否到时间了，如果到时见那么久应该发送成长请求");
+                    let tmp_websocket = webSocketJson.getInstance();
+                    let tmp_data = {
+                        'a': "init_grow_flower",
+                        'm': "init",
+                        'd': {
+                            'ff_id': this.land_id,
+                        },
+                        'code': 1
+                    };
+                    console.log("发送websocket数据", tmp_data);
+                    tmp_websocket.sendMessage(tmp_data);
                 }
             }
             if (data.fat_time > 0) {
@@ -8895,7 +9029,16 @@
                 this.fertilizer_time_val.value = Math.floor((data.fat_time / data.fat_time_tol) * 100);
                 if (data.fat_time <= 0) {
                     this.fertilizer_kuan.visible = false;
-                    Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFAT, data);
+                    let tmp_websocket = webSocketJson.getInstance();
+                    let tmp_data = {
+                        'a': "init_flower_fat",
+                        'm': "init",
+                        'd': {
+                            'ff_id': this.land_id,
+                        },
+                        'code': 1
+                    };
+                    tmp_websocket.sendMessage(tmp_data);
                 }
             }
         }
@@ -8940,13 +9083,31 @@
         onWater() {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
             if (data.seed_data.id && typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {
-                Laya.stage.event(NETWORKEVENT.FARMINITFLOWERWATER, data);
+                let tmp_websocket = webSocketJson.getInstance();
+                let tmp_data = {
+                    'a': "init_flower_water",
+                    'm': "init",
+                    'd': {
+                        'ff_id': this.land_id,
+                    },
+                    'code': 1
+                };
+                tmp_websocket.sendMessage(tmp_data);
             }
         }
         onHarvest() {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
             if (data.seed_data.id && data.seed_data.grow_static == 4) {
-                Laya.stage.event(NETWORKEVENT.FARMINITCOLLECTFLOWER, data);
+                let tmp_websocket = webSocketJson.getInstance();
+                let tmp_data = {
+                    'a': "init_collect_flower",
+                    'm': "init",
+                    'd': {
+                        'ff_id': this.land_id,
+                    },
+                    'code': 1
+                };
+                tmp_websocket.sendMessage(tmp_data);
             }
             else {
                 Laya.stage.event(GAMEEVENT.TIPSKUAN, ['还不能收获', '确定', '取消', function () {
@@ -8999,6 +9160,7 @@
             }
             var member = dataJson.getInstance().GET_SYS_FLOWER_MEMBER();
             var member_info = dataJson.getInstance().GET_SYS_FLOWER_MEMBER()[grade];
+            console.log(member_info);
             var userFarm = dataGlobal.getInstance().farmInfo;
             var num = 0;
             for (var i in userFarm) {
@@ -9006,6 +9168,8 @@
                     num++;
                 }
             }
+            console.log(num);
+            console.log(member_info);
             if (member_info.field <= num) {
                 console.log('这里是不能开花田的，需要查询一下下一级可以开的花田');
                 for (var q in member) {
@@ -9037,11 +9201,18 @@
             Laya.stage.event(GAMEEVENT.GOLDTIP, ['扩建', gold_str, '确定', '取消', confirm_fun, cancel_fun]);
         }
         onGradeExtendAct(type) {
-            var msg = {
-                id: this.land_id,
-                type: type
+            console.log('进行扩建');
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "init_flower_grade",
+                'm': "init",
+                'd': {
+                    'ff_id': this.land_id,
+                    'type': type
+                },
+                'code': 1
             };
-            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERGRADE, msg);
+            tmp_websocket.sendMessage(tmp_data);
         }
         initLandStatic() {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
@@ -9092,14 +9263,14 @@
                 }
             }
             if (data.seed_data.id) {
-                this.flower.skin = "farm/" + data.seed_data.id + "_" + data.seed_data.grade + ".png";
+                let index = data.seed_data.pic.lastIndexOf("/");
+                var _skin = data.seed_data.pic.substring(index + 1, data.seed_data.pic.length);
+                this.flower.skin = "main/" + _skin + ".png";
                 this.flower.visible = true;
                 if (this.isOperation(data)) {
-                    console.log('可以进行', this.land_static);
                     return;
                 }
                 if (farmController.getInstance().model.landId == this.land_id && data.seed_data.mature_time > 0) {
-                    console.log('显示植物的成长时间');
                     this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
                     this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
                     this.grow_kuan.visible = true;
@@ -9151,152 +9322,177 @@
         init() {
             this._seedListScene = this;
             this._seed_list = this.seed_list;
+            this._seed_list.repeatY = 1;
             this._seed_list.hScrollBarSkin = "";
+            this._seed_list.visible = false;
             this._seedListScene.visible = false;
             var _nowScene = this._seedListScene;
             return _nowScene;
         }
         addSeedListItem(data) {
-            var fat_data = data.fat_data;
-            this.addFertilizerItem(fat_data);
-            var seed_data = data.seed_data;
-            this.addSeedItem(seed_data);
-        }
-        setSeedListItem() {
-            this.setFatItem();
-            this.setSeedItem();
+            this.addSeedItem(data.seed_data);
+            this.addFertilizerItem(data.fat_data);
         }
         addSeedItem(data) {
-            this._seedListArray = [];
+            this._dataSeedList = [];
             for (var i in data) {
-                this._seedListArray.push(data[i]);
+                let index = data[i].pic.lastIndexOf("/");
+                var _skin = data[i].pic.substring(index + 1, data[i].pic.length);
+                var _seedItem = {
+                    id: 'seed_' + data[i].id,
+                    name: data[i].id,
+                    index: 0,
+                    seep_pic: {
+                        skin: 'main/' + _skin + '.png'
+                    },
+                    gold_num: {
+                        text: data[i].gold,
+                        color: ""
+                    },
+                    suo_div: {
+                        visible: true
+                    },
+                    visible: false
+                };
+                this.initSeedItem(_seedItem);
+                this._dataSeedList.push(_seedItem);
             }
-            this._seed_list.array = this._seedListArray;
         }
-        setSeedItem() {
-            var grade = dataGlobal.getInstance().userInfo.grade;
-            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-            var seed_arr = farmController.getInstance().model.seedData;
-            let dataSource = [];
-            for (var i in seed_arr) {
-                let data = null;
-                if (grade >= seed_arr[i].grade2 && grade <= seed_arr[i].grade3) {
-                    if (have_gold >= seed_arr[i].gold) {
-                        data = {
-                            suo_div: { visible: false },
-                            seep_pic: {
-                                skin: "farm/" + seed_arr[i].id + "_seed.png"
-                            },
-                            gold_num: {
-                                text: seed_arr[i].gold,
-                                color: "#EDFF24"
-                            },
-                        };
-                    }
-                    else {
-                        data = {
-                            suo_div: { visible: false },
-                            seep_pic: {
-                                skin: "farm/" + seed_arr[i].id + "_seed.png"
-                            },
-                            gold_num: {
-                                text: seed_arr[i].gold,
-                                color: "#FF3E24"
-                            },
-                        };
-                    }
+        addFertilizerItem(data) {
+            this._dataFertilizer = [];
+            for (var i in data) {
+                let index = data[i].pic.lastIndexOf("/");
+                var _skin = data[i].pic.substring(index + 1, data[i].pic.length);
+                var _seedItem = {
+                    id: 'fat_' + data[i].id,
+                    name: data[i].id,
+                    index: 0,
+                    seep_pic: {
+                        skin: 'farm/' + _skin + '.png'
+                    },
+                    gold_num: {
+                        text: data[i].num,
+                        color: ""
+                    },
+                    suo_div: {
+                        visible: false
+                    },
+                    visible: false
+                };
+                var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+                if (have_gold >= data[i].num) {
+                    _seedItem.gold_num.color = '#EDFF24';
                 }
                 else {
-                    data = {
-                        suo_div: { visible: true },
-                        seep_pic: {
-                            skin: "farm/" + seed_arr[i].id + "_seed.png"
-                        },
-                        gold_num: {
-                            text: seed_arr[i].gold,
-                            color: "#274200"
-                        },
-                    };
+                    _seedItem.gold_num.color = '#FF3E24';
                 }
-                dataSource.push(data);
+                this._dataFertilizer.push(_seedItem);
             }
-            this._seed_list.dataSource = dataSource;
-            this._seed_list.selectEnable = true;
-            this._seed_list.selectHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
-            this._seedListScene.visible = true;
         }
-        itemSelectHandler(index) {
-            console.log(index);
+        initSeedItem(itemObj) {
+            itemObj.suo_div.visible = false;
+            itemObj.gold_num.color = '#EDFF24';
+        }
+        setSeedListItem() {
+            if (this._seed_list.renderHandler) {
+                this._seed_list.renderHandler = null;
+            }
+            if (farmController.getInstance().model.clickLandStatic == 'plant') {
+                this.setSeedItem();
+            }
+            if (farmController.getInstance().model.clickLandStatic == 'fertilizer') {
+                this.setFatItem();
+            }
+        }
+        setSeedItem() {
+            this._seed_list.dataSource = this._dataSeedList;
             console.log(this._seed_list.dataSource);
             var grade = dataGlobal.getInstance().userInfo.grade;
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var seed_arr = farmController.getInstance().model.seedData;
-            console.log(index);
-            if (grade >= seed_arr[index].grade2 && grade <= seed_arr[index].grade3) {
-                if (have_gold >= seed_arr[index].gold) {
-                    this.onClick('buy', { 'id': seed_arr[index].id });
+            var isshow = true;
+            for (var i in seed_arr) {
+                var seed_info = dataJson.getInstance().GET_SYS_FLOWER_PLANTS()[seed_arr[i].id];
+                for (var z in this._seed_list.dataSource) {
+                    if (this._seed_list.dataSource[z].name === seed_info[1].id) {
+                        var _seedItem = this._seed_list.dataSource[z];
+                        _seedItem.index = Number(z);
+                        var _index = Number(z);
+                    }
+                }
+                this.initSeedItem(_seedItem);
+                if (grade >= seed_arr[i].grade2 && grade <= seed_arr[i].grade3) {
+                    if (have_gold >= seed_arr[i].gold) {
+                        _seedItem.gold_num.color = '#EDFF24';
+                        console.log(_seedItem, seed_arr[i], i);
+                    }
+                    else {
+                        _seedItem.gold_num.color = '#FF3E24';
+                    }
+                    _seedItem.visible = true;
                 }
                 else {
-                    console.log('不够了');
-                    this.onClick('noMoney', { 'id': seed_arr[index].id });
+                    if (Math.floor(seed_info[1].grade2) <= Math.floor(grade) + 1 && isshow) {
+                        isshow = false;
+                        _seedItem.visible = true;
+                    }
+                    else {
+                        _seedItem.visible = true;
+                    }
+                    _seedItem.suo_div.visible = true;
+                    _seedItem.gold_num.color = '#274200';
                 }
             }
-            else {
-                console.log('取法解锁');
-                this.onClick('lock', { 'id': seed_arr[index].id });
-            }
-        }
-        fatItemSelectHandler(index) {
-            console.log('fatItemSelectHandler', index);
-        }
-        initSeedItem(itemObj) {
-            itemObj.suo_div.visible = false;
-            itemObj.gold.color = '#EDFF24';
-        }
-        addFertilizerItem(data) {
-            this._fatListArray = [];
-            for (var i in data) {
-                this._fatListArray.push(data[i]);
-            }
-            this._seed_list.array = this._fatListArray;
+            this._seed_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
+            this._seed_list.visible = true;
+            this._seedListScene.visible = true;
         }
         setFatItem() {
+            this._seed_list.dataSource = this._dataFertilizer;
             var grade = dataGlobal.getInstance().userInfo.grade;
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var fat_arr = farmController.getInstance().model.fatData;
-            let dataSource = [];
             for (var i in fat_arr) {
-                let data = null;
+                var fat_info = dataJson.getInstance().GET_SYS_FLOWER_COMPOSTED()[fat_arr[i].id];
+                for (var z in this._seed_list.dataSource) {
+                    if (this._seed_list.dataSource[z].name === fat_info[1].id) {
+                        var _seedItem = this._seed_list.dataSource[z];
+                        _seedItem.index = Number(z);
+                    }
+                }
+                _seedItem.suo_div.visible = false;
                 if (have_gold >= fat_arr[i].num) {
-                    data = {
-                        suo_div: { visible: true },
-                        seep_pic: {
-                            skin: fat_arr[i].pic + ".png"
-                        },
-                        gold_num: {
-                            text: fat_arr[i].num3,
-                            color: "#EDFF24"
-                        },
-                    };
+                    _seedItem.gold_num.color = '#EDFF24';
+                    _seedItem.visible = true;
                 }
                 else {
-                    data = {
-                        suo_div: { visible: false },
-                        seep_pic: {
-                            skin: fat_arr[i].pic + ".png"
-                        },
-                        gold_num: {
-                            text: fat_arr[i].num3,
-                            color: "#FF3E24"
-                        },
-                    };
+                    _seedItem.gold_num.color = '#FF3E24';
+                    _seedItem.visible = true;
                 }
-                dataSource.push(data);
+                _seedItem.visible = true;
             }
-            this._seed_list.dataSource = dataSource;
-            this._seed_list.selectEnable = true;
-            this._seed_list.selectHandler = new Laya.Handler(this, this.fatItemSelectHandler, null, false);
+            this._seed_list.visible = true;
             this._seedListScene.visible = true;
+            this._seed_list.renderHandler = new Laya.Handler(this, this.itemFatSelectHandler, [fat_arr], false);
+        }
+        itemSelectHandler(cell, index) {
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var seed_arr = farmController.getInstance().model.seedData;
+            if (grade >= seed_arr[index].grade2 && grade <= seed_arr[index].grade3) {
+                if (have_gold >= seed_arr[index].gold) {
+                    cell.on(Laya.Event.CLICK, this, this.onClick, ['buy', { 'id': seed_arr[index].id }]);
+                }
+                else {
+                    cell.on(Laya.Event.CLICK, this, this.onClick, ['noMoney', { 'gold': seed_arr[index].gold }]);
+                }
+            }
+            else {
+                cell.on(Laya.Event.CLICK, this, this.onClick, ['lock', { 'grade': seed_arr[index].grade2, 'name': seed_arr[index].name }]);
+            }
+        }
+        itemFatSelectHandler(arr, cell, index) {
+            cell.on(Laya.Event.CLICK, this, this.onFertilizer, [{ 'id': arr[index].id, 'num': arr[index].num }]);
         }
         hide() {
             this._seedListScene.visible = false;
@@ -9304,12 +9500,10 @@
         onClick(itemStatic, arr) {
             tipController.getInstance();
             if (itemStatic == 'buy') {
-                console.log("等级够了，钱也够");
                 var landId = farmController.getInstance().model.landId;
                 this.onPlant(landId, arr.id);
             }
             else if (itemStatic == 'noMoney') {
-                console.log("等级够了，钱不够");
                 Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.gold + '金币', '确定', '取消', function () {
                         tipController.getInstance().close();
                     }, function () {
@@ -9317,9 +9511,7 @@
                     }]);
             }
             else if (itemStatic == 'lock') {
-                console.log("等级不够");
                 Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.grade + '级', '确定', '取消', function () {
-                        console.log('tanchuang');
                         tipController.getInstance().close();
                     }, function () {
                         tipController.getInstance().close();
@@ -9336,32 +9528,42 @@
                     }]);
                 return;
             }
-            var list = {
-                "htid": landId,
-                "hhid": id
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "init_plant_flower",
+                'm': "init",
+                'd': {
+                    'ff_id': landId,
+                    'seed_num': id
+                },
+                'code': 1
             };
-            Laya.stage.event(NETWORKEVENT.FARMINITPLANTFLOWER, list);
+            tmp_websocket.sendMessage(tmp_data);
         }
         onFertilizer(data) {
             var landId = farmController.getInstance().model.landId;
             var landData = dataGlobal.getInstance().farmInfo[landId];
             if (landData.fat_time > 0) {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['该田已经施过肥了', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
+                Laya.stage.event(GAMEEVENT.TXTTIP, ['该花田已施肥']);
+                return;
             }
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             if (have_gold < data.num) {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['施肥种子需要' + data.num + '金币', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
+                Laya.stage.event(GAMEEVENT.TXTTIP, ['施肥种子需要' + data.num + '宝石']);
                 return;
             }
-            Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFERTILIZE);
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "init_flower_fertilize",
+                'm': "init",
+                'd': {
+                    'ff_id': landId,
+                    'fat_id': data.id
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
         }
     }
 
@@ -9454,7 +9656,14 @@
             Laya.stage.event(GAMEEVENT.GOLDTIP, [title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun]);
         }
         store_info() {
-            Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "store_info",
+                'm': "store",
+                'd': {},
+                'code': 1
+            };
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         initWarehouseGoodList() {
             var data = dataGlobal.getInstance().userGoodInfo;
@@ -9506,6 +9715,7 @@
                     id: id
                 };
                 this._good_list.addItem(good_item);
+                this._good_list.visible = true;
                 this.creator_good_item(id, isNum);
             }
             else {
@@ -9519,6 +9729,7 @@
                     id: id
                 };
                 this._good_list.addItem(good_item);
+                this._good_list.visible = true;
             }
         }
         switchItem(str) {
@@ -9549,7 +9760,17 @@
             }
         }
         warehouseUpgrade() {
-            Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
+            var data = dataGlobal.getInstance().warehouseInfo;
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "store_up_gread",
+                'm': "store",
+                'd': {
+                    'store_id': data.store_id
+                },
+                'code': 1
+            };
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         showSellTip(id) {
             warehouseController.getInstance().showSellTip(id);
@@ -9689,7 +9910,18 @@
             this._sellTip.scene.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
         }
         storeGoodDel() {
-            Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "store_good_del",
+                'm': "store",
+                'd': {
+                    'good_id': this._id,
+                    'num': this._num
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
             this.closeSellTip();
         }
     }
@@ -9728,7 +9960,16 @@
         constructor() {
         }
         StoreInfoBak(data) {
-            data = { "ga": "store_info_bak", "code": 1, "gd": { "store_id": "45", "grade": "1", "num": "10", "num2": "0", "num3": "99", "name": "1", "data_info": [{ "good_id": "hh6003", "pos": "1", "num": "105" }, { "good_id": "hh6006", "pos": "2", "num": "1" }] } };
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
+            console.log("获取工厂的信息", data);
             data = data.gd;
             dataGlobal.getInstance().setWarehouseInfo(data);
             var good_arr = [];
@@ -9802,11 +10043,19 @@
             this.addChild(this._orderIndex);
             this.tweenShow();
             this._orderIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeOrder);
+            this._orderIndex.scene.order_list.visible = false;
             this.getLotteryInfo();
         }
         getLotteryInfo() {
-            var data = {};
-            Laya.stage.event(NETWORKEVENT.LOTTERYINFOBAK, data);
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "lottery_info",
+                'm': "init",
+                'd': {},
+                'code': 1
+            };
+            console.log("发送数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         sendGood(data) {
             var tmp_arr = [];
@@ -9817,7 +10066,17 @@
                     tmp_arr.push(good_list[i].id);
                 }
             }
-            Laya.stage.event(NETWORKEVENT.SENDGOODBAK);
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "send_good",
+                'm': "init",
+                'd': {
+                    'good_id': tmp_arr
+                },
+                'code': 1
+            };
+            console.log("发送数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         setLotteryList() {
             this._orderList = this._orderIndex.scene.order_list;
@@ -9863,6 +10122,7 @@
                         this._orderList.addItem(this._orderItem);
                         this._orderList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, this._orderItem[lottery_info.id], false);
                         this.setOrderStatu(lottery_list[i].lottery_id);
+                        this._orderList.visible = true;
                         if (num == 1) {
                             key = i;
                         }
@@ -9936,8 +10196,7 @@
                 for (var j = 0; j < this._orderList.cells.length; j++) {
                     if (this._orderList.getItem(j)) {
                         var source = this._orderList.getItem(j);
-                        source.aperture.visible = true;
-                        this._orderList.setItem(j, source);
+                        console.log(source);
                     }
                 }
             }
@@ -9976,7 +10235,6 @@
                         text: ''
                     }
                 };
-                console.log(good_item);
                 if (result) {
                     var str = "" + user_good_info[lottery_good[i].id].num + "/" + lottery_good[i].num + '';
                 }
@@ -10020,7 +10278,16 @@
                 return;
             }
             var id = orderController.getInstance().model._order_id;
-            console.log('提交');
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "lottery_act",
+                'm': "gzhq_lottery",
+                'd': {
+                    'lottery_id': id
+                },
+                'code': 1
+            };
+            tmp_websocket.sendMessage(tmp_data);
         }
         showOrderTime() {
             var timeStr = orderController.getInstance().model.thisDay;
@@ -10062,7 +10329,17 @@
             }
         }
         factoryGoodGet(id) {
-            Laya.stage.event(NETWORKEVENT.FACTORYGOODGETBAK);
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "factory_good_get",
+                'm': "gzhq_factory",
+                'd': {
+                    'mf_id': id
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
         }
         getCurrentFactory() {
             return this._mf_id;
@@ -10217,7 +10494,18 @@
                 }]);
         }
         factory_open_seat_num_act(id, num) {
-            Laya.stage.event(NETWORKEVENT.FACTORYOPENSEATNUMBAK);
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "factory_open_seat_num",
+                'm': "gzhq_factory",
+                'd': {
+                    'mf_id': id,
+                    'num': num
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
         }
         getUserGood(id) {
             var data = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id];
@@ -10229,7 +10517,17 @@
                     good_arr.push(good_data[q].id);
                 }
             }
-            Laya.stage.event(NETWORKEVENT.SENDGOODBAK);
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "send_good",
+                'm': "init",
+                'd': {
+                    'good_id': good_arr
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         initProductionGoodList() {
             console.log('添加工厂可生产物品信息');
@@ -10337,7 +10635,18 @@
                 Laya.stage.event(GAMEEVENT.TXTTIP, ['没有足够商品队列']);
                 return;
             }
-            Laya.stage.event(NETWORKEVENT.FACTORYACTBAK);
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "factory_act",
+                'm': "gzhq_factory",
+                'd': {
+                    'mf_id': this._id,
+                    'id': id
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
         }
         showFactoryMake(mf_id, id) {
             factoryController.getInstance().showFactoryMake(mf_id, id);
@@ -10407,6 +10716,15 @@
             factoryController.getInstance().model._is_open = false;
         }
         get_factory_info() {
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "send_factory",
+                'm': "init",
+                'd': {},
+                'code': 1
+            };
+            console.log("发送http数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
             Laya.stage.event(NETWORKEVENT.SENDFACTORYBAK);
         }
         showFactory() {
@@ -10516,9 +10834,30 @@
         }
         factory_create_act(id) {
             console.log('工厂ID');
-            Laya.stage.event(NETWORKEVENT.FACTORYCREATEBAK);
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "factory_create",
+                'm': "gzhq_factory",
+                'd': {
+                    'mf_id': id
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
         }
         factory_good_save(id) {
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "factory_good_save",
+                'm': "gzhq_factory",
+                'd': {
+                    'mf_id': id
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
         }
         onShowFactoryInfo(id) {
             factoryController.getInstance().onShowFactoryInfo(id);
@@ -10637,6 +10976,17 @@
                 Laya.stage.event(GAMEEVENT.TXTTIP, ['宝石不足']);
                 return;
             }
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "factory_up_grade",
+                'm': "gzhq_factory",
+                'd': {
+                    'mf_id': this._id
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
             Laya.stage.event(NETWORKEVENT.FACTORYUPGRADEBAK);
         }
     }
@@ -10804,20 +11154,11 @@
         constructor() {
         }
         SendFactoryBak(data) {
-            data = {
-                "ga": "send_factory_bak",
-                "gd": {
-                    "gc001": {
-                        "mf_id": "gc001", "grade": "2", "open_seat_num": "1", "being_goods": { "id": "wp5001", "t": "600000" }, "queue_goods": [{ "id": "wp5002", "t": "600000", "t2": "5000000" }], "succ_goods": [{ "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }]
-                    }
-                }, "code": 1
-            };
             dataGlobal.getInstance().setFactory(data.gd);
             factoryController.getInstance().showFactory();
             factoryController.getInstance().model.setTimeout();
         }
         FactoryCreateBak(data) {
-            data = { "ga": "factory_create_bak", "gd": { "mf_id": "gc002", "grade": "1", "open_seat_num": "2", "being_goods": { "id": "wp5041", "t": "1100" }, "queue_goods": [{ "id": "wp5041", "t": "600000", "t2": "5000000" }, { "id": "wp5042", "t": "600000", "t2": "5000000" }], "succ_goods": [] }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setFactory(data, data.mf_id);
             factoryController.getInstance().showFactory();
@@ -10827,13 +11168,11 @@
             }
         }
         FactoryGoodSave(data) {
-            data = { "ga": "factory_create_bak", "gd": { "mf_id": "gc001", "grade": "1", "open_seat_num": "1", "being_goods": { "id": "wp5001", "t": "10" }, "queue_goods": [{ "id": "wp5002", "t": "600000", "t2": "5000000" }], "succ_goods": [] }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setFactory(data, data.mf_id);
             factoryController.getInstance().showFactory();
         }
         FactoryOpenSeatNumBak(data) {
-            data = { "ga": "factory_open_seat_num_bak", "gd": { "mf_id": "gc001", "grade": 2, "open_seat_num": 2 }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().buySetFactory(data);
             factoryController.getInstance().showFactory();
@@ -10841,20 +11180,17 @@
             Laya.stage.event(GAMEEVENT.TXTTIP, ['成功购买队列']);
         }
         SendGoodBak(data) {
-            data = { "ga": "send_good_bak", "gd": { "wp5041": { "id": "wp5041", "num": 8 }, "wp5042": { "id": "wp5042", "num": 10 }, "wp5043": { "id": "wp5043", "num": 8 }, "wp5044": { "id": "wp5044", "num": 10 }, "wp5045": { "id": "wp5045", "num": 8 } }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setUserGoodInfo(data);
             factoryController.getInstance().initProductionGoodList();
         }
         FactoryAct(data) {
-            data = { "ga": "factory_act_bak", "gd": { "mf_id": "gc001", "grade": "2", "open_seat_num": "1", "being_goods": { "id": "wp5001", "t": "600000" }, "queue_goods": [{ "id": "wp5002", "t": "600000", "t2": "5000000" }], "succ_goods": [{ "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }] }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setFactory(data, data.mf_id);
             factoryController.getInstance().showFactory();
             factoryController.getInstance().initFactoryInfo(data.mf_id);
         }
         FactoryUpGrade(data) {
-            data = { "ga": "factory_up_grade_bak", "gd": { "mf_id": "gc001", "grade": "4", "open_seat_num": "1", "being_goods": { "id": "wp5001", "t": "600000" }, "queue_goods": [{ "id": "wp5002", "t": "600000", "t2": "5000000" }], "succ_goods": [{ "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }] }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setFactory(data, data.mf_id);
             factoryController.getInstance().showFactory();
@@ -10862,7 +11198,6 @@
             factoryController.getInstance().initFactoryGradeList();
         }
         FactoryGoodGet(data) {
-            data = { "ga": "factory_good_get_bak", "gd": { "mf_id": "gc001", "grade": "2", "open_seat_num": "1", "being_goods": { "id": "wp5001", "t": "10" }, "queue_goods": [{ "id": "wp5002", "t": "600000", "t2": "5000000" }], "succ_goods": [{ "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }] }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setFactory(data, data.mf_id);
             factoryController.getInstance().showFactory();
@@ -10977,6 +11312,14 @@
             }
         }
         getUserInfo() {
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "init_info",
+                'm': "init",
+                'd': {},
+                'code': 1
+            };
+            tmp_websocket.sendMessage(tmp_data);
         }
         onShowUserInfo() {
             var data = dataGlobal.getInstance().userInfo;
@@ -11010,7 +11353,14 @@
             infoController.getInstance().showUserInfoTip();
         }
         userCountInfo() {
-            Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "user_count_info",
+                'm': "init",
+                'd': {},
+                'code': 1
+            };
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
     }
 
@@ -11138,15 +11488,15 @@
         constructor() {
         }
         InitInfo(data) {
+            console.log(data);
             dataGlobal.getInstance().setUserInfo(data.gd);
+            infoController.getInstance().onShowUserInfo();
         }
         SendUserGradeUp(data) {
-            data = { "ga": "send_user_grade_up", "gd": { "grade": "10", "grade2": "11", "num": "689", "up_data": [{ "id": "wp5041", "num": "1" }, { "id": "wp5042", "num": "2" }, { "id": "wp5043", "num": "3" }, { "id": "wp5044", "num": "4" }], "msg": "\u5347\u7ea7\u8bf4\u660e\u6587\u5b57" }, "code": 1 };
             data = data.gd;
             infoController.getInstance().infoUserUpgradeTip(data);
         }
         UserCountInfo(data) {
-            data = { "ga": "send_user_grade_up", "gd": { "grade": "10", "grade2": "11", "num": "689", "up_data": [{ "id": "wp5005", "num": "1" }, { "id": "wp5004", "num": "2" }, { "id": "wp5004", "num": "3" }, { "id": "wp5004", "num": "4" }], "msg": "\u5347\u7ea7\u8bf4\u660e\u6587\u5b57" }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setUserInfo(data);
             infoController.getInstance().showUserInfoTip();
@@ -11176,6 +11526,7 @@
                 this._infoview = new infoView;
             }
             this._infoview.onShow();
+            this.onShowUserInfo();
         }
         onShowUserInfo() {
             this._infoview.onShowUserInfo();
@@ -11296,48 +11647,22 @@
         constructor() {
         }
         LotteryInfoBak(data) {
-            data = {
-                "ga": "lottery_info_bak",
-                "gd": [
-                    {
-                        "lottery_id": "rw101",
-                        "task_uid": "456489646464",
-                        "task_uid_pic": "aaa",
-                        "type": "1",
-                        "is_ok": "1"
-                    },
-                    {
-                        "lottery_id": "rw201",
-                        "task_uid": "456489646464",
-                        "task_uid_pic": "aaa",
-                        "type": "1",
-                        "is_ok": "1"
-                    },
-                    {
-                        "lottery_id": "rw301",
-                        "task_uid": "456489646464",
-                        "task_uid_pic": "aaa",
-                        "type": "1",
-                        "is_ok": "1"
-                    },
-                ],
-                "code": 1
-            };
+            console.log("获取当天订单列表的协议", data);
+            console.log("获取当天订单列表的协议", data);
+            console.log("获取当天订单列表的协议", data);
+            console.log("获取当天订单列表的协议", data);
+            console.log("获取当天订单列表的协议", data);
             data = data.gd;
             dataGlobal.getInstance().setlotteryInfo(data, true);
             orderController.getInstance().sendGood(data);
         }
         SendGoodBak(data) {
-            data = { "ga": "send_good_bak", "code": 1,
-                "gd": { "hh6001": { "id": "hh6001", "num": 1 },
-                    "hh6002": { "id": "hh6002", "num": 10 }, "hh6003": { "id": "hh6003", "num": 10 }, "hh6004": { "id": "hh6004", "num": 10 } } };
             data = data.gd;
             dataGlobal.getInstance().setUserGoodInfo(data);
             orderController.getInstance().model.setOrderTimeout();
             orderController.getInstance().setLotteryList();
         }
         LotteryActBak(data) {
-            data = { "ga": "lottery_act_bak", "gd": { "lottery_id": "rw002", "task_uid": "5445646", "task_uid_pic": "54545645646", "type": "1", "is_ok": "2", "msg": "\u63d0\u4ea4\u8ba2\u5355\u6210\u529f" }, "code": 1 };
             data = data.gd;
             var tmp_arr = [];
             tmp_arr.push(data);
@@ -11441,7 +11766,9 @@
             this.addChild(this._exchangeIndex);
             this.tweenShow();
             this._my_list = this._exchangeIndex.scene.getChildByName('my_list');
+            this._my_list.visible = false;
             this._market_list = this._exchangeIndex.scene.getChildByName('market_list');
+            this._market_list.visible = false;
             this._material_btn = this._exchangeIndex.scene.getChildByName('material_btn');
             this._market_btn = this._exchangeIndex.scene.getChildByName('market_btn');
             this._exchangeIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeexchange);
@@ -11466,6 +11793,14 @@
             if (this._type == 'market') {
                 Laya.stage.event(NETWORKEVENT.MARKETINFOBAK);
             }
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "store_info",
+                'm': "store",
+                'd': {},
+                'code': 1
+            };
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         initMarketGoodList() {
             var data = dataGlobal.getInstance().marketInfo;
@@ -11483,6 +11818,16 @@
                     }
                 };
                 this._market_list.addItem(dataItem);
+                console.log(this._market_list);
+                console.log(this._market_list);
+                console.log(this._market_list);
+                console.log(this._market_list);
+                console.log(this._market_list);
+                console.log(this._market_list);
+                console.log(this._market_list);
+                console.log(this._market_list);
+                console.log(this._market_list);
+                this._market_list.visible = true;
                 this.bindClickMarketItem(this._market_list.getCell(Number(i)), Number(i));
             }
         }
@@ -11502,6 +11847,16 @@
                     }
                 };
                 this._my_list.addItem(dataItem);
+                console.log(this._my_list);
+                console.log(this._my_list);
+                console.log(this._my_list);
+                console.log(this._my_list);
+                console.log(this._my_list);
+                console.log(this._my_list);
+                console.log(this._my_list);
+                console.log(this._my_list);
+                console.log(this._my_list);
+                this._my_list.visible = true;
                 this.bindClickMyItem(this._my_list.getCell(Number(i)), Number(i));
             }
         }
@@ -11587,6 +11942,19 @@
             this._sellTip.scene.buy_btn.on(Laya.Event.CLICK, this, this.purchaseItems);
         }
         purchaseItems() {
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "store_good_del",
+                'm': "store",
+                'd': {
+                    'good_id': this._id,
+                    'num': this._num
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+            Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
             this.closeSellTip();
         }
     }
@@ -11636,7 +12004,18 @@
             this._sellTip.scene.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
         }
         storeGoodDel() {
-            Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "store_good_del",
+                'm': "store",
+                'd': {
+                    'good_id': this._id,
+                    'num': this._num
+                },
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
             this.closeSellTip();
         }
     }
@@ -11679,51 +12058,6 @@
         }
         MarketInfoBak(data) {
             console.log("exchangeNetwork", '获取市场的信息');
-            data = {
-                "ga": "market_info_bak",
-                "code": 1,
-                "gd": {
-                    "store_id": "45",
-                    "num": "5",
-                    "data_info": [
-                        {
-                            "good_id": "bouquet3",
-                            "price": "1.884",
-                            "num": "105",
-                            'seller': 'xsefrty',
-                            'good_name': '花卉',
-                        },
-                        {
-                            "good_id": "bouquet1",
-                            "price": "2.23421",
-                            "num": "145",
-                            'seller': 'xsefrty',
-                            'good_name': '花卉',
-                        },
-                        {
-                            "good_id": "bouquet2",
-                            "price": "1.884",
-                            "num": "105",
-                            'seller': 'xsefrty',
-                            'good_name': '花卉',
-                        },
-                        {
-                            "good_id": "bouquet5",
-                            "price": "2.23421",
-                            "num": "111",
-                            'seller': 'xsefrty',
-                            'good_name': '花卉',
-                        },
-                        {
-                            "good_id": "bouquet4",
-                            "price": "14",
-                            "num": "1",
-                            'seller': 'xsefrty',
-                            'good_name': '花卉',
-                        }
-                    ]
-                }
-            };
             data = data.gd;
             dataGlobal.getInstance().setMarketInfo(data);
             var good_arr = [];
@@ -11789,7 +12123,6 @@
             this._rankIndex.scene.item_all.on(Laya.Event.CLICK, this, function () {
                 if (this._type != '1') {
                     this.switchItem('1');
-                    this.firstFrame();
                 }
             }.bind(this));
             this._rankIndex.scene.item_flower.on(Laya.Event.CLICK, this, function () {
@@ -11799,6 +12132,7 @@
                 }
             }.bind(this));
             this.switchItem('1');
+            this.firstFrame();
         }
         switchItem(str) {
             this._type = str;
@@ -11827,8 +12161,35 @@
             this.tweenHide();
         }
         firstFrame() {
+            var container = this._rankIndex.scene.n1box;
+            var count_time = container.getChildByName('countdown');
+            count_time.text = '21:09:11';
+            var taskList = container.getChildByName('goods_list');
+            this.taskListInit(taskList);
+            var reward = container.getChildByName('reward');
+            reward.text = '222 ONES';
+            var taskDetailsList = container.getChildByName('details_list');
+            this.detailsListInit(taskDetailsList);
+            var prize1 = container.getChildByName('prize1');
+            var prize2 = container.getChildByName('prize2');
+            var prize3 = container.getChildByName('prize3');
+            prize1.text = '9999 ONES';
+            prize2.text = '999 ONES';
+            prize3.text = '99 ONES';
+            var prize_winner1 = container.getChildByName('prize_winner1');
+            var prize_winner2 = container.getChildByName('prize_winner2');
+            var prize_winner3 = container.getChildByName('prize_winner3');
+            prize_winner1.text = '小吴';
+            prize_winner2.text = 'Taddy';
+            prize_winner3.text = '99dcew';
         }
         SecondFrame() {
+        }
+        taskListInit(taskList) {
+            taskList.dataSource = [];
+        }
+        detailsListInit(taskDetailsList) {
+            taskDetailsList.dataSource = [];
         }
     }
 
@@ -11994,7 +12355,15 @@
             this._farmIndex.addChild(this._seedList);
         }
         getFarmSeed() {
-            Laya.stage.event(NETWORKEVENT.FARMINITSEEDLIST);
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "init_seed_list",
+                'm': "init",
+                'd': {},
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
         }
         onFarmInitSeedList(data) {
             this._seedListClass.addSeedListItem(data);
@@ -12004,7 +12373,15 @@
             this._seedListClass.setSeedListItem();
         }
         getFarmLand() {
-            Laya.stage.event(NETWORKEVENT.FARMINITFIELD);
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "init_field",
+                'm': "init",
+                'd': {},
+                'code': 1
+            };
+            console.log("发送websocket数据", tmp_data);
+            tmp_websocket.sendMessage(tmp_data);
         }
         onShowFarmInitField(data) {
             var land_config = GAMECONFIG.farmLand;
@@ -12171,1192 +12548,33 @@
         }
     }
 
-    class FLOWER_PLANTS {
-        static getPlants(id) {
-            for (var i in this.plants) {
-                if (this.plants[i].id == id) {
-                    return this.plants[i];
-                }
-            }
-        }
-    }
-    FLOWER_PLANTS.plants = [
-        {
-            'id': "hh01",
-            'name': "红玫瑰",
-            'grade': "1",
-            'grade2': "1",
-            'grade3': "100",
-            'gold': "0",
-            'num': "1",
-            'num2': "10",
-            't': "20",
-            'speed': "100",
-            'exp': "50",
-            'exp2': "50",
-            'pic': "ui://base/pic_3_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_3_1",
-            'ain2': "",
-            'time2': "10000",
-            'pic3': "ui://base/pic_3_3",
-            'ain3': "",
-            'time3': "10000",
-            'pic4': "ui://base/pic_3_3",
-            'ain4': "",
-            'time4': "10000",
-            'pic5': "ui://base/pic_3_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_3_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_3_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh02",
-            'name': "勿忘我",
-            'grade': "1",
-            'grade2': "1",
-            'grade3': "100",
-            'gold': "10",
-            'num': "1",
-            'num2': "15",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_4_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_4_1",
-            'ain2': "",
-            'time2': "20000",
-            'pic3': "ui://base/pic_4_2",
-            'ain3': "",
-            'time3': "20000",
-            'pic4': "ui://base/pic_4_3",
-            'ain4': "",
-            'time4': "20000",
-            'pic5': "ui://base/pic_4_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_4_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_4_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh03",
-            'name': "百合",
-            'grade': "1",
-            'grade2': "3",
-            'grade3': "100",
-            'gold': "20",
-            'num': "1",
-            'num2': "20",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_2_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_2_1",
-            'ain2': "",
-            'time2': "24000",
-            'pic3': "ui://base/pic_2_2",
-            'ain3': "",
-            'time3': "24000",
-            'pic4': "ui://base/pic_2_3",
-            'ain4': "",
-            'time4': "24000",
-            'pic5': "ui://base/pic_2_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_2_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_2_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh04",
-            'name': "紫罗兰",
-            'grade': "1",
-            'grade2': "3",
-            'grade3': "100",
-            'gold': "30",
-            'num': "1",
-            'num2': "20",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_5_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_5_1",
-            'ain2': "",
-            'time2': "25000",
-            'pic3': "ui://base/pic_5_2",
-            'ain3': "",
-            'time3': "25000",
-            'pic4': "ui://base/pic_5_3",
-            'ain4': "",
-            'time4': "25000",
-            'pic5': "ui://base/pic_5_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_5_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_5_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '4',
-            'is_water': '1',
-        },
-        {
-            'id': "hh05",
-            'name': "红花",
-            'grade': "1",
-            'grade2': "4",
-            'grade3': "100",
-            'gold': "40",
-            'num': "1",
-            'num2': "30",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_6_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_6_1",
-            'ain2': "",
-            'time2': "30000",
-            'pic3': "ui://base/pic_6_2",
-            'ain3': "",
-            'time3': "30000",
-            'pic4': "ui://base/pic_6_3",
-            'ain4': "",
-            'time4': "30000",
-            'pic5': "ui://base/pic_6_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_6_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_6_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh06",
-            'name': "澳洲腊梅",
-            'grade': "1",
-            'grade2': "4",
-            'grade3': "100",
-            'gold': "40",
-            'num': "1",
-            'num2': "30",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_10_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_6_1",
-            'ain2': "",
-            'time2': "30000",
-            'pic3': "ui://base/pic_6_2",
-            'ain3': "",
-            'time3': "30000",
-            'pic4': "ui://base/pic_6_3",
-            'ain4': "",
-            'time4': "30000",
-            'pic5': "ui://base/pic_6_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_10_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_10_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh07",
-            'name': "粉玫瑰",
-            'grade': "1",
-            'grade2': "4",
-            'grade3': "100",
-            'gold': "40",
-            'num': "1",
-            'num2': "30",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_6_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_6_1",
-            'ain2': "",
-            'time2': "30000",
-            'pic3': "ui://base/pic_6_2",
-            'ain3': "",
-            'time3': "30000",
-            'pic4': "ui://base/pic_6_3",
-            'ain4': "",
-            'time4': "30000",
-            'pic5': "ui://base/pic_6_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_8_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_8_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh08",
-            'name': "向日葵",
-            'grade': "1",
-            'grade2': "4",
-            'grade3': "100",
-            'gold': "40",
-            'num': "1",
-            'num2': "30",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_1_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_1_1",
-            'ain2': "",
-            'time2': "30000",
-            'pic3': "ui://base/pic_1_2",
-            'ain3': "",
-            'time3': "30000",
-            'pic4': "ui://base/pic_1_3",
-            'ain4': "",
-            'time4': "30000",
-            'pic5': "ui://base/pic_1_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_1_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_1_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh09",
-            'name': "雏菊",
-            'grade': "1",
-            'grade2': "4",
-            'grade3': "100",
-            'gold': "40",
-            'num': "1",
-            'num2': "30",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_9_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_6_1",
-            'ain2': "",
-            'time2': "30000",
-            'pic3': "ui://base/pic_6_2",
-            'ain3': "",
-            'time3': "30000",
-            'pic4': "ui://base/pic_6_3",
-            'ain4': "",
-            'time4': "30000",
-            'pic5': "ui://base/pic_6_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_9_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_9_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh10",
-            'name': "白桔梗",
-            'grade': "1",
-            'grade2': "4",
-            'grade3': "100",
-            'gold': "40",
-            'num': "1",
-            'num2': "30",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_11_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_6_1",
-            'ain2': "",
-            'time2': "30000",
-            'pic3': "ui://base/pic_6_2",
-            'ain3': "",
-            'time3': "30000",
-            'pic4': "ui://base/pic_6_3",
-            'ain4': "",
-            'time4': "30000",
-            'pic5': "ui://base/pic_6_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_11_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_11_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        },
-        {
-            'id': "hh11",
-            'name': "香槟玫瑰",
-            'grade': "1",
-            'grade2': "4",
-            'grade3': "100",
-            'gold': "40",
-            'num': "1",
-            'num2': "30",
-            't': "20",
-            'speed': "100",
-            'exp': "100",
-            'exp2': "100",
-            'pic': "ui://base/pic_7_5",
-            'ain': "",
-            'time': "0",
-            'pic2': "ui://base/pic_6_1",
-            'ain2': "",
-            'time2': "30000",
-            'pic3': "ui://base/pic_6_2",
-            'ain3': "",
-            'time3': "30000",
-            'pic4': "ui://base/pic_6_3",
-            'ain4': "",
-            'time4': "30000",
-            'pic5': "ui://base/pic_6_4",
-            'ain5': "",
-            'time5': "0",
-            'pic6': "ui://base/pic_7_6",
-            'ain6': "",
-            'pic7': "ui://base/pic_7_6",
-            'ain7': "",
-            'next_mature_time': "20",
-            'grow_time_tol': '60',
-            'mature_time': '20',
-            'grow_static': 1,
-            'water_time': '3',
-            'is_water': '1',
-        }
-    ];
-
-    class staticData {
-        constructor() {
-        }
-        static getInstance() {
-            if (staticData._instance == null) {
-                staticData._instance = new staticData();
-            }
-            return staticData._instance;
-        }
-        getFarmInitField() {
-            return {
-                "ga": "init_field",
-                "gd": staticData.INDEX_DATA,
-                "code": 1
-            };
-        }
-        getFarmInitFlowerGrade(msg) {
-            for (var i in staticData.INDEX_DATA) {
-                if (staticData.INDEX_DATA[i].ff_id == msg.id) {
-                    staticData.INDEX_DATA[i].ff_vip = staticData.INDEX_DATA[i].ff_vip + 1;
-                    return {
-                        "type": msg.type,
-                        "ga": "init_flower_grade",
-                        "gd": staticData.INDEX_DATA[i],
-                        "code": 1
-                    };
-                }
-            }
-        }
-        getFarmInitSeedList() {
-            return {
-                "ga": "init_seed_list",
-                "gd": {
-                    "seed_data": staticData.SEED_LIST,
-                    "fat_data": staticData.FAT_LIST
-                },
-                "code": 1
-            };
-        }
-        farmInitPlantFlower(id, hhid) {
-            for (var i in staticData.INDEX_DATA) {
-                if (staticData.INDEX_DATA[i].ff_id == id) {
-                    staticData.INDEX_DATA[i].seed_data = FLOWER_PLANTS.getPlants(hhid);
-                    staticData.INDEX_DATA[i].msg = "\u79cd\u690d\u6210\u529f";
-                    return {
-                        "ga": "init_plant_flower",
-                        "gd": staticData.INDEX_DATA[i],
-                        "code": 1
-                    };
-                }
-            }
-        }
-        farmInitGrowFlower(id, seed_data) {
-            for (var i in staticData.INDEX_DATA) {
-                if (staticData.INDEX_DATA[i].ff_id == id) {
-                    staticData.INDEX_DATA[i].seed_data = FLOWER_PLANTS.getPlants(seed_data.id);
-                    var _b = Number(staticData.INDEX_DATA[i].seed_data.grade) + 1;
-                    if (_b >= 4) {
-                        _b = 4;
-                        staticData.INDEX_DATA[i].seed_data.mature_time = '0';
-                    }
-                    staticData.INDEX_DATA[i].seed_data.grade = String(_b);
-                    staticData.INDEX_DATA[i].seed_data.grow_static = _b;
-                    console.log(staticData.INDEX_DATA[i].seed_data.grade);
-                    return {
-                        "ga": "init_plant_flower",
-                        "gd": staticData.INDEX_DATA[i],
-                        "code": 1
-                    };
-                }
-            }
-        }
-        farmCollectFlower(data) {
-            console.log(data.ff_id, '收获成熟花');
-            for (var i in staticData.INDEX_DATA) {
-                if (staticData.INDEX_DATA[i].ff_id == data.ff_id) {
-                    staticData.INDEX_DATA[i].seed_data = {
-                        'id': "",
-                        'name': "",
-                        'grade': "",
-                        'grade2': "",
-                        'grade3': "",
-                        'gold': "",
-                        'num': "",
-                        'num2': "",
-                        't': "",
-                        'speed': "",
-                        'exp': "",
-                        'exp2': "",
-                        'pic': "",
-                        'ain': "",
-                        'time': "",
-                        'pic2': "",
-                        'ain2': "",
-                        'time2': "",
-                        'pic3': "",
-                        'ain3': "",
-                        'time3': "",
-                        'pic4': "",
-                        'ain4': "",
-                        'time4': "",
-                        'pic5': "",
-                        'ain5': "",
-                        'time5': "",
-                        'pic6': "",
-                        'ain6': "",
-                        'pic7': "",
-                        'ain7': "",
-                        'next_mature_time': "",
-                        'grow_time_tol': '',
-                        'mature_time': '',
-                        'grow_static': 0,
-                        'water_time': '',
-                        'is_water': '',
-                    };
-                    return {
-                        "ga": "init_collect_flower",
-                        "gd": staticData.INDEX_DATA[i],
-                        "code": 1
-                    };
-                }
-            }
-        }
-        farmInitFlowerWater(data) {
-            console.log(data.ff_id, '請求澆水');
-            for (var i in staticData.INDEX_DATA) {
-                if (staticData.INDEX_DATA[i].ff_id == data.ff_id) {
-                    staticData.INDEX_DATA[i].seed_data.water_time = '300';
-                    return {
-                        "ga": "init_flower_water",
-                        "gd": staticData.INDEX_DATA[i],
-                        "code": 1
-                    };
-                }
-            }
-        }
-    }
-    staticData.userInfo = {
-        'sid': "渠道ID",
-        'sid2': "渠道ID2",
-        'uid': "uuu",
-        "name": "JIN",
-        "nickname": "赤脚大仙",
-        "pic": "用户头像",
-        "sex": "用户性别",
-        "token": "用户的登陆key(这个是登陆时添加的!)"
-    };
-    staticData.userProp = {};
-    staticData.INDEX_DATA = [
-        {
-            "ff_id": "ht01",
-            "ff_vip": 1,
-            "ff_exp": 0,
-            "is_lock": 1,
-            "next_ht_lock": "ht02",
-            "ff_id_unlocknum": 50,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "fat_time": 0,
-            "fat_time_tol": 1000,
-            "msg": "",
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-        {
-            "ff_id": "ht02",
-            "ff_vip": 1,
-            "ff_exp": 100,
-            "is_lock": 1,
-            "next_ht_lock": "ht03",
-            "ff_id_unlocknum": 100,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "msg": "",
-            "fat_time": 100,
-            "fat_time_tol": 1000,
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-        {
-            "ff_id": "ht03",
-            "ff_vip": 1,
-            "ff_exp": 200,
-            "is_lock": 1,
-            "next_ht_lock": "ht04",
-            "ff_id_unlocknum": 200,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "msg": "",
-            "fat_time": 0,
-            "fat_time_tol": 1000,
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-        {
-            "ff_id": "ht04",
-            "ff_vip": 1,
-            "ff_exp": 100,
-            "is_lock": 1,
-            "next_ht_lock": "ht05",
-            "ff_id_unlocknum": 300,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "msg": "",
-            "fat_time": 0,
-            "fat_time_tol": 1000,
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-        {
-            "ff_id": "ht05",
-            "ff_vip": 1,
-            "ff_exp": 100,
-            "is_lock": 1,
-            "next_ht_lock": "ht06",
-            "ff_id_unlocknum": 400,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "msg": "",
-            "fat_time": 0,
-            "fat_time_tol": 1000,
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-        {
-            "ff_id": "ht06",
-            "ff_vip": 1,
-            "ff_exp": 100,
-            "is_lock": 1,
-            "next_ht_lock": "ht07",
-            "ff_id_unlocknum": 500,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "msg": "",
-            "fat_time": 0,
-            "fat_time_tol": 1000,
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-        {
-            "ff_id": "ht07",
-            "ff_vip": 1,
-            "ff_exp": 100,
-            "is_lock": 1,
-            "next_ht_lock": "ht08",
-            "ff_id_unlocknum": 600,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "msg": "",
-            "fat_time": 0,
-            "fat_time_tol": 1000,
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-        {
-            "ff_id": "ht08",
-            "ff_vip": 1,
-            "ff_exp": 100,
-            "is_lock": 1,
-            "next_ht_lock": "ht09",
-            "ff_id_unlocknum": 700,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "msg": "",
-            "fat_time": 0,
-            "fat_time_tol": 1000,
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-        {
-            "ff_id": "ht09",
-            "ff_vip": 1,
-            "ff_exp": 100,
-            "is_lock": 1,
-            "next_ht_lock": "",
-            "ff_id_unlocknum": 800,
-            "next_ff_id_glod": 0,
-            "next_exp": 0,
-            "pic": "land_1",
-            "ain": "",
-            "msg": "",
-            "fat_time": 0,
-            "fat_time_tol": 1000,
-            "seed_data": {
-                'id': "",
-                'name': "",
-                'grade': "",
-                'grade2': "",
-                'grade3': "",
-                'gold': "",
-                'num': "",
-                'num2': "",
-                't': "",
-                'speed': "",
-                'exp': "",
-                'exp2': "",
-                'pic': "",
-                'ain': "",
-                'time': "",
-                'pic2': "",
-                'ain2': "",
-                'time2': "",
-                'pic3': "",
-                'ain3': "",
-                'time3': "",
-                'pic4': "",
-                'ain4': "",
-                'time4': "",
-                'pic5': "",
-                'ain5': "",
-                'time5': "",
-                'pic6': "",
-                'ain6': "",
-                'pic7': "",
-                'ain7': "",
-                'next_mature_time': "",
-                'grow_time_tol': '',
-                'mature_time': '',
-                'grow_static': 0,
-                'water_time': '',
-                'is_water': '',
-            }
-        },
-    ];
-    staticData.SEED_LIST = [
-        {
-            "id": "hh02",
-            "name": "\u7ea2\u73ab\u7470",
-            "grade": "1",
-            "grade2": "1",
-            "grade3": "100",
-            "pic": "ui:\/\/farm\/hh02_1",
-            "ain": "",
-            "gold": 100
-        },
-        {
-            "id": "hh02",
-            "name": "\u9ed1\u73ab\u7470",
-            "grade": "1",
-            "grade2": "1",
-            "grade3": "100",
-            "pic": "ui:\/\/farm\/hh01_2",
-            "ain": "",
-            "gold": 100
-        },
-        {
-            "id": "hh03",
-            "name": "\u9ec4\u73ab\u7470",
-            "grade": "1",
-            "grade2": "1",
-            "grade3": "500",
-            "pic": "ui:\/\/farm\/hh01_3",
-            "ain": "",
-            "gold": 100
-        },
-        {
-            "id": "hh04",
-            "name": "\u9752\u73ab\u7470",
-            "grade": "1",
-            "grade2": "1",
-            "grade3": "400",
-            "pic": "ui:\/\/farm\/hh01_4",
-            "ain": "",
-            "gold": 150
-        },
-        {
-            "id": "hh05",
-            "name": "\u9752\u73ab\u7470",
-            "grade": "1",
-            "grade2": "1",
-            "grade3": "300",
-            "pic": "ui:\/\/farm\/hh02_1",
-            "ain": "",
-            "gold": 200
-        },
-        {
-            "id": "hh06",
-            "name": "\u9752\u73ab\u7470",
-            "grade": "1",
-            "grade2": "20",
-            "grade3": "200",
-            "pic": "ui:\/\/farm\/hh02_2",
-            "ain": "",
-            "gold": 300
-        }
-    ];
-    staticData.FAT_LIST = [
-        {
-            'id': "sf01",
-            'name': "普通施肥",
-            'pic': 'farm/shifei_sf01',
-            'ain': '',
-            'grade': "1",
-            'num': "0",
-            'num2': "5",
-            'num3': "10",
-            'exp': "100",
-            'exp2': "10",
-            't': "7200",
-        }
-    ];
-
     class farmNetwork {
         constructor() {
         }
         FarmInitField(data) {
-            data = staticData.getInstance().getFarmInitField();
             dataGlobal.getInstance().setFarmInfo(data.gd);
             farmController.getInstance().onShowFarmInitField(data.gd);
         }
         FarmInitSeedList(data) {
-            console.log('读取种子列表', data);
-            data = staticData.getInstance().getFarmInitSeedList();
             farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
             farmController.getInstance().model.setFatData(data.gd.fat_data);
             farmController.getInstance().onFarmInitSeedList(data.gd);
         }
-        FarmInitFlowerGrade(msg) {
-            var data = staticData.getInstance().getFarmInitFlowerGrade(msg);
+        FarmInitFlowerGrade(data) {
             var myData = data.gd;
             var tmp_arr = {
-                'ff_id': myData.ff_id,
                 'ff_vip': myData.ff_vip,
                 'ff_exp': myData.ff_exp,
                 'next_exp': myData.next_exp,
                 'ff_id_unlocknum': myData.ff_id_unlocknum,
                 'next_ff_id_glod': myData.next_ff_id_glod,
+                "seed": myData.seed,
+                "next_seed": myData.next_seed,
                 'pic': myData.pic,
             };
-            console.log(data.type);
-            if (data.type == 1) {
+            if (myData.type == 1) {
             }
-            else if (data.type == 2) {
+            else if (myData.type == 2) {
                 tmp_arr['is_lock'] = myData.is_lock;
                 var landStatic = farmController.getInstance().model.clickLandStatic;
                 if (myData.next_ht_lock) {
@@ -13372,9 +12590,7 @@
                 Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
             }
         }
-        FarmInitPlantFlower(list) {
-            console.log('请求种植');
-            var data = staticData.getInstance().farmInitPlantFlower(list.htid, list.hhid);
+        FarmInitPlantFlower(data) {
             var myData = data.gd;
             var tmp_arr = {
                 'fat_time': myData.fat_time,
@@ -13386,9 +12602,11 @@
             farmController.getInstance().setThisLandTimer(myData.ff_id);
             farmController.getInstance().initLand();
             farmController.getInstance().setPlantFramLand();
+            if (myData.msg) {
+                Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
+            }
         }
         FarmInitFlowerFertilize(data) {
-            data = { "ga": "init_flower_fertilize", "gd": { "ff_id": "ht01", "fat_time": 500, "fat_time_tol": 5000, "ff_exp": 50, "seed_data": { "grow_time_tol": 5000, "mature_time": 300, "grow_static": 4, "id": "hh01", "name": "\u7ea2\u73ab\u7470", "grade": "1", "pic": "hh01_1", "ain": "" }, "exp_data": { "exp": "20", "exp2": "2", "t": "7200" }, "msg": "\u65bd\u80a5\u6210\u529f" }, "code": 1 };
             var myData = data.gd;
             var tmp_arr = {
                 'fat_time': myData.fat_time,
@@ -13400,11 +12618,26 @@
             farmController.getInstance().setThisLandTimer(myData.ff_id);
             farmController.getInstance().model.setClickLandStatic('fertilizer');
             farmController.getInstance().initLand();
+            if (myData.msg) {
+                Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
+            }
         }
         FarmInitFlowerWater(data) {
-            console.log(data);
-            var _data = staticData.getInstance().farmInitFlowerWater(data);
-            var myData = _data.gd;
+            var myData = data.gd;
+            var tmp_arr = {
+                'fat_time': myData.fat_time,
+                'fat_time_tol': myData.fat_time_tol,
+                'ff_exp': myData.ff_exp,
+                'seed_data': myData.seed_data
+            };
+            dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
+            farmController.getInstance().initLand();
+            if (myData.msg) {
+                Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
+            }
+        }
+        FarmInitGrowFlower(data) {
+            var myData = data.gd;
             var tmp_arr = {
                 'fat_time': myData.fat_time,
                 'fat_time_tol': myData.fat_time_tol,
@@ -13414,33 +12647,22 @@
             dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
             farmController.getInstance().initLand();
         }
-        FarmInitGrowFlower(data) {
-            var _tmp_arr = staticData.getInstance().farmInitGrowFlower(data.ff_id, data.seed_data);
-            console.log(data.ff_id, '的花长大了', _tmp_arr.gd);
-            var tmp_arr = {
-                'fat_time': _tmp_arr.gd.fat_time,
-                'fat_time_tol': _tmp_arr.gd.fat_time_tol,
-                'ff_exp': _tmp_arr.gd.ff_exp,
-                'seed_data': _tmp_arr.gd.seed_data
-            };
-            dataGlobal.getInstance().setFarmInfo(tmp_arr, _tmp_arr.gd.ff_id);
-            farmController.getInstance().initLand();
-        }
         FarmCollectFlower(data) {
-            var _data = staticData.getInstance().farmCollectFlower(data);
-            var myData = _data.gd;
+            var myData = data.gd;
             var tmp_arr = {
                 'fat_time': myData.fat_time,
                 'fat_time_tol': myData.fat_time_tol,
                 'ff_exp': myData.ff_exp
             };
-            console.log(tmp_arr);
             dataGlobal.getInstance().setFlowerInfo(myData.ff_id);
             dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
             farmController.getInstance().initLand();
+            if (myData.msg) {
+                Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
+            }
         }
         FarmInitFlowerFat(data) {
-            var myData = data;
+            var myData = data.gd;
             var tmp_arr = {
                 'fat_time': myData.fat_time,
                 'fat_time_tol': myData.fat_time_tol,
@@ -13479,7 +12701,16 @@
             }
             this._farmview.onShow(type);
             infoController.getInstance();
+            Laya.stage.event(GAMEEVENT.GETINITINFO);
             Laya.stage.event(GAMEEVENT.BOTTOMBTN, ['farm']);
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "send_data",
+                'm': "gzhq_game",
+                'd': { 'bs': 100 },
+                'code': 1
+            };
+            tmp_websocket.sendMessage(tmp_data);
         }
         onShowFarmInitField(data) {
             this._farmview.onShowFarmInitField(data);
@@ -13636,7 +12867,6 @@
         loginBtn() {
             console.log("点击登录按钮");
             Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
-            return;
             var tmp_dataGlobal = dataGlobal.getInstance();
             var userid = Laya.LocalStorage.getItem("WYD:GAME:USER");
             if (!userid || userid.length < 8) {
@@ -13707,11 +12937,14 @@
         }
         onLoginOK(data) {
             if (!data) {
+                webSocketJson.getInstance();
                 return;
             }
             console.log("onLoginOK的数据是：", data);
             let _loginC = loginController.getInstance();
             _loginC.model.setUserInfo(data.gd.info);
+            _loginC.model.setGameWS(data.gd.ws.ws.ws);
+            webSocketJson.getInstance();
         }
         onLoginErr(data) {
             console.log("登陆出错的数据是：", data);
@@ -13726,7 +12959,9 @@
             Laya.stage.on(GAMEEVENT.ONRESCOMPLETELOGIN, this, this.onResComplete);
             Laya.stage.on(GAMEEVENT.ONPROGRESSFARM, this, this.onResProgressFarm);
             Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFarm);
-            Laya.stage.on(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
+            Laya.stage.on(NETWORKEVENT.HTTP_LOGIN_OK, this, this._network.onLoginOK);
+            Laya.stage.on(NETWORKEVENT.HTTP_ERROR_BAK, this, this._network.onLoginErr);
+            Laya.stage.on(GAMEEVENT.LOGIN_FARM, this, this.showFarmView);
         }
         static getInstance() {
             if (loginController._instance == null) {
@@ -13735,7 +12970,9 @@
             return loginController._instance;
         }
         showFarmView() {
+            console.log('显示主场景');
             Laya.stage.off(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
+            webSocketJson.getInstance();
             this._loginview.showFarm();
             infoController.getInstance().onShow();
         }
