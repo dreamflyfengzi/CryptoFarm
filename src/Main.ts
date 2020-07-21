@@ -30,6 +30,7 @@ class Main {
 
     resManger.getInstance().addGroupRes(resConfig.loadingRes);//设置加载loading页的资源
     resManger.getInstance().startLoad(GAMEEVENT.ONRESPROGRESSLOGIN, GAMEEVENT.ONRESCOMPLETELOGIN);//进行loading页的加载
+    resManger.getInstance().setBitmapFont();//进行字体的加载
   }
 
   // 初始化加载 

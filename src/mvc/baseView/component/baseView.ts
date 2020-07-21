@@ -34,7 +34,6 @@ export default class BaseView extends Laya.View implements IBaseView {
     var obj = this
     //查找是否有该对象
     var node: any = gameLayer.bglayer.getChildByName(name);
-    console.log("xxxx", node)
     if (node) {//有该对象的话就显示就行了
       obj = node;
       obj.visible = true;
@@ -60,7 +59,6 @@ export default class BaseView extends Laya.View implements IBaseView {
   public tweenAlphaAllShow(obj: any) {
     // gameLayer.bglayer.addChild(obj);
     Laya.Tween.to(gameLayer.bglayer, { alpha: 1 }, 300, Laya.Ease.elasticOut);
-    // console.log(Laya.stage)
   }
   /* 清除在上层的子节点 */
   public clearChild(type) {
@@ -175,16 +173,13 @@ export default class BaseView extends Laya.View implements IBaseView {
 
   // 窗口
   /** */
-  public tweenHide() { 
-    console.log('关闭')     
+  public tweenHide() {     
     this.off(Laya.Event.CLICK, this, this.onClick);
     Laya.Tween.to(this, { scaleX: 0, scaleY: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onComplete));
     Laya.Tween.to(this, { alpha: 0 }, 100, Laya.Ease.bounceInOut, Laya.Handler.create(this, this.onAlphaComplete));
   }
   /** */
   public onClick() {
-    console.log("onClick");
-    console.log(this)
   }
   /** */
   private onComplete() {
@@ -206,8 +201,6 @@ export default class BaseView extends Laya.View implements IBaseView {
     Laya.Tween.clearAll(this);
     this.visible = false;
     this.removeFromParent()
-    // console.log(this,'this')
-    // console.log(gameLayer.windowlayer)
   }
   	/** */
 		public tweenShow(){
@@ -218,8 +211,6 @@ export default class BaseView extends Laya.View implements IBaseView {
 			Laya.Tween.to(this,{alpha:1},1000,Laya.Ease.linearIn);
 			Laya.Tween.to(this,{scaleX:1,scaleY:1},1000,Laya.Ease.elasticOut);
 			this.showModal();
-      // gameLayer.windowlayer.addChild(this);
-      // console.log(gameLayer.windowlayer)
     }
     	/** */
 		public showModal(){
@@ -227,12 +218,10 @@ export default class BaseView extends Laya.View implements IBaseView {
 			this.graphics.clear();
 			this.graphics.drawRect(0,0,Laya.stage.width,Laya.stage.height,'#000000');
       this.alpha = 0.25;
-      console.log(this.alpha)
 			this.width = Laya.stage.width;
       this.height = Laya.stage.height;
 			gameLayer.windowlayer.addChild(this);
       this.on(Laya.Event.CLICK,this,this.onClick);
-      console.log('开启')
 		}
     		/** */
 		public setCenter(){

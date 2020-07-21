@@ -173,7 +173,7 @@ export default class webSocketJson {
      webSocketJson._instance = null;
 
     if ( webSocketJson.isConnectting == true) {
-      console.log("正在连接中。。。。");
+      console.log("正在连接中");
       return;
     } else {
        webSocketJson.isConnectting = true;

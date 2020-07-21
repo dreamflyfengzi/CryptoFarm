@@ -1,0 +1,16 @@
+info face="C:\Users\wei\Desktop\pic_meishuzi\public_font" size=32 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1
+common lineHeight=80 base=26 scaleW=256 scaleH=256 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="C:\Users\wei\Desktop\pic_meishuzi\public_font.png"
+chars count=10
+char id=30830 x=0 y=0 width=67 height=76 xoffset=0 yoffset=6 xadvance=68 page=0 chnl=0 letter="确"
+char id=23450 x=125 y=0 width=49 height=64 xoffset=0 yoffset=12 xadvance=50 page=0 chnl=0 letter="定"
+char id=21462 x=0 y=77 width=66 height=57 xoffset=0 yoffset=15 xadvance=67 page=0 chnl=0 letter="取"
+char id=28040 x=68 y=0 width=56 height=73 xoffset=0 yoffset=7 xadvance=57 page=0 chnl=0 letter="消"
+char id=25171 x=64 y=135 width=60 height=62 xoffset=0 yoffset=13 xadvance=61 page=0 chnl=0 letter="打"
+char id=24320 x=67 y=77 width=55 height=57 xoffset=0 yoffset=15 xadvance=56 page=0 chnl=0 letter="开"
+char id=20179 x=123 y=74 width=47 height=60 xoffset=0 yoffset=14 xadvance=48 page=0 chnl=0 letter="仓"
+char id=24211 x=0 y=135 width=63 height=72 xoffset=0 yoffset=8 xadvance=64 page=0 chnl=0 letter="库"
+char id=32 x=0 y=0 width=0 height=0 xoffset=0 yoffset=0 xadvance=20 page=0 chnl=0 letter=" "
+char id=9 x=0 y=0 width=0 height=0 xoffset=0 yoffset=0 xadvance=160 page=0 chnl=0 letter="	"
+
+kernings count=0

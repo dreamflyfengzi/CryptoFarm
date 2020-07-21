@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":8,
-    "selecteID":9,
+    "selectedBox":2,
+    "selecteID":8,
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
-    "maxID":12,
+    "maxID":14,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -44,19 +44,32 @@
         },
         {
             "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":0,"x":0,"width":1242,"texture":"loading/main_background.png","height":2688},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":13,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
             "type":"Box",
             "searchKey":"Box,loading_group",
-            "props":{"y":932,"x":493,"width":256,"var":"loading_group","height":360},
+            "props":{"y":122,"x":446,"width":256,"var":"loading_group","height":360},
             "nodeParent":2,
             "label":"loading_group",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":5,
             "child":[
                 {
-                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,loading_icon",
                     "props":{"y":0,"x":0,"width":256,"var":"loading_icon","texture":"loading/0_00000.png","height":360},
@@ -70,7 +83,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,loading_txt",
                     "props":{"y":205,"x":156,"width":100,"var":"loading_txt","text":"0%","height":41,"fontSize":45,"color":"#dd7a4c","bold":true,"align":"center"},
@@ -88,7 +100,7 @@
             "x":15,
             "type":"Box",
             "searchKey":"Box,login_group",
-            "props":{"y":1529,"x":110,"width":1022,"var":"login_group","height":560},
+            "props":{"y":2101,"x":0,"width":1242,"var":"login_group","height":578},
             "nodeParent":2,
             "label":"login_group",
             "isOpen":true,
@@ -101,7 +113,7 @@
                     "x":30,
                     "type":"Button",
                     "searchKey":"Button,login_check",
-                    "props":{"y":388,"x":-16,"width":70,"var":"login_check","stateNum":"1","skin":"loading/btn_wudagou.png","height":70},
+                    "props":{"y":388,"x":65,"width":70,"var":"login_check","stateNum":"1","skin":"loading/btn_wudagou.png","height":70},
                     "nodeParent":8,
                     "label":"login_check",
                     "isOpen":true,
@@ -116,7 +128,7 @@
                     "x":30,
                     "type":"Text",
                     "searchKey":"Text,n6",
-                    "props":{"y":414,"x":90,"width":950,"var":"n6","text":"我已详细阅读并同意 使用许可及协议","height":88,"fontSize":45,"font":"Helvetica","bold":true},
+                    "props":{"y":414,"x":146,"width":950,"var":"n6","text":"我已详细阅读并同意 使用许可及协议","height":88,"fontSize":45,"font":"Helvetica","bold":true},
                     "nodeParent":8,
                     "label":"n6",
                     "isDirectory":false,
@@ -130,7 +142,7 @@
                     "x":30,
                     "type":"Button",
                     "searchKey":"Button,login_btn,login_btn",
-                    "props":{"y":0,"x":113,"width":796,"var":"login_btn","stateNum":"1","skin":"loading/btn_denglu.png","name":"login_btn","height":238},
+                    "props":{"y":0,"x":223,"width":796,"var":"login_btn","stateNum":"1","skin":"loading/select_all_board.png","sizeGrid":"0,0,0,0","name":"login_btn","height":238},
                     "nodeParent":8,
                     "label":"login_btn",
                     "isDirectory":false,
@@ -140,6 +152,20 @@
                     "child":[
                         ]
                 }]
+        },
+        {
+            "x":15,
+            "type":"ProgressBar",
+            "searchKey":"ProgressBar,loginProgressBar,loginProgressBar",
+            "props":{"y":1169,"x":59,"width":1100,"var":"loginProgressBar","value":0,"skin":"loading/akp_progress.png","sizeGrid":"23,48,23,66","name":"loginProgressBar","height":81},
+            "nodeParent":2,
+            "label":"loginProgressBar",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":12,
+            "child":[
+                ]
         }],
     "animations":[
         {

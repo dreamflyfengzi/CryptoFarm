@@ -3,9 +3,11 @@
 进行资源加载的控制
 */
 import resConfig from "./resConfig"
+import GAMEEVENT from '../event/GAMEEVENT'
 export default class resManger {
   private static _instance: resManger;
   private loader: Laya.LoaderManager;
+  private mBitmapFont:Laya.BitmapFont;
   // private scaledic: Dictionary<string, string>;//字典被去除
   private resaddrlist = [];
 
@@ -104,4 +106,26 @@ export default class resManger {
   // public getAtlasRes(name:string){
   //     return this.loader.getRes(name);
   // }
+
+  /**
+   * 字体
+   */
+  public setBitmapFont() {
+    this.mBitmapFont = new Laya.BitmapFont();
+    // 加载位图字体，并侦听是否完成
+    resManger.getInstance().addGroupRes(resConfig.fontRes);//设置加载loading页的资源
+    resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFONT, GAMEEVENT.ONPROGRESSFONT);//进行loading页的加载
+    Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFont);
+  }
+
+  /**
+   * 加载字体成功
+   */
+  private onResCompleteFont() {
+    Laya.Text.registerBitmapFont("userFont", this.mBitmapFont);
+  }
+
+  public userFont(){
+    return this.mBitmapFont
+  }
 }

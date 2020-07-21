@@ -6743,7 +6743,7 @@
       "1": {
         "grade": "1",
         "num": "10000",
-        "field": "9",
+        "field": "2",
         "store": "10",
         "lottery_num": "1",
         "store_num": "1000",
@@ -6762,7 +6762,7 @@
       "2": {
         "grade": "2",
         "num": "0",
-        "field": "0",
+        "field": "3",
         "store": "0",
         "lottery_num": "2",
         "store_num": "0",
@@ -6781,7 +6781,7 @@
       "3": {
         "grade": "3",
         "num": "0",
-        "field": "0",
+        "field": "4",
         "store": "0",
         "lottery_num": "2",
         "store_num": "0",
@@ -6800,7 +6800,7 @@
       "4": {
         "grade": "4",
         "num": "0",
-        "field": "0",
+        "field": "5",
         "store": "0",
         "lottery_num": "3",
         "store_num": "0",
@@ -6819,7 +6819,7 @@
       "5": {
         "grade": "5",
         "num": "0",
-        "field": "0",
+        "field": "6",
         "store": "0",
         "lottery_num": "3",
         "store_num": "0",
@@ -6834,7 +6834,7 @@
       "6": {
         "grade": "6",
         "num": "0",
-        "field": "0",
+        "field": "7",
         "store": "0",
         "lottery_num": "4",
         "store_num": "0",
@@ -6849,7 +6849,7 @@
       "7": {
         "grade": "7",
         "num": "0",
-        "field": "0",
+        "field": "8",
         "store": "0",
         "lottery_num": "4",
         "store_num": "0",
@@ -6864,7 +6864,7 @@
       "8": {
         "grade": "8",
         "num": "0",
-        "field": "0",
+        "field": "9",
         "store": "0",
         "lottery_num": "4",
         "store_num": "0",
@@ -6883,7 +6883,7 @@
       "9": {
         "grade": "9",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "4",
         "store_num": "0",
@@ -6902,7 +6902,7 @@
       "10": {
         "grade": "10",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6921,7 +6921,7 @@
       "11": {
         "grade": "11",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6940,7 +6940,7 @@
       "12": {
         "grade": "12",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6959,7 +6959,7 @@
       "13": {
         "grade": "13",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6978,7 +6978,7 @@
       "14": {
         "grade": "14",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6997,7 +6997,7 @@
       "15": {
         "grade": "15",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7016,7 +7016,7 @@
       "16": {
         "grade": "16",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7035,7 +7035,7 @@
       "17": {
         "grade": "17",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7054,7 +7054,7 @@
       "18": {
         "grade": "18",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7073,7 +7073,7 @@
       "19": {
         "grade": "19",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7092,7 +7092,7 @@
       "20": {
         "grade": "20",
         "num": "0",
-        "field": "0",
+          "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",

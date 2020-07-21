@@ -20,7 +20,6 @@ export default class factoryIndex extends baseScene {
 
   constructor() {
     super();
-
   }
   /**显示工厂场景(type:1.当前页面隐藏切换，2.当前页面去除切换 */
   public onShow(type) {
@@ -36,7 +35,6 @@ export default class factoryIndex extends baseScene {
       this.get_factory_info();
 
     } else {
-      console.log("看看有没有需要打开的工厂，可能是从别的地方跳过来生产的")
       //看看有没有需要打开的工厂，可能是从别的地方跳过来生产的
       this.isOpenFactoryInfo();
       this.showFactory();
@@ -50,7 +48,6 @@ export default class factoryIndex extends baseScene {
    */
   private adaption() {
     //轴心在左上角，需要计算一下y轴的位置
-    console.log(this._factory, '轴心在左上角，需要计算一下y轴的位置')
     // this._factory.y = -CONST.STAGEADAPTION;
     // this._factory_div.y = this._factory_div.y + CONST.ADAPTION;
     // this._factory_div.height = this._factory_div.height * (CONST.DESIGNSTAGEWIDTH/CONST.DESIGNSTAGEHEIGHT)/(CONST.STAGEWIDTH/CONST.STAGEHEIGHT);
@@ -81,7 +78,7 @@ export default class factoryIndex extends baseScene {
     };
     console.log("发送http数据",tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
-    Laya.stage.event(NETWORKEVENT.SENDFACTORYBAK);
+    // Laya.stage.event(NETWORKEVENT.SENDFACTORYBAK);
   }
   /**
 	* 展示工厂界面的信息
@@ -111,6 +108,7 @@ export default class factoryIndex extends baseScene {
         factory_icon.skin = data[id][myData[id].grade].pic + '.png';
         var factory_level = factory_div.getChildByName('factory_level');//工厂等级
         factory_level.text = myData[id].grade;
+       
         // factory_div.touchable = true;
         var good_list_bgdi = factory_div.getChildByName('good_list_bgdi');//生产完成物品列表的背景下角
         var good_list_bg = factory_div.getChildByName('good_list_bg');//生产完成物品列表的背景
@@ -121,7 +119,9 @@ export default class factoryIndex extends baseScene {
           //获取物品的列表
           var good_data = dataJson.getInstance().GET_SYS_FACTORY_GOOD();
           //显示生产成功的列表
-          good_list_bg.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
+          if (succ_goods_num>3) {
+            good_list_bg.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
+          }
           good_list.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
           good_list_bgdi.visible = true;
           // 鼠标不可以穿透
@@ -135,7 +135,6 @@ export default class factoryIndex extends baseScene {
           for (var q in list_data) {
             var goodInfo = good_data[id][list_data[q].id];//工厂可生产物品的信息
             goodInfo = dataJson.getInstance().GET_SYS_GOOD_INFO()[goodInfo.id];//获取物品的详细信息
-            //   console.log(goodInfo) 
 
             let index = goodInfo.pic.lastIndexOf("/")
             var _skin = goodInfo.pic.substring(index + 1, goodInfo.pic.length)
@@ -187,14 +186,14 @@ export default class factoryIndex extends baseScene {
       num++;
 
     }
-
+    this._factory.scene.factory_div.visible = true;
   }
   /**
    * 建造工厂
    * @param id：工厂ID 
    */
   private factory_create(id: string) {
-    console.log('未解锁的工厂', id)
+
     this.factory_create_act(id); //暂时
     //获取用户的信息
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
@@ -205,16 +204,13 @@ export default class factoryIndex extends baseScene {
     var grade2 = factory_info[1].grade2;
     tipController.getInstance()
     if (Math.floor(level) < Math.floor(grade2)) {
-      console.log('等级不足')
       Laya.stage.event(GAMEEVENT.TXTTIP, [grade2 + '级解锁']);
       return;
     }
     if (Math.floor(have_gold) < Math.floor(gold)) {
-      console.log('金币不足')
       Laya.stage.event(GAMEEVENT.TXTTIP, ['宝石不足']);
       return;
     }
-    console.log('可以进行解锁')
     // Laya.stage.event(GAMEEVENT.TIPSKUAN, ['是否消耗' + gold + '宝石建造' + factory_info[1].name + '？', '确定', '取消', function () {
     //   this.factory_create_act(id);
     //   tipController.getInstance().close();
@@ -227,7 +223,6 @@ export default class factoryIndex extends baseScene {
    * @param id：工厂ID 
    */
   private factory_create_act(id: string) {
-    console.log('工厂ID')
     let tmp_websocket = webSocketJson.getInstance();
     let tmp_data = {
     	'a':"factory_create",

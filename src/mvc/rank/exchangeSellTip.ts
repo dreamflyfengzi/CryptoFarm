@@ -49,7 +49,7 @@ export default class exchangeSellTip extends baseTips {
     this._good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[this._id];
     let index = this._good_info.pic.lastIndexOf("/");
     var _skin = this._good_info.pic.substring(index + 1, this._good_info.pic.length);
-    this._sellTip.scene.gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
+    this._sellTip.scene.gicon.skin = "main/" + _skin + ".png";
     this._sellTip.scene.gdescribe.text = this._good_info.info;
     // console.log(this._good_info.pic)
     this._sellTip.scene.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';

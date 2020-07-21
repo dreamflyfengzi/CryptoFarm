@@ -19,8 +19,6 @@ export default class orderGoodGoTip extends baseTips {
   }
   /**前往的框 */
   public showOrderGoodGoTip(x, y, id) {
-    console.log('showOrderGoodGoTip',x, y, id)
-    console.log('showOrderGoodGoTip',(x - CONST.DESIGNSTAGEWIDTH / 2) * CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH, (y - CONST.DESIGNSTAGEHEIGHT / 2) * CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT, id)
     this._orderGoodGoTip = new ui.order.goodGoTipUI;
     // this._orderGoodGoTip.x = (x - CONST.DESIGNSTAGEWIDTH / 2) * CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
     this._orderGoodGoTip.x = x - CONST.DESIGNSTAGEWIDTH / 2 + this._orderGoodGoTip.width/2;
@@ -31,11 +29,6 @@ export default class orderGoodGoTip extends baseTips {
     this._orderGoodGoTip.pivotY = 1*this._orderGoodGoTip.height;
     this.addChild(this._orderGoodGoTip);
     this.showLayer();
-    //赋值
-    // this.go_btn = this._orderGoodGoTip.getChild('go_btn').asLoader;
-    // this.gname = this._orderGoodGoTip.getChild('gname').asTextField;
-    // this.make = this._orderGoodGoTip.getChild('make').asTextField;
-    // this.goto_btn = this._orderGoodGoTip.getChild('goto_btn').asLoader;
 
     //查询系统物品信息
     var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
@@ -56,6 +49,9 @@ export default class orderGoodGoTip extends baseTips {
   private goFun(type: any, id: string) {
     this.tweenHide();
     orderController.getInstance().closeOrder();
+    console.log(type,id)
+    console.log(type,id)
+    console.log(type,id)
     if (type == 5) {
       infoController.getInstance().showBottonDiv('factory');
       //获取工厂的信息
@@ -74,7 +70,7 @@ export default class orderGoodGoTip extends baseTips {
         }
       }
       if (factoryId) {
-        factoryController.getInstance().onShowFactoryInfo(factoryId);
+        // factoryController.getInstance().onShowFactoryInfo(factoryId);
         console.log('设置需要打开工厂的ID')
         factoryController.getInstance().model._mf_id = factoryId;//设置需要打开工厂的ID
         factoryController.getInstance().model._is_open = true;//设置是否需要打开工厂

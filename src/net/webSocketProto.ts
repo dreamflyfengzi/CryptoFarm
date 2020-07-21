@@ -97,9 +97,9 @@ export class webSocketProto{
 		 * 处理接收到的数据
 		*/
 		private onMessage(evt){
-			console.log("onMessage",evt.data);
+			console.log("接收到的数据有",evt.data);
 			//把返回的信息转为Uint8Array数组
-			this.recvBufDV = new Uint8Array(evt.data);//new DataView(evt.data);	
+			this.recvBufDV = new Uint8Array(evt.data);
 			//解包数据
 			var tmp_data = protoMessage.Message.decode(this.recvBufDV);
 			//协议头

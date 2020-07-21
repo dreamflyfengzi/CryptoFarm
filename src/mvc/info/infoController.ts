@@ -24,7 +24,7 @@ export default class infoController{
 		this.model = new infoModel;
 		this._network = new infoNetwork;
 		Laya.stage.on(GAMEEVENT.GETINITINFO,this,this.getUserInfo);//获取用户信息
-		Laya.stage.on(NETWORKEVENT.INITINFO,this,this._network.InitInfo);//获取用户信息的回调
+		Laya.stage.on(NETWORKEVENT.INITINFO,this,this._network.InitInfo);//获取用户信息的回调  //更新用户信息
 		Laya.stage.on(GAMEEVENT.BOTTOMBTN,this,this.showBottonDiv);//获取用户信息
 		Laya.stage.on(GAMEEVENT.HIDEINFODIV,this,this.hideInfoDiv);//隐藏用户信息
 		Laya.stage.on(GAMEEVENT.SHOWINFODIV,this,this.showInfoDiv);//显示用户信息

@@ -28,7 +28,7 @@ export default class orderIndex extends baseWindow {
   }
   /**显示订单弹窗 */
   public onShowOrder() {
-    console.log('显示订单弹窗')
+    console.log('订单列表显示')
     this._orderIndex = new ui.order.orderIndexUI();
     this._orderIndex.name = 'orderIndex';
     // this.setScale(this._orderIndex.displayObject);
@@ -37,6 +37,8 @@ export default class orderIndex extends baseWindow {
     this.tweenShow();
     this._orderIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeOrder);
     this._orderIndex.scene.order_list.visible = false;
+    this._time = this._orderIndex.scene.time;
+    this._time.visible = false;
     //获取订单列表
     this.getLotteryInfo();
   }
@@ -91,64 +93,71 @@ export default class orderIndex extends baseWindow {
     var lottery_list = dataGlobal.getInstance().lotteryInfo;
     // var order_list = this._orderIndex.scene.order_list;
     this._orderList.dataSource = [];
-    console.log('展示任务列表-1', lottery_list, this._orderList)
     var num = 1;
     var key = '';
-    this._orderItem = {
-      name: '',
-      order_gold_val: {
-        text: ''
-      },
-      order_exp_val: {
-        text: ''
-      },
-      gou: {
-        visible: false
-      },
-      tijiao: {
-        visible: false
-      },
-      aperture: {
-        visible: false
-      }
-    };//重置一下选项
     if (lottery_list) {
       for (var i in lottery_list) {
+        this._orderItem = {
+          name: '',
+          id: '',
+          order_gold_val: {
+            text: ''
+          },
+          order_exp_val: {
+            text: ''
+          },
+          gou: {
+            visible: false
+          },
+          tijiao: {
+            visible: false
+          },
+          aperture: {
+            visible: false
+          }
+        };//重置一下选项
         var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[lottery_list[i].lottery_id];//获取任务信息
+
+        console.log("获取任务信息", lottery_info)
         //获取现在的等级
         var level = dataGlobal.getInstance().userInfo.grade;
-        if (Math.floor(level) >= Math.floor(lottery_info.grade) && Math.floor(level) <= Math.floor(lottery_info.grade2)) {
-          //创建任务的选项
-          this._orderItem.name = lottery_info.id + '_item';
-          this._orderItem.id = lottery_info.id;
-          var lottery_goods = lottery_info.goods3;//奖励的物品
-          for (var q in lottery_goods) {
-            if (lottery_goods[q].id == 'g001') {//金币
-              this._orderItem.order_gold_val.text = lottery_goods[q].num;
-            } else if (lottery_goods[q].id == 'exp001') {//经验
-              this._orderItem.order_exp_val.text = lottery_goods[q].num;
-            }
+        // if (Math.floor(level) >= Math.floor(lottery_info.grade) && Math.floor(level) <= Math.floor(lottery_info.grade2)) {
+        //创建任务的选项
+        this._orderItem.name = lottery_info.id + '_item';
+        this._orderItem.id = lottery_info.id;
+        var lottery_goods = lottery_info.goods3;//奖励的物品
+        for (var q in lottery_goods) {
+          if (lottery_goods[q].id == 'g001') {//金币
+            this._orderItem.order_gold_val.text = lottery_goods[q].num;
+          } else if (lottery_goods[q].id == 'exp001') {//经验
+            this._orderItem.order_exp_val.text = lottery_goods[q].num;
           }
-          // this._orderItem[lottery_info.id].on(Laya.Event.CLICK, this, this.clickOrderItem, [lottery_list[i].lottery_id]);//设置选项点击监听
-          this._orderList.addItem(this._orderItem);
-          this._orderList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, this._orderItem[lottery_info.id], false)
-          this.setOrderStatu(lottery_list[i].lottery_id);//设置订单的状态
-          this._orderList.visible = true;
-          if (num == 1) {
-            key = i;
-          }
-          num++;
+        }
+        this._orderList.addItem(this._orderItem);
+        console.log('执行次数')
+        this.setOrderStatu(lottery_list[i].lottery_id);//设置订单的状态
+        this._orderList.visible = true;
+        if (num == 1) {
+          key = i;
+        }
+        num++;
+        this._orderList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false)
+
+        if (this._orderList.length > 4) {
+          this._orderList.vScrollBarSkin = ""
+        }
+
+        // }
+      }
+      //初始化选中的任务
+      var id = orderController.getInstance().model._order_id;
+      if (id && this._orderItem[id]) {
+        this.clickOrderItem(id);
+      } else {
+        if (key && lottery_list[key].lottery_id) {
+          this.clickOrderItem(lottery_list[key].lottery_id);
         }
       }
-      // //初始化选中的任务
-      // var id = orderController.getInstance().model._order_id;
-      // if (id && this._orderItem[id]) {
-      //   this.clickOrderItem(id);
-      // } else {
-      //   if (key && lottery_list[key].lottery_id) {
-      //     this.clickOrderItem(lottery_list[key].lottery_id);
-      //   }
-      // }
     }
   }
 
@@ -159,18 +168,13 @@ export default class orderIndex extends baseWindow {
   public itemSelectHandler(cell) {
     cell.on(Laya.Event.CLICK, this, this.clickOrderItem, [cell.dataSource.id])
   }
-  // /**
-  //  * 
-  //  * @param 点击订单
-  //  */
-  // public clickItem(cell) {
-  //    console.log(cell)
-  // }
+
   /**
    * 设置订单状态
    * id：订单的ID
    */
   private setOrderStatu(id) {
+    console.log(id)
     //获取订单信息
     var order_info = dataGlobal.getInstance().lotteryInfo[id];
     var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];//获取系统任务信息
@@ -178,32 +182,33 @@ export default class orderIndex extends baseWindow {
     if (order_info.is_ok == 1) {//未完成
       var is_goods = this.isGoodsEnough(lottery_info.goods);
       if (is_goods) {//材料足够了
-        console.log(this._orderItem)
         for (var i = 0; i < this._orderList.cells.length; i++) {
           if (this._orderList.getItem(i)) {
-            this._orderList.getItem(i).gou.visible = true
-            console.log(this._orderIndex.scene.y_btn.skin)
+            if( id == this._orderList.getItem(i).id) {
+              this._orderList.getItem(i).gou.visible = true
+            }
+            this._orderList.getItem(i).tijiao.visible = false
             this._orderIndex.scene.y_btn.skin = 'order/btn_huang.png';
             this._orderIndex.scene.y_btn.on(Laya.Event.CLICK, this, this.lotteryAct, [1]);
           }
         }
       } else {//材料不足
-        console.log('材料不足')
         for (var i = 0; i < this._orderList.cells.length; i++) {
           if (this._orderList.getItem(i)) {
-            this._orderList.getItem(i).tijiao.visible = true
-            console.log(this._orderIndex.scene.y_btn.skin)
+            // this._orderList.getItem(i).gou.visible = false
+            // this._orderList.getItem(i).tijiao.visible = false
             this._orderIndex.scene.y_btn.skin = 'order/btn_hui.png';
             this._orderIndex.scene.y_btn.on(Laya.Event.CLICK, this, this.lotteryAct, [2]);
           }
         }
       }
     } else {//提交了
-      console.log('提交了')
       for (var i = 0; i < this._orderList.cells.length; i++) {
         if (this._orderList.getItem(i)) {
-          this._orderList.getItem(i).tijiao.visible = true
-          console.log(this._orderIndex.scene.y_btn.skin)
+          if( id == this._orderList.getItem(i).id) {
+            this._orderList.getItem(i).tijiao.visible = true
+          }
+          this._orderList.getItem(i).gou.visible = false
           this._orderIndex.scene.y_btn.skin = 'order/btn_hui.png';
         }
       }
@@ -225,7 +230,6 @@ export default class orderIndex extends baseWindow {
    */
   public setClicAperture(id) {
     var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];//获取系统任务信息
-    console.log(dataJson.getInstance().GET_SYS_FLOWER_LOTTERY(), id)
     var lottery_goods_list = lottery_info.goods3;
     for (var i in lottery_goods_list) {
       if (lottery_goods_list[i].id == 'g001') {//金币
@@ -234,24 +238,20 @@ export default class orderIndex extends baseWindow {
         this._orderIndex.scene.exp_val.text = lottery_goods_list[i].num;
       }
     }
-    if (this._orderItem.id == id) {
-      for (var j = 0; j < this._orderList.cells.length; j++) {
-        if (this._orderList.getItem(j)) {
-          var source = this._orderList.getItem(j)
-          console.log(source)
-          // source.aperture.visible = true;
-          // this._orderList.setItem(j,source)
-        }
-      }
-    } else {
-      for (var j = 0; j < this._orderList.cells.length; j++) {
-        if (this._orderList.getItem(j)) {
-          var source = this._orderList.getItem(j)
-          source.aperture.visible = false;
-          this._orderList.setItem(j, source)
-        }
+    for (var _z in this._orderList.dataSource) {
+      if (this._orderList.dataSource[_z].id == id) {
+        var source = this._orderList.dataSource[_z];
+        var index = Number(_z)
+        source.aperture.visible = true;
+        this._orderList.setItem(index, source)
+      } else {
+        var _source = this._orderList.dataSource[_z];
+        var _index = Number(_z)
+        _source.aperture.visible = false;
+        this._orderList.setItem(_index, _source)
       }
     }
+
 
   }
   /**
@@ -274,12 +274,12 @@ export default class orderIndex extends baseWindow {
       }
       let index = good_info.pic.lastIndexOf("/")
       var _skin = good_info.pic.substring(index + 1, good_info.pic.length)
-      console.log(_skin)
+     
       //创建列表项
       var good_item = {
         name: good_info.id,
         gicon: {
-          skin: "main/" + _skin + ".png"
+          skin: "factory/" + _skin + ".png"
         },
         gnum: {
           text: ''
@@ -293,35 +293,25 @@ export default class orderIndex extends baseWindow {
       }
       good_item.gnum.text = str;
       this._good_list.addItem(good_item);
-      this._good_list.renderHandler = new Laya.Handler(this, this.goodSelectHandler, [good_item, good_info.id], false)
-      // good_item.on(Laya.Event.CLICK, this, this.clickGoodItem, [good_item, good_info.id]);
+      this._good_list.renderHandler = new Laya.Handler(this, this.goodSelectHandler, null, false)
+      this._good_list.visible = true;
     }
 
   }
   /**
    * 订单详情渲染完成
    */
-  private goodSelectHandler(item, id, cell) {
-    cell.on(Laya.Event.CLICK, this, this.clickGoodItem, [item, id])
+  private goodSelectHandler(cell, index) {
+    cell.on(Laya.Event.CLICK, this, this.clickGoodItem, [cell.dataSource, index])
   }
   /**
    * 展示物品的信息
    */
-  public clickGoodItem(obj, id) {
-    for (var i = 0; i < this._good_list.cells.length; i++) {
-      if (this._good_list.getCell(i).name == id) {
-        console.log(this._good_list.getCell(i))
-        var x = this._good_list.getCell(i).x + this._good_list.x;
-        var y = this._good_list.getCell(i).y + this._good_list.y;
-        orderController.getInstance().showOrderGoodGoTip(x, y, id)
-      }
-    }
-
-    // var x = this._good_list.x + this._good_list.margin.left + obj.x + obj.width / 2 - this._good_list.scrollPane.posX;//(列表的x坐标+列表左填充位置+对象的x坐标+对象框/2-滚动条的x定位)
-    // console.log(obj.x,obj.y,this._good_list.scrollPane.posX,this._good_list.scrollPane.posY);
-    // var y = this._good_list.y;
-    // orderController.getInstance().showOrderGoodGoTip(x, y, id);
-
+  public clickGoodItem(obj, index) {
+    var id = this._good_list.getCell(index).name
+    var x = this._good_list.getCell(index).x + this._good_list.x;
+    var y = this._good_list.getCell(index).y + this._good_list.y;
+     orderController.getInstance().showOrderGoodGoTip(x, y, id)
   }
   /**
    * 判断物品是否足够
@@ -369,7 +359,8 @@ export default class orderIndex extends baseWindow {
   public showOrderTime() {
     //获取时间
     var timeStr = orderController.getInstance().model.thisDay;
-    // this._time.text = globalFun.getInstance().getCountDown(timeStr);
+    this._time.text = globalFun.getInstance().getCountDown(timeStr);
+    this._time.visible = true;
 
   }
   /**

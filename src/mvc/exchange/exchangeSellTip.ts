@@ -51,7 +51,6 @@ export default class exchangeSellTip extends baseTips {
     var _skin = this._good_info.pic.substring(index + 1, this._good_info.pic.length);
     this._sellTip.scene.gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
     this._sellTip.scene.gdescribe.text = this._good_info.info;
-    // console.log(this._good_info.pic)
     this._sellTip.scene.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
   }
   /**
@@ -84,7 +83,6 @@ export default class exchangeSellTip extends baseTips {
     	},
     	'code':1
     };
-    console.log("发送websocket数据",tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
     // Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
     this.closeSellTip();

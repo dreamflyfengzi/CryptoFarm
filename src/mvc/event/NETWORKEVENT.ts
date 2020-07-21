@@ -43,5 +43,14 @@ export default class NETWORKEVENT{
   public static SHOWSELLTIP:string = 'show_sell_tip';//暂时
   
   public static MARKETINFOBAK:string = 'market_info_bak';//获取仓库信息
+
+
+  /**
+   * Exchange
+   * 交易市场部分
+   */
+  public static EXCHANGEINFOBAK:string = 'exchange_info_bak';//返回市场交易信息  市场   传递信息+筛选类型
+  public static EXCHANGEMYMATERIAL:string = 'exchange_my_material' //返回我的可出售物品信息
+  // public static 
   
 }

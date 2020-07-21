@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":5,
-    "selecteID":6,
+    "selectedBox":14,
+    "selecteID":9,
     "searchKey":"Scene",
     "props":{"x":0,"width":1246,"sceneColor":"#000000","pivotX":0,"height":2181},
     "nodeParent":-1,
@@ -48,7 +48,7 @@
             "x":15,
             "type":"List",
             "searchKey":"List,factory_div",
-            "props":{"y":339,"x":0,"width":1246,"var":"factory_div","repeatY":3,"repeatX":2,"renderType":"render","height":2307},
+            "props":{"y":179,"x":-12,"width":1246,"visible":false,"var":"factory_div","spaceY":70,"repeatY":3,"repeatX":2,"renderType":"render","height":2307},
             "nodeParent":2,
             "label":"factory_div",
             "isOpen":true,
@@ -61,28 +61,30 @@
                     "x":30,
                     "type":"Box",
                     "searchKey":"Box,factoryItem",
-                    "props":{"y":328,"x":-17,"width":640,"var":"factoryItem","renderType":"render","height":555},
+                    "props":{"y":328,"x":-17,"width":640,"visible":true,"var":"factoryItem","renderType":"render","height":555},
                     "nodeParent":5,
                     "label":"factoryItem",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":false,
                     "hasChild":true,
                     "compId":6,
                     "child":[
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,open_div,open_div",
                             "props":{"y":0,"x":0,"var":"open_div","name":"open_div"},
                             "nodeParent":6,
                             "label":"open_div",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":false,
                             "hasChild":true,
                             "compId":14,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,factory_icon",
                                     "props":{"y":-70,"x":2,"width":642,"skin":"factory/pic_factory2.png","pivotY":1,"pivotX":0.5,"name":"factory_icon","height":626},
@@ -97,6 +99,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Sprite",
                                     "searchKey":"Sprite,n10",
                                     "props":{"y":392,"x":272,"width":158,"texture":"factory/pic_xing.png","name":"n10","height":163},
@@ -110,9 +113,10 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,factory_level",
-                                    "props":{"y":434,"x":284,"width":135,"valign":"middle","text":"0","strokeColor":"#e86c18","stroke":5,"name":"factory_level","height":112,"fontSize":90,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                                    "props":{"y":443.5,"x":292,"width":98,"valign":"middle","text":"0","strokeColor":"#a3490d","stroke":5,"name":"factory_level","height":60,"fontSize":90,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
                                     "nodeParent":14,
                                     "label":"factory_level",
                                     "isDirectory":false,
@@ -123,6 +127,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Sprite",
                                     "searchKey":"Sprite,good_list_bgdi",
                                     "props":{"y":-95,"x":312,"width":78,"texture":"factory/pic_shoukuang1.png","name":"good_list_bgdi","height":50},
@@ -136,9 +141,10 @@
                                         ]
                                 },
                                 {
-                                    "type":"Sprite",
-                                    "searchKey":"Sprite,good_list_bg",
-                                    "props":{"y":-250,"x":138,"width":426,"texture":"factory/pic_shoukuang2.png","name":"good_list_bg","height":180},
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image,good_list_bg",
+                                    "props":{"y":-142,"x":355,"width":418,"skin":"factory/pic_shoukuang2.png","sizeGrid":"40,49,27,51","pivotY":101,"pivotX":217,"name":"good_list_bg","height":165},
                                     "nodeParent":14,
                                     "label":"good_list_bg",
                                     "isDirectory":false,
@@ -149,9 +155,10 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"List",
                                     "searchKey":"List,good_list,good_list",
-                                    "props":{"y":-222,"x":154,"width":394,"var":"good_list","spaceX":40,"repeatY":1,"renderType":"render","name":"good_list","height":124},
+                                    "props":{"y":-204,"x":154.5,"width":394,"var":"good_list","spaceX":40,"repeatY":1,"renderType":"render","name":"good_list","height":124},
                                     "nodeParent":14,
                                     "label":"good_list",
                                     "isOpen":true,
@@ -161,6 +168,7 @@
                                     "compId":12,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "searchKey":"Box,good_item,good_item",
                                             "props":{"width":100,"var":"good_item","renderType":"render","name":"good_item","height":100},
@@ -191,6 +199,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,unlock_div,unlock_div",
                             "props":{"y":56,"x":29,"width":579,"var":"unlock_div","name":"unlock_div","height":498},
@@ -306,7 +315,7 @@
                                     "child":[
                                         ]
                                 }],
-                            "$HIDDEN":false
+                            "$HIDDEN":true
                         }]
                 }]
         }],

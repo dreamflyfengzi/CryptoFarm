@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":48,
-    "selecteID":50,
+    "selectedBox":2,
+    "selecteID":61,
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
-    "maxID":53,
+    "maxID":62,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -18,7 +18,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,n1",
-            "props":{"y":352,"x":33,"width":1193,"var":"n1","skin":"warehouse/pic_kuang8.png","sizeGrid":"50,50,60,50","height":2003},
+            "props":{"y":352,"x":33,"width":1193,"var":"n1","skin":"warehouse/pic_kuang8.png","sizeGrid":"50,50,60,50","height":1736},
             "nodeParent":2,
             "label":"n1",
             "isDirectory":false,
@@ -32,7 +32,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,n0",
-            "props":{"y":377,"x":74,"width":1112,"var":"n0","skin":"order/pic_liebiaokuang2.png","sizeGrid":"50,50,50,50","height":1952},
+            "props":{"y":377,"x":74,"width":1112,"var":"n0","skin":"order/pic_liebiaokuang2.png","sizeGrid":"50,50,50,50","height":1652},
             "nodeParent":2,
             "label":"n0",
             "isDirectory":false,
@@ -116,7 +116,7 @@
             "x":15,
             "type":"List",
             "searchKey":"List,my_list,my_list",
-            "props":{"y":565,"x":91,"width":1077,"visible":false,"var":"my_list","spaceY":10,"repeatY":5,"repeatX":3,"renderType":"render","name":"my_list","height":1625,"elasticEnabled":false},
+            "props":{"y":796,"x":92,"width":1077,"visible":true,"var":"my_list","spaceY":20,"repeatX":3,"renderType":"render","name":"my_list","height":1000,"elasticEnabled":false},
             "nodeParent":2,
             "label":"my_list",
             "isOpen":true,
@@ -188,7 +188,7 @@
             "x":15,
             "type":"List",
             "searchKey":"List,market_list,market_list",
-            "props":{"y":565,"x":91.5,"width":1077,"var":"market_list","spaceY":10,"repeatY":5,"repeatX":3,"renderType":"render","name":"market_list","height":1625,"elasticEnabled":false},
+            "props":{"y":796,"x":91.5,"width":1077,"visible":true,"var":"market_list","spaceY":20,"repeatX":3,"renderType":"render","name":"market_list","height":1000,"elasticEnabled":false},
             "nodeParent":2,
             "label":"market_list",
             "isOpen":true,
@@ -251,13 +251,13 @@
                                 ]
                         }]
                 }],
-            "$HIDDEN":true
+            "$HIDDEN":false
         },
         {
             "x":15,
             "type":"Image",
             "searchKey":"Image,n8",
-            "props":{"y":2131,"x":74,"width":1109,"var":"n8","skin":"order/pic_zhaungshi3.png","sizeGrid":"28,40,25,40","height":187},
+            "props":{"y":1842,"x":74,"width":1109,"var":"n8","skin":"order/pic_zhaungshi3.png","sizeGrid":"28,40,25,40","height":187},
             "nodeParent":2,
             "label":"n8",
             "isDirectory":false,
@@ -271,7 +271,7 @@
             "x":15,
             "type":"Button",
             "searchKey":"Button,material_btn,material_btn",
-            "props":{"y":2164,"x":764,"width":304,"var":"material_btn","stateNum":"1","skin":"main/btn_hui.png","sizeGrid":"54,48,76,46","name":"material_btn","labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#fff","labelBold":true,"labelAlign":"center","label":"我的材料","height":143},
+            "props":{"y":1873,"x":734,"width":304,"var":"material_btn","stateNum":"1","skin":"main/btn_hui.png","sizeGrid":"54,48,76,46","name":"material_btn","labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#fff","labelBold":true,"labelAlign":"center","label":"我的材料","height":143},
             "nodeParent":2,
             "label":"material_btn",
             "isDirectory":false,
@@ -285,13 +285,121 @@
             "x":15,
             "type":"Button",
             "searchKey":"Button,market_btn,market_btn",
-            "props":{"y":2164,"x":149,"width":304,"var":"market_btn","stateNum":"1","skin":"main/btn_huang.png","sizeGrid":"54,48,76,46","name":"market_btn","labelStrokeColor":"#4e2e1d","labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#4e2e1d","labelBold":true,"label":"市场","height":143},
+            "props":{"y":1873,"x":165,"width":304,"var":"market_btn","stateNum":"1","skin":"main/btn_huang.png","sizeGrid":"54,48,76,46","name":"market_btn","labelStrokeColor":"#4e2e1d","labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#4e2e1d","labelBold":true,"label":"市场","height":143},
             "nodeParent":2,
             "label":"market_btn",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
             "compId":46,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Box",
+            "searchKey":"Box,paging",
+            "props":{"y":601.5,"x":414,"width":391,"var":"paging","height":132},
+            "nodeParent":2,
+            "label":"paging",
+            "isOpen":false,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":57,
+            "child":[
+                {
+                    "type":"Sprite",
+                    "searchKey":"Sprite,paging_bg",
+                    "props":{"y":0,"x":5,"width":381,"var":"paging_bg","texture":"main/mall_number_board_.png","height":141},
+                    "nodeParent":57,
+                    "label":"paging_bg",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":54,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Sprite",
+                    "searchKey":"Sprite,paging_last_btn",
+                    "props":{"y":17,"x":15,"width":90,"var":"paging_last_btn","texture":"main/mall_buy_less_button.png","height":90},
+                    "nodeParent":57,
+                    "label":"paging_last_btn",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":55,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Sprite",
+                    "searchKey":"Sprite,paging_next_btn",
+                    "props":{"y":17,"x":280,"width":90,"var":"paging_next_btn","texture":"main/mall_buy_more_button.png","height":90},
+                    "nodeParent":57,
+                    "label":"paging_next_btn",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":56,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Label",
+                    "searchKey":"Label,paging_num",
+                    "props":{"y":25,"x":108,"width":172,"var":"paging_num","valign":"middle","text":"1 / 21","strokeColor":"#7f8a92","stroke":8,"height":91,"fontSize":60,"font":"Microsoft YaHei","color":"#f9f9f9","bold":false,"align":"center"},
+                    "nodeParent":57,
+                    "label":"paging_num",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":58,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,total",
+            "props":{"y":626,"x":103,"width":172,"var":"total","valign":"middle","text":"全部：","strokeColor":"#7f8a92","stroke":0,"height":91,"fontSize":60,"font":"Microsoft YaHei","color":"#c07920","bold":true,"align":"center"},
+            "nodeParent":2,
+            "label":"total",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":59,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,total_num",
+            "props":{"y":626,"x":248.5,"width":137,"var":"total_num","valign":"middle","text":"111","strokeColor":"#7f8a92","stroke":0,"height":91,"fontSize":65,"font":"Microsoft YaHei","color":"#f6e279","bold":false,"align":"center"},
+            "nodeParent":2,
+            "label":"total_num",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":60,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Button",
+            "searchKey":"Button,screen_btn,screen_btn",
+            "props":{"y":609.5,"x":893.5,"width":221,"var":"screen_btn","stateNum":"1","skin":"main/btn_lan.png","sizeGrid":"54,48,76,46","name":"screen_btn","labelStrokeColor":"#cfeeef","labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#cfeeef","labelBold":true,"label":"筛选","height":124},
+            "nodeParent":2,
+            "label":"screen_btn",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":61,
             "child":[
                 ]
         }],

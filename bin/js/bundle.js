@@ -82,6 +82,8 @@
     }
     GAMEEVENT.ONPROGRESSLOADING = 'ONPROGRESSLOADING';
     GAMEEVENT.ONLOADCOMPLETE = 'onloadcomplete';
+    GAMEEVENT.ONPROGRESSFONT = 'ONPROGRESSFONT';
+    GAMEEVENT.ONLOADFONTCOMPLETE = 'onloadfontcomplete';
     GAMEEVENT.ONRESPROGRESSLOGIN = 'ONPROGRESSLOGIN';
     GAMEEVENT.ONRESCOMPLETELOGIN = 'ONRESCOMPLETELOGIN';
     GAMEEVENT.ONRESIZE = 'ONRESIZE';
@@ -177,7 +179,6 @@
             if (typeof data.sid2 != 'undefined') {
                 this.query.uid = data.uid;
             }
-            console.log('用户信息是', data);
         }
         setUserProp(data) {
             this.userProp = data;
@@ -396,6 +397,20 @@
         })(base = ui.base || (ui.base = {}));
     })(ui || (ui = {}));
     (function (ui) {
+        var email;
+        (function (email) {
+            class emailUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("email/email");
+                }
+            }
+            email.emailUI = emailUI;
+            REG("ui.email.emailUI", emailUI);
+        })(email = ui.email || (ui.email = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
         var exchange;
         (function (exchange) {
             class buyBulletUI extends Laya.Scene {
@@ -416,6 +431,15 @@
             }
             exchange.exchangeUI = exchangeUI;
             REG("ui.exchange.exchangeUI", exchangeUI);
+            class screenUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("exchange/screen");
+                }
+            }
+            exchange.screenUI = screenUI;
+            REG("ui.exchange.screenUI", screenUI);
             class selltipUI extends Laya.Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -7288,7 +7312,7 @@
                 "1": {
                     "grade": "1",
                     "num": "10000",
-                    "field": "9",
+                    "field": "2",
                     "store": "10",
                     "lottery_num": "1",
                     "store_num": "1000",
@@ -7307,7 +7331,7 @@
                 "2": {
                     "grade": "2",
                     "num": "0",
-                    "field": "0",
+                    "field": "3",
                     "store": "0",
                     "lottery_num": "2",
                     "store_num": "0",
@@ -7326,7 +7350,7 @@
                 "3": {
                     "grade": "3",
                     "num": "0",
-                    "field": "0",
+                    "field": "4",
                     "store": "0",
                     "lottery_num": "2",
                     "store_num": "0",
@@ -7345,7 +7369,7 @@
                 "4": {
                     "grade": "4",
                     "num": "0",
-                    "field": "0",
+                    "field": "5",
                     "store": "0",
                     "lottery_num": "3",
                     "store_num": "0",
@@ -7364,7 +7388,7 @@
                 "5": {
                     "grade": "5",
                     "num": "0",
-                    "field": "0",
+                    "field": "6",
                     "store": "0",
                     "lottery_num": "3",
                     "store_num": "0",
@@ -7379,7 +7403,7 @@
                 "6": {
                     "grade": "6",
                     "num": "0",
-                    "field": "0",
+                    "field": "7",
                     "store": "0",
                     "lottery_num": "4",
                     "store_num": "0",
@@ -7394,7 +7418,7 @@
                 "7": {
                     "grade": "7",
                     "num": "0",
-                    "field": "0",
+                    "field": "8",
                     "store": "0",
                     "lottery_num": "4",
                     "store_num": "0",
@@ -7409,7 +7433,7 @@
                 "8": {
                     "grade": "8",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "4",
                     "store_num": "0",
@@ -7428,7 +7452,7 @@
                 "9": {
                     "grade": "9",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "4",
                     "store_num": "0",
@@ -7447,7 +7471,7 @@
                 "10": {
                     "grade": "10",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7466,7 +7490,7 @@
                 "11": {
                     "grade": "11",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7485,7 +7509,7 @@
                 "12": {
                     "grade": "12",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7504,7 +7528,7 @@
                 "13": {
                     "grade": "13",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7523,7 +7547,7 @@
                 "14": {
                     "grade": "14",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7542,7 +7566,7 @@
                 "15": {
                     "grade": "15",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7561,7 +7585,7 @@
                 "16": {
                     "grade": "16",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7580,7 +7604,7 @@
                 "17": {
                     "grade": "17",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7599,7 +7623,7 @@
                 "18": {
                     "grade": "18",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7618,7 +7642,7 @@
                 "19": {
                     "grade": "19",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -7637,7 +7661,7 @@
                 "20": {
                     "grade": "20",
                     "num": "0",
-                    "field": "0",
+                    "field": "9",
                     "store": "0",
                     "lottery_num": "5",
                     "store_num": "0",
@@ -8595,7 +8619,6 @@
             gameLayer.windowlayer.addChildAt(obj, 0);
         }
         onClick() {
-            console.log("onClick");
         }
         clearAll() {
             this.modal.visible = false;
@@ -8627,6 +8650,7 @@
             super();
         }
         tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            console.log(content_txt);
             var _tipKuan = new ui.base.tishi_tipUI();
             _tipKuan.content_txt.text = content_txt;
             _tipKuan.confirm_btn.label = confirm_txt;
@@ -8642,6 +8666,7 @@
             this.tweenHide();
         }
         gameFailTip(data) {
+            console.log('错误提醒3');
             var myData = data.gd;
             this.tipShow(myData.msg, '确定', '取消', function () {
                 this.close();
@@ -8667,7 +8692,6 @@
         goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
             var _tipKuan = new ui.base.tishi_tipUI();
             this.addChild(_tipKuan);
-            console.log('金币提示弹框');
             _tipKuan.content_txt.text = content_txt;
             _tipKuan.confirm_btn.label = confirm_txt;
             _tipKuan.cancel_btn.label = cancel_txt;
@@ -8702,6 +8726,7 @@
             this._tipCom.gameTxtTip(txt, call_fun);
         }
         gameFailTip(data) {
+            console.log('错误提醒2');
             if (this._tipCom == null) {
                 this._tipCom = new tipIndex;
             }
@@ -8750,6 +8775,8 @@
     NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
     NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
     NETWORKEVENT.MARKETINFOBAK = 'market_info_bak';
+    NETWORKEVENT.EXCHANGEINFOBAK = 'exchange_info_bak';
+    NETWORKEVENT.EXCHANGEMYMATERIAL = 'exchange_my_material';
 
     class tipController {
         constructor() {
@@ -8765,7 +8792,6 @@
             return tipController._instance;
         }
         tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            console.log('飘窗弹框提醒');
             if (this._tipview == null) {
                 this._tipview = new tipView();
             }
@@ -8778,13 +8804,13 @@
             this._tipview.goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
         }
         gameTxtTip(txt, call_fun) {
-            console.log('飘字提醒');
             if (this._tipview == null) {
                 this._tipview = new tipView;
             }
             this._tipview.gameTxtTip(txt, call_fun);
         }
         gameFailTip(data) {
+            console.log('错误提醒', data);
             if (this._tipview == null) {
                 this._tipview = new tipView;
             }
@@ -8913,7 +8939,7 @@
             this.websocket = null;
             webSocketJson._instance = null;
             if (webSocketJson.isConnectting == true) {
-                console.log("正在连接中。。。。");
+                console.log("正在连接中");
                 return;
             }
             else {
@@ -9009,7 +9035,6 @@
                     this.grow_kuan.visible = false;
                 }
                 if (data.seed_data.next_mature_time <= 0) {
-                    console.log("判断是否到时间了，如果到时见那么久应该发送成长请求");
                     let tmp_websocket = webSocketJson.getInstance();
                     let tmp_data = {
                         'a': "init_grow_flower",
@@ -9043,7 +9068,7 @@
             }
         }
         onClickLand() {
-            console.log(farmController.getInstance().model.clickLandStatic);
+            console.log('点击田地操作+++++++++++++++++++++++++++++++++++');
             if (farmController.getInstance().model.clickLandStatic == 'harvest' || farmController.getInstance().model.clickLandStatic == 'water') {
                 farmController.getInstance().model.setClickLandStatic('');
                 return;
@@ -9125,10 +9150,10 @@
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             if (Math.floor(have_gold) < Math.floor(landInfo.num2)) {
                 str = '宝石不足，不能升级';
-                gold_str = "<span style='color:#E92727'>" + have_gold + "</span><span style='color:#7D4815'>/" + data.next_ff_id_glod + "</span>";
+                gold_str = "" + have_gold + "/" + data.next_ff_id_glod + "";
             }
             else {
-                gold_str = "<span style='color:#7D4815'>" + have_gold + "</span><span style='color:#7D4815'>/" + data.next_ff_id_glod + "</span>";
+                gold_str = "" + have_gold + "/" + data.next_ff_id_glod + "";
             }
             if (Math.floor(data.ff_exp) < Math.floor(landInfo.exp)) {
                 str = '花田经验不足，请多多种植吧';
@@ -9160,7 +9185,8 @@
             }
             var member = dataJson.getInstance().GET_SYS_FLOWER_MEMBER();
             var member_info = dataJson.getInstance().GET_SYS_FLOWER_MEMBER()[grade];
-            console.log(member_info);
+            console.log("玩家初始数据", member);
+            console.log("当前用户等级对应的初始数据", member_info);
             var userFarm = dataGlobal.getInstance().farmInfo;
             var num = 0;
             for (var i in userFarm) {
@@ -9168,20 +9194,19 @@
                     num++;
                 }
             }
-            console.log(num);
-            console.log(member_info);
             if (member_info.field <= num) {
-                console.log('这里是不能开花田的，需要查询一下下一级可以开的花田');
                 for (var q in member) {
                     if (member[q].field > member_info.field) {
+                        console.log(member_info.field);
                         str = '达到' + member[q].grade + '级可扩建该花田';
                         break;
                     }
                 }
             }
+            console.log(data);
             gold_str = '是否消耗' + data.ff_id_unlocknum + '钻石解锁花田';
             if (type == 1) {
-                gold_str = '是否消耗' + data.ff_id_unlocknum + '钻石升级花田';
+                gold_str = '是否消耗' + data.next_ff_id_glod + '钻石升级花田';
             }
             if (str) {
                 Laya.stage.event(GAMEEVENT.TIPSKUAN, [str, '确定', '取消', function () {
@@ -9201,7 +9226,6 @@
             Laya.stage.event(GAMEEVENT.GOLDTIP, ['扩建', gold_str, '确定', '取消', confirm_fun, cancel_fun]);
         }
         onGradeExtendAct(type) {
-            console.log('进行扩建');
             let tmp_websocket = webSocketJson.getInstance();
             let tmp_data = {
                 'a': "init_flower_grade",
@@ -9234,9 +9258,15 @@
             }
             if (this.land_static == 'upgrade') {
                 this.upgrade_kuan.visible = true;
+                this.upgrade_kuan.mouseThrough = true;
                 if (data.ff_vip >= data.max_grade) {
-                    this.upgrade_info.text = "<span style='color:#ffffff'>满级</span>";
+                    this.upgrade_info.text = "满级";
                     this.upgrade_info.visible = true;
+                    this.n17.visible = false;
+                    this.n18.visible = false;
+                    this.upgrade_gold.visible = false;
+                    this.upgrade_level.visible = false;
+                    this.upgrade_progressbar.visible = false;
                     this.land.mouseEnabled = true;
                     this.land.on(Laya.Event.CLICK, this, function () {
                     });
@@ -9248,7 +9278,7 @@
                     this.upgrade_gold.visible = true;
                     this.upgrade_level.text = 'lv:' + (data.ff_vip - 1);
                     this.upgrade_level.visible = true;
-                    this.upgrade_progressbar.value = Math.floor((data.ff_exp / data.next_exp) * 100) >= 100 ? 100 : Math.floor((data.ff_exp / data.next_exp) * 100);
+                    this.upgrade_progressbar.value = data.ff_exp / data.next_exp;
                     this.upgrade_progressbar.visible = true;
                     this.land.mouseEnabled = true;
                     this.land.on(Laya.Event.CLICK, this, this.onClickLand);
@@ -9265,7 +9295,10 @@
             if (data.seed_data.id) {
                 let index = data.seed_data.pic.lastIndexOf("/");
                 var _skin = data.seed_data.pic.substring(index + 1, data.seed_data.pic.length);
+                console.log(data.ff_id, _skin, data.seed_data.id);
+                console.log(data.seed_data.name);
                 this.flower.skin = "main/" + _skin + ".png";
+                console.log(this.flower.skin);
                 this.flower.visible = true;
                 if (this.isOperation(data)) {
                     return;
@@ -9289,12 +9322,13 @@
         isOperation(data) {
             var data = dataGlobal.getInstance().farmInfo[this.land_id];
             var clickLandStatic = farmController.getInstance().model.clickLandStatic;
-            if (clickLandStatic == '') {
+            if (clickLandStatic == '' || clickLandStatic == 'fertilizer') {
                 if (data.seed_data.id && data.seed_data.grow_static == 4 && data.seed_data.mature_time <= 0) {
                     this.land_static = 'harvest';
                     this.land.mouseEnabled = true;
                     this.land.off(Laya.Event.CLICK, this, this.onClickLand);
                     this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+                    this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
                     this.land.on(Laya.Event.CLICK, this, this.onClickLand);
                     this.harvest_icon.mouseEnabled = true;
                     this.harvest_icon.visible = true;
@@ -9406,7 +9440,6 @@
         }
         setSeedItem() {
             this._seed_list.dataSource = this._dataSeedList;
-            console.log(this._seed_list.dataSource);
             var grade = dataGlobal.getInstance().userInfo.grade;
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var seed_arr = farmController.getInstance().model.seedData;
@@ -9424,7 +9457,6 @@
                 if (grade >= seed_arr[i].grade2 && grade <= seed_arr[i].grade3) {
                     if (have_gold >= seed_arr[i].gold) {
                         _seedItem.gold_num.color = '#EDFF24';
-                        console.log(_seedItem, seed_arr[i], i);
                     }
                     else {
                         _seedItem.gold_num.color = '#FF3E24';
@@ -9443,6 +9475,7 @@
                     _seedItem.gold_num.color = '#274200';
                 }
             }
+            this._seed_list.renderHandler = null;
             this._seed_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
             this._seed_list.visible = true;
             this._seedListScene.visible = true;
@@ -9473,9 +9506,11 @@
             }
             this._seed_list.visible = true;
             this._seedListScene.visible = true;
+            this._seed_list.renderHandler = null;
             this._seed_list.renderHandler = new Laya.Handler(this, this.itemFatSelectHandler, [fat_arr], false);
         }
         itemSelectHandler(cell, index) {
+            cell.off(Laya.Event.CLICK, this, this.onClick);
             var grade = dataGlobal.getInstance().userInfo.grade;
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var seed_arr = farmController.getInstance().model.seedData;
@@ -9492,6 +9527,8 @@
             }
         }
         itemFatSelectHandler(arr, cell, index) {
+            cell.off(Laya.Event.CLICK, this, this.onClick);
+            cell.off(Laya.Event.CLICK, this, this.onFertilizer);
             cell.on(Laya.Event.CLICK, this, this.onFertilizer, [{ 'id': arr[index].id, 'num': arr[index].num }]);
         }
         hide() {
@@ -9562,218 +9599,7 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_websocket.sendMessage(tmp_data);
-        }
-    }
-
-    class warehouseIndex extends baseWindow {
-        constructor() {
-            super();
-        }
-        onShowWarehouse() {
-            if (this._warehouse == null) {
-                this._warehouse = new ui.warehouse.warehouseUI();
-                this._warehouse.name = 'warehouse';
-                this._warehouse.pivotX = 0.5 * this._warehouse.width;
-                this._warehouse.pivotY = 0.5 * this._warehouse.height;
-                this.addChild(this._warehouse);
-            }
-            this.tweenShow();
-            this._warehouse.scene.item_all.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'all') {
-                    this.switchItem('all');
-                    this.initWarehouseGoodList();
-                }
-            }.bind(this));
-            this._warehouse.scene.item_flower.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'flower') {
-                    this.switchItem('flower');
-                    this.initWarehouseGoodList();
-                }
-            }.bind(this));
-            this._warehouse.scene.item_good.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'goods') {
-                    this.switchItem('goods');
-                    this.initWarehouseGoodList();
-                }
-            }.bind(this));
-            this.switchItem('all');
-            this.store_info();
-            this._warehouse.scene.close_btn.on(Laya.Event.CLICK, this, this.tweenHide);
-        }
-        initWarehouseInfo() {
-            var data = dataGlobal.getInstance().warehouseInfo;
-            console.log('仓库', data);
-            this._warehouse.scene.good_num.text = '容量：' + data.num2 + '/' + data.num;
-            var store_info = dataJson.getInstance().GET_SYS_STORE_INFO();
-            console.log(data, store_info, store_info[Math.floor(data.grade) + 1]);
-            if (store_info[Math.floor(data.grade) + 1]) {
-                this._warehouse.scene.upgrade_btn.visible = true;
-                this.setUpdrageDiv();
-            }
-            else {
-                this._warehouse.scene.upgrade_btn.visible = false;
-            }
-        }
-        setUpdrageDiv() {
-            console.log('设置升级按钮');
-            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-            var data = dataGlobal.getInstance().warehouseInfo;
-            this._warehouse.scene.upgrade_btn.off(Laya.Event.CLICK, this, this.showGoldTip);
-            if (dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1]) {
-                var next_grade = dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1];
-                var good_list = next_grade.good;
-                var confirm_fun;
-                for (var i in good_list) {
-                    if (good_list[i].id == 'g001') {
-                        if (good_list[i].num > have_gold) {
-                            var str = "" + have_gold + "/" + good_list[i].num + "";
-                            confirm_fun = function () {
-                                tipController.getInstance().close();
-                            };
-                            console.log('不够钱', confirm_fun);
-                        }
-                        else {
-                            console.log('无法升级');
-                            var str = "" + have_gold + "/" + good_list[i].num + "";
-                            var self = this;
-                            confirm_fun = function () {
-                                this.warehouseUpgrade();
-                                tipController.getInstance().close();
-                            }.bind(this);
-                        }
-                    }
-                }
-                var cancel_fun = function () {
-                    tipController.getInstance().close();
-                };
-                console.log(str);
-                this._warehouse.scene.upgrade_btn.on(Laya.Event.CLICK, this, this.showGoldTip, ['仓库升级', str, '确定', '取消', confirm_fun, cancel_fun]);
-            }
-        }
-        showGoldTip(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            Laya.stage.event(GAMEEVENT.GOLDTIP, [title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun]);
-        }
-        store_info() {
-            let tmp_http = httpJson.getInstance();
-            let tmp_data = {
-                'a': "store_info",
-                'm': "store",
-                'd': {},
-                'code': 1
-            };
-            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-        }
-        initWarehouseGoodList() {
-            var data = dataGlobal.getInstance().userGoodInfo;
-            this._good_list = this._warehouse.scene.good_list;
-            this._good_list.dataSource = [];
-            var _dataSource = [];
-            if (data) {
-                var isAdd = false;
-                for (var i in data) {
-                    var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[data[i].id];
-                    if (this._type == 'all') {
-                        isAdd = true;
-                    }
-                    else if (this._type == 'flower' && good_info.type == 6) {
-                        isAdd = true;
-                    }
-                    else if (this._type == 'goods' && good_info.type == 5) {
-                        isAdd = true;
-                    }
-                    if (isAdd && Math.floor(data[i].num) > 0) {
-                        this.creator_good_item(data[i].id, data[i].num);
-                    }
-                    isAdd = false;
-                }
-            }
-            this._good_list.selectEnable = true;
-            this._good_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, [data[i].id], false);
-        }
-        itemSelectHandler(id, cell) {
-            cell.on(Laya.Event.CLICK, this, this.clickItem, [cell]);
-        }
-        clickItem(cell) {
-            this.showSellTip(cell.dataSource.id);
-        }
-        creator_good_item(id, num) {
-            var data = dataGlobal.getInstance().warehouseInfo;
-            var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
-            let index = good_info.pic.lastIndexOf("/");
-            var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
-            var isNum = num - Math.floor(data.num3);
-            if (isNum > 0) {
-                var good_item = {
-                    gnum: {
-                        text: data.num3
-                    },
-                    gicon: {
-                        skin: "main/" + _skin + ".png"
-                    },
-                    id: id
-                };
-                this._good_list.addItem(good_item);
-                this._good_list.visible = true;
-                this.creator_good_item(id, isNum);
-            }
-            else {
-                var good_item = {
-                    gnum: {
-                        text: num,
-                    },
-                    gicon: {
-                        skin: "main/" + _skin + ".png"
-                    },
-                    id: id
-                };
-                this._good_list.addItem(good_item);
-                this._good_list.visible = true;
-            }
-        }
-        switchItem(str) {
-            this._type = str;
-            this._warehouse.scene.item_all.skin = 'warehouse/btn_biaoqian2.png';
-            this._warehouse.scene.item_flower.skin = 'warehouse/btn_biaoqian2.png';
-            this._warehouse.scene.item_good.skin = 'warehouse/btn_biaoqian2.png';
-            this._warehouse.scene.item_all.labelColors = '#7D4815';
-            this._warehouse.scene.item_flower.labelColors = '#7D4815';
-            this._warehouse.scene.item_good.labelColors = '#7D4815';
-            this._warehouse.scene.item_all_biao.visible = false;
-            this._warehouse.scene.item_flower_biao.visible = false;
-            this._warehouse.scene.item_good_biao.visible = false;
-            if (this._type == 'all') {
-                this._warehouse.scene.item_all.skin = 'warehouse/btn_biaoqian1.png';
-                this._warehouse.scene.item_all.labelColors = '#fff';
-                this._warehouse.scene.item_all_biao.visible = true;
-            }
-            else if (this._type == 'flower') {
-                this._warehouse.scene.item_flower.skin = 'warehouse/btn_biaoqian1.png';
-                this._warehouse.scene.item_flower.labelColors = '#fff';
-                this._warehouse.scene.item_flower_biao.visible = true;
-            }
-            else if (this._type == 'goods') {
-                this._warehouse.scene.item_good.skin = 'warehouse/btn_biaoqian1.png';
-                this._warehouse.scene.item_good.labelColors = '#fff';
-                this._warehouse.scene.item_good_biao.visible = true;
-            }
-        }
-        warehouseUpgrade() {
-            var data = dataGlobal.getInstance().warehouseInfo;
-            let tmp_http = httpJson.getInstance();
-            let tmp_data = {
-                'a': "store_up_gread",
-                'm': "store",
-                'd': {
-                    'store_id': data.store_id
-                },
-                'code': 1
-            };
-            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-        }
-        showSellTip(id) {
-            warehouseController.getInstance().showSellTip(id);
         }
     }
 
@@ -9836,7 +9662,6 @@
             this.y = Laya.stage.height * .5;
         }
         onClick() {
-            console.log("onClick");
         }
         clearAll() {
             this.modal.visible = false;
@@ -9862,6 +9687,227 @@
                 str = CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
             }
             obj.scale(CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH, CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH);
+        }
+    }
+
+    class warehouseIndex extends baseTips {
+        constructor() {
+            super();
+        }
+        onShowWarehouse() {
+            if (this._warehouse == null) {
+                this._warehouse = new ui.warehouse.warehouseUI();
+                this._warehouse.name = 'warehouse';
+                this._warehouse.pivotX = 0.5 * this._warehouse.width;
+                this._warehouse.pivotY = 0.5 * this._warehouse.height;
+                this.addChild(this._warehouse);
+            }
+            this.tweenShow();
+            this._warehouse.scene.item_all.on(Laya.Event.CLICK, this, function () {
+                if (this._type != 'all') {
+                    this.switchItem('all');
+                    this.initWarehouseGoodList();
+                }
+            }.bind(this));
+            this._warehouse.scene.item_flower.on(Laya.Event.CLICK, this, function () {
+                if (this._type != 'flower') {
+                    this.switchItem('flower');
+                    this.initWarehouseGoodList();
+                }
+            }.bind(this));
+            this._warehouse.scene.item_good.on(Laya.Event.CLICK, this, function () {
+                if (this._type != 'goods') {
+                    this.switchItem('goods');
+                    this.initWarehouseGoodList();
+                }
+            }.bind(this));
+            this.switchItem('all');
+            this.store_info();
+            this._warehouse.scene.close_btn.on(Laya.Event.CLICK, this, this.tweenHide);
+        }
+        initWarehouseInfo() {
+            var data = dataGlobal.getInstance().warehouseInfo;
+            this._warehouse.scene.good_num.text = '容量：' + data.num2 + '/' + data.num;
+            var store_info = dataJson.getInstance().GET_SYS_STORE_INFO();
+            if (store_info[Math.floor(data.grade) + 1]) {
+                this._warehouse.scene.upgrade_btn.visible = true;
+                this.setUpdrageDiv();
+            }
+            else {
+                this._warehouse.scene.upgrade_btn.visible = false;
+            }
+        }
+        setUpdrageDiv() {
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var data = dataGlobal.getInstance().warehouseInfo;
+            this._warehouse.scene.upgrade_btn.off(Laya.Event.CLICK, this, this.showGoldTip);
+            if (dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1]) {
+                var next_grade = dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1];
+                var good_list = next_grade.good;
+                var confirm_fun;
+                for (var i in good_list) {
+                    if (good_list[i].id == 'g001') {
+                        if (good_list[i].num > have_gold) {
+                            var str = "" + have_gold + "/" + good_list[i].num + "";
+                            confirm_fun = function () {
+                                Laya.stage.event(GAMEEVENT.TXTTIP, ['宝石不足']);
+                                tipController.getInstance().close();
+                            };
+                        }
+                        else {
+                            var str = "确认花费" + good_list[i].num + "钻石升级仓库容量";
+                            var self = this;
+                            confirm_fun = function () {
+                                this.warehouseUpgrade();
+                                tipController.getInstance().close();
+                            }.bind(this);
+                        }
+                    }
+                }
+                var cancel_fun = function () {
+                    tipController.getInstance().close();
+                };
+                this._warehouse.scene.upgrade_btn.on(Laya.Event.CLICK, this, this.showGoldTip, ['仓库升级', str, '确定', '取消', confirm_fun, cancel_fun]);
+            }
+        }
+        showGoldTip(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            tipController.getInstance();
+            Laya.stage.event(GAMEEVENT.GOLDTIP, [title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun]);
+        }
+        store_info() {
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "store_info",
+                'm': "store",
+                'd': {},
+                'code': 1
+            };
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+        }
+        initWarehouseGoodList() {
+            var data = dataGlobal.getInstance().userGoodInfo;
+            this._good_list = this._warehouse.scene.good_list;
+            this._good_list.dataSource = [];
+            var _dataSource = [];
+            if (data) {
+                var isAdd = false;
+                for (var i in data) {
+                    var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[data[i].id];
+                    if (this._type == 'all') {
+                        isAdd = true;
+                    }
+                    else if (this._type == 'flower' && good_info.type == 6) {
+                        isAdd = true;
+                    }
+                    else if (this._type == 'goods' && good_info.type == 5) {
+                        isAdd = true;
+                    }
+                    if (isAdd && Math.floor(data[i].num) > 0) {
+                        this.creator_good_item(data[i].id, data[i].num);
+                    }
+                    isAdd = false;
+                }
+            }
+            this._good_list.selectEnable = true;
+            this._good_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, [data[i].id], false);
+        }
+        itemSelectHandler(id, cell) {
+            cell.on(Laya.Event.CLICK, this, this.clickItem, [cell]);
+        }
+        clickItem(cell) {
+            this.showSellTip(cell.dataSource.id);
+        }
+        creator_good_item(id, num) {
+            var data = dataGlobal.getInstance().warehouseInfo;
+            console.log(data);
+            var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
+            let index = good_info.pic.lastIndexOf("/");
+            var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
+            var isNum = num - Math.floor(data.num3);
+            if (isNum > 0) {
+                var good_item = {
+                    gnum: {
+                        text: data.num3
+                    },
+                    gicon: {
+                        skin: "main/" + _skin + ".png",
+                        width: 145,
+                        height: 145
+                    },
+                    id: id
+                };
+                this._good_list.addItem(good_item);
+                console.log(this._good_list.cells.length);
+                console.log(good_item.gicon);
+                if (this._good_list.cells.length >= 16) {
+                    this._good_list.vScrollBarSkin = '';
+                }
+                this._good_list.visible = true;
+                this.creator_good_item(id, isNum);
+            }
+            else {
+                var good_item = {
+                    gnum: {
+                        text: num,
+                    },
+                    gicon: {
+                        skin: "main/" + _skin + ".png",
+                        width: 145,
+                        height: 145
+                    },
+                    id: id
+                };
+                this._good_list.addItem(good_item);
+                console.log(this._good_list.cells.length);
+                console.log(good_item.gicon);
+                if (this._good_list.cells.length >= 16) {
+                    this._good_list.vScrollBarSkin = '';
+                }
+                this._good_list.visible = true;
+            }
+        }
+        switchItem(str) {
+            this._type = str;
+            this._warehouse.scene.item_all.skin = 'warehouse/btn_biaoqian2.png';
+            this._warehouse.scene.item_flower.skin = 'warehouse/btn_biaoqian2.png';
+            this._warehouse.scene.item_good.skin = 'warehouse/btn_biaoqian2.png';
+            this._warehouse.scene.item_all.labelColors = '#7D4815';
+            this._warehouse.scene.item_flower.labelColors = '#7D4815';
+            this._warehouse.scene.item_good.labelColors = '#7D4815';
+            this._warehouse.scene.item_all_biao.visible = false;
+            this._warehouse.scene.item_flower_biao.visible = false;
+            this._warehouse.scene.item_good_biao.visible = false;
+            if (this._type == 'all') {
+                this._warehouse.scene.item_all.skin = 'warehouse/btn_biaoqian1.png';
+                this._warehouse.scene.item_all.labelColors = '#fff';
+                this._warehouse.scene.item_all_biao.visible = true;
+            }
+            else if (this._type == 'flower') {
+                this._warehouse.scene.item_flower.skin = 'warehouse/btn_biaoqian1.png';
+                this._warehouse.scene.item_flower.labelColors = '#fff';
+                this._warehouse.scene.item_flower_biao.visible = true;
+            }
+            else if (this._type == 'goods') {
+                this._warehouse.scene.item_good.skin = 'warehouse/btn_biaoqian1.png';
+                this._warehouse.scene.item_good.labelColors = '#fff';
+                this._warehouse.scene.item_good_biao.visible = true;
+            }
+        }
+        warehouseUpgrade() {
+            var data = dataGlobal.getInstance().warehouseInfo;
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "store_up_gread",
+                'm': "store",
+                'd': {
+                    'store_id': data.store_id
+                },
+                'code': 1
+            };
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+        }
+        showSellTip(id) {
+            warehouseController.getInstance().showSellTip(id);
         }
     }
 
@@ -9892,7 +9938,7 @@
             this._good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[this._id];
             let index = this._good_info.pic.lastIndexOf("/");
             var _skin = this._good_info.pic.substring(index + 1, this._good_info.pic.length);
-            this._sellTip.scene.gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
+            this._sellTip.scene.gicon.skin = "main/" + _skin + ".png";
             this._sellTip.scene.gdescribe.text = this._good_info.info;
             this._sellTip.scene.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
         }
@@ -9920,7 +9966,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
             this.closeSellTip();
         }
@@ -9953,348 +9998,6 @@
 
     class warehouseModel {
         constructor() {
-        }
-    }
-
-    class warehouseNetwork {
-        constructor() {
-        }
-        StoreInfoBak(data) {
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            console.log("获取工厂的信息", data);
-            data = data.gd;
-            dataGlobal.getInstance().setWarehouseInfo(data);
-            var good_arr = [];
-            for (var i in data.data_info) {
-                var tmp_arr = { 'id': data.data_info[i].good_id, 'num': data.data_info[i].num };
-                good_arr.push(tmp_arr);
-            }
-            dataGlobal.getInstance().setUserGoodInfo(good_arr);
-            warehouseController.getInstance().initWarehouseInfo();
-            warehouseController.getInstance().initWarehouseGoodList();
-        }
-        StoreUpGread(data) {
-            data = data.gd;
-            dataGlobal.getInstance().setWarehouseInfo(data);
-            warehouseController.getInstance().initWarehouseInfo();
-        }
-        StoreGoodDel(data) {
-            data = data.gd;
-            var tmp_arr = [{ 'id': data.good_id, 'num': data.num }];
-            dataGlobal.getInstance().setUserGoodInfo(tmp_arr);
-            warehouseController.getInstance().initWarehouseInfo();
-            warehouseController.getInstance().initWarehouseGoodList();
-        }
-    }
-
-    class warehouseController {
-        constructor() {
-            this.model = new warehouseModel;
-            this._network = new warehouseNetwork;
-            Laya.stage.on(NETWORKEVENT.STOREINFOBAK, this, this._network.StoreInfoBak);
-            Laya.stage.on(NETWORKEVENT.STOREUPGRADEBAK, this, this._network.StoreUpGread);
-            Laya.stage.on(NETWORKEVENT.STOREGOODDEL, this, this._network.StoreGoodDel);
-        }
-        static getInstance() {
-            if (warehouseController._instance == null) {
-                warehouseController._instance = new warehouseController;
-            }
-            return warehouseController._instance;
-        }
-        onShowWarehouse() {
-            this._warehouseview = new warehouseView;
-            this._warehouseview.onShowWarehouse();
-        }
-        initWarehouseGoodList() {
-            if (this._warehouseview) {
-                this._warehouseview.initWarehouseGoodList();
-            }
-        }
-        initWarehouseInfo() {
-            if (this._warehouseview) {
-                this._warehouseview.initWarehouseInfo();
-            }
-        }
-        showSellTip(id) {
-            if (this._warehouseview) {
-                this._warehouseview.showSellTip(id);
-            }
-        }
-    }
-
-    class orderIndex extends baseWindow {
-        constructor() {
-            super();
-            this._orderItem = {};
-        }
-        onShowOrder() {
-            console.log('显示订单弹窗');
-            this._orderIndex = new ui.order.orderIndexUI();
-            this._orderIndex.name = 'orderIndex';
-            this._orderIndex.pivot(this._orderIndex.width / 2, this._orderIndex.height / 2);
-            this.addChild(this._orderIndex);
-            this.tweenShow();
-            this._orderIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeOrder);
-            this._orderIndex.scene.order_list.visible = false;
-            this.getLotteryInfo();
-        }
-        getLotteryInfo() {
-            let tmp_http = httpJson.getInstance();
-            let tmp_data = {
-                'a': "lottery_info",
-                'm': "init",
-                'd': {},
-                'code': 1
-            };
-            console.log("发送数据", tmp_data);
-            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-        }
-        sendGood(data) {
-            var tmp_arr = [];
-            for (var i in data) {
-                var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[data[i].lottery_id];
-                var good_list = lottery_info.goods;
-                for (var i in good_list) {
-                    tmp_arr.push(good_list[i].id);
-                }
-            }
-            let tmp_http = httpJson.getInstance();
-            let tmp_data = {
-                'a': "send_good",
-                'm': "init",
-                'd': {
-                    'good_id': tmp_arr
-                },
-                'code': 1
-            };
-            console.log("发送数据", tmp_data);
-            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-        }
-        setLotteryList() {
-            this._orderList = this._orderIndex.scene.order_list;
-            var lottery_list = dataGlobal.getInstance().lotteryInfo;
-            this._orderList.dataSource = [];
-            console.log('展示任务列表-1', lottery_list, this._orderList);
-            var num = 1;
-            var key = '';
-            this._orderItem = {
-                name: '',
-                order_gold_val: {
-                    text: ''
-                },
-                order_exp_val: {
-                    text: ''
-                },
-                gou: {
-                    visible: false
-                },
-                tijiao: {
-                    visible: false
-                },
-                aperture: {
-                    visible: false
-                }
-            };
-            if (lottery_list) {
-                for (var i in lottery_list) {
-                    var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[lottery_list[i].lottery_id];
-                    var level = dataGlobal.getInstance().userInfo.grade;
-                    if (Math.floor(level) >= Math.floor(lottery_info.grade) && Math.floor(level) <= Math.floor(lottery_info.grade2)) {
-                        this._orderItem.name = lottery_info.id + '_item';
-                        this._orderItem.id = lottery_info.id;
-                        var lottery_goods = lottery_info.goods3;
-                        for (var q in lottery_goods) {
-                            if (lottery_goods[q].id == 'g001') {
-                                this._orderItem.order_gold_val.text = lottery_goods[q].num;
-                            }
-                            else if (lottery_goods[q].id == 'exp001') {
-                                this._orderItem.order_exp_val.text = lottery_goods[q].num;
-                            }
-                        }
-                        this._orderList.addItem(this._orderItem);
-                        this._orderList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, this._orderItem[lottery_info.id], false);
-                        this.setOrderStatu(lottery_list[i].lottery_id);
-                        this._orderList.visible = true;
-                        if (num == 1) {
-                            key = i;
-                        }
-                        num++;
-                    }
-                }
-            }
-        }
-        itemSelectHandler(cell) {
-            cell.on(Laya.Event.CLICK, this, this.clickOrderItem, [cell.dataSource.id]);
-        }
-        setOrderStatu(id) {
-            var order_info = dataGlobal.getInstance().lotteryInfo[id];
-            var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];
-            this._orderIndex.scene.y_btn.off(Laya.Event.CLICK, this, this.lotteryAct);
-            if (order_info.is_ok == 1) {
-                var is_goods = this.isGoodsEnough(lottery_info.goods);
-                if (is_goods) {
-                    console.log(this._orderItem);
-                    for (var i = 0; i < this._orderList.cells.length; i++) {
-                        if (this._orderList.getItem(i)) {
-                            this._orderList.getItem(i).gou.visible = true;
-                            console.log(this._orderIndex.scene.y_btn.skin);
-                            this._orderIndex.scene.y_btn.skin = 'order/btn_huang.png';
-                            this._orderIndex.scene.y_btn.on(Laya.Event.CLICK, this, this.lotteryAct, [1]);
-                        }
-                    }
-                }
-                else {
-                    console.log('材料不足');
-                    for (var i = 0; i < this._orderList.cells.length; i++) {
-                        if (this._orderList.getItem(i)) {
-                            this._orderList.getItem(i).tijiao.visible = true;
-                            console.log(this._orderIndex.scene.y_btn.skin);
-                            this._orderIndex.scene.y_btn.skin = 'order/btn_hui.png';
-                            this._orderIndex.scene.y_btn.on(Laya.Event.CLICK, this, this.lotteryAct, [2]);
-                        }
-                    }
-                }
-            }
-            else {
-                console.log('提交了');
-                for (var i = 0; i < this._orderList.cells.length; i++) {
-                    if (this._orderList.getItem(i)) {
-                        this._orderList.getItem(i).tijiao.visible = true;
-                        console.log(this._orderIndex.scene.y_btn.skin);
-                        this._orderIndex.scene.y_btn.skin = 'order/btn_hui.png';
-                    }
-                }
-            }
-        }
-        clickOrderItem(id) {
-            this.setClicAperture(id);
-            orderController.getInstance().model.setOrderId(id);
-            this.setOrderStatu(id);
-            this.setGoodList(id);
-        }
-        setClicAperture(id) {
-            var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];
-            console.log(dataJson.getInstance().GET_SYS_FLOWER_LOTTERY(), id);
-            var lottery_goods_list = lottery_info.goods3;
-            for (var i in lottery_goods_list) {
-                if (lottery_goods_list[i].id == 'g001') {
-                    this._orderIndex.scene.gold_val.text = lottery_goods_list[i].num;
-                }
-                else if (lottery_goods_list[i].id == 'exp001') {
-                    this._orderIndex.scene.exp_val.text = lottery_goods_list[i].num;
-                }
-            }
-            if (this._orderItem.id == id) {
-                for (var j = 0; j < this._orderList.cells.length; j++) {
-                    if (this._orderList.getItem(j)) {
-                        var source = this._orderList.getItem(j);
-                        console.log(source);
-                    }
-                }
-            }
-            else {
-                for (var j = 0; j < this._orderList.cells.length; j++) {
-                    if (this._orderList.getItem(j)) {
-                        var source = this._orderList.getItem(j);
-                        source.aperture.visible = false;
-                        this._orderList.setItem(j, source);
-                    }
-                }
-            }
-        }
-        setGoodList(id) {
-            var lottery_good = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id].goods;
-            var user_good_info = dataGlobal.getInstance().userGoodInfo;
-            this._good_list = this._orderIndex.scene.good_list;
-            this._good_list.dataSource = [];
-            for (var i in lottery_good) {
-                var tmp_arr = [];
-                tmp_arr.push({ 'id': lottery_good[i].id, 'num': lottery_good[i].num });
-                var result = this.isGoodsEnough(tmp_arr);
-                var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[lottery_good[i].id];
-                if (!good_info) {
-                    continue;
-                }
-                let index = good_info.pic.lastIndexOf("/");
-                var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
-                console.log(_skin);
-                var good_item = {
-                    name: good_info.id,
-                    gicon: {
-                        skin: "main/" + _skin + ".png"
-                    },
-                    gnum: {
-                        text: ''
-                    }
-                };
-                if (result) {
-                    var str = "" + user_good_info[lottery_good[i].id].num + "/" + lottery_good[i].num + '';
-                }
-                else {
-                    var str = "" + user_good_info[lottery_good[i].id].num + "/" + lottery_good[i].num + '';
-                }
-                good_item.gnum.text = str;
-                this._good_list.addItem(good_item);
-                this._good_list.renderHandler = new Laya.Handler(this, this.goodSelectHandler, [good_item, good_info.id], false);
-            }
-        }
-        goodSelectHandler(item, id, cell) {
-            cell.on(Laya.Event.CLICK, this, this.clickGoodItem, [item, id]);
-        }
-        clickGoodItem(obj, id) {
-            for (var i = 0; i < this._good_list.cells.length; i++) {
-                if (this._good_list.getCell(i).name == id) {
-                    console.log(this._good_list.getCell(i));
-                    var x = this._good_list.getCell(i).x + this._good_list.x;
-                    var y = this._good_list.getCell(i).y + this._good_list.y;
-                    orderController.getInstance().showOrderGoodGoTip(x, y, id);
-                }
-            }
-        }
-        isGoodsEnough(data) {
-            var userGoodInfo = dataGlobal.getInstance().userGoodInfo;
-            var result = true;
-            if (data && data.length > 0) {
-                for (var i in data) {
-                    if (Math.floor(data[i].num) > Math.floor(userGoodInfo[data[i].id].num)) {
-                        result = false;
-                        return result;
-                    }
-                }
-            }
-            return result;
-        }
-        lotteryAct(type) {
-            if (type == 2) {
-                Laya.stage.event(GAMEEVENT.TXTTIP, ['物品不足，无法提交']);
-                return;
-            }
-            var id = orderController.getInstance().model._order_id;
-            let tmp_websocket = webSocketJson.getInstance();
-            let tmp_data = {
-                'a': "lottery_act",
-                'm': "gzhq_lottery",
-                'd': {
-                    'lottery_id': id
-                },
-                'code': 1
-            };
-            tmp_websocket.sendMessage(tmp_data);
-        }
-        showOrderTime() {
-            var timeStr = orderController.getInstance().model.thisDay;
-        }
-        closeOrder() {
-            orderController.getInstance().model.clearOrderTime();
-            this.tweenHide();
         }
     }
 
@@ -10364,7 +10067,6 @@
             this._factoryInfo.scene.close_btn.on(Laya.Event.CLICK, this, this.closeFactoryInfo);
         }
         adaption() {
-            console.log(this._factoryInfo);
         }
         closeFactoryInfo() {
             factoryController.getInstance().model._mf_id = '';
@@ -10372,7 +10074,6 @@
             Laya.stage.event(GAMEEVENT.SHOWINFODIV);
         }
         initFactoryInfo(id) {
-            console.log('初始化所有信息');
             this._id = id;
             this.initSetFactoryInfo(id);
             this.initProduction(id);
@@ -10390,9 +10091,7 @@
         }
         initProduction(id) {
             var data = dataGlobal.getInstance().factory[id];
-            console.log('获取用户这间工厂信息,', data);
             var myData = data.queue_goods;
-            console.log(myData);
             var num = 1;
             var good_div;
             var unlock_div;
@@ -10447,7 +10146,6 @@
             var time_txt = pro_tool.getChildByName('time_txt');
             var time_pro = pro_tool.getChildByName('time_pro');
             var factory_info = dataJson.getInstance().GET_SYS_FACTORY_INFO()[id][data.grade];
-            console.log(good_icon, good_txt, time_txt);
             if (myData && myData.id) {
                 var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[myData.id];
                 var factory_good_info = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id][myData.id];
@@ -10468,6 +10166,7 @@
             }
         }
         factory_open_seat_num(id, num) {
+            tipController.getInstance();
             var data = dataGlobal.getInstance().factory[id];
             if (num == 2 && data.open_seat_num == 1) {
                 Laya.stage.event(GAMEEVENT.TXTTIP, ['请先购买第二个生产队列']);
@@ -10530,7 +10229,6 @@
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         initProductionGoodList() {
-            console.log('添加工厂可生产物品信息');
             var science_list = this._factoryInfo.scene.bottom_div.getChildByName('science_list');
             science_list.dataSource = [];
             var id = this._id;
@@ -10538,8 +10236,6 @@
             var level = dataGlobal.getInstance().userInfo.grade;
             var user_good_info = dataGlobal.getInstance().userGoodInfo;
             var _index = -1;
-            console.log(data);
-            console.log(user_good_info);
             for (var i in data) {
                 var isshow = true;
                 if ((Math.floor(level) + 1) < Math.floor(data[i].grade2)) {
@@ -10569,8 +10265,8 @@
                 };
                 _index++;
                 science_list.addItem(factoryGoodsItem);
-                console.log(science_list.getItem(_index));
-                console.log(science_list.getCell(_index));
+                science_list.visible = true;
+                science_list.hScrollBarSkin = "";
                 if (Math.floor(level) >= Math.floor(data[i].grade2)) {
                     factoryGoodsItem.good_info.visible = true;
                     factoryGoodsItem.good_lock_div.visible = false;
@@ -10579,21 +10275,16 @@
                     var isMake = true;
                     for (var q in goods_list) {
                         var material_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[goods_list[q].id];
-                        console.log('查询材料物品信息', material_info);
-                        console.log(science_list.getItem(_index));
                         if (science_list.getItem(_index)) {
                             if (science_list.getItem(_index).name == factoryGoodsItem.name) {
                                 var factoryGoodsCell = science_list.getCell(_index);
                                 var material_num = factoryGoodsCell.getChildByName('good_info').getChildByName('good' + goods_num + '_num');
                                 var material_icon = factoryGoodsCell.getChildByName('good_info').getChildByName('good' + goods_num + '_icon');
-                                console.log(material_info.pic);
                                 let index = material_info.pic.lastIndexOf("/");
                                 var _skin = material_info.pic.substring(index + 1, material_info.pic.length);
                                 material_icon.skin = 'main/' + _skin + '.png';
                                 material_icon.visible = true;
-                                console.log(user_good_info);
-                                console.log(goods_list[q].id);
-                                var user_num = 3;
+                                var user_num = user_good_info[goods_list[q].id].num;
                                 if (Math.floor(user_num) >= Math.floor(goods_list[q].num)) {
                                     material_num.color = '#A2613A';
                                 }
@@ -10617,7 +10308,6 @@
                     }
                 }
                 else {
-                    console.log("上面有判断是否下一级的生产商品", data[i]);
                     if (isshow) {
                         isshow = false;
                         factoryGoodsItem.good_info.visible = false;
@@ -10692,14 +10382,12 @@
                 this.get_factory_info();
             }
             else {
-                console.log("看看有没有需要打开的工厂，可能是从别的地方跳过来生产的");
                 this.isOpenFactoryInfo();
                 this.showFactory();
             }
             this.tweenTranAdd(this._factory, this._factory.name, type, 'left');
         }
         adaption() {
-            console.log(this._factory, '轴心在左上角，需要计算一下y轴的位置');
         }
         isOpenFactoryInfo() {
             var id = factoryController.getInstance().model._mf_id;
@@ -10725,7 +10413,6 @@
             };
             console.log("发送http数据", tmp_data);
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-            Laya.stage.event(NETWORKEVENT.SENDFACTORYBAK);
         }
         showFactory() {
             this.isOpenFactoryInfo();
@@ -10753,7 +10440,9 @@
                     var succ_goods_num = myData[id].succ_goods.length;
                     if (succ_goods_num > 0) {
                         var good_data = dataJson.getInstance().GET_SYS_FACTORY_GOOD();
-                        good_list_bg.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
+                        if (succ_goods_num > 3) {
+                            good_list_bg.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
+                        }
                         good_list.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
                         good_list_bgdi.visible = true;
                         good_list_bg.visible = true;
@@ -10810,9 +10499,9 @@
                 }
                 num++;
             }
+            this._factory.scene.factory_div.visible = true;
         }
         factory_create(id) {
-            console.log('未解锁的工厂', id);
             this.factory_create_act(id);
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var level = dataGlobal.getInstance().userInfo.grade;
@@ -10821,19 +10510,15 @@
             var grade2 = factory_info[1].grade2;
             tipController.getInstance();
             if (Math.floor(level) < Math.floor(grade2)) {
-                console.log('等级不足');
                 Laya.stage.event(GAMEEVENT.TXTTIP, [grade2 + '级解锁']);
                 return;
             }
             if (Math.floor(have_gold) < Math.floor(gold)) {
-                console.log('金币不足');
                 Laya.stage.event(GAMEEVENT.TXTTIP, ['宝石不足']);
                 return;
             }
-            console.log('可以进行解锁');
         }
         factory_create_act(id) {
-            console.log('工厂ID');
             let tmp_websocket = webSocketJson.getInstance();
             let tmp_data = {
                 'a': "factory_create",
@@ -10896,6 +10581,7 @@
             upgrad_div.off(Laya.Event.CLICK, this, this.factoryUpGrade);
             var is_grade = true;
             upgrad_list.dataSource = [];
+            upgrad_list.vScrollBarSkin = "";
             for (var i in data) {
                 if (Math.floor(myData.grade) == Math.floor(data[i].grade)) {
                     upgrade_icon.url = data[i].pic;
@@ -10954,7 +10640,6 @@
                     }
                 }
                 upgrad_list.addItem(factoryUpgradeItem);
-                console.log(upgrad_list.cells);
             }
             this.isUpgrade();
         }
@@ -11019,32 +10704,32 @@
             var num = 1;
             var make_list = this._factoryMake.scene.getChildByName('make_list');
             make_list.dataSource = [];
-            var makeItem = {
-                id: '',
-                good_icon: {
-                    skin: ''
-                },
-                gou: {
-                    visible: false
-                },
-                num_txt: {
-                    text: ""
-                },
-                go_div: {
-                    visible: false
-                },
-                bg: {
-                    skin: ""
-                },
-            };
             for (var i in data) {
+                var makeItem = {
+                    id: '',
+                    good_icon: {
+                        skin: ''
+                    },
+                    gou: {
+                        visible: false
+                    },
+                    num_txt: {
+                        text: ""
+                    },
+                    go_btn: {
+                        visible: false
+                    },
+                    bg: {
+                        skin: ""
+                    },
+                };
                 this._index++;
                 makeItem.id = this._index + '';
                 var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[data[i].id];
                 let index = good_info.pic.lastIndexOf("/");
                 var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
                 makeItem.good_icon.skin = 'main/' + _skin + '.png';
-                var user_num = 1;
+                var user_num = user_good_info[data[i].id].num;
                 if (num % 2 == 0) {
                     makeItem.bg.skin = 'factory/pic_kuang4.png';
                 }
@@ -11054,18 +10739,16 @@
                 if (Math.floor(user_num) >= Math.floor(data[i].num)) {
                     makeItem.gou.visible = true;
                     makeItem.num_txt.text = "" + user_num + "/" + data[i].num + "";
-                    makeItem.go_div.visible = false;
+                    makeItem.go_btn.visible = false;
                 }
                 else {
                     makeItem.gou.visible = false;
                     makeItem.num_txt.text = "" + user_num + "/" + data[i].num + "";
-                    makeItem.go_div.visible = true;
-                    console.log(make_list.getCell(this._index).getChildByName("go_btn"));
+                    makeItem.go_btn.visible = true;
                     make_list.getCell(this._index).getChildByName("go_btn").on(Laya.Event.CLICK, this, this.goClick, [good_info.type]);
                 }
                 num++;
                 make_list.addItem(makeItem);
-                console.log(make_list);
             }
         }
         initGoodInfo() {
@@ -11163,9 +10846,9 @@
             dataGlobal.getInstance().setFactory(data, data.mf_id);
             factoryController.getInstance().showFactory();
             if (data.msg) {
-                console.log('重置工厂的信息');
                 Laya.stage.event(GAMEEVENT.TXTTIP, [data.msg]);
             }
+            infoController.getInstance().getUserInfo();
         }
         FactoryGoodSave(data) {
             data = data.gd;
@@ -11178,6 +10861,7 @@
             factoryController.getInstance().showFactory();
             factoryController.getInstance().initProduction(data.mf_id);
             Laya.stage.event(GAMEEVENT.TXTTIP, ['成功购买队列']);
+            infoController.getInstance().getUserInfo();
         }
         SendGoodBak(data) {
             data = data.gd;
@@ -11191,11 +10875,15 @@
             factoryController.getInstance().initFactoryInfo(data.mf_id);
         }
         FactoryUpGrade(data) {
+            if (!data) {
+                return;
+            }
             data = data.gd;
             dataGlobal.getInstance().setFactory(data, data.mf_id);
             factoryController.getInstance().showFactory();
             factoryController.getInstance().initFactoryInfo(data.mf_id);
             factoryController.getInstance().initFactoryGradeList();
+            infoController.getInstance().getUserInfo();
         }
         FactoryGoodGet(data) {
             data = data.gd;
@@ -11288,14 +10976,12 @@
         }
         onShow() {
             this._topSence = new ui.base.scene.topSceneUI;
+            this._topSence.scene.level.visible = false;
             this._topSence.scene.top_kuan.on(Laya.Event.CLICK, this, this.userCountInfo);
             this._topSence.scene.farm_green_btn.on(Laya.Event.CLICK, this, this.showSecen, ['factory']);
             this._topSence.scene.factory_fu_btn.on(Laya.Event.CLICK, this, this.showSecen, ['farm']);
             this._topSence.scene.top_kuan.on(Laya.Event.CLICK, this, function () {
                 Laya.stage.event(NETWORKEVENT.USERCOUNTINFO);
-            });
-            this._topSence.scene.gold_kuan.on(Laya.Event.CLICK, this, function () {
-                Laya.stage.event(NETWORKEVENT.SENDUSERGRADEUP);
             });
             this.adaption();
             this.showChild(this._topSence);
@@ -11326,7 +11012,9 @@
             this._topSence.scene.upic.skin = data.pic;
             this._topSence.scene.uname.text = data.nickname;
             this._topSence.scene.level.text = data.grade;
-            this._topSence.scene.uexp.value = Math.floor(data.exp / data.upgrade_exp * 100) > 100 ? 100 : Math.floor(data.exp / data.upgrade_exp * 100);
+            this._topSence.scene.level.visible = true;
+            this._topSence.scene.upic.visible = true;
+            this._topSence.scene.uexp.value = Math.floor(data.exp / data.upgrade_exp * 100) > 100 ? 100 : data.exp / data.upgrade_exp;
             this._topSence.scene.gold_val.text = Math.floor(data.have_gold) + '';
         }
         showBottonDiv(data) {
@@ -11497,6 +11185,9 @@
             infoController.getInstance().infoUserUpgradeTip(data);
         }
         UserCountInfo(data) {
+            if (!data) {
+                return;
+            }
             data = data.gd;
             dataGlobal.getInstance().setUserInfo(data);
             infoController.getInstance().showUserInfoTip();
@@ -11554,13 +11245,353 @@
         }
     }
 
+    class warehouseNetwork {
+        constructor() {
+        }
+        StoreInfoBak(data) {
+            data = data.gd;
+            dataGlobal.getInstance().setWarehouseInfo(data);
+            var good_arr = [];
+            for (var i in data.data_info) {
+                var tmp_arr = { 'id': data.data_info[i].good_id, 'num': data.data_info[i].num };
+                good_arr.push(tmp_arr);
+            }
+            dataGlobal.getInstance().setUserGoodInfo(good_arr);
+            warehouseController.getInstance().initWarehouseInfo();
+            warehouseController.getInstance().initWarehouseGoodList();
+        }
+        StoreUpGread(data) {
+            data = data.gd;
+            dataGlobal.getInstance().setWarehouseInfo(data);
+            warehouseController.getInstance().initWarehouseInfo();
+            infoController.getInstance().getUserInfo();
+        }
+        StoreGoodDel(data) {
+            data = data.gd;
+            var tmp_arr = [{ 'id': data.good_id, 'num': data.num }];
+            dataGlobal.getInstance().setUserGoodInfo(tmp_arr);
+            warehouseController.getInstance().initWarehouseInfo();
+            warehouseController.getInstance().initWarehouseGoodList();
+            infoController.getInstance().getUserInfo();
+        }
+    }
+
+    class warehouseController {
+        constructor() {
+            this.model = new warehouseModel;
+            this._network = new warehouseNetwork;
+            Laya.stage.on(NETWORKEVENT.STOREINFOBAK, this, this._network.StoreInfoBak);
+            Laya.stage.on(NETWORKEVENT.STOREUPGRADEBAK, this, this._network.StoreUpGread);
+            Laya.stage.on(NETWORKEVENT.STOREGOODDEL, this, this._network.StoreGoodDel);
+        }
+        static getInstance() {
+            if (warehouseController._instance == null) {
+                warehouseController._instance = new warehouseController;
+            }
+            return warehouseController._instance;
+        }
+        onShowWarehouse() {
+            this._warehouseview = new warehouseView;
+            this._warehouseview.onShowWarehouse();
+        }
+        initWarehouseGoodList() {
+            if (this._warehouseview) {
+                this._warehouseview.initWarehouseGoodList();
+            }
+        }
+        initWarehouseInfo() {
+            if (this._warehouseview) {
+                this._warehouseview.initWarehouseInfo();
+            }
+        }
+        showSellTip(id) {
+            if (this._warehouseview) {
+                this._warehouseview.showSellTip(id);
+            }
+        }
+    }
+
+    class orderIndex extends baseWindow {
+        constructor() {
+            super();
+            this._orderItem = {};
+        }
+        onShowOrder() {
+            console.log('订单列表显示');
+            this._orderIndex = new ui.order.orderIndexUI();
+            this._orderIndex.name = 'orderIndex';
+            this._orderIndex.pivot(this._orderIndex.width / 2, this._orderIndex.height / 2);
+            this.addChild(this._orderIndex);
+            this.tweenShow();
+            this._orderIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeOrder);
+            this._orderIndex.scene.order_list.visible = false;
+            this._time = this._orderIndex.scene.time;
+            this._time.visible = false;
+            this.getLotteryInfo();
+        }
+        getLotteryInfo() {
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "lottery_info",
+                'm': "init",
+                'd': {},
+                'code': 1
+            };
+            console.log("发送数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+        }
+        sendGood(data) {
+            var tmp_arr = [];
+            for (var i in data) {
+                var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[data[i].lottery_id];
+                var good_list = lottery_info.goods;
+                for (var i in good_list) {
+                    tmp_arr.push(good_list[i].id);
+                }
+            }
+            let tmp_http = httpJson.getInstance();
+            let tmp_data = {
+                'a': "send_good",
+                'm': "init",
+                'd': {
+                    'good_id': tmp_arr
+                },
+                'code': 1
+            };
+            console.log("发送数据", tmp_data);
+            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+        }
+        setLotteryList() {
+            this._orderList = this._orderIndex.scene.order_list;
+            var lottery_list = dataGlobal.getInstance().lotteryInfo;
+            this._orderList.dataSource = [];
+            var num = 1;
+            var key = '';
+            if (lottery_list) {
+                for (var i in lottery_list) {
+                    this._orderItem = {
+                        name: '',
+                        id: '',
+                        order_gold_val: {
+                            text: ''
+                        },
+                        order_exp_val: {
+                            text: ''
+                        },
+                        gou: {
+                            visible: false
+                        },
+                        tijiao: {
+                            visible: false
+                        },
+                        aperture: {
+                            visible: false
+                        }
+                    };
+                    var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[lottery_list[i].lottery_id];
+                    console.log("获取任务信息", lottery_info);
+                    var level = dataGlobal.getInstance().userInfo.grade;
+                    this._orderItem.name = lottery_info.id + '_item';
+                    this._orderItem.id = lottery_info.id;
+                    var lottery_goods = lottery_info.goods3;
+                    for (var q in lottery_goods) {
+                        if (lottery_goods[q].id == 'g001') {
+                            this._orderItem.order_gold_val.text = lottery_goods[q].num;
+                        }
+                        else if (lottery_goods[q].id == 'exp001') {
+                            this._orderItem.order_exp_val.text = lottery_goods[q].num;
+                        }
+                    }
+                    this._orderList.addItem(this._orderItem);
+                    console.log('执行次数');
+                    this.setOrderStatu(lottery_list[i].lottery_id);
+                    this._orderList.visible = true;
+                    if (num == 1) {
+                        key = i;
+                    }
+                    num++;
+                    this._orderList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
+                    if (this._orderList.length > 4) {
+                        this._orderList.vScrollBarSkin = "";
+                    }
+                }
+                var id = orderController.getInstance().model._order_id;
+                if (id && this._orderItem[id]) {
+                    this.clickOrderItem(id);
+                }
+                else {
+                    if (key && lottery_list[key].lottery_id) {
+                        this.clickOrderItem(lottery_list[key].lottery_id);
+                    }
+                }
+            }
+        }
+        itemSelectHandler(cell) {
+            cell.on(Laya.Event.CLICK, this, this.clickOrderItem, [cell.dataSource.id]);
+        }
+        setOrderStatu(id) {
+            console.log(id);
+            var order_info = dataGlobal.getInstance().lotteryInfo[id];
+            var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];
+            this._orderIndex.scene.y_btn.off(Laya.Event.CLICK, this, this.lotteryAct);
+            if (order_info.is_ok == 1) {
+                var is_goods = this.isGoodsEnough(lottery_info.goods);
+                if (is_goods) {
+                    for (var i = 0; i < this._orderList.cells.length; i++) {
+                        if (this._orderList.getItem(i)) {
+                            if (id == this._orderList.getItem(i).id) {
+                                this._orderList.getItem(i).gou.visible = true;
+                            }
+                            this._orderList.getItem(i).tijiao.visible = false;
+                            this._orderIndex.scene.y_btn.skin = 'order/btn_huang.png';
+                            this._orderIndex.scene.y_btn.on(Laya.Event.CLICK, this, this.lotteryAct, [1]);
+                        }
+                    }
+                }
+                else {
+                    for (var i = 0; i < this._orderList.cells.length; i++) {
+                        if (this._orderList.getItem(i)) {
+                            this._orderIndex.scene.y_btn.skin = 'order/btn_hui.png';
+                            this._orderIndex.scene.y_btn.on(Laya.Event.CLICK, this, this.lotteryAct, [2]);
+                        }
+                    }
+                }
+            }
+            else {
+                for (var i = 0; i < this._orderList.cells.length; i++) {
+                    if (this._orderList.getItem(i)) {
+                        if (id == this._orderList.getItem(i).id) {
+                            this._orderList.getItem(i).tijiao.visible = true;
+                        }
+                        this._orderList.getItem(i).gou.visible = false;
+                        this._orderIndex.scene.y_btn.skin = 'order/btn_hui.png';
+                    }
+                }
+            }
+        }
+        clickOrderItem(id) {
+            this.setClicAperture(id);
+            orderController.getInstance().model.setOrderId(id);
+            this.setOrderStatu(id);
+            this.setGoodList(id);
+        }
+        setClicAperture(id) {
+            var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];
+            var lottery_goods_list = lottery_info.goods3;
+            for (var i in lottery_goods_list) {
+                if (lottery_goods_list[i].id == 'g001') {
+                    this._orderIndex.scene.gold_val.text = lottery_goods_list[i].num;
+                }
+                else if (lottery_goods_list[i].id == 'exp001') {
+                    this._orderIndex.scene.exp_val.text = lottery_goods_list[i].num;
+                }
+            }
+            for (var _z in this._orderList.dataSource) {
+                if (this._orderList.dataSource[_z].id == id) {
+                    var source = this._orderList.dataSource[_z];
+                    var index = Number(_z);
+                    source.aperture.visible = true;
+                    this._orderList.setItem(index, source);
+                }
+                else {
+                    var _source = this._orderList.dataSource[_z];
+                    var _index = Number(_z);
+                    _source.aperture.visible = false;
+                    this._orderList.setItem(_index, _source);
+                }
+            }
+        }
+        setGoodList(id) {
+            var lottery_good = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id].goods;
+            var user_good_info = dataGlobal.getInstance().userGoodInfo;
+            this._good_list = this._orderIndex.scene.good_list;
+            this._good_list.dataSource = [];
+            for (var i in lottery_good) {
+                var tmp_arr = [];
+                tmp_arr.push({ 'id': lottery_good[i].id, 'num': lottery_good[i].num });
+                var result = this.isGoodsEnough(tmp_arr);
+                var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[lottery_good[i].id];
+                if (!good_info) {
+                    continue;
+                }
+                let index = good_info.pic.lastIndexOf("/");
+                var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
+                var good_item = {
+                    name: good_info.id,
+                    gicon: {
+                        skin: "factory/" + _skin + ".png"
+                    },
+                    gnum: {
+                        text: ''
+                    }
+                };
+                if (result) {
+                    var str = "" + user_good_info[lottery_good[i].id].num + "/" + lottery_good[i].num + '';
+                }
+                else {
+                    var str = "" + user_good_info[lottery_good[i].id].num + "/" + lottery_good[i].num + '';
+                }
+                good_item.gnum.text = str;
+                this._good_list.addItem(good_item);
+                this._good_list.renderHandler = new Laya.Handler(this, this.goodSelectHandler, null, false);
+                this._good_list.visible = true;
+            }
+        }
+        goodSelectHandler(cell, index) {
+            cell.on(Laya.Event.CLICK, this, this.clickGoodItem, [cell.dataSource, index]);
+        }
+        clickGoodItem(obj, index) {
+            var id = this._good_list.getCell(index).name;
+            var x = this._good_list.getCell(index).x + this._good_list.x;
+            var y = this._good_list.getCell(index).y + this._good_list.y;
+            orderController.getInstance().showOrderGoodGoTip(x, y, id);
+        }
+        isGoodsEnough(data) {
+            var userGoodInfo = dataGlobal.getInstance().userGoodInfo;
+            var result = true;
+            if (data && data.length > 0) {
+                for (var i in data) {
+                    if (Math.floor(data[i].num) > Math.floor(userGoodInfo[data[i].id].num)) {
+                        result = false;
+                        return result;
+                    }
+                }
+            }
+            return result;
+        }
+        lotteryAct(type) {
+            if (type == 2) {
+                Laya.stage.event(GAMEEVENT.TXTTIP, ['物品不足，无法提交']);
+                return;
+            }
+            var id = orderController.getInstance().model._order_id;
+            let tmp_websocket = webSocketJson.getInstance();
+            let tmp_data = {
+                'a': "lottery_act",
+                'm': "gzhq_lottery",
+                'd': {
+                    'lottery_id': id
+                },
+                'code': 1
+            };
+            tmp_websocket.sendMessage(tmp_data);
+        }
+        showOrderTime() {
+            var timeStr = orderController.getInstance().model.thisDay;
+            this._time.text = globalFun.getInstance().getCountDown(timeStr);
+            this._time.visible = true;
+        }
+        closeOrder() {
+            orderController.getInstance().model.clearOrderTime();
+            this.tweenHide();
+        }
+    }
+
     class orderGoodGoTip extends baseTips {
         constructor() {
             super();
         }
         showOrderGoodGoTip(x, y, id) {
-            console.log('showOrderGoodGoTip', x, y, id);
-            console.log('showOrderGoodGoTip', (x - CONST.DESIGNSTAGEWIDTH / 2) * CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH, (y - CONST.DESIGNSTAGEHEIGHT / 2) * CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT, id);
             this._orderGoodGoTip = new ui.order.goodGoTipUI;
             this._orderGoodGoTip.x = x - CONST.DESIGNSTAGEWIDTH / 2 + this._orderGoodGoTip.width / 2;
             this._orderGoodGoTip.y = y - CONST.DESIGNSTAGEHEIGHT / 2;
@@ -11582,6 +11613,9 @@
         goFun(type, id) {
             this.tweenHide();
             orderController.getInstance().closeOrder();
+            console.log(type, id);
+            console.log(type, id);
+            console.log(type, id);
             if (type == 5) {
                 infoController.getInstance().showBottonDiv('factory');
                 var factoryGoodInfo = dataJson.getInstance().GET_SYS_FACTORY_GOOD();
@@ -11599,7 +11633,6 @@
                     }
                 }
                 if (factoryId) {
-                    factoryController.getInstance().onShowFactoryInfo(factoryId);
                     console.log('设置需要打开工厂的ID');
                     factoryController.getInstance().model._mf_id = factoryId;
                     factoryController.getInstance().model._is_open = true;
@@ -11647,11 +11680,6 @@
         constructor() {
         }
         LotteryInfoBak(data) {
-            console.log("获取当天订单列表的协议", data);
-            console.log("获取当天订单列表的协议", data);
-            console.log("获取当天订单列表的协议", data);
-            console.log("获取当天订单列表的协议", data);
-            console.log("获取当天订单列表的协议", data);
             data = data.gd;
             dataGlobal.getInstance().setlotteryInfo(data, true);
             orderController.getInstance().sendGood(data);
@@ -11669,6 +11697,7 @@
             dataGlobal.getInstance().setlotteryInfo(tmp_arr);
             orderController.getInstance().sendGood(tmp_arr);
             orderController.getInstance().clickOrderItem(data.lottery_id);
+            infoController.getInstance().getUserInfo();
         }
     }
 
@@ -11753,25 +11782,75 @@
         }
     }
 
+    class screenScene extends baseWindow {
+        constructor() {
+            super();
+        }
+        onShow() {
+            this._screenIndex = new ui.exchange.screenUI();
+            this._screenIndex.name = 'exchangeIndex';
+            this._screenIndex.pivot(this._screenIndex.width / 2, this._screenIndex.height / 2);
+            this.addChild(this._screenIndex);
+            this._screen_list = this._screenIndex.scene.screen_list;
+            this.initScreenList();
+            this.tweenShow();
+            this._screenIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeexchange);
+            this._screenIndex.scene.cancel_btn.on(Laya.Event.CLICK, this, this.closeexchange);
+            this._screenIndex.scene.confirm_btn.on(Laya.Event.CLICK, this, this.confirmScreen);
+        }
+        closeexchange() {
+            this.tweenHide();
+        }
+        confirmScreen() {
+            console.log('发送网络请求进行筛选');
+            this.tweenHide();
+        }
+        initScreenList() {
+            this._screen_list.dataSource = [];
+            console.log(this._screen_list);
+            var data = [1, 2, 3, 4];
+            for (var i in data) {
+                var _data = {
+                    screen_title: {
+                        text: '今日',
+                    },
+                    screen_check: {
+                        visible: false
+                    }
+                };
+                this._screen_list.addItem(_data);
+                this._screen_list.renderHandler = new Laya.Handler(this, this.itemFatSelectHandler, null, false);
+            }
+        }
+        itemFatSelectHandler(cell, index) {
+            cell.off(Laya.Event.CLICK, this, this.onCellClick);
+            cell.on(Laya.Event.CLICK, this, this.onCellClick, [cell, index]);
+        }
+        onCellClick(cell, index) {
+            var _item = this._screen_list.getItem(index);
+            _item.screen_check.visible = !_item.screen_check.visible;
+            console.log(_item, _item.screen_check.visible);
+            this._screen_list.setItem(index, _item);
+        }
+    }
+
     class exchangeIndex extends baseWindow {
         constructor() {
             super();
             this._exchangeItem = {};
         }
         onShowexchange() {
-            console.log('显示订单弹窗');
             this._exchangeIndex = new ui.exchange.exchangeUI();
             this._exchangeIndex.name = 'exchangeIndex';
             this._exchangeIndex.pivot(this._exchangeIndex.width / 2, this._exchangeIndex.height / 2);
             this.addChild(this._exchangeIndex);
             this.tweenShow();
             this._my_list = this._exchangeIndex.scene.getChildByName('my_list');
-            this._my_list.visible = false;
             this._market_list = this._exchangeIndex.scene.getChildByName('market_list');
-            this._market_list.visible = false;
             this._material_btn = this._exchangeIndex.scene.getChildByName('material_btn');
             this._market_btn = this._exchangeIndex.scene.getChildByName('market_btn');
             this._exchangeIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeexchange);
+            this._exchangeIndex.scene.screen_btn.on(Laya.Event.CLICK, this, this.goScreen);
             this.switchItem('market');
             this.store_info();
             this.changeSceneList();
@@ -11789,7 +11868,6 @@
             }.bind(this));
         }
         store_info() {
-            console.log(this._type);
             if (this._type == 'market') {
                 Laya.stage.event(NETWORKEVENT.MARKETINFOBAK);
             }
@@ -11805,8 +11883,7 @@
         initMarketGoodList() {
             var data = dataGlobal.getInstance().marketInfo;
             var _data_info = data.data_info;
-            this._market_list.dataSource = [];
-            console.log(_data_info);
+            this._market_list.vScrollBarSkin = '';
             for (var i in _data_info) {
                 var dataItem = {
                     id: _data_info[i].good_id,
@@ -11818,15 +11895,6 @@
                     }
                 };
                 this._market_list.addItem(dataItem);
-                console.log(this._market_list);
-                console.log(this._market_list);
-                console.log(this._market_list);
-                console.log(this._market_list);
-                console.log(this._market_list);
-                console.log(this._market_list);
-                console.log(this._market_list);
-                console.log(this._market_list);
-                console.log(this._market_list);
                 this._market_list.visible = true;
                 this.bindClickMarketItem(this._market_list.getCell(Number(i)), Number(i));
             }
@@ -11834,9 +11902,8 @@
         initMyGoodList() {
             var data = dataGlobal.getInstance().marketInfo;
             var _data_info = data.data_info;
-            this._my_list.dataSource = [];
+            this._market_list.vScrollBarSkin = '';
             for (var i in _data_info) {
-                console.log(_data_info[i]);
                 var dataItem = {
                     id: _data_info[i].good_id,
                     icon: {
@@ -11847,15 +11914,6 @@
                     }
                 };
                 this._my_list.addItem(dataItem);
-                console.log(this._my_list);
-                console.log(this._my_list);
-                console.log(this._my_list);
-                console.log(this._my_list);
-                console.log(this._my_list);
-                console.log(this._my_list);
-                console.log(this._my_list);
-                console.log(this._my_list);
-                console.log(this._my_list);
                 this._my_list.visible = true;
                 this.bindClickMyItem(this._my_list.getCell(Number(i)), Number(i));
             }
@@ -11901,11 +11959,16 @@
             this.tweenHide();
         }
         showBuyTip(id) {
-            console.log('购买');
             exchangeController.getInstance().showBuyTip(id);
         }
         showSellTip(id) {
             exchangeController.getInstance().showSellTip(id);
+        }
+        goScreen() {
+            if (this._screenView == null) {
+                this._screenView = new screenScene;
+            }
+            this._screenView.onShow();
         }
     }
 
@@ -11952,9 +12015,7 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-            Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
             this.closeSellTip();
         }
     }
@@ -12014,7 +12075,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
             this.closeSellTip();
         }
@@ -12057,7 +12117,6 @@
         constructor() {
         }
         MarketInfoBak(data) {
-            console.log("exchangeNetwork", '获取市场的信息');
             data = data.gd;
             dataGlobal.getInstance().setMarketInfo(data);
             var good_arr = [];
@@ -12077,7 +12136,6 @@
     class exchangeController {
         constructor() {
             this._network = new exchangeNetwork;
-            Laya.stage.on(NETWORKEVENT.MARKETINFOBAK, this, this._network.MarketInfoBak);
         }
         static getInstance() {
             if (exchangeController._instance == null) {
@@ -12306,6 +12364,47 @@
         }
     }
 
+    class emailIndex extends baseWindow {
+        constructor() {
+            super();
+        }
+        onShow() {
+            this._emailScene = new ui.email.emailUI;
+            this._emailScene.scene.close_btn.on(Laya.Event.CLICK, this, this.tweenHide);
+            this._emailScene.pivot(this._emailScene.width / 2, this._emailScene.height / 2);
+            this.addChild(this._emailScene);
+            this.tweenShow();
+        }
+        closeScene() {
+        }
+    }
+
+    class emailView {
+        constructor() {
+        }
+        onShowEmail() {
+            this._emailCom = new emailIndex;
+            this._emailCom.onShow();
+        }
+    }
+
+    class emailController {
+        constructor() {
+        }
+        static getInstance() {
+            if (emailController._instance == null) {
+                emailController._instance = new emailController;
+            }
+            return emailController._instance;
+        }
+        onShowEmail() {
+            if (this._emailView == null) {
+                this._emailView = new emailView;
+            }
+            this._emailView.onShowEmail();
+        }
+    }
+
     class farmIndex extends baseScene {
         constructor() {
             super();
@@ -12333,7 +12432,6 @@
             else {
                 this.tweenTranAdd(this._farmIndex, 'farmIndex', type, 'right');
             }
-            console.log(this);
         }
         showInit() {
             this.landArr = {};
@@ -12443,21 +12541,18 @@
                     this.onClickUpgrade();
                     break;
                 case 'email':
-                    console.log('点击邮箱');
                     this._farmIndex.scene.email.skin = 'main/btn_youxiang2.png';
+                    this.onClickEmail();
                     break;
                 case 'order':
-                    console.log('点击订单');
                     this.onClickOrder();
                     this._farmIndex.scene.order.skin = 'main/btn_dingdan2.png';
                     break;
                 case 'exchange':
-                    console.log('点击市场');
                     this.onClickExchange();
                     this._farmIndex.scene.exchange.skin = 'farm/pic_factory3a.png';
                     break;
                 case 'rank':
-                    console.log('点击排行榜');
                     this.onClickRank();
                     break;
             }
@@ -12493,6 +12588,9 @@
         }
         onClickRank() {
             rankController.getInstance().onShowRank();
+        }
+        onClickEmail() {
+            emailController.getInstance().onShowEmail();
         }
     }
 
@@ -12589,6 +12687,7 @@
             if (myData.msg) {
                 Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
             }
+            infoController.getInstance().getUserInfo();
         }
         FarmInitPlantFlower(data) {
             var myData = data.gd;
@@ -12605,6 +12704,7 @@
             if (myData.msg) {
                 Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
             }
+            infoController.getInstance().getUserInfo();
         }
         FarmInitFlowerFertilize(data) {
             var myData = data.gd;
@@ -12621,10 +12721,12 @@
             if (myData.msg) {
                 Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
             }
+            infoController.getInstance().getUserInfo();
         }
         FarmInitFlowerWater(data) {
             var myData = data.gd;
             var tmp_arr = {
+                'ff_id': myData.ff_id,
                 'fat_time': myData.fat_time,
                 'fat_time_tol': myData.fat_time_tol,
                 'ff_exp': myData.ff_exp,
@@ -12660,6 +12762,7 @@
             if (myData.msg) {
                 Laya.stage.event(GAMEEVENT.TXTTIP, [myData.msg]);
             }
+            infoController.getInstance().getUserInfo();
         }
         FarmInitFlowerFat(data) {
             var myData = data.gd;
@@ -12769,6 +12872,10 @@
         { url: resConfig._url + 'res/atlas/loading.atlas', type: Laya.Loader.ATLAS, sign: 'login' },
         { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE },
     ];
+    resConfig.fontRes = [
+        { url: resConfig._url + 'res/atlas/font.atlas', type: Laya.Loader.JSON, sign: 'font' },
+        { url: resConfig._url + 'res/atlas/font.png', type: Laya.Loader.IMAGE },
+    ];
     resConfig.farm = [
         { url: resConfig._url + 'res/atlas/main.atlas', type: Laya.Loader.ATLAS, sign: 'main' },
         { url: resConfig._url + 'res/atlas/farm.atlas', type: Laya.Loader.ATLAS, sign: 'farm' },
@@ -12831,6 +12938,18 @@
         }
         getRes(name) {
             return null;
+        }
+        setBitmapFont() {
+            this.mBitmapFont = new Laya.BitmapFont();
+            resManger.getInstance().addGroupRes(resConfig.fontRes);
+            resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFONT, GAMEEVENT.ONPROGRESSFONT);
+            Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFont);
+        }
+        onResCompleteFont() {
+            Laya.Text.registerBitmapFont("userFont", this.mBitmapFont);
+        }
+        userFont() {
+            return this.mBitmapFont;
         }
     }
 
@@ -12900,7 +13019,9 @@
         }
         onupdateFarm(x) {
             this._login_sence.scene.loading_txt.text = x + '%';
+            console.log(x);
             var num = Math.floor(x / (100 / 9)) - 1;
+            this._login_sence.scene.loginProgressBar.value = x / 100;
             this._login_sence.scene.loading_icon.url = "ui://login/0_0000" + num;
         }
         onClick() {
@@ -13028,6 +13149,7 @@
             this.initModule();
             resManger.getInstance().addGroupRes(resConfig.loadingRes);
             resManger.getInstance().startLoad(GAMEEVENT.ONRESPROGRESSLOGIN, GAMEEVENT.ONRESCOMPLETELOGIN);
+            resManger.getInstance().setBitmapFont();
         }
         initModule() {
             gameLayer.initModule();

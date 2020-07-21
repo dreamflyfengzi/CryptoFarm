@@ -21,7 +21,10 @@ import infoController from './infoController'
 			infoController.getInstance().infoUserUpgradeTip(data);
 		}
 		//玩家信息框获取的协议
-		public UserCountInfo(data){
+    public UserCountInfo(data){
+      if (!data) {
+        return
+      }
       // data = {"ga":"send_user_grade_up","gd":{"grade":"10","grade2":"11","num":"689","up_data":[{"id":"wp5005","num":"1"},{"id":"wp5004","num":"2"},{"id":"wp5004","num":"3"},{"id":"wp5004","num":"4"}],"msg":"\u5347\u7ea7\u8bf4\u660e\u6587\u5b57"},"code":1};
 			data = data.gd;
 			dataGlobal.getInstance().setUserInfo(data);//保存用户信息

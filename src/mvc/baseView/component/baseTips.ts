@@ -82,7 +82,6 @@ export default class baseTips extends Laya.Sprite {
    */
   /** */
   public onClick() {
-    console.log("onClick");
   }
   /** */
   public clearAll() {

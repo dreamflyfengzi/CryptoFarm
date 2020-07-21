@@ -21,9 +21,6 @@ export default class factoryMake extends baseTips {
   public showFactoryMake(mf_id: string, id: string) {
     this._factoryMake = new ui.factory.factoryMakeUI;
     this._factoryMake.name = 'factoryMake';
-    // this.setScale(this._factoryMake.displayObject);
-
-    // console.log(this._tipKuan.displayObject.x,this._tipKuan.displayObject.y);
     this._factoryMake.pivot(this._factoryMake.width / 2, this._factoryMake.height / 2);//设置轴心
     this.addChild(this._factoryMake);
     this.tweenShow();
@@ -51,26 +48,27 @@ export default class factoryMake extends baseTips {
     var make_list = this._factoryMake.scene.getChildByName('make_list');
     make_list.dataSource = []
     //
-    var makeItem = {
-      id:'',
-      good_icon: {
-        skin: ''
-      },
-      gou: {
-        visible: false
-      },
-      num_txt: {
-        text: ""
-      },
-      go_div: {
-        visible: false
-      },
-      bg: {
-        skin: ""
-      },
-    };
+ 
     //
     for (var i in data) {
+      var makeItem = {
+        id:'',
+        good_icon: {
+          skin: ''
+        },
+        gou: {
+          visible: false
+        },
+        num_txt: {
+          text: ""
+        },
+        go_btn: {
+          visible: false
+        },
+        bg: {
+          skin: ""
+        },
+      };
       this._index++
       makeItem.id = this._index + ''
       //获取物品配置表的信息
@@ -80,28 +78,25 @@ export default class factoryMake extends baseTips {
       var _skin = good_info.pic.substring(index + 1, good_info.pic.length)
       makeItem.good_icon.skin = 'main/' + _skin + '.png';
       //判断是否够材料
-      // var user_num = user_good_info[data[i].id].num; 
-      var user_num = 1;
+      var user_num = user_good_info[data[i].id].num; 
       //获取对的图标
       if (num % 2 == 0) {
         makeItem.bg.skin = 'factory/pic_kuang4.png';
       } else {
         makeItem.bg.skin = 'factory/pic_kuang5.png';
       }
-      if (Math.floor(user_num) >= Math.floor(data[i].num)) {//够材料
+      if (Math.floor(user_num) >= Math.floor(data[i].num)) {//够材料)
         makeItem.gou.visible = true;
         makeItem.num_txt.text = "" + user_num + "/" + data[i].num + "";
-        makeItem.go_div.visible = false;
+        makeItem.go_btn.visible = false;
       } else {
         makeItem.gou.visible = false;
         makeItem.num_txt.text = "" + user_num + "/" + data[i].num + "";
-        makeItem.go_div.visible = true;
-        console.log(make_list.getCell(this._index).getChildByName("go_btn"))
+        makeItem.go_btn.visible = true;
         make_list.getCell(this._index).getChildByName("go_btn").on(Laya.Event.CLICK, this, this.goClick, [good_info.type]);
       }
       num++;
       make_list.addItem(makeItem);
-      console.log(make_list)
     }
 
   }

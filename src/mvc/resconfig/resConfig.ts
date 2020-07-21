@@ -10,6 +10,11 @@ export default class resConfig {
         { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE},
     ]
     
+    /**字体资源 */
+    public static fontRes: Array<any> = [
+      { url: resConfig._url + 'res/atlas/font.atlas', type: Laya.Loader.JSON , sign: 'font' },
+      { url: resConfig._url + 'res/atlas/font.png', type: Laya.Loader.IMAGE },
+  ]
     /**首次载入数据 */
     /**载入农场数据 */
     public static farm: Array<any> = [

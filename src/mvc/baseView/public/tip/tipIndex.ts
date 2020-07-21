@@ -27,7 +27,7 @@ export default class tipIndex extends baseWindow {
    * @param cancel_fun   ：取消监听函数
    */
   public tipShow(content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
-   
+    console.log(content_txt)
     var _tipKuan = new ui.base.tishi_tipUI();
     _tipKuan.content_txt.text = content_txt;
     _tipKuan.confirm_btn.label = confirm_txt;
@@ -48,6 +48,7 @@ export default class tipIndex extends baseWindow {
     this.tweenHide();
   }
   public gameFailTip(data) {
+    console.log('错误提醒3')
     var myData = data.gd;
     this.tipShow(myData.msg, '确定', '取消', function () {
       this.close();
@@ -86,24 +87,14 @@ export default class tipIndex extends baseWindow {
   public goldTipShow(title: string, content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
      var _tipKuan = new ui.base.tishi_tipUI();
      this.addChild(_tipKuan)
-    // _goldTipKuan.getChild('title').asTextField.text = title;
-    console.log('金币提示弹框')
     _tipKuan.content_txt.text = content_txt;
     _tipKuan.confirm_btn.label = confirm_txt;
     _tipKuan.cancel_btn.label = cancel_txt;
     _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
     _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
-    // _goldTipKuan.getChild('content_txt').asTextField.text = content_txt;
-    // _goldTipKuan.getChild('confirm_txt').asTextField.text = confirm_txt;
-    // _goldTipKuan.getChild('cancel_txt').asTextField.text = cancel_txt;
-    // _goldTipKuan.getChild('confirm_btn').asLoader.onClick(this, confirm_fun);
-    // _goldTipKuan.getChild('cancel_btn').asLoader.onClick(this, cancel_fun);
     _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
-    // this.setScale(_goldTipKuan.displayObject);
-    // // console.log(this._tipKuan.displayObject.x,this._tipKuan.displayObject.y);
     _tipKuan.pivotX = 0.5 * _tipKuan.width;
     _tipKuan.pivotY = 0.5 * _tipKuan.height;
-    // this.addChild(_goldTipKuan.displayObject);
     this.tweenShow();
   }
 }

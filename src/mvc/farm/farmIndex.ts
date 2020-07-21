@@ -13,17 +13,13 @@ import orderController from '../order/orderController'
 import exchangeController from '../exchange/exchangeController'
 import CONST from '../../const/CONST'
 import rankController from '../rank/rankController'
+import emailController from '../email/emailController'
 import webSocketJson from '../../net/webSocketJson'
 import httpJson from '../../net/httpJson'
 export default class farmIndex extends baseScene {
   private _farmIndex: Laya.Sprite;
-  // private building_btn:fairygui.GLoader;//建筑按钮
-  // private upgrade_btn:fairygui.GLoader;//升级按钮
-  // private email_btn:fairygui.GLoader;//邮件按钮
-  // private order_btn:fairygui.GLoader;//订单按钮
   private land_div: Laya.Sprite;//花田的层
   private muneClickStr: string;//当前所在的菜单操作
-  // private bg_kuan:Laya.Sprite;//背景框
   private landArr: any;//花田的数组
   private _seedListClass: farmSeedList;
   private _seedList: Laya.Sprite;//种子列表
@@ -39,12 +35,6 @@ export default class farmIndex extends baseScene {
       this.height = this._farmIndex.height;
 
       this._farmIndex.name = 'farmIndex';
-
-      // this._farmIndex.pivot(this._farmIndex.width/2,this._farmIndex.height/2);//设置轴心
-      // this._farmIndex.pos(CONST.STAGEWIDTH/2,CONST.STAGEHEIGHT/2);//设置坐标位置
-
-      //轴心在左上角，需要计算一下y轴的位置
-      // this._farmIndex.y = -CONST.STAGEADAPTION*2;
 
       this.setScale(this._farmIndex);
 
@@ -68,7 +58,6 @@ export default class farmIndex extends baseScene {
     } else {
       this.tweenTranAdd(this._farmIndex, 'farmIndex', type, 'right');
     }
-    console.log(this)
   }
 
   // /**
@@ -76,12 +65,6 @@ export default class farmIndex extends baseScene {
   //  */
   private showInit() {
     this.landArr = {};
-    // 	//赋值
-    // 	this.bg_kuan = this._farmIndex.getChild('bg_kuan').asGroup;
-    // 	this.building_btn = this._farmIndex.getChild('building').asLoader;
-    // 	this.upgrade_btn = this._farmIndex.getChild('upgrade').asLoader;
-    // 	this.email_btn = this._farmIndex.getChild('email').asLoader;
-    // 	this.order_btn = this._farmIndex.getChild('order').asLoader;
 
     //监听点击
     this._farmIndex.scene.bg_kuan.on(Laya.Event.CLICK, this, this.cleanAllStatu);
@@ -89,7 +72,7 @@ export default class farmIndex extends baseScene {
     this._farmIndex.scene.order.on(Laya.Event.CLICK, this, this.onMenuClick, ['order']);//订单
     this._farmIndex.scene.email.on(Laya.Event.CLICK, this, this.onMenuClick, ['email']);//邮件
     this._farmIndex.scene.upgrade.on(Laya.Event.CLICK, this, this.onMenuClick, ['upgrade']);//邮件
-    this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);//市场
+    this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);//交易
     this._farmIndex.scene.rank.on(Laya.Event.CLICK, this, this.onMenuClick, ['rank']);//排行榜
 
     this.cleanAllStatu();//重置所有的按钮状态
@@ -251,21 +234,18 @@ export default class farmIndex extends baseScene {
         this.onClickUpgrade();
         break;
       case 'email':
-        console.log('点击邮箱');
         this._farmIndex.scene.email.skin = 'main/btn_youxiang2.png';
+        this.onClickEmail();
         break;
       case 'order':
-        console.log('点击订单');
         this.onClickOrder();
         this._farmIndex.scene.order.skin = 'main/btn_dingdan2.png';
         break;
       case 'exchange':
-        console.log('点击市场');
         this.onClickExchange();
         this._farmIndex.scene.exchange.skin = 'farm/pic_factory3a.png';
         break;
       case 'rank':
-        console.log('点击排行榜');
         this.onClickRank();
         // this._farmIndex.scene.exchange.skin = 'farm/pic_factory3a.png';
         break;
@@ -326,5 +306,12 @@ export default class farmIndex extends baseScene {
    */
   private onClickRank() {
     rankController.getInstance().onShowRank();
+  }
+  
+  /**
+   * 点击邮箱
+   */
+  private onClickEmail() {
+    emailController.getInstance().onShowEmail();
   }
 }

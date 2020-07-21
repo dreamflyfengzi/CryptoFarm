@@ -45,13 +45,12 @@ export default class warehouseSellTip extends baseTips {
     var good_info = dataGlobal.getInstance().userGoodInfo[this._id];
     this._num = Math.floor((Math.floor(good_info.num) / 2)) < 1 ? 1 : Math.floor((Math.floor(good_info.num) / 2));
     this._sellTip.scene.tot_num.text = 'X' + this._num;
-    // //获取物品的信息
+    //获取物品的信息
     this._good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[this._id];
     let index = this._good_info.pic.lastIndexOf("/");
     var _skin = this._good_info.pic.substring(index + 1, this._good_info.pic.length);
-    this._sellTip.scene.gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
+    this._sellTip.scene.gicon.skin = "main/" + _skin + ".png";
     this._sellTip.scene.gdescribe.text = this._good_info.info;
-    // console.log(this._good_info.pic)
     this._sellTip.scene.tot_price.text = Math.floor(this._good_info.num) * Math.floor(this._num) + '';
   }
   /**
@@ -84,9 +83,8 @@ export default class warehouseSellTip extends baseTips {
     	},
     	'code':1
     };
-    console.log("发送websocket数据",tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
-    // Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
+    // Laya.stage.event(NETWORKEVENT.STOREGOODDEL);
     this.closeSellTip();
   }
 }

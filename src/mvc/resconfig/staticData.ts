@@ -868,7 +868,6 @@ export default class staticData {
         }
         staticData.INDEX_DATA[i].seed_data.grade = String(_b)
         staticData.INDEX_DATA[i].seed_data.grow_static = _b
-        console.log(staticData.INDEX_DATA[i].seed_data.grade)
         // staticData.INDEX_DATA[i].msg = "\u79cd\u690d\u6210\u529f";
         return {
           "ga": "init_plant_flower",
@@ -882,7 +881,6 @@ export default class staticData {
    * 收获成熟花
    */
   public farmCollectFlower(data) {
-    console.log(data.ff_id, '收获成熟花')
     for (var i in staticData.INDEX_DATA) {
       if (staticData.INDEX_DATA[i].ff_id == data.ff_id) {
         staticData.INDEX_DATA[i].seed_data = {
@@ -963,7 +961,6 @@ export default class staticData {
    * 请求浇水操作
    */
   public farmInitFlowerWater(data) {
-    console.log(data.ff_id, '請求澆水')
     for (var i in staticData.INDEX_DATA) {
       if (staticData.INDEX_DATA[i].ff_id == data.ff_id) {
         staticData.INDEX_DATA[i].seed_data.water_time = '300'

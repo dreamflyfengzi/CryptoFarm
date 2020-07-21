@@ -3,16 +3,12 @@
 */
 import orderController from './orderController'
 import dataGlobal from '../resconfig/dataGlobal'
+import infoController from '../info/infoController'
 export default class orderNetwork {
   constructor() {
   }
   //获取当天订单列表的协议
   public LotteryInfoBak(data) {
-    console.log("获取当天订单列表的协议",data)
-    console.log("获取当天订单列表的协议",data)
-    console.log("获取当天订单列表的协议",data)
-    console.log("获取当天订单列表的协议",data)
-    console.log("获取当天订单列表的协议",data)
     // console.log(data);
     // data = {
     //   "ga":"lottery_info_bak",
@@ -75,6 +71,8 @@ export default class orderNetwork {
     //更新一下任务
     orderController.getInstance().sendGood(tmp_arr);
     orderController.getInstance().clickOrderItem(data.lottery_id);
+    //更新用户信息
+    infoController.getInstance().getUserInfo()
   }
 
 }

@@ -71,7 +71,6 @@ export default class baseWindow extends Laya.Sprite {
   }
   /** */
   public onClick() {
-    console.log("onClick");
   }
   /** */
   public clearAll() {

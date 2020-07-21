@@ -3,6 +3,7 @@
 */
 import { ui } from '../../ui/layaMaxUI'
 import baseWindow from '../baseView/component/baseWindow'
+import screen from './screen'
 import exchangeController from './exchangeController'
 import tmp_http from '../../net/httpJson'
 import dataJson from '../resconfig/dataJson'
@@ -16,6 +17,7 @@ import CONST from '../../const/CONST'
 export default class exchangeIndex extends baseWindow {
 
   private _exchangeIndex: Laya.Sprite;//顶层对象
+  private _screenView: screen;
   private _exchangeItem: any;//任务列表子对象
   private _type: string;//当前选项的类型
   private _my_list: Laya.List;
@@ -34,7 +36,6 @@ export default class exchangeIndex extends baseWindow {
   }
   /**显示订单弹窗 */
   public onShowexchange() {
-    console.log('显示订单弹窗')
     this._exchangeIndex = new ui.exchange.exchangeUI();
     this._exchangeIndex.name = 'exchangeIndex';
     this._exchangeIndex.pivot(this._exchangeIndex.width / 2, this._exchangeIndex.height / 2);//设置轴心
@@ -42,14 +43,15 @@ export default class exchangeIndex extends baseWindow {
     this.tweenShow();
     //初始化参数
     this._my_list = this._exchangeIndex.scene.getChildByName('my_list'); //我的物品列表
-    this._my_list.visible = false;
+    // this._my_list.visible = false;
     this._market_list = this._exchangeIndex.scene.getChildByName('market_list'); //市场物品列表
-    this._market_list.visible = false;
+    // this._market_list.visible = false;
     this._material_btn = this._exchangeIndex.scene.getChildByName('material_btn'); //我的材料按钮
 
     this._market_btn = this._exchangeIndex.scene.getChildByName('market_btn'); //我的材料按钮
     this._exchangeIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeexchange);
-
+    this._exchangeIndex.scene.screen_btn.on(Laya.Event.CLICK, this, this.goScreen);
+     
     //初始化选项
     this.switchItem('market');
     //获取用户的物品数据
@@ -78,7 +80,6 @@ export default class exchangeIndex extends baseWindow {
 		 * 获取列表信息
 		 */
   public store_info() {
-    console.log(this._type)
     if (this._type == 'market' ) {
        Laya.stage.event(NETWORKEVENT.MARKETINFOBAK);
     }
@@ -89,7 +90,6 @@ export default class exchangeIndex extends baseWindow {
       'd': {},
       'code': 1
     };
-    // console.log("发送websocket数据",tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
     // Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
   }
@@ -100,8 +100,8 @@ export default class exchangeIndex extends baseWindow {
   public initMarketGoodList() {
     var data = dataGlobal.getInstance().marketInfo;//查询仓库的信息
     var _data_info = data.data_info;
-    this._market_list.dataSource = [];
-    console.log(_data_info)
+    this._market_list.vScrollBarSkin = ''
+    // this._market_list.dataSource = [];
     for (var i in _data_info) {
       var dataItem = {
         id:_data_info[i].good_id,
@@ -113,15 +113,6 @@ export default class exchangeIndex extends baseWindow {
         }
       }
       this._market_list.addItem(dataItem)
-      console.log(this._market_list)
-      console.log(this._market_list)
-      console.log(this._market_list)
-      console.log(this._market_list)
-      console.log(this._market_list)
-      console.log(this._market_list)
-      console.log(this._market_list)
-      console.log(this._market_list)
-      console.log(this._market_list)
       this._market_list.visible = true;
       this.bindClickMarketItem(this._market_list.getCell(Number(i)),Number(i))
     }
@@ -135,10 +126,10 @@ export default class exchangeIndex extends baseWindow {
    */
   public initMyGoodList() {
     var data = dataGlobal.getInstance().marketInfo;//查询仓库的信息
-    var _data_info = data.data_info;
-    this._my_list.dataSource = [];
+    var _data_info = data.data_info;  
+      this._market_list.vScrollBarSkin = ''
+    // this._my_list.dataSource = [];
     for (var i in _data_info) {
-      console.log(_data_info[i])
       var dataItem = {
         id:_data_info[i].good_id,
         icon:{
@@ -149,15 +140,6 @@ export default class exchangeIndex extends baseWindow {
         }
       }
       this._my_list.addItem(dataItem)
-      console.log(this._my_list)
-      console.log(this._my_list)
-      console.log(this._my_list)
-      console.log(this._my_list)
-      console.log(this._my_list)
-      console.log(this._my_list)
-      console.log(this._my_list)
-      console.log(this._my_list)
-      console.log(this._my_list)
       this._my_list.visible = true;
       this.bindClickMyItem(this._my_list.getCell(Number(i)),Number(i))
     }
@@ -231,7 +213,6 @@ export default class exchangeIndex extends baseWindow {
    * 购买
    */
   private showBuyTip(id: string) {
-    console.log('购买')
     // item.off(Laya.Event.CLICK, this, this.showSellTip(id))
     exchangeController.getInstance().showBuyTip(id);
   }
@@ -244,5 +225,14 @@ export default class exchangeIndex extends baseWindow {
     exchangeController.getInstance().showSellTip(id);
   }
 
-
+  /**
+   * 筛选
+   */
+  private goScreen (){
+    if (this._screenView == null) {
+      //初始化视图的类
+      this._screenView = new screen;
+    }
+    this._screenView.onShow();
+  }
 }

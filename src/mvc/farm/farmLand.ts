@@ -36,7 +36,7 @@ export default class farmLand extends ui.farm.farmLandUI {
     //设置定时器
     this.setTimer();
     //设置一下浇水和收获按钮的监听
-    this.water_icon.on(Laya.Event.CLICK, this, this.onClickLand);
+    this.water_icon.on(Laya.Event.CLICK, this, this.onClickLand); //无法进行穿透
     this.harvest_icon.on(Laya.Event.CLICK, this, this.onClickLand);
 
     return this._farmland;
@@ -119,14 +119,12 @@ export default class farmLand extends ui.farm.farmLandUI {
         this.isOperation(data); //浇水
       }
 
-      // console.log(data.seed_data.mature_time)
       this.grow_time.text = globalFun.getInstance().formatSeconds(data.seed_data.mature_time);
       this.grow_time_val.value = Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100) >= 100 ? 100 : Math.floor((data.seed_data.mature_time / data.seed_data.grow_time_tol) * 100);
       if (data.seed_data.mature_time <= 0) {
         this.grow_kuan.visible = false;
       }
       if (data.seed_data.next_mature_time <= 0) {
-        console.log("判断是否到时间了，如果到时见那么久应该发送成长请求")
         //试着进行websocke请求
         let tmp_websocket = webSocketJson.getInstance();
         let tmp_data = {
@@ -173,8 +171,8 @@ export default class farmLand extends ui.farm.farmLandUI {
    * 点击田操作
    */
   private onClickLand() {
+    console.log('点击田地操作+++++++++++++++++++++++++++++++++++')
     // 这里因为响应太快，可能会被误认为第二次点击，所以先清理一下状态先
-    console.log(farmController.getInstance().model.clickLandStatic)
     if (farmController.getInstance().model.clickLandStatic == 'harvest' || farmController.getInstance().model.clickLandStatic == 'water') {
       farmController.getInstance().model.setClickLandStatic('');
       return;
@@ -222,16 +220,16 @@ export default class farmLand extends ui.farm.farmLandUI {
     var data = dataGlobal.getInstance().farmInfo[this.land_id];
     if (data.seed_data.id && typeof data.seed_data.water_time == 'number' && data.seed_data.water_time <= 0) {//可以浇水
       // 试着进行websocke请求
-       let tmp_websocket = webSocketJson.getInstance();
-       let tmp_data = {
-           'a':"init_flower_water",
-           'm':"init",
-           'd':{
-               'ff_id':this.land_id,
-           },
-           'code':1
-       };
-       tmp_websocket.sendMessage(tmp_data);
+      let tmp_websocket = webSocketJson.getInstance();
+      let tmp_data = {
+        'a': "init_flower_water",
+        'm': "init",
+        'd': {
+          'ff_id': this.land_id,
+        },
+        'code': 1
+      };
+      tmp_websocket.sendMessage(tmp_data);
       // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERWATER, data);
     }
 
@@ -277,9 +275,9 @@ export default class farmLand extends ui.farm.farmLandUI {
 
     if (Math.floor(have_gold) < Math.floor(landInfo.num2)) {
       str = '宝石不足，不能升级';
-      gold_str = "<span style='color:#E92727'>" + have_gold + "</span><span style='color:#7D4815'>/" + data.next_ff_id_glod + "</span>";
+      gold_str = "" + have_gold + "/" + data.next_ff_id_glod + "";
     } else {
-      gold_str = "<span style='color:#7D4815'>" + have_gold + "</span><span style='color:#7D4815'>/" + data.next_ff_id_glod + "</span>";
+      gold_str = "" + have_gold + "/" + data.next_ff_id_glod + "";
     }
     if (Math.floor(data.ff_exp) < Math.floor(landInfo.exp)) {//这个是不能升级的
       str = '花田经验不足，请多多种植吧';
@@ -320,7 +318,10 @@ export default class farmLand extends ui.farm.farmLandUI {
     // 检查用户的田块等级是否达到
     var member = dataJson.getInstance().GET_SYS_FLOWER_MEMBER(); //玩家初始数据
     var member_info = dataJson.getInstance().GET_SYS_FLOWER_MEMBER()[grade]; //当前用户等级对应的初始数据
-    console.log(member_info)
+
+    console.log("玩家初始数据", member)
+    console.log("当前用户等级对应的初始数据", member_info)
+
     var userFarm = dataGlobal.getInstance().farmInfo; //当前用户花田数据
     var num = 0;
     for (var i in userFarm) {
@@ -328,13 +329,11 @@ export default class farmLand extends ui.farm.farmLandUI {
         num++;
       }
     }
-    // 判断一下用户的等级  todo 逻辑问题
-    console.log(num)
-    console.log(member_info)
+
     if (member_info.field <= num) {//这里是不能开花田的，需要查询一下下一级可以开的花田
-      console.log('这里是不能开花田的，需要查询一下下一级可以开的花田')
       for (var q in member) {
         if (member[q].field > member_info.field) {
+          console.log(member_info.field)
           str = '达到' + member[q].grade + '级可扩建该花田';
           break;
         }
@@ -342,10 +341,10 @@ export default class farmLand extends ui.farm.farmLandUI {
     }
     // gold_str = "<span style='color:#7D4815'>"+have_gold+"</span><span style='color:#7D4815'>/"+data.ff_id_unlocknum+"</span>";
     // gold_str = "" + have_gold + "/" + data.ff_id_unlocknum + "";
-
+    console.log(data)
     gold_str = '是否消耗' + data.ff_id_unlocknum + '钻石解锁花田'
     if (type == 1) {
-      gold_str = '是否消耗' + data.ff_id_unlocknum + '钻石升级花田'
+      gold_str = '是否消耗' + data.next_ff_id_glod + '钻石升级花田'
     }
     if (str) {
       // Laya.stage.event(GAMEEVENT.TXTTIP, [str]);
@@ -373,7 +372,6 @@ export default class farmLand extends ui.farm.farmLandUI {
   * 花田扩建和升级
   */
   private onGradeExtendAct(type) {
-    console.log('进行扩建')
     //试着进行websocke请求
     let tmp_websocket = webSocketJson.getInstance();
     let tmp_data = {
@@ -427,10 +425,16 @@ export default class farmLand extends ui.farm.farmLandUI {
     //如果是在升级
     if (this.land_static == 'upgrade') {
       this.upgrade_kuan.visible = true;
+      this.upgrade_kuan.mouseThrough = true
       //判断是否满级
       if (data.ff_vip >= data.max_grade) {//下一级的经验小于或者是等于这一级的经验时，就可以判断为满级
-        this.upgrade_info.text = "<span style='color:#ffffff'>满级</span>";
+        this.upgrade_info.text = "满级";
         this.upgrade_info.visible = true;
+        this.n17.visible = false;
+        this.n18.visible = false;
+        this.upgrade_gold.visible = false;
+        this.upgrade_level.visible = false;
+        this.upgrade_progressbar.visible = false;
         this.land.mouseEnabled = true;
         this.land.on(Laya.Event.CLICK, this, function () {
         });
@@ -443,7 +447,8 @@ export default class farmLand extends ui.farm.farmLandUI {
         this.upgrade_gold.visible = true;
         this.upgrade_level.text = 'lv:' + (data.ff_vip - 1);
         this.upgrade_level.visible = true;
-        this.upgrade_progressbar.value = Math.floor((data.ff_exp / data.next_exp) * 100) >= 100 ? 100 : Math.floor((data.ff_exp / data.next_exp) * 100);
+        // this.upgrade_progressbar.value = Math.floor((data.ff_exp / data.next_exp) * 100) >= 100 ? 1 : Math.floor((data.ff_exp / data.next_exp));
+        this.upgrade_progressbar.value = data.ff_exp / data.next_exp;
         this.upgrade_progressbar.visible = true;
         this.land.mouseEnabled = true;
         this.land.on(Laya.Event.CLICK, this, this.onClickLand);
@@ -465,8 +470,11 @@ export default class farmLand extends ui.farm.farmLandUI {
     if (data.seed_data.id) {//有花，可以施肥
       // 展示了花种
       let index = data.seed_data.pic.lastIndexOf("/");
-       var _skin = data.seed_data.pic.substring(index + 1, data.seed_data.pic.length);
+      var _skin = data.seed_data.pic.substring(index + 1, data.seed_data.pic.length);
+      console.log(data.ff_id,_skin,data.seed_data.id)
+      console.log(data.seed_data.name)
       this.flower.skin = "main/" + _skin + ".png";
+      console.log(this.flower.skin)
       this.flower.visible = true;
       //判断是否可以浇水等
       if (this.isOperation(data)) {
@@ -496,15 +504,14 @@ export default class farmLand extends ui.farm.farmLandUI {
   private isOperation(data) {
     var data = dataGlobal.getInstance().farmInfo[this.land_id];
     var clickLandStatic = farmController.getInstance().model.clickLandStatic;
-
-    if (clickLandStatic == '') {
+    if (clickLandStatic == '' || clickLandStatic == 'fertilizer') {
       if (data.seed_data.id && data.seed_data.grow_static == 4 && data.seed_data.mature_time <= 0) {
         //可以收获
         this.land_static = 'harvest';
         this.land.mouseEnabled = true;
         this.land.off(Laya.Event.CLICK, this, this.onClickLand);
         this.land.off(Laya.Event.MOUSE_OUT, this, this.onClickLand);
-        // this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
+        this.land.on(Laya.Event.MOUSE_OUT, this, this.onClickLand);
         this.land.on(Laya.Event.CLICK, this, this.onClickLand);
         //显示可以收获的图标
         this.harvest_icon.mouseEnabled = true;

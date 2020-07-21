@@ -136,6 +136,7 @@ export default class loginWin extends baseScene {
   public onupdateFarm(x) {
     this._login_sence.scene.loading_txt.text = x + '%';
     var num = Math.floor(x / (100 / 9)) - 1;
+    this._login_sence.scene.loginProgressBar.value = x/100;
     this._login_sence.scene.loading_icon.url = "ui://login/0_0000" + num;
   }
   /** */

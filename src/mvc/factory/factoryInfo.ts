@@ -33,12 +33,6 @@ export default class factoryInfo extends baseWindow {
   public onShowFactoryInfo(id: string) {
     factoryController.getInstance().model._mf_id = id;
     this._factoryInfo = new ui.factory.factoryInfoUI;
-    // //赋值
-    // this._top_div = this._factoryInfo.getChildByName('top_div');
-    // this._center_div = this._factoryInfo.getChildByName('center_div');
-    // this._bottom_div = this._factoryInfo.getChildByName('bottom_div');
-    // this._pro_tool = this._factoryInfo.getChildByName('pro_tool');
-    //适配
     this._factoryInfo.name = 'factoryInfo';
     this._factoryInfo.pivot(this._factoryInfo.width / 2, this._factoryInfo.height / 2);//设置轴心
 
@@ -55,16 +49,12 @@ export default class factoryInfo extends baseWindow {
    * 自适应
    */
   private adaption() {
-    console.log(this._factoryInfo)
     // this._top_div.y = this._top_div.y + CONST.ADAPTION;
     // this._center_div.y = this._center_div.y - CONST.ADAPTION;
     // this._bottom_div.y = this._bottom_div.y - CONST.ADAPTION;
-    // console.log(this._pro_tool);
     // // this._pro_tool.scale(CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH,CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH);
     // this._pro_tool.scaleX = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
     // this._pro_tool.scaleY = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
-    // console.log(this._pro_tool);
-    // console.log('this._login_group.y',this._login_group.y,CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH,CONST.DESIGNSTAGEHEIGHT);
     // var sc = CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH;
     // var a = (sc*CONST.DESIGNSTAGEHEIGHT-CONST.STAGEHEIGHT)/sc;
     // for(var i=1;i<=6;i++){
@@ -94,7 +84,6 @@ export default class factoryInfo extends baseWindow {
    * @param id 工厂的ID
    */
   public initFactoryInfo(id: string) {
-    console.log('初始化所有信息')
     this._id = id;
     //设置工厂的基本信息
     this.initSetFactoryInfo(id);
@@ -104,7 +93,7 @@ export default class factoryInfo extends baseWindow {
     this.initProductionGood(id);
     //获取用户的物品信息
     this.getUserGood(id);
-    // //处理升级按钮
+    //处理升级按钮
     this.upGradeBtn(id);
   }
   /**
@@ -124,9 +113,7 @@ export default class factoryInfo extends baseWindow {
    */
   public initProduction(id: string) {
     var data = dataGlobal.getInstance().factory[id];//获取用户这间工厂信息
-    console.log('获取用户这间工厂信息,',data)
     var myData = data.queue_goods;//等待生产的位置
-    console.log(myData)
     var num: number = 1;//当前处理的槽位
     var good_div: Laya.List;//当前处理槽位的物品层
     var unlock_div: Laya.List;//当前处理槽位的解锁层
@@ -188,7 +175,6 @@ export default class factoryInfo extends baseWindow {
     var time_pro = pro_tool.getChildByName('time_pro');//时间倒计时进度条
     var factory_info = dataJson.getInstance().GET_SYS_FACTORY_INFO()[id][data.grade];//获取工厂生产物品的信息
 
-    console.log(good_icon, good_txt, time_txt)
     if (myData && myData.id) {//有物品在生产
       var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[myData.id];//配置表物品信息
       var factory_good_info = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id][myData.id];//获取工厂生产物品的信息
@@ -215,6 +201,7 @@ export default class factoryInfo extends baseWindow {
    * @param num 生产位ID（1或者2）
    */
   private factory_open_seat_num(id: string, num: number) {
+    tipController.getInstance()
     var data = dataGlobal.getInstance().factory[id];//获取用户这间工厂信息
     if (num == 2 && data.open_seat_num == 1) {//有该槽位，并且没有生产的东西
       Laya.stage.event(GAMEEVENT.TXTTIP, ['请先购买第二个生产队列']);
@@ -297,7 +284,6 @@ export default class factoryInfo extends baseWindow {
    * 添加工厂可生产物品信息
    */
   public initProductionGoodList() {
-    console.log('添加工厂可生产物品信息')
     var science_list = this._factoryInfo.scene.bottom_div.getChildByName('science_list');
     science_list.dataSource = [];
     var id = this._id;
@@ -305,8 +291,6 @@ export default class factoryInfo extends baseWindow {
     var level = dataGlobal.getInstance().userInfo.grade;//玩家等级
     var user_good_info = dataGlobal.getInstance().userGoodInfo;//用户的物品信息
     var _index = -1;
-    console.log(data)
-    console.log(user_good_info)
     for (var i in data) {
       var isshow = true;//是否需要显示了下一个了
       if ((Math.floor(level) + 1) < Math.floor(data[i].grade2)) {//如果大于下一级的，则跳过
@@ -338,9 +322,8 @@ export default class factoryInfo extends baseWindow {
       }
       _index++
       science_list.addItem(factoryGoodsItem)
-
-      console.log(science_list.getItem(_index))
-      console.log(science_list.getCell(_index))
+      science_list.visible = true;
+      science_list.hScrollBarSkin = ""
 
       if (Math.floor(level) >= Math.floor(data[i].grade2)) {//够等级，只需要判断是否够材料
           factoryGoodsItem.good_info.visible = true;
@@ -351,22 +334,16 @@ export default class factoryInfo extends baseWindow {
           for (var q in goods_list) {
             //查询材料物品信息
             var material_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[goods_list[q].id];//物品的信息
-            console.log('查询材料物品信息', material_info)
-            console.log(science_list.getItem(_index))
             if (science_list.getItem(_index)) {
               if (science_list.getItem(_index).name == factoryGoodsItem.name) {
                 var factoryGoodsCell = science_list.getCell(_index);
                 var material_num = factoryGoodsCell.getChildByName('good_info').getChildByName('good' + goods_num + '_num');
                 var material_icon = factoryGoodsCell.getChildByName('good_info').getChildByName('good' + goods_num + '_icon');
-                console.log(material_info.pic)
                 let index = material_info.pic.lastIndexOf("/")
                 var _skin = material_info.pic.substring(index + 1, material_info.pic.length)
                 material_icon.skin = 'main/' + _skin + '.png';
                 material_icon.visible = true;
-                console.log(user_good_info)
-                console.log(goods_list[q].id)
-                // var user_num = user_good_info[goods_list[q].id].num;
-                var user_num = 3;
+                var user_num = user_good_info[goods_list[q].id].num;
                 if (Math.floor(user_num) >= Math.floor(goods_list[q].num)) {
                   material_num.color = '#A2613A';
                 } else {
@@ -392,7 +369,6 @@ export default class factoryInfo extends baseWindow {
           }
 
         } else {//上面有判断是否下一级的生产商品
-          console.log("上面有判断是否下一级的生产商品",data[i])
           if (isshow) {
             isshow = false;
             factoryGoodsItem.good_info.visible = false;

@@ -5,6 +5,8 @@ export default class GAMEEVENT{
   /**加载提示 */
   public static ONPROGRESSLOADING:string = 'ONPROGRESSLOADING';
   public static ONLOADCOMPLETE:string = 'onloadcomplete';
+  public static ONPROGRESSFONT:string = 'ONPROGRESSFONT';
+  public static ONLOADFONTCOMPLETE:string = 'onloadfontcomplete';
   /*登录*/
   public static ONRESPROGRESSLOGIN:string = 'ONPROGRESSLOGIN';
   public static ONRESCOMPLETELOGIN:string = 'ONRESCOMPLETELOGIN';

@@ -36,6 +36,17 @@ R FF58FED6 Bg_factory1.png
 R 1D28AD34 Bg_factory2.png
 R CB37DCF3 Bg_zhizuo1.png
 R 249E7939 Bg_zhizuo2.png
+P 8EBC2D20 pic_10_6.png
+P E885B18B pic_11_6.png
+P EE19CDEA pic_1_6.png
+P CDAC8422 pic_2_6.png
+P 9C724836 pic_3_6.png
+P 3A9CE6BB pic_4_6.png
+P B82F2C01 pic_5_6.png
+P 27B0B375 pic_6_6.png
+P 9661717F pic_7_6.png
+P DA7A89CB pic_8_6.png
+P 37555C4D pic_9_6.png
 R A0924BE6 pic_bouquet1.png
 R 73F86424 pic_bouquet2.png
 R D1151331 pic_bouquet3.png
@@ -110,10 +121,10 @@ P E3A8971E hh02_2.png
 P C4B6191A hh02_3.png
 P 538C4CC2 hh02_4.png
 P E701FC8F hh02_seed.png
-P AE8BDB86 hh03_1.png
-P 74106357 hh03_2.png
-P 43D15C1A hh03_3.png
-P 93F2507A hh03_4.png
+P 0E9417B6 hh03_1.png
+P EA6C4A0B hh03_2.png
+P F770EE65 hh03_3.png
+P F12771DF hh03_4.png
 P 188226F1 hh03_seed.png
 P 50DB4764 hh04_1.png
 P FEFB1119 hh04_2.png
@@ -167,9 +178,12 @@ P A52DD392 shifei_sf01.png
 P 45456C4B shouhuo.png
 P 56746E5D shu.png
 D font
-R 35CFFCD8 pic_shuzi.png
-P 9113D788 pic_shuzi2.png
-S CE0D1FCF pic_zi.png
+R 0657DF52 gameFont.fnt
+P 759C34B5 gameFont.png
+R 673FA22B gameFont1.fnt
+P D10CC82E gameFont1.png
+R 285BA834 public_font.fnt
+P 7518985D public_font.png
 D loading
 P 553A8BCB 0_00000.png
 P 12042B8E 0_00001.png
@@ -181,12 +195,17 @@ P 9774691D 0_00006.png
 P 02D4FD21 0_00007.png
 P 9BF50C5E 0_00008.png
 S E41D9161 181115--登陆界面效果图.jpg
+P 2233A0CA akp_progress$bar.png
+P 951958B4 akp_progress.png
 P 4AAC0F22 btn_dagou.png
 R 9EEF59AC btn_denglu.png
 P AE180925 btn_wudagou.png
+R F26D924B main_background.png
 R 334749BE pic_bg1.png
 R 2000415D pic_bg2.png
+P 11380F55 select_all_board.png
 D main
+P DA656ED2 activity.png
 S 60309804 bg.png
 R 28EADC6F btn_cangku1.png
 R 492370E6 btn_cangku2.png
@@ -208,6 +227,15 @@ P 316F3026 btn_youxiang1.png
 P E4A937B5 btn_youxiang2.png
 R 942686A3 farmBg_1.png
 R 391A2005 farmBg_2.png
+P D90992CF friend_selected_bg.png
+P 9EE19079 friend_selected_flag.png
+P 5C4BFE31 icon_message.png
+P AA879736 icon_raccoon.png
+P B4F771A7 icon_setting.png
+P D913AD7D mall_buy_less_button.png
+P A94CA27D mall_buy_more_button.png
+P CF9C2B7E mall_number_board_.png
+P 2A60B072 message.png
 P FB0F7AB3 pic_10_1.png
 P 7D397EF5 pic_10_2.png
 P E12C4C13 pic_10_3.png
@@ -232,10 +260,10 @@ P C4B6191A pic_2_3.png
 P 538C4CC2 pic_2_4.png
 P CB5C56F7 pic_2_5.png
 P CDAC8422 pic_2_6.png
-P AE8BDB86 pic_3_1.png
-P 74106357 pic_3_2.png
-P 43D15C1A pic_3_3.png
-P 93F2507A pic_3_4.png
+P 0E9417B6 pic_3_1.png
+P EA6C4A0B pic_3_2.png
+P F770EE65 pic_3_3.png
+P 966CBC2C pic_3_4.png
 P AF84B0A9 pic_3_5.png
 P 9C724836 pic_3_6.png
 P 50DB4764 pic_4_1.png
@@ -274,6 +302,11 @@ P 00D61476 pic_9_3.png
 P 89C271CE pic_9_4.png
 P 9C43A916 pic_9_5.png
 P 37555C4D pic_9_6.png
+R A0924BE6 pic_bouquet1.png
+R 73F86424 pic_bouquet2.png
+R D1151331 pic_bouquet3.png
+R 5FDDFDD0 pic_bouquet4.png
+P E158C68D pic_bouquet5.png
 P 6FA458A3 pic_cangku.png
 P 62E6C830 pic_cangkukuang.png
 R B223C570 pic_dibu.png
@@ -321,8 +354,12 @@ P 73DE9773 pic_yingzi.png
 P 4C9220AB pic_zhishi.png
 P 188AF498 pic_zuanshi.png
 P 538214E9 pic_zuanshidikuang.png
+P 7137B5C3 planet_rank_icon.png
 P 0999F0BB rank_icon.png
+P 9A454E97 seting.png
+P 60C8B746 shop.png
 P 56746E5D shu.png
+R 37F34170 stick.png
 D order
 P 5A4072EC btn_guanbi2.png
 P 99A82A00 btn_huang.png

@@ -1,7 +1,7 @@
 /**
 * name 
 */
-import baseWindow from '../baseView/component/baseWindow'
+import baseTips from '../baseView/component/baseTips'
 import { ui } from '../../ui/layaMaxUI'
 import NETWORKEVENT from '../event/NETWORKEVENT'
 import dataGlobal from '../resconfig/dataGlobal'
@@ -12,7 +12,7 @@ import warehouseItem from './warehouseItem'
 import warehouseController from './warehouseController'
 import httpJson from '../../net/httpJson'
 import CONST from '../../const/CONST'
-export default class warehouseIndex extends baseWindow {
+export default class warehouseIndex extends baseTips {
 
   private _warehouse: Laya.Sprite;//顶层对象
   private _type: string;//当前选项的类型
@@ -61,7 +61,6 @@ export default class warehouseIndex extends baseWindow {
    */
   public initWarehouseInfo() {
     var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
-    console.log('仓库', data)
     // 'store_id'=>'仓库系统ID',
     // 'grade'=>'仓库等级',
     // 'num'=>'仓库总大小',
@@ -78,12 +77,10 @@ export default class warehouseIndex extends baseWindow {
     this._warehouse.scene.good_num.text = '容量：' + data.num2 + '/' + data.num;
     //判断是否可以升级
     var store_info = dataJson.getInstance().GET_SYS_STORE_INFO();
-    console.log(data, store_info, store_info[Math.floor(data.grade) + 1])
     if (store_info[Math.floor(data.grade) + 1]) {
       this._warehouse.scene.upgrade_btn.visible = true;
       this.setUpdrageDiv();
     } else {
-      //最高
       this._warehouse.scene.upgrade_btn.visible = false;
     }
   }
@@ -91,7 +88,6 @@ export default class warehouseIndex extends baseWindow {
    * 设置升级按钮
    */
   public setUpdrageDiv() {
-    console.log('设置升级按钮')
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;//获取用户信息金币信息
     var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
     this._warehouse.scene.upgrade_btn.off(Laya.Event.CLICK, this, this.showGoldTip);
@@ -104,19 +100,20 @@ export default class warehouseIndex extends baseWindow {
       var confirm_fun: any;
       for (var i in good_list) {
         if (good_list[i].id == 'g001') {
-          if (good_list[i].num > have_gold) {//不够钱
+          if (good_list[i].num > have_gold) {
+            //不够钱
             // var str = "<span style='color:#E92727'>"+have_gold+"</span><span style='color:#7D4815'>/"+good_list[i].num+"</span>";
             var str = "" + have_gold + "/" + good_list[i].num + "";
-            confirm_fun = function () {
+          	confirm_fun = function(){
+              Laya.stage.event(GAMEEVENT.TXTTIP,['宝石不足']);
               tipController.getInstance().close();
             }
-            console.log('不够钱', confirm_fun);
           } else {
-            console.log('无法升级')
-            // 				var str = "<span style='color:#7D4815'>"+have_gold+"</span><span style='color:#7D4815'>/"+good_list[i].num+"</span>";
-            var str = "" + have_gold + "/" + good_list[i].num + "";
+            //+ have_gold + "/"
+            var str = "确认花费"  + good_list[i].num + "钻石升级仓库容量";
+            
             var self = this;
-            confirm_fun = function () {
+            confirm_fun = function(){
               this.warehouseUpgrade();
               tipController.getInstance().close();
             }.bind(this);
@@ -126,15 +123,15 @@ export default class warehouseIndex extends baseWindow {
       var cancel_fun = function () {
         tipController.getInstance().close();
       }
-      console.log(str)
       this._warehouse.scene.upgrade_btn.on(Laya.Event.CLICK, this, this.showGoldTip, ['仓库升级', str, '确定', '取消', confirm_fun, cancel_fun]);
-    }
+    } 
   }
 
   /**
    * 金币弹窗
    */
   private showGoldTip(title: string, content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
+    tipController.getInstance()
     Laya.stage.event(GAMEEVENT.GOLDTIP, [title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun]);
   }
   /**
@@ -148,7 +145,6 @@ export default class warehouseIndex extends baseWindow {
     	'd':{},
     	'code':1
     };
-    // console.log("发送websocket数据",tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
     // Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
   }
@@ -177,7 +173,6 @@ export default class warehouseIndex extends baseWindow {
         if (isAdd && Math.floor(data[i].num) > 0) {
           this.creator_good_item(data[i].id, data[i].num);
         }
-        // this._good_list.dataSource = source;
         isAdd = false;
       }
     }
@@ -188,13 +183,7 @@ export default class warehouseIndex extends baseWindow {
   }
   // 点击图标
   private itemSelectHandler(id, cell) {
-    // var item = cell.getChildByName('gicon')
     cell.on(Laya.Event.CLICK, this, this.clickItem, [cell])
-
-    // cell.on(Laya.Event.CLICK,this,)
-    // this.showSellTip(this._good_list.array[index].gicon.skin)
-    // console.log(this._good_list.getChildByName('gicon'))
-    // console.log(cell.getChildByName('gicon'))
   }
 
   private clickItem(cell) {
@@ -207,11 +196,12 @@ export default class warehouseIndex extends baseWindow {
    */
   private creator_good_item(id, num) {
     var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
+    console.log(data)
     var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
 
     let index = good_info.pic.lastIndexOf("/")
     var _skin = good_info.pic.substring(index + 1, good_info.pic.length)
-    // gicon.graphics.drawTexture(Laya.loader.getRes("main/" + _skin + ".png"));
+
     var isNum = num - Math.floor(data.num3)
     if (isNum > 0) {//需要放两格
       var good_item = {
@@ -219,13 +209,19 @@ export default class warehouseIndex extends baseWindow {
           text: data.num3
         },
         gicon: {
-          skin: "main/" + _skin + ".png"
+          skin: "main/" + _skin + ".png",
+          width:145,
+          height:145
         },
         id:id
       }
-
-      //   _dataSource.push(good_item)
+  
       this._good_list.addItem(good_item)
+      console.log(this._good_list.cells.length)
+      console.log(good_item.gicon)
+      if(this._good_list.cells.length >= 16) {
+        this._good_list.vScrollBarSkin = ''
+      }
       this._good_list.visible = true
       this.creator_good_item(id, isNum);
     } else {
@@ -234,21 +230,20 @@ export default class warehouseIndex extends baseWindow {
           text: num,
         },
         gicon: {
-          skin: "main/" + _skin + ".png"
+          skin: "main/" + _skin + ".png",
+          width:145,
+          height:145
         },
         id:id
       }
-      //   // gnum.text = num;
-      //   // this._warehouse.scene.good_list.add(good_item);
-      //   _dataSource.push(good_item)
       this._good_list.addItem(good_item)
+      console.log(this._good_list.cells.length)
+      console.log(good_item.gicon)
+      if(this._good_list.cells.length >= 16) {
+        this._good_list.vScrollBarSkin = ''
+      }
       this._good_list.visible = true
     }
-
-    // console.log(this._warehouse.scene.good_list.dataSource)
-    // // Laya.stage.event(NETWORKEVENT.SHOWSELLTIP,id);
-    // good_item.on(Laya.Event.CLICK, this, this.showSellTip, [id]);
-    // return _dataSource
   }
 
 
@@ -296,7 +291,6 @@ export default class warehouseIndex extends baseWindow {
     	},
     	'code':1
     };
-    // console.log("发送websocket数据",tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
     // Laya.stage.event(NETWORKEVENT.STOREUPGRADEBAK);
   }

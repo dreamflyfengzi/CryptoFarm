@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":7,
+    "selectedBox":14,
+    "selecteID":21,
     "searchKey":"Scene,farmLand",
     "props":{"width":400,"var":"farmLand","sceneColor":"#000000","height":400},
     "nodeParent":-1,
@@ -64,7 +64,7 @@
             "x":15,
             "type":"Button",
             "searchKey":"Button,extend_btn",
-            "props":{"y":23,"x":61,"width":273,"var":"extend_btn","stateNum":"1","skin":"farm/btn_kuojian1.png","height":257},
+            "props":{"y":32.5,"x":63,"width":273,"var":"extend_btn","stateNum":"1","skin":"farm/btn_kuojian1.png","height":257},
             "nodeParent":2,
             "label":"extend_btn",
             "isDirectory":false,
@@ -132,16 +132,17 @@
             "x":15,
             "type":"Box",
             "searchKey":"Box,upgrade_kuan",
-            "props":{"y":148,"x":48,"width":303,"var":"upgrade_kuan","height":164},
+            "props":{"y":161,"x":34,"width":303,"var":"upgrade_kuan","height":164},
             "nodeParent":2,
             "label":"upgrade_kuan",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":14,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,n17",
                     "props":{"y":0,"x":81,"width":140,"var":"n17","skin":"farm/land_gold_bg.png","sizeGrid":"9,9,9,9","height":45,"alpha":0.3},
@@ -155,6 +156,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Sprite",
                     "searchKey":"Sprite,n18",
                     "props":{"y":-2,"x":71,"width":46,"var":"n18","texture":"farm/pic_zuanshi.png","height":51},
@@ -168,6 +170,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,upgrade_gold",
                     "props":{"y":0,"x":117,"width":105,"var":"upgrade_gold","valign":"middle","text":"300","height":46,"fontSize":42,"color":"#d0edf6","align":"center"},
@@ -181,6 +184,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"TextArea",
                     "searchKey":"TextArea,upgrade_info",
                     "props":{"y":45,"x":0,"wordWrap":true,"width":303,"var":"upgrade_info","valign":"middle","text":"加速:22% + 5%","strokeColor":"#954917","stroke":5,"height":50,"fontSize":42,"font":"SimHei","color":"#fff8f8","bold":true,"align":"center"},
@@ -194,6 +198,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"ProgressBar",
                     "searchKey":"ProgressBar,upgrade_progressbar",
                     "props":{"y":112,"x":151,"width":138,"var":"upgrade_progressbar","value":0.1,"skin":"main/pic_kuang1.png","sizeGrid":"10,10,10,10","height":38},
@@ -208,6 +213,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,upgrade_level",
                     "props":{"y":103,"x":45.5,"width":97,"var":"upgrade_level","valign":"middle","text":"LV: 0","strokeColor":"#000000","stroke":5,"height":56,"fontSize":42,"color":"#f6f6f6","align":"center"},
@@ -220,7 +226,7 @@
                     "child":[
                         ]
                 }],
-            "$HIDDEN":true
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -334,7 +340,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,harvest_icon",
-            "props":{"y":-150,"x":96,"width":229,"var":"harvest_icon","texture":"main/pic_shouhuo.png","height":203},
+            "props":{"y":-66,"x":79,"width":229,"var":"harvest_icon","texture":"main/pic_shouhuo.png","height":203},
             "nodeParent":2,
             "label":"harvest_icon",
             "isDirectory":false,
@@ -348,7 +354,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,water_icon",
-            "props":{"y":-150,"x":98.5,"var":"water_icon","texture":"main/pic_jiaoshui.png"},
+            "props":{"y":-66,"x":84.5,"var":"water_icon","texture":"main/pic_jiaoshui.png"},
             "nodeParent":2,
             "label":"water_icon",
             "isDirectory":false,

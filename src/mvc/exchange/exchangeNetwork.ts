@@ -5,7 +5,6 @@ export default class exchangeNetwork {
   }
   //获取市场的信息
   public MarketInfoBak(data) {
-    console.log("exchangeNetwork",'获取市场的信息')
     // data = {
     //   "ga":"market_info_bak",
     //   "code":1,

@@ -16,8 +16,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
     super()
   }
   private _seedListScene: Laya.Sprite;//列表的组件 列表本页面
-  private _seedListArray: Array<any>;//花种
-  private _fatListArray: Array<any>;//肥料
   private _seed_list: Laya.List; //列表本表
   private _dataSeedList: Array<any>; //列表种子
   private _dataFertilizer: Array<any>; //列表化肥
@@ -33,7 +31,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
     return _nowScene
   }
 
-  // 设置一下种子（data = {'seed_data':种子信息,'fat_data':肥料信息}）
   public addSeedListItem(data) {
     this.addSeedItem(data.seed_data);
     this.addFertilizerItem(data.fat_data);
@@ -105,11 +102,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
     itemObj.suo_div.visible = false;
     itemObj.gold_num.color = '#EDFF24';
   }
-
-
-
-
-
   //--1--设置信息
   public setSeedListItem() {
     if (this._seed_list.renderHandler) {
@@ -127,7 +119,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
    */
   public setSeedItem() {
     this._seed_list.dataSource = this._dataSeedList;
-    console.log(this._seed_list.dataSource)
     var grade = dataGlobal.getInstance().userInfo.grade;
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     //获取种子列表信息
@@ -148,7 +139,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
         // 可以解锁
         if (have_gold >= seed_arr[i].gold) {//够钱
           _seedItem.gold_num.color = '#EDFF24';
-          console.log(_seedItem, seed_arr[i], i)
         } else {//不够钱
           _seedItem.gold_num.color = '#FF3E24';
         }
@@ -168,6 +158,7 @@ export default class farmSeedList extends ui.farm.seedListUI {
 
 
     }
+    this._seed_list.renderHandler = null;
     this._seed_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false)
     this._seed_list.visible = true;
     this._seedListScene.visible = true;
@@ -185,7 +176,7 @@ export default class farmSeedList extends ui.farm.seedListUI {
     for (var i in fat_arr) {
       //查询一下肥料的信息
       var fat_info = dataJson.getInstance().GET_SYS_FLOWER_COMPOSTED()[fat_arr[i].id];
-      
+
       for (var z in this._seed_list.dataSource) {
         if (this._seed_list.dataSource[z].name === fat_info[1].id) {
           var _seedItem = this._seed_list.dataSource[z];
@@ -197,13 +188,14 @@ export default class farmSeedList extends ui.farm.seedListUI {
         _seedItem.gold_num.color = '#EDFF24';
         _seedItem.visible = true
       } else {//不够钱
-        _seedItem.gold_num.color  = '#FF3E24';
+        _seedItem.gold_num.color = '#FF3E24';
         _seedItem.visible = true
       }
       _seedItem.visible = true
     }
     this._seed_list.visible = true;
     this._seedListScene.visible = true;
+    this._seed_list.renderHandler = null;
     this._seed_list.renderHandler = new Laya.Handler(this, this.itemFatSelectHandler, [fat_arr], false)
   }
 
@@ -211,6 +203,7 @@ export default class farmSeedList extends ui.farm.seedListUI {
 
   //点击种子列表项
   private itemSelectHandler(cell, index) {
+    cell.off(Laya.Event.CLICK, this, this.onClick)
     var grade = dataGlobal.getInstance().userInfo.grade;
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     //获取种子列表信息
@@ -228,10 +221,12 @@ export default class farmSeedList extends ui.farm.seedListUI {
     }
   }
 
-    //点击肥料列表项
-    private itemFatSelectHandler(arr:any,cell, index) {
-      cell.on(Laya.Event.CLICK,this,this.onFertilizer,[{'id':arr[index].id,'num':arr[index].num}]);
-    }
+  //点击肥料列表项
+  private itemFatSelectHandler(arr: any, cell, index) {
+    cell.off(Laya.Event.CLICK, this, this.onClick)
+    cell.off(Laya.Event.CLICK, this, this.onFertilizer)
+    cell.on(Laya.Event.CLICK, this, this.onFertilizer, [{ 'id': arr[index].id, 'num': arr[index].num }]);
+  }
 
 
 
@@ -303,70 +298,32 @@ export default class farmSeedList extends ui.farm.seedListUI {
   /**
    * 点击施肥
    */
-  private onFertilizer(data){
+  private onFertilizer(data) {
     var landId = farmController.getInstance().model.landId;
     var landData = dataGlobal.getInstance().farmInfo[landId];
     //判断是否可以施肥
-    if(landData.fat_time > 0 ){
-        //不可以施肥
-        Laya.stage.event(GAMEEVENT.TXTTIP,['该花田已施肥']);
-        return;
+    if (landData.fat_time > 0) {
+      //不可以施肥
+      Laya.stage.event(GAMEEVENT.TXTTIP, ['该花田已施肥']);
+      return;
     }
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-    if(have_gold<data.num){
-        Laya.stage.event(GAMEEVENT.TXTTIP,['施肥种子需要'+data.num+'宝石']);
-        return;
+    if (have_gold < data.num) {
+      Laya.stage.event(GAMEEVENT.TXTTIP, ['施肥种子需要' + data.num + '宝石']);
+      return;
     }
     //试着进行websocke请求
     let tmp_websocket = webSocketJson.getInstance();
     let tmp_data = {
-        'a':"init_flower_fertilize",
-        'm':"init",
-        'd':{
-            'ff_id':landId,
-            'fat_id':data.id
-        },
-        'code':1
+      'a': "init_flower_fertilize",
+      'm': "init",
+      'd': {
+        'ff_id': landId,
+        'fat_id': data.id
+      },
+      'code': 1
     };
-    console.log("发送websocket数据",tmp_data);
     tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFERTILIZE);
-}
-  // private onFertilizer(cell, index) {
-  //   // var data = this.fat_data[index]
-  //   // console.log(data)
-  //   // var landId = farmController.getInstance().model.landId;
-  //   // var landData = dataGlobal.getInstance().farmInfo[landId];
-  //   // //判断是否可以施肥
-  //   // if (landData.fat_time > 0) {
-  //   //   //不可以施肥
-  //   //   Laya.stage.event(GAMEEVENT.TIPSKUAN, ['该田已经施过肥了', '确定', '取消', function () {
-  //   //     tipController.getInstance().close();
-  //   //   }, function () {
-  //   //     tipController.getInstance().close();
-  //   //   }]);
-  //   // }
-  //   // var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-  //   // if (have_gold < data.num) {
-  //   //   Laya.stage.event(GAMEEVENT.TIPSKUAN, ['施肥种子需要' + data.num + '金币', '确定', '取消', function () {
-  //   //     tipController.getInstance().close();
-  //   //   }, function () {
-  //   //     tipController.getInstance().close();
-  //   //   }]);
-  //   //   return;
-  //   // }
-  //   // //试着进行websocke请求
-  //   // let tmp_websocket = webSocketJson.getInstance();
-  //   // let tmp_data = {
-  //   //   'a': "init_flower_fertilize",
-  //   //   'm': "init",
-  //   //   'd': {
-  //   //     'ff_id': landId,
-  //   //     'fat_id': data.id
-  //   //   },
-  //   //   'code': 1
-  //   // };
-  //   // tmp_websocket.sendMessage(tmp_data);
-  //   // Laya.stage.event(NETWORKEVENT.FARMINITFLOWERFERTILIZE);
-  // }
+  }
 }

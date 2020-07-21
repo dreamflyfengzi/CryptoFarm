@@ -162,7 +162,6 @@ export default class dataGlobal{
           this.query.uid = data.uid;
       }
 
-      console.log('用户信息是',data)
   }
  
   //设置用户的属性

@@ -24,8 +24,6 @@ export default class factoryUpgrade extends baseTips {
     this._factoryUpgrade = new ui.factory.factoryUpgradeUI;
     this._factoryUpgrade.name = 'factoryUpgrade';
     // this.setScale(this._factoryUpgrade);
-
-    // console.log(this._tipKuan.displayObject.x,this._tipKuan.displayObject.y);
     this._factoryUpgrade.pivot(this._factoryUpgrade.width / 2, this._factoryUpgrade.height / 2);//设置轴心
     this.addChild(this._factoryUpgrade);
     this.tweenShow();
@@ -61,6 +59,7 @@ export default class factoryUpgrade extends baseTips {
     upgrad_div.off(Laya.Event.CLICK, this, this.factoryUpGrade);
     var is_grade = true;
     upgrad_list.dataSource= [];
+    upgrad_list.vScrollBarSkin = "";
     for (var i in data) {
       //如果是当前等级的，那么需要给弹窗上面设置工厂信息
       if (Math.floor(myData.grade) == Math.floor(data[i].grade)) {
@@ -118,7 +117,6 @@ export default class factoryUpgrade extends baseTips {
         }
       }
       upgrad_list.addItem(factoryUpgradeItem);
-      console.log(upgrad_list.cells)
     }
     //判断一下是否还有级数可以升
     this.isUpgrade();

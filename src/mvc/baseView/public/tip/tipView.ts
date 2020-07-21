@@ -33,6 +33,7 @@ export default class tipView {
   }
   /**服务的错误提醒 */
   public gameFailTip(data) {
+    console.log('错误提醒2')
     if (this._tipCom == null) {
       this._tipCom = new tipIndex;
     }

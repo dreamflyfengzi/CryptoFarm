@@ -4,6 +4,7 @@
 import dataGlobal from '../resconfig/dataGlobal'
 import factoryController from './factoryController'
 import GAMEEVENT from '../event/GAMEEVENT'
+import infoController from '../info/infoController'
 export default class factoryNetwork {
   constructor() {
   }
@@ -34,9 +35,10 @@ export default class factoryNetwork {
     //展示工厂的信息
     factoryController.getInstance().showFactory();
     if (data.msg) {
-      console.log('重置工厂的信息')
       Laya.stage.event(GAMEEVENT.TXTTIP, [data.msg]);
     }
+    //更新用户信息
+    infoController.getInstance().getUserInfo()
   }
   //工厂生产产品完成后用户点击收获
   public FactoryGoodSave(data) {
@@ -58,6 +60,8 @@ export default class factoryNetwork {
     //刷新页面的信息
     factoryController.getInstance().initProduction(data.mf_id);
     Laya.stage.event(GAMEEVENT.TXTTIP, ['成功购买队列']);
+    //更新用户信息
+    infoController.getInstance().getUserInfo()
   }
   //获取用户物品
   public SendGoodBak(data) {
@@ -81,6 +85,9 @@ export default class factoryNetwork {
   }
   //工厂升级的协议
   public FactoryUpGrade(data) {
+    if (!data) {
+      return
+    }
     // data = { "ga": "factory_up_grade_bak", "gd": { "mf_id": "gc001", "grade": "4", "open_seat_num": "1", "being_goods": { "id": "wp5001", "t": "600000" }, "queue_goods": [{ "id": "wp5002", "t": "600000", "t2": "5000000" }], "succ_goods": [{ "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }, { "id": "wp5011", "t": "2012-10-10", "t2": "2012-10-11", "n": 1 }] }, "code": 1 };
     //保存一下工厂的信息
     data = data.gd;
@@ -91,6 +98,8 @@ export default class factoryNetwork {
     factoryController.getInstance().initFactoryInfo(data.mf_id);
     //刷新一下升级弹窗的信息
     factoryController.getInstance().initFactoryGradeList();
+    //更新用户信息
+    infoController.getInstance().getUserInfo()
   }
   //工厂生产产品完成的协议
   public FactoryGoodGet(data) {
