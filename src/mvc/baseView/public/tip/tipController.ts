@@ -2,12 +2,14 @@
 * name 
 */
 import tipView from './tipView'
+import basetipview from './baseTipView'
 import tipIndex from './tipIndex'
 import GAMEEVENT from '../../../event/GAMEEVENT'
 import NETWORKEVENT from '../../../event/NETWORKEVENT'
 
 export default class tipController {
   private _tipview: tipView;
+  private _basetipview: basetipview;
   private static _instance: tipController;
   // public model: tipModel;
   // private _network: tipNetwork;
@@ -25,10 +27,18 @@ export default class tipController {
 
 
     Laya.stage.on(GAMEEVENT.TIPSKUAN, this, this.tipShow);
+    Laya.stage.on(GAMEEVENT.BASETIPS, this, this.baseTipsShow);
     Laya.stage.on(GAMEEVENT.GOLDTIP, this, this.goldTipShow);
     Laya.stage.on(NETWORKEVENT.GAMEFAILTIP, this, this.gameFailTip);
     Laya.stage.on(GAMEEVENT.TXTTIP, this, this.gameTxtTip); //飘字提醒
 
+  }
+  /**基础弹窗 */
+  public baseTipsShow(title_txt: string, tips: string, info:object, confirm_fun: Function) {
+    if (this._basetipview == null) {
+      this._basetipview = new basetipview();
+    }
+    this._basetipview.tipShow(title_txt, tips, info, confirm_fun);
   }
   /**提醒弹窗 */
   public tipShow(content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
@@ -53,7 +63,6 @@ export default class tipController {
   }
   /**服务的错误提醒 */
   public gameFailTip(data) {
-    console.log('错误提醒',data)
     if (this._tipview == null) {
       this._tipview = new tipView;
     }

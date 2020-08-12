@@ -6,7 +6,7 @@
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
-    "maxID":14,
+    "maxID":17,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -103,14 +103,13 @@
             "props":{"y":2101,"x":0,"width":1242,"var":"login_group","height":578},
             "nodeParent":2,
             "label":"login_group",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":8,
             "child":[
                 {
-                    "x":30,
                     "type":"Button",
                     "searchKey":"Button,login_check",
                     "props":{"y":388,"x":65,"width":70,"var":"login_check","stateNum":"1","skin":"loading/btn_wudagou.png","height":70},
@@ -125,7 +124,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Text",
                     "searchKey":"Text,n6",
                     "props":{"y":414,"x":146,"width":950,"var":"n6","text":"我已详细阅读并同意 使用许可及协议","height":88,"fontSize":45,"font":"Helvetica","bold":true},
@@ -139,7 +137,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Button",
                     "searchKey":"Button,login_btn,login_btn",
                     "props":{"y":0,"x":223,"width":796,"var":"login_btn","stateNum":"1","skin":"loading/select_all_board.png","sizeGrid":"0,0,0,0","name":"login_btn","height":238},

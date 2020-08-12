@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":14,
-    "selecteID":9,
+    "selectedBox":329,
+    "selecteID":5,
     "searchKey":"Scene",
-    "props":{"x":0,"width":1246,"sceneColor":"#000000","pivotX":0,"height":2181},
+    "props":{"x":0,"width":1246,"sceneColor":"#000000","pivotX":0,"height":2688},
     "nodeParent":-1,
-    "maxID":325,
+    "maxID":330,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -27,7 +27,8 @@
             "compId":3,
             "child":[
                 ],
-            "$LOCKED":true
+            "$LOCKED":true,
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -36,6 +37,7 @@
             "props":{"y":1344,"x":0,"width":1242,"var":"n1","texture":"factory/Bg_factory2.png","height":1344},
             "nodeParent":2,
             "label":"n1",
+            "isOpen":true,
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
@@ -46,278 +48,300 @@
         },
         {
             "x":15,
-            "type":"List",
-            "searchKey":"List,factory_div",
-            "props":{"y":179,"x":-12,"width":1246,"visible":false,"var":"factory_div","spaceY":70,"repeatY":3,"repeatX":2,"renderType":"render","height":2307},
+            "type":"Box",
+            "searchKey":"Box,bg",
+            "props":{"y":-6312,"x":0,"width":1242,"var":"bg","styleSkin":"factory/factorybg.jpg","height":9000},
             "nodeParent":2,
-            "label":"factory_div",
+            "label":"bg",
             "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
-            "compId":5,
+            "compId":329,
             "child":[
                 {
                     "x":30,
-                    "type":"Box",
-                    "searchKey":"Box,factoryItem",
-                    "props":{"y":328,"x":-17,"width":640,"visible":true,"var":"factoryItem","renderType":"render","height":555},
-                    "nodeParent":5,
-                    "label":"factoryItem",
-                    "isOpen":true,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":0,"x":0,"width":1242,"texture":"factory/factorybg.jpg","height":9000},
+                    "nodeParent":329,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":327,
+                    "child":[
+                        ],
+                    "$LOCKED":true,
+                    "$HIDDEN":false
+                },
+                {
+                    "x":30,
+                    "type":"List",
+                    "searchKey":"List,factory_div",
+                    "props":{"y":6693,"x":-2,"width":1246,"visible":false,"var":"factory_div","spaceY":70,"repeatY":3,"repeatX":2,"renderType":"render","height":2307},
+                    "nodeParent":329,
+                    "label":"factory_div",
+                    "isOpen":false,
                     "isDirectory":true,
-                    "isAniNode":false,
+                    "isAniNode":true,
                     "hasChild":true,
-                    "compId":6,
+                    "compId":5,
                     "child":[
                         {
-                            "x":45,
                             "type":"Box",
-                            "searchKey":"Box,open_div,open_div",
-                            "props":{"y":0,"x":0,"var":"open_div","name":"open_div"},
-                            "nodeParent":6,
-                            "label":"open_div",
+                            "searchKey":"Box,factoryItem",
+                            "props":{"y":328,"x":-17,"width":640,"visible":true,"var":"factoryItem","renderType":"render","height":555},
+                            "nodeParent":5,
+                            "label":"factoryItem",
                             "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":false,
                             "hasChild":true,
-                            "compId":14,
+                            "compId":6,
                             "child":[
                                 {
-                                    "x":60,
-                                    "type":"Image",
-                                    "searchKey":"Image,factory_icon",
-                                    "props":{"y":-70,"x":2,"width":642,"skin":"factory/pic_factory2.png","pivotY":1,"pivotX":0.5,"name":"factory_icon","height":626},
-                                    "nodeParent":14,
-                                    "label":"factory_icon",
-                                    "isOpen":true,
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":7,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Sprite",
-                                    "searchKey":"Sprite,n10",
-                                    "props":{"y":392,"x":272,"width":158,"texture":"factory/pic_xing.png","name":"n10","height":163},
-                                    "nodeParent":14,
-                                    "label":"n10",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":8,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Label",
-                                    "searchKey":"Label,factory_level",
-                                    "props":{"y":443.5,"x":292,"width":98,"valign":"middle","text":"0","strokeColor":"#a3490d","stroke":5,"name":"factory_level","height":60,"fontSize":90,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
-                                    "nodeParent":14,
-                                    "label":"factory_level",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":9,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Sprite",
-                                    "searchKey":"Sprite,good_list_bgdi",
-                                    "props":{"y":-95,"x":312,"width":78,"texture":"factory/pic_shoukuang1.png","name":"good_list_bgdi","height":50},
-                                    "nodeParent":14,
-                                    "label":"good_list_bgdi",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":10,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Image",
-                                    "searchKey":"Image,good_list_bg",
-                                    "props":{"y":-142,"x":355,"width":418,"skin":"factory/pic_shoukuang2.png","sizeGrid":"40,49,27,51","pivotY":101,"pivotX":217,"name":"good_list_bg","height":165},
-                                    "nodeParent":14,
-                                    "label":"good_list_bg",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":11,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"List",
-                                    "searchKey":"List,good_list,good_list",
-                                    "props":{"y":-204,"x":154.5,"width":394,"var":"good_list","spaceX":40,"repeatY":1,"renderType":"render","name":"good_list","height":124},
-                                    "nodeParent":14,
-                                    "label":"good_list",
+                                    "type":"Box",
+                                    "searchKey":"Box,open_div,open_div",
+                                    "props":{"y":0,"x":0,"var":"open_div","name":"open_div"},
+                                    "nodeParent":6,
+                                    "label":"open_div",
                                     "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
-                                    "compId":12,
+                                    "compId":14,
                                     "child":[
                                         {
-                                            "x":75,
-                                            "type":"Box",
-                                            "searchKey":"Box,good_item,good_item",
-                                            "props":{"width":100,"var":"good_item","renderType":"render","name":"good_item","height":100},
-                                            "nodeParent":12,
-                                            "label":"good_item",
-                                            "isOpen":false,
+                                            "type":"Image",
+                                            "searchKey":"Image,factory_icon",
+                                            "props":{"y":-70,"x":2,"width":642,"skin":"factory/pic_factory2.png","pivotY":1,"pivotX":0.5,"name":"factory_icon","height":626},
+                                            "nodeParent":14,
+                                            "label":"factory_icon",
+                                            "isOpen":true,
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":7,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Sprite",
+                                            "searchKey":"Sprite,n10",
+                                            "props":{"y":392,"x":272,"width":158,"texture":"factory/pic_xing.png","name":"n10","height":163},
+                                            "nodeParent":14,
+                                            "label":"n10",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":8,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,factory_level",
+                                            "props":{"y":443.5,"x":292,"width":98,"valign":"middle","text":"0","strokeColor":"#a3490d","stroke":5,"name":"factory_level","height":60,"fontSize":90,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                                            "nodeParent":14,
+                                            "label":"factory_level",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":9,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Sprite",
+                                            "searchKey":"Sprite,good_list_bgdi",
+                                            "props":{"y":-95,"x":312,"width":78,"texture":"factory/pic_shoukuang1.png","name":"good_list_bgdi","height":50},
+                                            "nodeParent":14,
+                                            "label":"good_list_bgdi",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":10,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image,good_list_bg",
+                                            "props":{"y":-142,"x":355,"width":418,"skin":"factory/pic_shoukuang2.png","sizeGrid":"40,49,27,51","pivotY":101,"pivotX":217,"name":"good_list_bg","height":165},
+                                            "nodeParent":14,
+                                            "label":"good_list_bg",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":11,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"List",
+                                            "searchKey":"List,good_list,good_list",
+                                            "props":{"y":-204,"x":154.5,"width":394,"var":"good_list","spaceX":40,"repeatY":1,"renderType":"render","name":"good_list","height":124},
+                                            "nodeParent":14,
+                                            "label":"good_list",
+                                            "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":false,
                                             "hasChild":true,
-                                            "compId":233,
+                                            "compId":12,
                                             "child":[
                                                 {
-                                                    "type":"Image",
-                                                    "searchKey":"Image,items,items_6",
-                                                    "props":{"width":100,"var":"items_6","skin":"character/pic_huahui.png","renderType":"render","name":"items","height":100},
-                                                    "nodeParent":233,
-                                                    "label":"items",
-                                                    "isDirectory":false,
+                                                    "type":"Box",
+                                                    "searchKey":"Box,good_item,good_item",
+                                                    "props":{"width":100,"var":"good_item","renderType":"render","name":"good_item","height":100},
+                                                    "nodeParent":12,
+                                                    "label":"good_item",
+                                                    "isOpen":false,
+                                                    "isDirectory":true,
                                                     "isAniNode":false,
-                                                    "hasChild":false,
-                                                    "compId":234,
+                                                    "hasChild":true,
+                                                    "compId":233,
                                                     "child":[
-                                                        ]
-                                                }]
+                                                        {
+                                                            "type":"Image",
+                                                            "searchKey":"Image,items,items_6",
+                                                            "props":{"width":100,"var":"items_6","skin":"character/pic_huahui.png","renderType":"render","name":"items","height":100},
+                                                            "nodeParent":233,
+                                                            "label":"items",
+                                                            "isDirectory":false,
+                                                            "isAniNode":false,
+                                                            "hasChild":false,
+                                                            "compId":234,
+                                                            "child":[
+                                                                ]
+                                                        }]
+                                                }],
+                                            "$HIDDEN":false
                                         }],
                                     "$HIDDEN":false
-                                }],
-                            "$HIDDEN":false
-                        },
-                        {
-                            "x":45,
-                            "type":"Box",
-                            "searchKey":"Box,unlock_div,unlock_div",
-                            "props":{"y":56,"x":29,"width":579,"var":"unlock_div","name":"unlock_div","height":498},
-                            "nodeParent":6,
-                            "label":"unlock_div",
-                            "isOpen":false,
-                            "isDirectory":true,
-                            "isAniNode":false,
-                            "hasChild":true,
-                            "compId":13,
-                            "child":[
-                                {
-                                    "type":"Image",
-                                    "searchKey":"Image,n12",
-                                    "props":{"y":307,"x":241,"width":147,"skin":"main/pic_dikuang.png","sizeGrid":"9,9,9,9","name":"n12","height":55,"alpha":0.4},
-                                    "nodeParent":13,
-                                    "label":"n12",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":15,
-                                    "child":[
-                                        ]
                                 },
                                 {
-                                    "type":"Image",
-                                    "searchKey":"Image,xian",
-                                    "props":{"y":152,"x":25,"width":579,"skin":"factory/pic_xian1.png","name":"xian","height":310},
-                                    "nodeParent":13,
-                                    "label":"xian",
-                                    "isDirectory":false,
+                                    "type":"Box",
+                                    "searchKey":"Box,unlock_div,unlock_div",
+                                    "props":{"y":56,"x":29,"width":579,"var":"unlock_div","name":"unlock_div","height":498},
+                                    "nodeParent":6,
+                                    "label":"unlock_div",
+                                    "isOpen":false,
+                                    "isDirectory":true,
                                     "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":16,
+                                    "hasChild":true,
+                                    "compId":13,
                                     "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Label",
-                                    "searchKey":"Label,gold",
-                                    "props":{"y":315,"x":275,"width":113,"valign":"middle","text":"222","strokeColor":"#362f0d","stroke":4,"name":"gold","height":48,"fontSize":40,"font":"Microsoft YaHei","color":"#f4dc2a","align":"center"},
-                                    "nodeParent":13,
-                                    "label":"gold",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":17,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Sprite",
-                                    "searchKey":"Sprite,gold_icon",
-                                    "props":{"y":307,"x":241,"width":54,"texture":"main/pic_zuanshi.png","name":"gold_icon","height":58},
-                                    "nodeParent":13,
-                                    "label":"gold_icon",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":18,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Sprite",
-                                    "searchKey":"Sprite,muban",
-                                    "props":{"y":55,"x":206.5,"width":216,"texture":"factory/pic_mupai.png","name":"muban","height":220},
-                                    "nodeParent":13,
-                                    "label":"muban",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":19,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Label",
-                                    "searchKey":"Label,factory_name",
-                                    "props":{"y":96,"x":206.5,"width":202,"valign":"middle","text":"花样美食","strokeColor":"#362f0d","stroke":4,"name":"factory_name","height":69,"fontSize":42,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
-                                    "nodeParent":13,
-                                    "label":"factory_name",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":20,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Label",
-                                    "searchKey":"Label,factory_info",
-                                    "props":{"y":238,"x":206.5,"width":202,"valign":"middle","text":"10级解锁","strokeColor":"#362f0d","stroke":4,"name":"factory_info","height":69,"fontSize":42,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
-                                    "nodeParent":13,
-                                    "label":"factory_info",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":21,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Sprite",
-                                    "searchKey":"Sprite,tishi_icon",
-                                    "props":{"y":71,"x":388,"width":85,"texture":"factory/pic_shizhong.png","name":"tishi_icon","height":88},
-                                    "nodeParent":13,
-                                    "label":"tishi_icon",
-                                    "isDirectory":false,
-                                    "isAniNode":false,
-                                    "hasChild":false,
-                                    "compId":22,
-                                    "child":[
-                                        ]
-                                }],
-                            "$HIDDEN":true
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image,n12",
+                                            "props":{"y":307,"x":241,"width":147,"skin":"main/pic_dikuang.png","sizeGrid":"9,9,9,9","name":"n12","height":55,"alpha":0.4},
+                                            "nodeParent":13,
+                                            "label":"n12",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":15,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image,xian",
+                                            "props":{"y":152,"x":25,"width":579,"skin":"factory/pic_xian1.png","name":"xian","height":310},
+                                            "nodeParent":13,
+                                            "label":"xian",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":16,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,gold",
+                                            "props":{"y":315,"x":275,"width":113,"valign":"middle","text":"222","strokeColor":"#362f0d","stroke":4,"name":"gold","height":48,"fontSize":40,"font":"Microsoft YaHei","color":"#f4dc2a","align":"center"},
+                                            "nodeParent":13,
+                                            "label":"gold",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":17,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Sprite",
+                                            "searchKey":"Sprite,gold_icon",
+                                            "props":{"y":307,"x":241,"width":54,"texture":"main/pic_zuanshi.png","name":"gold_icon","height":58},
+                                            "nodeParent":13,
+                                            "label":"gold_icon",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":18,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Sprite",
+                                            "searchKey":"Sprite,muban",
+                                            "props":{"y":55,"x":206.5,"width":216,"texture":"factory/pic_mupai.png","name":"muban","height":220},
+                                            "nodeParent":13,
+                                            "label":"muban",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":19,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,factory_name",
+                                            "props":{"y":96,"x":206.5,"width":202,"valign":"middle","text":"花样美食","strokeColor":"#362f0d","stroke":4,"name":"factory_name","height":69,"fontSize":42,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                                            "nodeParent":13,
+                                            "label":"factory_name",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":20,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,factory_info",
+                                            "props":{"y":238,"x":206.5,"width":202,"valign":"middle","text":"10级解锁","strokeColor":"#362f0d","stroke":4,"name":"factory_info","height":69,"fontSize":42,"font":"Microsoft YaHei","color":"#ffffff","align":"center"},
+                                            "nodeParent":13,
+                                            "label":"factory_info",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":21,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Sprite",
+                                            "searchKey":"Sprite,tishi_icon",
+                                            "props":{"y":71,"x":388,"width":85,"texture":"factory/pic_shizhong.png","name":"tishi_icon","height":88},
+                                            "nodeParent":13,
+                                            "label":"tishi_icon",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":22,
+                                            "child":[
+                                                ]
+                                        }],
+                                    "$HIDDEN":true
+                                }]
                         }]
-                }]
+                }],
+            "$LOCKED":true,
+            "$HIDDEN":false
         }],
     "animations":[
         {

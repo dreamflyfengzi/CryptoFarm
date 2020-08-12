@@ -47,6 +47,26 @@ export default class baseTips extends Laya.Sprite {
     this.showModal();
     gameLayer.tipslayer.addChild(this);
   }
+   /**没有效果显示tip */
+   public showTip() {
+    this.visible = true;
+    this.setCenter();
+    this.modal.visible = true;
+    this.modal.graphics.clear();
+    this.modal.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, '#000000');
+    this.modal.alpha = 0.35;
+    this.modal.width = Laya.stage.width;
+    this.modal.height = Laya.stage.height;
+    // gameLayer.tipslayer.addChildAt(this.modal,0);
+    gameLayer.tipslayer.addChild(this.modal);
+    this.modal.on(Laya.Event.CLICK, this, this.onClick);
+    gameLayer.tipslayer.addChild(this);
+  }
+   /**没有效果隐藏 */
+   public hideTip() {
+    gameLayer.tipslayer.removeChild(this);
+    this.clearAll();
+  }
   /**没有效果隐藏 */
   public hideLayer() {
     gameLayer.tipslayer.removeChild(this);

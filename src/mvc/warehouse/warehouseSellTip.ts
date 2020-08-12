@@ -26,8 +26,10 @@ export default class warehouseSellTip extends baseTips {
     // // this.setScale(this._sellTip);
     this._sellTip.pivotX = 0.5*this._sellTip.width;
     this._sellTip.pivotY = 0.5*this._sellTip.height;
+    // this._sellTip.x = x - CONST.DESIGNSTAGEWIDTH / 2 + this._sellTip.width/2;
+    // this._sellTip.y = y - CONST.DESIGNSTAGEHEIGHT / 2;
     this.addChild(this._sellTip);
-    this.tweenShow();
+    this.showLayer();
     this._sellTip.scene.jian_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [-1]);
     this._sellTip.scene.jia_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [1]);
     this._sellTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeSellTip);
@@ -36,13 +38,14 @@ export default class warehouseSellTip extends baseTips {
     this.initGoodInfo();
   }
   private closeSellTip() {
-    this.tweenHide();
+    this.hideLayer();
   }
   /**
    * 初始化物品信息
    */
   private initGoodInfo() {
     var good_info = dataGlobal.getInstance().userGoodInfo[this._id];
+    console.log(good_info)
     this._num = Math.floor((Math.floor(good_info.num) / 2)) < 1 ? 1 : Math.floor((Math.floor(good_info.num) / 2));
     this._sellTip.scene.tot_num.text = 'X' + this._num;
     //获取物品的信息

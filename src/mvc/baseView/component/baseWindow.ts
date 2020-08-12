@@ -5,7 +5,7 @@ import gameLayer from '../../gameLayer'
 import CONST from '../../../const/CONST'
 export default class baseWindow extends Laya.Sprite {
   private modal: Laya.Sprite;
-  private delay = 300;/*单位：毫秒 */
+  private delay = 100;/*单位：毫秒 */
 
   constructor() {
     super();

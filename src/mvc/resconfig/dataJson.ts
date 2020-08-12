@@ -17,6 +17,8 @@
   private SYS_FLOWER_FIELD: any;//花田数据
   private SYS_FLOWER_WATER: any;//浇水数据
   private SYS_FLOWER_LOTTERY: any;//任务数据
+  private SYS_MATERIAL_INFO: any;//材料订单配置
+  private SYS_MATERIAL_ORDER: any;//材料订单数据
   private SYS_FACTORY_GOOD: any;//工厂可生产的物品数据(这里的物品都会在 物品数据 里有配置的)
   private SYS_FLOWER_COMPOSTED: any;//施肥数据
   private SYS_FLOWER_MEMBER: any;//玩家初始数据
@@ -24,6 +26,14 @@
   /*** 仓库配置*/
   public GET_SYS_STORE_INFO() {
     return this.SYS_STORE_INFO;
+  }
+  /***材料订单配置*/
+  public GET_SYS_MATERIAL_INFO() {
+    return this.SYS_MATERIAL_INFO;
+  }
+  /**材料订单数据 */
+  public GET_SYS_MATERIAL_ORDERLIST(){
+     return this.SYS_MATERIAL_ORDER;
   }
   /*** 工厂数据*/
   public GET_SYS_FACTORY_INFO() {
@@ -44,6 +54,10 @@
   /*** 任务数据*/
   public GET_SYS_FLOWER_LOTTERY() {
     return this.SYS_FLOWER_LOTTERY;
+  }
+  /*** 材料订单数据*/
+  public GET_SYS_FLOWER_MATERIAL() {
+    return this.SYS_MATERIAL_INFO;
   }
   /*** 工厂可生产的物品数据(这里的物品都会在 物品数据 里有配置的)*/
   public GET_SYS_FACTORY_GOOD() {
@@ -71,6 +85,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "250"
           }
         ],
@@ -86,6 +114,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "300"
           }
         ],
@@ -101,6 +143,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "350"
           }
         ],
@@ -116,6 +172,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "400"
           }
         ],
@@ -131,6 +201,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "450"
           }
         ],
@@ -146,6 +230,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "500"
           }
         ],
@@ -161,6 +259,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "550"
           }
         ],
@@ -176,6 +288,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "600"
           }
         ],
@@ -191,6 +317,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "650"
           }
         ],
@@ -206,6 +346,20 @@
         "good": [
           {
             "id": "g001",
+            "tools": [
+              {
+                "id": "tool001", //工具ID
+                "num": "10" //需要工具数量
+              },
+              {
+                "id": "tool002", //工具ID
+                "num": "3" //需要工具数量
+              },
+              {
+                "id": "tool004", //工具ID
+                "num": "6" //需要工具数量
+              }
+            ],
             "num": "700"
           }
         ],
@@ -1092,7 +1246,7 @@
           "grade2": "3",
           "grade3": "100",
           "gold": "20",
-          "num": "1",
+          "num": "5",
           "num2": "20",
           "t": "72000",
           "speed": "100",
@@ -2499,6 +2653,8 @@
       //   'id'=>'任务ID',
       //   'name'=>'任务名称',
       //   'type'=>'任务类型',
+      //   "status"=>"1正常进行 2等待中",
+      //   'await'=>'等待时间',
       //   'pic'=>'任务小图标',
       //   'pic2'=>'任务大图标',
       //   'ain'=>'接任务时动画',
@@ -2524,6 +2680,8 @@
       "rw101": {
         "id": "rw101",
         "name": "酒店装饰",
+        "status": "2",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2533,23 +2691,13 @@
         "grade": "1",
         "grade2": "1",
         "goods": [
-          {
-            "id": "hh6001",
-            "num": "1"
-          }
+
         ],
         "goods2": [
 
         ],
         "goods3": [
-          {
-            "id": "g001",
-            "num": "200"
-          },
-          {
-            "id": "exp001",
-            "num": "100"
-          }
+
         ],
         "num": "1",
         "t": "28800",
@@ -2558,6 +2706,8 @@
       "rw201": {
         "id": "rw201",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2596,6 +2746,8 @@
       "rw301": {
         "id": "rw301",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2634,6 +2786,8 @@
       "rw302": {
         "id": "rw302",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2668,6 +2822,8 @@
       "rw401": {
         "id": "rw401",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2702,6 +2858,8 @@
       "rw402": {
         "id": "rw402",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2740,6 +2898,8 @@
       "rw403": {
         "id": "rw403",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2778,6 +2938,8 @@
       "rw501": {
         "id": "rw501",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2820,6 +2982,8 @@
       "rw502": {
         "id": "rw502",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2862,6 +3026,8 @@
       "rw503": {
         "id": "rw503",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2904,6 +3070,8 @@
       "rw504": {
         "id": "rw504",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2946,6 +3114,8 @@
       "rw601": {
         "id": "rw601",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -2984,6 +3154,8 @@
       "rw602": {
         "id": "rw602",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3026,6 +3198,8 @@
       "rw603": {
         "id": "rw603",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3068,6 +3242,8 @@
       "rw604": {
         "id": "rw604",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3110,6 +3286,8 @@
       "rw605": {
         "id": "rw605",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3152,6 +3330,8 @@
       "rw701": {
         "id": "rw701",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3190,6 +3370,8 @@
       "rw702": {
         "id": "rw702",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3232,6 +3414,8 @@
       "rw703": {
         "id": "rw703",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3274,6 +3458,8 @@
       "rw704": {
         "id": "rw704",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3316,6 +3502,8 @@
       "rw705": {
         "id": "rw705",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3358,6 +3546,8 @@
       "rw801": {
         "id": "rw801",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3396,6 +3586,8 @@
       "rw802": {
         "id": "rw802",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3438,6 +3630,8 @@
       "rw803": {
         "id": "rw803",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3480,6 +3674,8 @@
       "rw804": {
         "id": "rw804",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3522,6 +3718,8 @@
       "rw805": {
         "id": "rw805",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3564,6 +3762,8 @@
       "rw901": {
         "id": "rw901",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3602,6 +3802,8 @@
       "rw902": {
         "id": "rw902",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3644,6 +3846,8 @@
       "rw903": {
         "id": "rw903",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3686,6 +3890,8 @@
       "rw904": {
         "id": "rw904",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3728,6 +3934,8 @@
       "rw905": {
         "id": "rw905",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3770,6 +3978,8 @@
       "rw1001": {
         "id": "rw1001",
         "name": "艺术摄影",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -3808,6 +4018,8 @@
       "rw1002": {
         "id": "rw1002",
         "name": "酒店装饰",
+        "status": "1",
+        "await": "1000",
         "type": "1",
         "pic": "",
         "pic2": "",
@@ -6034,6 +6246,107 @@
         "weight": "100"
       }
     }
+    //材料订单配置
+    this.SYS_MATERIAL_INFO = {
+      "MATERIAL301": {
+        "grade":"3",//解锁要求等级
+        "gold":'100',//解锁金额
+        "is_lock":"1",//1 已解锁 2 未解锁
+        "lock_num":"200",//解锁钻石
+        "get_num":'20',
+        "t":0
+      },
+      "MATERIAL302": {
+        "grade":"3",//解锁要求等级
+        "gold":'100',//解锁金额
+        "is_lock":"1",//1 已解锁 2 未解锁
+        "lock_num":"200",//解锁钻石
+        "get_num":'20',
+        "t":2999
+      },
+      "MATERIAL303": {
+        "grade":"8",//解锁要求等级
+        "gold":'500',//解锁金额
+        "is_lock":"2",//1 已解锁 2 未解锁
+        "lock_num":"200",//解锁钻石
+        "get_num":'20',
+        "t":0
+      },
+    }
+    //材料订单数据
+    this.SYS_MATERIAL_ORDER = {
+      "MATERIAL301": {
+          "id":"od1301",
+          "status":"0",//0正常 1返回的
+          "t":"1000",
+          "goods": [
+            {
+              "id": "product01",
+              "num": "10",
+              "status":"1"//已装载
+            },
+            {
+              "id": "product02",
+              "num": "1",
+              "status":"0"//未装载
+            },
+            {
+              "id": "product01",
+              "num": "1",
+              "status":"0"//未装载
+            },
+            {
+              "id": "product02",
+              "num": "3",
+              "status":"0"//未装载
+            },
+            {
+              "id": "product01",
+              "num": "8",
+              "status":"0"//未装载
+            }
+          ],
+          "reback":[
+            {
+              "id": "tool001",
+              "num": "1"
+            },
+            {
+              "id": "tool001",
+              "num": "1"
+            }
+          ],
+        
+      },
+      "MATERIAL302":{
+        "id":"od1301",
+        "status":"1",//0正常 1返回的
+        "t":"1000",
+        "goods": [
+          {
+            "id": "hh6001",
+            "num": "1"
+          },
+          {
+            "id": "hh6002",
+            "num": "1"
+          }
+        ],
+        "reback":[
+          {
+            "id": "tool001",
+            "num": "1"
+          },
+          {
+            "id": "tool001",
+            "num": "1"
+          }
+        ],
+      },
+      "MATERIAL303":{
+
+      }
+    }
     this.SYS_FACTORY_GOOD = {
       "gc001": {
         "wp5011": {
@@ -6883,7 +7196,7 @@
       "9": {
         "grade": "9",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "4",
         "store_num": "0",
@@ -6902,7 +7215,7 @@
       "10": {
         "grade": "10",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6921,7 +7234,7 @@
       "11": {
         "grade": "11",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6940,7 +7253,7 @@
       "12": {
         "grade": "12",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6959,7 +7272,7 @@
       "13": {
         "grade": "13",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6978,7 +7291,7 @@
       "14": {
         "grade": "14",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -6997,7 +7310,7 @@
       "15": {
         "grade": "15",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7016,7 +7329,7 @@
       "16": {
         "grade": "16",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7035,7 +7348,7 @@
       "17": {
         "grade": "17",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7054,7 +7367,7 @@
       "18": {
         "grade": "18",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7073,7 +7386,7 @@
       "19": {
         "grade": "19",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7092,7 +7405,7 @@
       "20": {
         "grade": "20",
         "num": "0",
-          "field": "9",
+        "field": "9",
         "store": "0",
         "lottery_num": "5",
         "store_num": "0",
@@ -7599,7 +7912,7 @@
         "pic": "ui://base/pic_2_6",
         "pic2": "",
         "ain": "",
-        "num": "1",
+        "num": "5",
         "num2": "30",
         "speed": "0",
         "speed2": "0",

@@ -49,9 +49,6 @@ export default class orderGoodGoTip extends baseTips {
   private goFun(type: any, id: string) {
     this.tweenHide();
     orderController.getInstance().closeOrder();
-    console.log(type,id)
-    console.log(type,id)
-    console.log(type,id)
     if (type == 5) {
       infoController.getInstance().showBottonDiv('factory');
       //获取工厂的信息

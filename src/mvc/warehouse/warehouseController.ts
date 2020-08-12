@@ -39,7 +39,15 @@ export default class warehouseController{
 			//初始化视图的类
 			this._warehouseview.initWarehouseGoodList();
 		}
-	}
+  }
+  /**
+   * 展示仓库扩建
+   */
+  public showUpgradeWarehouse(tools_list) {
+    if(this._warehouseview){
+			this._warehouseview.showUpgradeTip(tools_list);
+		}
+  }
 	/**
 	 * 设置仓库的基本信息
 	 */

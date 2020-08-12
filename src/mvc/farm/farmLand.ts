@@ -91,8 +91,6 @@ export default class farmLand extends ui.farm.farmLandUI {
   //设置定时器
   public setTimer() {
     var data = dataGlobal.getInstance().farmInfo[this.land_id];
-
-
     if (data.seed_data.mature_time > 0 || data.fat_time > 0) {
       if (farmLand._timer) {
         farmLand._timer.clear(this, this.timerFun);//先清除定时器
@@ -111,7 +109,7 @@ export default class farmLand extends ui.farm.farmLandUI {
       farmLand._timer.clear(this, this.timerFun);
     }
     if (data.seed_data.mature_time && data.seed_data.mature_time > 0) {
-      data.seed_data.mature_time--;//植物剩余的生长时间
+      data.seed_data.mature_time --;//植物剩余的生长时间
       data.seed_data.next_mature_time--;//植物进入下个阶段的时间
       //判断是否可以浇水等
       if (data.seed_data.water_time && data.seed_data.water_time > 0) {

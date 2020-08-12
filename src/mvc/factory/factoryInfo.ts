@@ -237,7 +237,6 @@ export default class factoryInfo extends baseWindow {
    * @param num 生产位ID（1或者2）
    */
   private factory_open_seat_num_act(id: string, num: number) {
-
     let tmp_websocket = webSocketJson.getInstance();
     let tmp_data = {
     	'a':"factory_open_seat_num",
@@ -258,7 +257,6 @@ export default class factoryInfo extends baseWindow {
    */
   private getUserGood(id: string) {
     var data = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[id];//获取配置表工厂的物品信息
-
     var good_arr = [];
     for (var i in data) {
       var good_data = data[i].good;

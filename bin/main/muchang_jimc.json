@@ -1,0 +1,309 @@
+{"mc":{
+	"muchang_jimc":{
+		"frameRate":6,
+		"labels":[
+			{"name":"small_a0","frame":1,"end":8}
+			,{"name":"small_a1","frame":9,"end":16}
+			,{"name":"middle_a0","frame":17,"end":24}
+			,{"name":"middle_a1","frame":25,"end":32}
+			,{"name":"big_a0","frame":33,"end":40}
+			,{"name":"big_a1","frame":41,"end":48}
+			
+			],
+		"events":[
+			
+			],
+		"frames":[
+			
+			{
+			"res":"xiaoji_stand_0_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_stand_1_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_stand_2 副本_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_stand_3 副本_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_stand_4 副本_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_stand_5 副本_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_stand_6 副本_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_stand_7 副本_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_walk_0 副本_png",
+			"x":0,
+			"y":3
+			},
+			{
+			"res":"xiaoji_walk_1 副本_png",
+			"x":0,
+			"y":2
+			},
+			{
+			"res":"xiaoji_walk_2 副本_png",
+			"x":0,
+			"y":1
+			},
+			{
+			"res":"xiaoji_walk_3 副本_png",
+			"x":0,
+			"y":1
+			},
+			{
+			"res":"xiaoji_walk_4 副本_png",
+			"x":0,
+			"y":3
+			},
+			{
+			"res":"xiaoji_walk_5 副本_png",
+			"x":0,
+			"y":2
+			},
+			{
+			"res":"xiaoji_walk_6 副本_png",
+			"x":0,
+			"y":0
+			},
+			{
+			"res":"xiaoji_walk_7 副本_png",
+			"x":0,
+			"y":1
+			},
+			{
+			"res":"zhongji_stand_0_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"zhongji_stand_1_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"zhongji_stand_2 副本_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"zhongji_stand_3 副本_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"zhongji_stand_4 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"zhongji_stand_5 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"zhongji_stand_6 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"zhongji_stand_7 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"zhongji_walk_0 副本_png",
+			"x":1,
+			"y":3
+			},
+			{
+			"res":"zhongji_walk_1 副本_png",
+			"x":1,
+			"y":3
+			},
+			{
+			"res":"zhongji_walk_2 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"zhongji_walk_3 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"zhongji_walk_4 副本_png",
+			"x":1,
+			"y":4
+			},
+			{
+			"res":"zhongji_walk_5 副本_png",
+			"x":1,
+			"y":3
+			},
+			{
+			"res":"zhongji_walk_6 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"zhongji_walk_7 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"huangji_stand_0_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"huangji_stand_1 副本_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"huangji_stand_2 副本_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"huangji_stand_3 副本_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"huangji_stand_4 副本_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"huangji_stand_5 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"huangji_stand_6 副本_png",
+			"x":0,
+			"y":2
+			},
+			{
+			"res":"huangji_stand_7 副本_png",
+			"x":0,
+			"y":2
+			},
+			{
+			"res":"huangji_walk_0 副本_png",
+			"x":1,
+			"y":3
+			},
+			{
+			"res":"huangji_walk_1 副本_png",
+			"x":1,
+			"y":3
+			},
+			{
+			"res":"huangji_walk_2 副本_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"huangji_walk_3 副本_png",
+			"x":1,
+			"y":2
+			},
+			{
+			"res":"huangji_walk_4 副本_png",
+			"x":1,
+			"y":3
+			},
+			{
+			"res":"huangji_walk_5 副本_png",
+			"x":1,
+			"y":3
+			},
+			{
+			"res":"huangji_walk_6 副本_png",
+			"x":1,
+			"y":1
+			},
+			{
+			"res":"huangji_walk_7 副本_png",
+			"x":1,
+			"y":2
+			}
+			]
+}},
+	"res":{
+		"xiaoji_walk_5 副本_png":{"x":424,"y":444,"w":39,"h":46},
+		"zhongji_stand_0_png":{"x":137,"y":366,"w":66,"h":78},
+		"xiaoji_walk_1 副本_png":{"x":465,"y":444,"w":39,"h":46},
+		"xiaoji_walk_7 副本_png":{"x":342,"y":442,"w":39,"h":47},
+		"huangji_stand_5 副本_png":{"x":340,"y":191,"w":83,"h":91},
+		"xiaoji_stand_5 副本_png":{"x":81,"y":447,"w":38,"h":44},
+		"xiaoji_walk_4 副本_png":{"x":137,"y":446,"w":39,"h":45},
+		"huangji_stand_0_png":{"x":426,"y":188,"w":83,"h":92},
+		"huangji_stand_4 副本_png":{"x":0,"y":190,"w":83,"h":92},
+		"zhongji_walk_4 副本_png":{"x":274,"y":442,"w":66,"h":78},
+		"zhongji_stand_4 副本_png":{"x":205,"y":285,"w":68,"h":77},
+		"huangji_stand_1 副本_png":{"x":170,"y":190,"w":83,"h":92},
+		"xiaoji_walk_0 副本_png":{"x":0,"y":446,"w":39,"h":45},
+		"zhongji_stand_5 副本_png":{"x":345,"y":363,"w":68,"h":77},
+		"xiaoji_stand_4 副本_png":{"x":0,"y":493,"w":38,"h":44},
+		"zhongji_walk_2 副本_png":{"x":69,"y":284,"w":66,"h":80},
+		"huangji_walk_7 副本_png":{"x":341,"y":95,"w":83,"h":94},
+		"zhongji_stand_3 副本_png":{"x":205,"y":364,"w":67,"h":78},
+		"huangji_walk_6 副本_png":{"x":85,"y":0,"w":83,"h":95},
+		"huangji_stand_2 副本_png":{"x":85,"y":190,"w":83,"h":92},
+		"xiaoji_stand_1_png":{"x":342,"y":491,"w":38,"h":44},
+		"zhongji_stand_7 副本_png":{"x":340,"y":284,"w":68,"h":77},
+		"zhongji_walk_7 副本_png":{"x":0,"y":284,"w":67,"h":80},
+		"zhongji_walk_1 副本_png":{"x":428,"y":0,"w":68,"h":79},
+		"huangji_walk_1 副本_png":{"x":342,"y":0,"w":84,"h":93},
+		"zhongji_walk_0 副本_png":{"x":69,"y":366,"w":66,"h":79},
+		"xiaoji_stand_7 副本_png":{"x":41,"y":447,"w":38,"h":44},
+		"huangji_stand_7 副本_png":{"x":0,"y":97,"w":84,"h":91},
+		"xiaoji_stand_3 副本_png":{"x":464,"y":492,"w":38,"h":44},
+		"zhongji_stand_2 副本_png":{"x":415,"y":364,"w":67,"h":78},
+		"zhongji_walk_5 副本_png":{"x":86,"y":97,"w":68,"h":79},
+		"xiaoji_stand_0_png":{"x":80,"y":493,"w":37,"h":44},
+		"zhongji_stand_6 副本_png":{"x":275,"y":363,"w":68,"h":77},
+		"xiaoji_stand_6 副本_png":{"x":40,"y":493,"w":38,"h":44},
+		"zhongji_walk_3 副本_png":{"x":425,"y":282,"w":67,"h":80},
+		"xiaoji_walk_3 副本_png":{"x":205,"y":444,"w":39,"h":47},
+		"zhongji_stand_1_png":{"x":0,"y":366,"w":67,"h":78},
+		"huangji_walk_0 副本_png":{"x":256,"y":0,"w":84,"h":93},
+		"zhongji_walk_6 副本_png":{"x":137,"y":284,"w":66,"h":80},
+		"huangji_walk_3 副本_png":{"x":256,"y":95,"w":83,"h":94},
+		"xiaoji_walk_6 副本_png":{"x":275,"y":285,"w":39,"h":48},
+		"xiaoji_stand_2 副本_png":{"x":424,"y":492,"w":38,"h":44},
+		"huangji_walk_2 副本_png":{"x":0,"y":0,"w":83,"h":95},
+		"xiaoji_walk_2 副本_png":{"x":383,"y":444,"w":39,"h":47},
+		"huangji_walk_4 副本_png":{"x":170,"y":0,"w":84,"h":93},
+		"huangji_stand_3 副本_png":{"x":255,"y":191,"w":83,"h":92},
+		"huangji_walk_5 副本_png":{"x":170,"y":95,"w":84,"h":93},
+		"huangji_stand_6 副本_png":{"x":426,"y":95,"w":84,"h":91}
+	}}

@@ -91,6 +91,7 @@
     GAMEEVENT.TIPSKUAN = 'TIPSKUAN';
     GAMEEVENT.TXTTIP = 'TXTTIP';
     GAMEEVENT.GOLDTIP = 'GOLDTIP';
+    GAMEEVENT.BASETIPS = 'BASETIPS';
     GAMEEVENT.FARM = 'FARM';
     GAMEEVENT.ONPROGRESSFARM = 'ONPROGRESSFARM';
     GAMEEVENT.ONLOADCOMPLETEFARM = 'ONLOADCOMPLETEFARM';
@@ -100,6 +101,8 @@
     GAMEEVENT.HIDEINFODIV = 'HIDEINFODIV';
     GAMEEVENT.SHOWINFODIV = 'SHOWINFODIV';
     GAMEEVENT.TEST_LOGIN_FARM = 'FARM';
+    GAMEEVENT.ONPROGRESSANIMAL = 'ONPROGRESSANIMAL';
+    GAMEEVENT.ONLOADCOMPLETEANIMAL = 'ONLOADCOMPLETEANIMAL';
 
     class dataGlobal {
         constructor() {
@@ -116,7 +119,38 @@
             this.userGoodInfo = {};
             this.warehouseInfo = {};
             this.lotteryInfo = {};
+            this.materialInfo = {};
             this.marketInfo = {};
+            this.animalInfo = {
+                "chicken": {
+                    "is_lock": 0,
+                    "locklevel": 5,
+                    "status": 1,
+                    "unlocknum": 1000,
+                    "feed_time": 0,
+                    'feed_time_tol': 10000,
+                    "product": ''
+                },
+                "cow": {
+                    "is_lock": 1,
+                    "locklevel": 5,
+                    "unlocknum": 1000,
+                    "feed_time": 0,
+                    'feed_time_tol': 10000,
+                    "product": ''
+                },
+                "pig": {
+                    "is_lock": 1,
+                    "locklevel": 5,
+                    "unlocknum": 1000,
+                    "feed_time": 7777,
+                    'feed_time_tol': 10000,
+                    "product": {
+                        'grow_time_tol': 1000,
+                        "mature_time": 990,
+                    }
+                }
+            };
         }
         static getInstance() {
             if (dataGlobal._instance == null) {
@@ -303,6 +337,29 @@
                 this.lotteryInfo[data[i].lottery_id] = data[i];
             }
         }
+        setMaterialInfo(data, type) {
+            if (type) {
+                this.materialInfo = {};
+            }
+            for (var i in data) {
+                this.materialInfo[data[i].lottery_id] = data[i];
+            }
+        }
+        setAnimalInfo(data) {
+            if (data.ga == "animal_product_mature") {
+                this.animalInfo[data.gd.type] = {
+                    "is_lock": 1,
+                    "locklevel": 5,
+                    "unlocknum": 1000,
+                    "feed_time": 7777,
+                    'feed_time_tol': 10000,
+                    "product": {
+                        'grow_time_tol': 1000,
+                        "mature_time": 1000,
+                    }
+                };
+            }
+        }
     }
 
     class loginModel {
@@ -321,6 +378,20 @@
 
     var REG = Laya.ClassUtils.regClass;
     var ui;
+    (function (ui) {
+        var bank;
+        (function (bank) {
+            class bankSceneUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("bank/bankScene");
+                }
+            }
+            bank.bankSceneUI = bankSceneUI;
+            REG("ui.bank.bankSceneUI", bankSceneUI);
+        })(bank = ui.bank || (ui.bank = {}));
+    })(ui || (ui = {}));
     (function (ui) {
         var base;
         (function (base) {
@@ -343,6 +414,15 @@
         (function (base) {
             var tip;
             (function (tip) {
+                class baseTipsUI extends Laya.Scene {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/baseTips");
+                    }
+                }
+                tip.baseTipsUI = baseTipsUI;
+                REG("ui.base.tip.baseTipsUI", baseTipsUI);
                 class gold_tipUI extends Laya.Scene {
                     constructor() { super(); }
                     createChildren() {
@@ -352,6 +432,15 @@
                 }
                 tip.gold_tipUI = gold_tipUI;
                 REG("ui.base.tip.gold_tipUI", gold_tipUI);
+                class popupUI extends Laya.Scene {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/popup");
+                    }
+                }
+                tip.popupUI = popupUI;
+                REG("ui.base.tip.popupUI", popupUI);
                 class tishi_tip1UI extends Laya.Dialog {
                     constructor() { super(); }
                     createChildren() {
@@ -454,6 +543,15 @@
     (function (ui) {
         var factory;
         (function (factory) {
+            class baseFactoryUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("factory/baseFactory");
+                }
+            }
+            factory.baseFactoryUI = baseFactoryUI;
+            REG("ui.factory.baseFactoryUI", baseFactoryUI);
             class factoryUI extends Laya.Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -548,6 +646,38 @@
         })(login = ui.login || (ui.login = {}));
     })(ui || (ui = {}));
     (function (ui) {
+        var materialorder;
+        (function (materialorder) {
+            class materialOrderUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("materialorder/materialOrder");
+                }
+            }
+            materialorder.materialOrderUI = materialOrderUI;
+            REG("ui.materialorder.materialOrderUI", materialOrderUI);
+            class orderIndex1UI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("materialorder/orderIndex1");
+                }
+            }
+            materialorder.orderIndex1UI = orderIndex1UI;
+            REG("ui.materialorder.orderIndex1UI", orderIndex1UI);
+            class orderTipsUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("materialorder/orderTips");
+                }
+            }
+            materialorder.orderTipsUI = orderTipsUI;
+            REG("ui.materialorder.orderTipsUI", orderTipsUI);
+        })(materialorder = ui.materialorder || (ui.materialorder = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
         var order;
         (function (order) {
             class goodGoTipUI extends Laya.Scene {
@@ -559,6 +689,15 @@
             }
             order.goodGoTipUI = goodGoTipUI;
             REG("ui.order.goodGoTipUI", goodGoTipUI);
+            class gradeOrderUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("order/gradeOrder");
+                }
+            }
+            order.gradeOrderUI = gradeOrderUI;
+            REG("ui.order.gradeOrderUI", gradeOrderUI);
             class orderIndexUI extends Laya.Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -587,15 +726,6 @@
     (function (ui) {
         var warehouse;
         (function (warehouse) {
-            class good_itemUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("warehouse/good_item");
-                }
-            }
-            warehouse.good_itemUI = good_itemUI;
-            REG("ui.warehouse.good_itemUI", good_itemUI);
             class sell_tipUI extends Laya.Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -614,6 +744,15 @@
             }
             warehouse.warehouseUI = warehouseUI;
             REG("ui.warehouse.warehouseUI", warehouseUI);
+            class warehouseUpgradeUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("warehouse/warehouseUpgrade");
+                }
+            }
+            warehouse.warehouseUpgradeUI = warehouseUpgradeUI;
+            REG("ui.warehouse.warehouseUpgradeUI", warehouseUpgradeUI);
         })(warehouse = ui.warehouse || (ui.warehouse = {}));
     })(ui || (ui = {}));
 
@@ -862,6 +1001,47 @@
         ;
     }
 
+    class NETWORKEVENT {
+    }
+    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
+    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
+    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
+    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
+    NETWORKEVENT.GAMEFAILTIP = 'game_fail_tip';
+    NETWORKEVENT.INITINFO = "init_info";
+    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
+    NETWORKEVENT.FARMINITFIELD = "init_field";
+    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
+    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
+    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
+    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
+    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
+    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
+    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
+    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
+    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
+    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
+    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
+    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
+    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
+    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
+    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
+    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
+    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
+    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
+    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
+    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
+    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
+    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
+    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
+    NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
+    NETWORKEVENT.MARKETINFOBAK = 'market_info_bak';
+    NETWORKEVENT.MATERIALINFOBAK = 'material_info';
+    NETWORKEVENT.SENDGOODMATERIALBAK = 'send_good_material_bak';
+    NETWORKEVENT.ANIMALPRODUCTMATURE = "animal_product_mature";
+    NETWORKEVENT.EXCHANGEINFOBAK = 'exchange_info_bak';
+    NETWORKEVENT.EXCHANGEMYMATERIAL = 'exchange_my_material';
+
     class GAMECONFIG {
     }
     GAMECONFIG.farmLand = {
@@ -889,6 +1069,12 @@
         GET_SYS_STORE_INFO() {
             return this.SYS_STORE_INFO;
         }
+        GET_SYS_MATERIAL_INFO() {
+            return this.SYS_MATERIAL_INFO;
+        }
+        GET_SYS_MATERIAL_ORDERLIST() {
+            return this.SYS_MATERIAL_ORDER;
+        }
         GET_SYS_FACTORY_INFO() {
             return this.SYS_FACTORY_INFO;
         }
@@ -903,6 +1089,9 @@
         }
         GET_SYS_FLOWER_LOTTERY() {
             return this.SYS_FLOWER_LOTTERY;
+        }
+        GET_SYS_FLOWER_MATERIAL() {
+            return this.SYS_MATERIAL_INFO;
         }
         GET_SYS_FACTORY_GOOD() {
             return this.SYS_FACTORY_GOOD;
@@ -926,6 +1115,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "250"
                         }
                     ],
@@ -941,6 +1144,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "300"
                         }
                     ],
@@ -956,6 +1173,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "350"
                         }
                     ],
@@ -971,6 +1202,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "400"
                         }
                     ],
@@ -986,6 +1231,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "450"
                         }
                     ],
@@ -1001,6 +1260,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "500"
                         }
                     ],
@@ -1016,6 +1289,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "550"
                         }
                     ],
@@ -1031,6 +1318,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "600"
                         }
                     ],
@@ -1046,6 +1347,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "650"
                         }
                     ],
@@ -1061,6 +1376,20 @@
                     "good": [
                         {
                             "id": "g001",
+                            "tools": [
+                                {
+                                    "id": "tool001",
+                                    "num": "10"
+                                },
+                                {
+                                    "id": "tool002",
+                                    "num": "3"
+                                },
+                                {
+                                    "id": "tool004",
+                                    "num": "6"
+                                }
+                            ],
                             "num": "700"
                         }
                     ],
@@ -1912,7 +2241,7 @@
                         "grade2": "3",
                         "grade3": "100",
                         "gold": "20",
-                        "num": "1",
+                        "num": "5",
                         "num2": "20",
                         "t": "72000",
                         "speed": "100",
@@ -3285,6 +3614,8 @@
                 "rw101": {
                     "id": "rw101",
                     "name": "酒店装饰",
+                    "status": "2",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3293,23 +3624,9 @@
                     "ain3": "",
                     "grade": "1",
                     "grade2": "1",
-                    "goods": [
-                        {
-                            "id": "hh6001",
-                            "num": "1"
-                        }
-                    ],
+                    "goods": [],
                     "goods2": [],
-                    "goods3": [
-                        {
-                            "id": "g001",
-                            "num": "200"
-                        },
-                        {
-                            "id": "exp001",
-                            "num": "100"
-                        }
-                    ],
+                    "goods3": [],
                     "num": "1",
                     "t": "28800",
                     "weight": "100"
@@ -3317,6 +3634,8 @@
                 "rw201": {
                     "id": "rw201",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3353,6 +3672,8 @@
                 "rw301": {
                     "id": "rw301",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3389,6 +3710,8 @@
                 "rw302": {
                     "id": "rw302",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3421,6 +3744,8 @@
                 "rw401": {
                     "id": "rw401",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3453,6 +3778,8 @@
                 "rw402": {
                     "id": "rw402",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3489,6 +3816,8 @@
                 "rw403": {
                     "id": "rw403",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3525,6 +3854,8 @@
                 "rw501": {
                     "id": "rw501",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3565,6 +3896,8 @@
                 "rw502": {
                     "id": "rw502",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3605,6 +3938,8 @@
                 "rw503": {
                     "id": "rw503",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3645,6 +3980,8 @@
                 "rw504": {
                     "id": "rw504",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3685,6 +4022,8 @@
                 "rw601": {
                     "id": "rw601",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3721,6 +4060,8 @@
                 "rw602": {
                     "id": "rw602",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3761,6 +4102,8 @@
                 "rw603": {
                     "id": "rw603",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3801,6 +4144,8 @@
                 "rw604": {
                     "id": "rw604",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3841,6 +4186,8 @@
                 "rw605": {
                     "id": "rw605",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3881,6 +4228,8 @@
                 "rw701": {
                     "id": "rw701",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3917,6 +4266,8 @@
                 "rw702": {
                     "id": "rw702",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3957,6 +4308,8 @@
                 "rw703": {
                     "id": "rw703",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -3997,6 +4350,8 @@
                 "rw704": {
                     "id": "rw704",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4037,6 +4392,8 @@
                 "rw705": {
                     "id": "rw705",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4077,6 +4434,8 @@
                 "rw801": {
                     "id": "rw801",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4113,6 +4472,8 @@
                 "rw802": {
                     "id": "rw802",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4153,6 +4514,8 @@
                 "rw803": {
                     "id": "rw803",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4193,6 +4556,8 @@
                 "rw804": {
                     "id": "rw804",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4233,6 +4598,8 @@
                 "rw805": {
                     "id": "rw805",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4273,6 +4640,8 @@
                 "rw901": {
                     "id": "rw901",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4309,6 +4678,8 @@
                 "rw902": {
                     "id": "rw902",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4349,6 +4720,8 @@
                 "rw903": {
                     "id": "rw903",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4389,6 +4762,8 @@
                 "rw904": {
                     "id": "rw904",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4429,6 +4804,8 @@
                 "rw905": {
                     "id": "rw905",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4469,6 +4846,8 @@
                 "rw1001": {
                     "id": "rw1001",
                     "name": "艺术摄影",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -4505,6 +4884,8 @@
                 "rw1002": {
                     "id": "rw1002",
                     "name": "酒店装饰",
+                    "status": "1",
+                    "await": "1000",
                     "type": "1",
                     "pic": "",
                     "pic2": "",
@@ -6623,6 +7004,102 @@
                     "weight": "100"
                 }
             };
+            this.SYS_MATERIAL_INFO = {
+                "MATERIAL301": {
+                    "grade": "3",
+                    "gold": '100',
+                    "is_lock": "1",
+                    "lock_num": "200",
+                    "get_num": '20',
+                    "t": 0
+                },
+                "MATERIAL302": {
+                    "grade": "3",
+                    "gold": '100',
+                    "is_lock": "1",
+                    "lock_num": "200",
+                    "get_num": '20',
+                    "t": 2999
+                },
+                "MATERIAL303": {
+                    "grade": "8",
+                    "gold": '500',
+                    "is_lock": "2",
+                    "lock_num": "200",
+                    "get_num": '20',
+                    "t": 0
+                },
+            };
+            this.SYS_MATERIAL_ORDER = {
+                "MATERIAL301": {
+                    "id": "od1301",
+                    "status": "0",
+                    "t": "1000",
+                    "goods": [
+                        {
+                            "id": "product01",
+                            "num": "10",
+                            "status": "1"
+                        },
+                        {
+                            "id": "product02",
+                            "num": "1",
+                            "status": "0"
+                        },
+                        {
+                            "id": "product01",
+                            "num": "1",
+                            "status": "0"
+                        },
+                        {
+                            "id": "product02",
+                            "num": "3",
+                            "status": "0"
+                        },
+                        {
+                            "id": "product01",
+                            "num": "8",
+                            "status": "0"
+                        }
+                    ],
+                    "reback": [
+                        {
+                            "id": "tool001",
+                            "num": "1"
+                        },
+                        {
+                            "id": "tool001",
+                            "num": "1"
+                        }
+                    ],
+                },
+                "MATERIAL302": {
+                    "id": "od1301",
+                    "status": "1",
+                    "t": "1000",
+                    "goods": [
+                        {
+                            "id": "hh6001",
+                            "num": "1"
+                        },
+                        {
+                            "id": "hh6002",
+                            "num": "1"
+                        }
+                    ],
+                    "reback": [
+                        {
+                            "id": "tool001",
+                            "num": "1"
+                        },
+                        {
+                            "id": "tool001",
+                            "num": "1"
+                        }
+                    ],
+                },
+                "MATERIAL303": {}
+            };
             this.SYS_FACTORY_GOOD = {
                 "gc001": {
                     "wp5011": {
@@ -8168,7 +8645,7 @@
                     "pic": "ui://base/pic_2_6",
                     "pic2": "",
                     "ain": "",
-                    "num": "1",
+                    "num": "5",
                     "num2": "30",
                     "speed": "0",
                     "speed2": "0",
@@ -8569,7 +9046,7 @@
     class baseWindow extends Laya.Sprite {
         constructor() {
             super();
-            this.delay = 300;
+            this.delay = 100;
             this.modal = new Laya.Sprite;
         }
         init() {
@@ -8740,47 +9217,105 @@
         }
     }
 
-    class NETWORKEVENT {
+    class tipIndex$1 extends baseWindow {
+        constructor() {
+            super();
+        }
+        tipShow(title_txt, tips, info, confirm_fun) {
+            var _tipKuan = new ui.base.tip.baseTipsUI();
+            _tipKuan.title.text = title_txt;
+            _tipKuan.tips_text.text = tips;
+            for (var i in info) {
+                if (i == 'skin') {
+                    _tipKuan.tools_icon.skin = info[i];
+                }
+                if (i == 'num_txt') {
+                    _tipKuan.tools_num.text = '×' + info[i];
+                }
+                if (i == 'price') {
+                    _tipKuan.btn_num.text = info[i];
+                }
+            }
+            _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
+            _tipKuan.pivot(_tipKuan.width / 2, _tipKuan.height / 2);
+            this.addChild(_tipKuan);
+            this.tweenShow();
+        }
+        close() {
+            this.tweenHide();
+        }
+        gameFailTip(data) {
+        }
+        gameTxtTip(txt, call_fun) {
+            var txtNode = new Laya.Text();
+            txtNode.text = txt;
+            txtNode.pivotX = txtNode.width * .5;
+            txtNode.pivotY = txtNode.height * .5;
+            txtNode.x = CONST.STAGEWIDTH / 3;
+            txtNode.y = CONST.STAGEHEIGHT / 2;
+            txtNode.color = '#ffffff';
+            txtNode.fontSize = 65;
+            gameLayer.tipslayer.addChild(txtNode);
+            Laya.Tween.to(txtNode, { y: txtNode.y - 100, alpha: 0.5 }, 1000, null, Laya.Handler.create(this, function () {
+                txtNode.removeSelf();
+                call_fun ? call_fun : function () { };
+            }));
+        }
+        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            var _tipKuan = new ui.base.tishi_tipUI();
+            this.addChild(_tipKuan);
+            _tipKuan.content_txt.text = content_txt;
+            _tipKuan.confirm_btn.label = confirm_txt;
+            _tipKuan.cancel_btn.label = cancel_txt;
+            _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
+            _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
+            _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
+            _tipKuan.pivotX = 0.5 * _tipKuan.width;
+            _tipKuan.pivotY = 0.5 * _tipKuan.height;
+            this.tweenShow();
+        }
     }
-    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
-    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
-    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
-    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
-    NETWORKEVENT.GAMEFAILTIP = 'game_fail_tip';
-    NETWORKEVENT.INITINFO = "init_info";
-    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
-    NETWORKEVENT.FARMINITFIELD = "init_field";
-    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
-    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
-    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
-    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
-    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
-    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
-    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
-    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
-    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
-    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
-    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
-    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
-    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
-    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
-    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
-    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
-    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
-    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
-    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
-    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
-    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
-    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
-    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
-    NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
-    NETWORKEVENT.MARKETINFOBAK = 'market_info_bak';
-    NETWORKEVENT.EXCHANGEINFOBAK = 'exchange_info_bak';
-    NETWORKEVENT.EXCHANGEMYMATERIAL = 'exchange_my_material';
+
+    class baseTipView {
+        constructor() {
+        }
+        tipShow(title_txt, tips, info, confirm_fun) {
+            if (this._baseTipIndex == null) {
+                this._baseTipIndex = new tipIndex$1;
+            }
+            this._baseTipIndex.tipShow(title_txt, tips, info, confirm_fun);
+        }
+        goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            if (this._baseTipIndex == null) {
+                this._baseTipIndex = new tipIndex$1;
+            }
+            this._baseTipIndex.goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+        }
+        gameTxtTip(txt, call_fun) {
+            if (this._baseTipIndex == null) {
+                this._baseTipIndex = new tipIndex$1;
+            }
+            this._baseTipIndex.gameTxtTip(txt, call_fun);
+        }
+        gameFailTip(data) {
+            console.log('错误提醒2');
+            if (this._baseTipIndex == null) {
+                this._baseTipIndex = new tipIndex$1;
+            }
+            this._baseTipIndex.gameFailTip(data);
+        }
+        close() {
+            if (this._baseTipIndex == null) {
+                this._baseTipIndex = new tipIndex$1;
+            }
+            this._baseTipIndex.close();
+        }
+    }
 
     class tipController {
         constructor() {
             Laya.stage.on(GAMEEVENT.TIPSKUAN, this, this.tipShow);
+            Laya.stage.on(GAMEEVENT.BASETIPS, this, this.baseTipsShow);
             Laya.stage.on(GAMEEVENT.GOLDTIP, this, this.goldTipShow);
             Laya.stage.on(NETWORKEVENT.GAMEFAILTIP, this, this.gameFailTip);
             Laya.stage.on(GAMEEVENT.TXTTIP, this, this.gameTxtTip);
@@ -8790,6 +9325,12 @@
                 tipController._instance = new tipController;
             }
             return tipController._instance;
+        }
+        baseTipsShow(title_txt, tips, info, confirm_fun) {
+            if (this._basetipview == null) {
+                this._basetipview = new baseTipView();
+            }
+            this._basetipview.tipShow(title_txt, tips, info, confirm_fun);
         }
         tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
             if (this._tipview == null) {
@@ -8810,7 +9351,6 @@
             this._tipview.gameTxtTip(txt, call_fun);
         }
         gameFailTip(data) {
-            console.log('错误提醒', data);
             if (this._tipview == null) {
                 this._tipview = new tipView;
             }
@@ -9637,6 +10177,23 @@
             this.showModal();
             gameLayer.tipslayer.addChild(this);
         }
+        showTip() {
+            this.visible = true;
+            this.setCenter();
+            this.modal.visible = true;
+            this.modal.graphics.clear();
+            this.modal.graphics.drawRect(0, 0, Laya.stage.width, Laya.stage.height, '#000000');
+            this.modal.alpha = 0.35;
+            this.modal.width = Laya.stage.width;
+            this.modal.height = Laya.stage.height;
+            gameLayer.tipslayer.addChild(this.modal);
+            this.modal.on(Laya.Event.CLICK, this, this.onClick);
+            gameLayer.tipslayer.addChild(this);
+        }
+        hideTip() {
+            gameLayer.tipslayer.removeChild(this);
+            this.clearAll();
+        }
         hideLayer() {
             gameLayer.tipslayer.removeChild(this);
             this.clearAll();
@@ -9702,28 +10259,34 @@
                 this._warehouse.pivotY = 0.5 * this._warehouse.height;
                 this.addChild(this._warehouse);
             }
-            this.tweenShow();
+            this.showLayer();
+            this._warehouse.scene.close_btn.on(Laya.Event.CLICK, this, this.hideLayer);
             this._warehouse.scene.item_all.on(Laya.Event.CLICK, this, function () {
                 if (this._type != 'all') {
                     this.switchItem('all');
                     this.initWarehouseGoodList();
                 }
             }.bind(this));
-            this._warehouse.scene.item_flower.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'flower') {
-                    this.switchItem('flower');
+            this._warehouse.scene.item_crops.on(Laya.Event.CLICK, this, function () {
+                if (this._type != 'crops') {
+                    this.switchItem('crops');
                     this.initWarehouseGoodList();
                 }
             }.bind(this));
-            this._warehouse.scene.item_good.on(Laya.Event.CLICK, this, function () {
+            this._warehouse.scene.item_goods.on(Laya.Event.CLICK, this, function () {
                 if (this._type != 'goods') {
                     this.switchItem('goods');
                     this.initWarehouseGoodList();
                 }
             }.bind(this));
+            this._warehouse.scene.item_building.on(Laya.Event.CLICK, this, function () {
+                if (this._type != 'building') {
+                    this.switchItem('building');
+                    this.initWarehouseGoodList();
+                }
+            }.bind(this));
             this.switchItem('all');
             this.store_info();
-            this._warehouse.scene.close_btn.on(Laya.Event.CLICK, this, this.tweenHide);
         }
         initWarehouseInfo() {
             var data = dataGlobal.getInstance().warehouseInfo;
@@ -9743,32 +10306,13 @@
             this._warehouse.scene.upgrade_btn.off(Laya.Event.CLICK, this, this.showGoldTip);
             if (dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1]) {
                 var next_grade = dataJson.getInstance().GET_SYS_STORE_INFO()[Math.floor(data.grade) + 1];
-                var good_list = next_grade.good;
+                var tools_list = next_grade.good[0].tools;
                 var confirm_fun;
-                for (var i in good_list) {
-                    if (good_list[i].id == 'g001') {
-                        if (good_list[i].num > have_gold) {
-                            var str = "" + have_gold + "/" + good_list[i].num + "";
-                            confirm_fun = function () {
-                                Laya.stage.event(GAMEEVENT.TXTTIP, ['宝石不足']);
-                                tipController.getInstance().close();
-                            };
-                        }
-                        else {
-                            var str = "确认花费" + good_list[i].num + "钻石升级仓库容量";
-                            var self = this;
-                            confirm_fun = function () {
-                                this.warehouseUpgrade();
-                                tipController.getInstance().close();
-                            }.bind(this);
-                        }
-                    }
-                }
-                var cancel_fun = function () {
-                    tipController.getInstance().close();
-                };
-                this._warehouse.scene.upgrade_btn.on(Laya.Event.CLICK, this, this.showGoldTip, ['仓库升级', str, '确定', '取消', confirm_fun, cancel_fun]);
+                this._warehouse.scene.upgrade_btn.on(Laya.Event.CLICK, this, this.showUpgradeWarehouse, [tools_list]);
             }
+        }
+        showUpgradeWarehouse(tools_list) {
+            warehouseController.getInstance().showUpgradeWarehouse(tools_list);
         }
         showGoldTip(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
             tipController.getInstance();
@@ -9786,6 +10330,8 @@
         }
         initWarehouseGoodList() {
             var data = dataGlobal.getInstance().userGoodInfo;
+            console.log(data);
+            console.log('仓库信息');
             this._good_list = this._warehouse.scene.good_list;
             this._good_list.dataSource = [];
             var _dataSource = [];
@@ -9796,10 +10342,13 @@
                     if (this._type == 'all') {
                         isAdd = true;
                     }
-                    else if (this._type == 'flower' && good_info.type == 6) {
+                    else if (this._type == 'crops' && good_info.type == 6) {
                         isAdd = true;
                     }
                     else if (this._type == 'goods' && good_info.type == 5) {
+                        isAdd = true;
+                    }
+                    else if (this._type == 'building' && good_info.type == 4) {
                         isAdd = true;
                     }
                     if (isAdd && Math.floor(data[i].num) > 0) {
@@ -9811,8 +10360,8 @@
             this._good_list.selectEnable = true;
             this._good_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, [data[i].id], false);
         }
-        itemSelectHandler(id, cell) {
-            cell.on(Laya.Event.CLICK, this, this.clickItem, [cell]);
+        itemSelectHandler(id, cell, index) {
+            cell.on(Laya.Event.CLICK, this, this.clickItem, [cell, index]);
         }
         clickItem(cell) {
             this.showSellTip(cell.dataSource.id);
@@ -9868,29 +10417,23 @@
         }
         switchItem(str) {
             this._type = str;
-            this._warehouse.scene.item_all.skin = 'warehouse/btn_biaoqian2.png';
-            this._warehouse.scene.item_flower.skin = 'warehouse/btn_biaoqian2.png';
-            this._warehouse.scene.item_good.skin = 'warehouse/btn_biaoqian2.png';
-            this._warehouse.scene.item_all.labelColors = '#7D4815';
-            this._warehouse.scene.item_flower.labelColors = '#7D4815';
-            this._warehouse.scene.item_good.labelColors = '#7D4815';
-            this._warehouse.scene.item_all_biao.visible = false;
-            this._warehouse.scene.item_flower_biao.visible = false;
-            this._warehouse.scene.item_good_biao.visible = false;
+            this._warehouse.scene.item_all.skin = "warehouse/Tab 1.png";
+            this._warehouse.scene.item_crops.skin = "warehouse/Tab 1.png";
+            this._warehouse.scene.item_goods.skin = "warehouse/Tab 1.png";
+            this._warehouse.scene.item_building.skin = "warehouse/Tab 1.png";
+            this._warehouse.scene.item_all.labelColors = '#fff';
             if (this._type == 'all') {
-                this._warehouse.scene.item_all.skin = 'warehouse/btn_biaoqian1.png';
-                this._warehouse.scene.item_all.labelColors = '#fff';
-                this._warehouse.scene.item_all_biao.visible = true;
+                this._warehouse.scene.item_all.skin = 'warehouse/Tab 2.png';
+                this._warehouse.scene.item_all.labelColors = '#7D4815';
             }
-            else if (this._type == 'flower') {
-                this._warehouse.scene.item_flower.skin = 'warehouse/btn_biaoqian1.png';
-                this._warehouse.scene.item_flower.labelColors = '#fff';
-                this._warehouse.scene.item_flower_biao.visible = true;
+            else if (this._type == 'crops') {
+                this._warehouse.scene.item_crops.skin = 'warehouse/Tab 2.png';
             }
             else if (this._type == 'goods') {
-                this._warehouse.scene.item_good.skin = 'warehouse/btn_biaoqian1.png';
-                this._warehouse.scene.item_good.labelColors = '#fff';
-                this._warehouse.scene.item_good_biao.visible = true;
+                this._warehouse.scene.item_goods.skin = 'warehouse/Tab 2.png';
+            }
+            else if (this._type == 'building') {
+                this._warehouse.scene.item_building.skin = 'warehouse/Tab 2.png';
             }
         }
         warehouseUpgrade() {
@@ -9921,7 +10464,7 @@
             this._sellTip.pivotX = 0.5 * this._sellTip.width;
             this._sellTip.pivotY = 0.5 * this._sellTip.height;
             this.addChild(this._sellTip);
-            this.tweenShow();
+            this.showLayer();
             this._sellTip.scene.jian_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [-1]);
             this._sellTip.scene.jia_btn.on(Laya.Event.CLICK, this, this.setGoodNum, [1]);
             this._sellTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeSellTip);
@@ -9929,10 +10472,11 @@
             this.initGoodInfo();
         }
         closeSellTip() {
-            this.tweenHide();
+            this.hideLayer();
         }
         initGoodInfo() {
             var good_info = dataGlobal.getInstance().userGoodInfo[this._id];
+            console.log(good_info);
             this._num = Math.floor((Math.floor(good_info.num) / 2)) < 1 ? 1 : Math.floor((Math.floor(good_info.num) / 2));
             this._sellTip.scene.tot_num.text = 'X' + this._num;
             this._good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[this._id];
@@ -9971,6 +10515,59 @@
         }
     }
 
+    class upgradeWarehouse extends baseTips {
+        constructor() {
+            super();
+        }
+        showUpgradeTip(tools_list) {
+            this._tools_list = tools_list;
+            this._upgradeTip = new ui.warehouse.warehouseUpgradeUI();
+            this._upgradeTip.pivotX = 0.5 * this._upgradeTip.width;
+            this._upgradeTip.pivotY = 0.5 * this._upgradeTip.height;
+            this.addChild(this._upgradeTip);
+            this._upgradeTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeTip);
+            this.showLayer();
+            this.initInfo();
+        }
+        closeTip() {
+            this.hideLayer();
+        }
+        initInfo() {
+            var grade = dataGlobal.getInstance();
+            var _info = dataGlobal.getInstance().warehouseInfo;
+            this._upgradeTip.scene.outsider.getChildByName('upgrade_num').text = '仓库容量 +23';
+            this._item_1 = this._upgradeTip.scene.outsider.getChildByName("buildings_item_1");
+            this._item_2 = this._upgradeTip.scene.outsider.getChildByName("buildings_item_2");
+            this._item_3 = this._upgradeTip.scene.outsider.getChildByName("buildings_item_3");
+            this._item_1.getChildByName("item_checked").visible = false;
+            this._item_2.getChildByName("item_checked").visible = false;
+            this._item_3.getChildByName("item_checked").visible = false;
+            for (var i in this._tools_list) {
+                this.initItem(i, this._tools_list[i]);
+            }
+        }
+        initItem(index, itemObj) {
+            if (index == 0) {
+                this._item_1.getChildByName('item_num').text = '0/' + itemObj.num;
+                this._item_1.getChildByName('item_icon').skin = "warehouse/" + itemObj.id + '.png';
+                this._item_1.getChildByName('item_btn').on(Laya.Event.CLICK, this, this.buyBuildings);
+            }
+            if (index == 1) {
+                this._item_2.getChildByName('item_num').text = '0/' + itemObj.num;
+                this._item_2.getChildByName('item_icon').skin = "warehouse/" + itemObj.id + '.png';
+            }
+            if (index == 2) {
+                this._item_3.getChildByName('item_num').text = '0/' + itemObj.num;
+                this._item_3.getChildByName('item_icon').skin = "warehouse/" + itemObj.id + '.png';
+            }
+        }
+        buyBuildings() {
+        }
+        warehouseUpgrade() {
+            console.log("仓库升级");
+        }
+    }
+
     class warehouseView {
         constructor() {
         }
@@ -9993,6 +10590,10 @@
         showSellTip(id) {
             this._warehouseSellCom = new warehouseSellTip;
             this._warehouseSellCom.showSellTip(id);
+        }
+        showUpgradeTip(tools_list) {
+            this._warehouseUpgradeCom = new upgradeWarehouse;
+            this._warehouseUpgradeCom.showUpgradeTip(tools_list);
         }
     }
 
@@ -10373,11 +10974,42 @@
     class factoryIndex extends baseScene {
         constructor() {
             super();
+            this.downMouseY = 0;
+            this.offsetY = 0;
+            this.maxY = 0;
+            this.minY = -6312;
+            Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseDown);
+            Laya.stage.on(Laya.Event.MOUSE_UP, this, this.mouseUp);
+        }
+        mouseDown() {
+            this.downMouseY = Laya.stage.mouseY;
+            console.log('鼠标按下', this.downMouseY);
+            Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseMove);
+            Laya.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseMoveOff);
+        }
+        mouseMove() {
+            let y = this.offsetY - (Laya.stage.mouseY - this.downMouseY);
+            console.log('鼠标移动', y);
+            this.moveMap(y);
+        }
+        mouseUp() {
+            Laya.stage.off(Laya.Event.MOUSE_MOVE, this, this.mouseMove);
+        }
+        mouseMoveOff() {
+            Laya.stage.off(Laya.Event.MOUSE_MOVE, this, this.mouseMove);
+        }
+        moveMap(y) {
+            this._factory.scene.bg.y = this._factory.scene.bg.y - y / 10;
+            if (this._factory.scene.bg.y < this.minY) {
+                this._factory.scene.bg.y = this.minY;
+            }
+            if (this._factory.scene.bg.y > this.maxY) {
+                this._factory.scene.bg.y = this.maxY;
+            }
         }
         onShow(type) {
             if (this._factory == null) {
                 this._factory = new ui.factory.factoryUI;
-                this.adaption();
                 this._factory.name = 'factory';
                 this.get_factory_info();
             }
@@ -10386,8 +11018,6 @@
                 this.showFactory();
             }
             this.tweenTranAdd(this._factory, this._factory.name, type, 'left');
-        }
-        adaption() {
         }
         isOpenFactoryInfo() {
             var id = factoryController.getInstance().model._mf_id;
@@ -10864,6 +11494,7 @@
             infoController.getInstance().getUserInfo();
         }
         SendGoodBak(data) {
+            data = { "ga": "send_good_bak", "gd": { "wp5041": { "id": "wp5041", "num": 8 }, "wp5042": { "id": "wp5042", "num": 10 }, "wp5043": { "id": "wp5043", "num": 8 }, "wp5044": { "id": "wp5044", "num": 10 }, "wp5045": { "id": "wp5045", "num": 8 } }, "code": 1 };
             data = data.gd;
             dataGlobal.getInstance().setUserGoodInfo(data);
             factoryController.getInstance().initProductionGoodList();
@@ -10970,6 +11601,53 @@
         }
     }
 
+    class bankIndex extends baseTips {
+        constructor() {
+            super();
+        }
+        onShowBank(type) {
+            this._bankScene = new ui.bank.bankSceneUI;
+            this._bankScene.pivotX = 0.5 * this._bankScene.width;
+            this._bankScene.pivotY = 0.5 * this._bankScene.height;
+            this.addChild(this._bankScene);
+            this.showLayer();
+            this._bankScene.scene.close_btn.on(Laya.Event.CLICK, this, this.closeScene);
+        }
+        closeScene() {
+            this.hideLayer();
+        }
+    }
+
+    class bankView {
+        constructor() {
+        }
+        onShowBank(type) {
+            if (this._bankCom == null) {
+                this._bankCom = new bankIndex;
+            }
+            this._bankCom.onShowBank(type);
+        }
+    }
+
+    class bankController {
+        constructor() {
+            this._bankView = new bankView;
+        }
+        static getInstance() {
+            if (bankController._instance == null) {
+                bankController._instance = new bankController;
+            }
+            return bankController._instance;
+        }
+        onShowBank(type) {
+            this._bankType = type;
+            if (this._bankView == null) {
+                this._bankView = new bankView;
+            }
+            this._bankView.onShowBank(type);
+        }
+    }
+
     class infoIndex extends baseWindow {
         constructor() {
             super();
@@ -10983,6 +11661,10 @@
             this._topSence.scene.top_kuan.on(Laya.Event.CLICK, this, function () {
                 Laya.stage.event(NETWORKEVENT.USERCOUNTINFO);
             });
+            this._diamond_box = this._topSence.scene.diamond_kuan;
+            this._gold_box = this._topSence.scene.gold_kuan;
+            this._diamond_box.on(Laya.Event.CLICK, this, this.showBank, ['diamond']);
+            this._gold_box.on(Laya.Event.CLICK, this, this.showBank, ['gold']);
             this.adaption();
             this.showChild(this._topSence);
             this._topSence.mouseThrough = true;
@@ -11009,26 +11691,21 @@
         }
         onShowUserInfo() {
             var data = dataGlobal.getInstance().userInfo;
-            this._topSence.scene.upic.skin = data.pic;
-            this._topSence.scene.uname.text = data.nickname;
-            this._topSence.scene.level.text = data.grade;
             this._topSence.scene.level.visible = true;
-            this._topSence.scene.upic.visible = true;
             this._topSence.scene.uexp.value = Math.floor(data.exp / data.upgrade_exp * 100) > 100 ? 100 : data.exp / data.upgrade_exp;
             this._topSence.scene.gold_val.text = Math.floor(data.have_gold) + '';
         }
         showBottonDiv(data) {
             if (data == 'farm') {
-                this._topSence.scene.farm_bottom.visible = true;
-                this._topSence.scene.factory_bottom.visible = false;
+                this._topSence.scene.current_btn.getChildByName("main_icon").skin = 'main/pic_gongchnag1.png';
+                this._topSence.scene.current_btn.on(Laya.Event.CLICK, this, this.showSecen, ['factory']);
             }
             else if (data == 'factory') {
-                this._topSence.scene.factory_bottom.visible = true;
-                this._topSence.scene.farm_bottom.visible = false;
+                this._topSence.scene.current_btn.getChildByName("main_icon").skin = 'main/pic_huatian1.png';
+                this._topSence.scene.current_btn.on(Laya.Event.CLICK, this, this.showSecen, ['farm']);
             }
             else if (data == 'all') {
-                this._topSence.scene.factory_bottom.visible = false;
-                this._topSence.scene.farm_bottom.visible = false;
+                this._topSence.scene.getChildByName('main_btn').visible = false;
             }
         }
         showInfoDiv() {
@@ -11049,6 +11726,9 @@
                 'code': 1
             };
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+        }
+        showBank(type) {
+            bankController.getInstance().onShowBank(type);
         }
     }
 
@@ -11249,6 +11929,7 @@
         constructor() {
         }
         StoreInfoBak(data) {
+            data = { "ga": "store_info_bak", "code": 1, "gd": { "store_id": "45", "grade": "1", "num": "10", "num2": "0", "num3": "99", "name": "1", "data_info": [{ "good_id": "hh6003", "pos": "1", "num": "105" }, { "good_id": "hh6006", "pos": "2", "num": "1" }] } };
             data = data.gd;
             dataGlobal.getInstance().setWarehouseInfo(data);
             var good_arr = [];
@@ -11299,6 +11980,11 @@
                 this._warehouseview.initWarehouseGoodList();
             }
         }
+        showUpgradeWarehouse(tools_list) {
+            if (this._warehouseview) {
+                this._warehouseview.showUpgradeTip(tools_list);
+            }
+        }
         initWarehouseInfo() {
             if (this._warehouseview) {
                 this._warehouseview.initWarehouseInfo();
@@ -11317,28 +12003,22 @@
             this._orderItem = {};
         }
         onShowOrder() {
-            console.log('订单列表显示');
-            this._orderIndex = new ui.order.orderIndexUI();
+            this._orderIndex = new ui.order.gradeOrderUI();
             this._orderIndex.name = 'orderIndex';
             this._orderIndex.pivot(this._orderIndex.width / 2, this._orderIndex.height / 2);
             this.addChild(this._orderIndex);
             this.tweenShow();
             this._orderIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeOrder);
             this._orderIndex.scene.order_list.visible = false;
-            this._time = this._orderIndex.scene.time;
-            this._time.visible = false;
+            this._orderIndex.scene.order_list.vScrollBarSkin = "";
+            this._orderIndex.scene.inner_box.getChildByName("order_detail").visible = false;
+            this._orderIndex.scene.inner_box.getChildByName("order_detail").getChildByName("good_list").visible = false;
+            this._orderIndex.scene.inner_box.getChildByName("order_await").visible = false;
+            this._orderIndex.scene.inner_box.getChildByName("order_detail").getChildByName('btn_remove').on(Laya.Event.CLICK, this, this.removeLottery);
             this.getLotteryInfo();
         }
         getLotteryInfo() {
-            let tmp_http = httpJson.getInstance();
-            let tmp_data = {
-                'a': "lottery_info",
-                'm': "init",
-                'd': {},
-                'code': 1
-            };
-            console.log("发送数据", tmp_data);
-            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+            Laya.stage.event(NETWORKEVENT.LOTTERYINFOBAK);
         }
         sendGood(data) {
             var tmp_arr = [];
@@ -11360,6 +12040,7 @@
             };
             console.log("发送数据", tmp_data);
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+            Laya.stage.event(NETWORKEVENT.SENDGOODBAK);
         }
         setLotteryList() {
             this._orderList = this._orderIndex.scene.order_list;
@@ -11369,142 +12050,147 @@
             var key = '';
             if (lottery_list) {
                 for (var i in lottery_list) {
+                    console.log('目前的小订单信息---', lottery_list[i]);
                     this._orderItem = {
                         name: '',
                         id: '',
-                        order_gold_val: {
-                            text: ''
+                        done_box: {
+                            visible: true
                         },
-                        order_exp_val: {
-                            text: ''
-                        },
-                        gou: {
+                        enough: {
                             visible: false
                         },
-                        tijiao: {
-                            visible: false
+                        order_n0: {
+                            skin: "",
+                            visible: true
                         },
-                        aperture: {
-                            visible: false
+                        order_customer: {
+                            skin: "",
+                            visible: true
                         }
                     };
                     var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[lottery_list[i].lottery_id];
-                    console.log("获取任务信息", lottery_info);
-                    var level = dataGlobal.getInstance().userInfo.grade;
-                    this._orderItem.name = lottery_info.id + '_item';
-                    this._orderItem.id = lottery_info.id;
-                    var lottery_goods = lottery_info.goods3;
-                    for (var q in lottery_goods) {
-                        if (lottery_goods[q].id == 'g001') {
-                            this._orderItem.order_gold_val.text = lottery_goods[q].num;
-                        }
-                        else if (lottery_goods[q].id == 'exp001') {
-                            this._orderItem.order_exp_val.text = lottery_goods[q].num;
-                        }
-                    }
+                    console.log('---', i);
+                    this.setOrderItem(lottery_info, i);
                     this._orderList.addItem(this._orderItem);
-                    console.log('执行次数');
-                    this.setOrderStatu(lottery_list[i].lottery_id);
                     this._orderList.visible = true;
                     if (num == 1) {
                         key = i;
                     }
                     num++;
                     this._orderList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
-                    if (this._orderList.length > 4) {
-                        this._orderList.vScrollBarSkin = "";
-                    }
                 }
                 var id = orderController.getInstance().model._order_id;
                 if (id && this._orderItem[id]) {
-                    this.clickOrderItem(id);
+                    this.clickOrderItem(id, this._orderList.getCell(0));
                 }
                 else {
                     if (key && lottery_list[key].lottery_id) {
-                        this.clickOrderItem(lottery_list[key].lottery_id);
+                        this.clickOrderItem(lottery_list[key].lottery_id, this._orderList.getCell(0));
                     }
                 }
             }
         }
-        itemSelectHandler(cell) {
-            cell.on(Laya.Event.CLICK, this, this.clickOrderItem, [cell.dataSource.id]);
+        setOrderItem(info, index) {
+            console.log('目前的任务状态信息--========================--', info, this._orderItem);
+            console.log(index);
+            var lottery_goods = info.goods3;
+            this._orderItem.id = info.id;
+            this._orderItem.name = info.id + '_item';
+            if (info.status == 1) {
+                this._orderIndex.scene.inner_box.getChildByName("order_await").visible = false;
+                this._orderIndex.scene.inner_box.getChildByName("order_detail").visible = true;
+                this._orderItem.order_n0.skin = "order/Order_01.png";
+                this._orderItem.order_customer.skin = "order/Avatar 6 Enable.png";
+                for (var q in lottery_goods) {
+                    if (lottery_goods[q].id == 'g001') {
+                        this._orderIndex.scene.inner_box.getChildByName('order_detail').getChildByName('gold_val').text = lottery_goods[q].num;
+                    }
+                    else if (lottery_goods[q].id == 'exp001') {
+                        this._orderIndex.scene.inner_box.getChildByName('order_detail').getChildByName('exp_val').text = lottery_goods[q].num;
+                    }
+                }
+                this.setOrderStatus(info.id);
+            }
+            else {
+                this._orderIndex.scene.inner_box.getChildByName("order_await").visible = true;
+                this._orderIndex.scene.inner_box.getChildByName("order_detail").visible = false;
+                this._orderItem.order_n0.skin = "order/Order_03.png";
+                this._orderItem.order_customer.visible = false;
+                this._orderItem.done_box.visible = false;
+            }
+            this._orderList.setItem(index, this._orderItem);
         }
-        setOrderStatu(id) {
-            console.log(id);
+        itemSelectHandler(cell) {
+            console.log(cell);
+            cell.on(Laya.Event.CLICK, this, this.clickOrderItem, [cell.dataSource.id, cell]);
+        }
+        setOrderStatus(id) {
             var order_info = dataGlobal.getInstance().lotteryInfo[id];
             var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];
-            this._orderIndex.scene.y_btn.off(Laya.Event.CLICK, this, this.lotteryAct);
+            if (lottery_info.status == 2) {
+                return;
+            }
             if (order_info.is_ok == 1) {
                 var is_goods = this.isGoodsEnough(lottery_info.goods);
                 if (is_goods) {
-                    for (var i = 0; i < this._orderList.cells.length; i++) {
-                        if (this._orderList.getItem(i)) {
-                            if (id == this._orderList.getItem(i).id) {
-                                this._orderList.getItem(i).gou.visible = true;
+                    for (var k = 0; k < this._orderList.cells.length; k++) {
+                        if (this._orderList.getItem(k)) {
+                            if (this._orderList.getItem(k).id === id) {
+                                this._orderList.getItem(k).done_box.visible = true;
+                                this._orderList.getItem(k).enough.visible = false;
+                                this._orderIndex.scene.inner_box.getChildByName("order_detail").getChildByName('get_btn').skin = "warehouse/btn_green_medium.png";
+                                this._orderIndex.scene.inner_box.getChildByName("order_detail").getChildByName('get_btn').on(Laya.Event.CLICK, this, this.lotteryAct, [1]);
                             }
-                            this._orderList.getItem(i).tijiao.visible = false;
-                            this._orderIndex.scene.y_btn.skin = 'order/btn_huang.png';
-                            this._orderIndex.scene.y_btn.on(Laya.Event.CLICK, this, this.lotteryAct, [1]);
                         }
                     }
                 }
                 else {
+                    console.log(id, "材料不足");
                     for (var i = 0; i < this._orderList.cells.length; i++) {
                         if (this._orderList.getItem(i)) {
-                            this._orderIndex.scene.y_btn.skin = 'order/btn_hui.png';
-                            this._orderIndex.scene.y_btn.on(Laya.Event.CLICK, this, this.lotteryAct, [2]);
+                            if (this._orderList.getItem(i).id === id) {
+                                this._orderList.getItem(i).done_box.visible = false;
+                                this._orderList.getItem(i).enough.visible = true;
+                                this._orderIndex.scene.inner_box.getChildByName("order_detail").getChildByName('get_btn').skin = "warehouse/btn_gray_medium.png";
+                                this._orderIndex.scene.inner_box.getChildByName("order_detail").getChildByName('get_btn').off(Laya.Event.CLICK, this, this.lotteryAct);
+                            }
                         }
-                    }
-                }
-            }
-            else {
-                for (var i = 0; i < this._orderList.cells.length; i++) {
-                    if (this._orderList.getItem(i)) {
-                        if (id == this._orderList.getItem(i).id) {
-                            this._orderList.getItem(i).tijiao.visible = true;
-                        }
-                        this._orderList.getItem(i).gou.visible = false;
-                        this._orderIndex.scene.y_btn.skin = 'order/btn_hui.png';
                     }
                 }
             }
         }
-        clickOrderItem(id) {
-            this.setClicAperture(id);
+        clickOrderItem(id, cell) {
+            var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];
+            cell.rotation = 10;
             orderController.getInstance().model.setOrderId(id);
-            this.setOrderStatu(id);
+            this.setClicAperture(id);
+            this.setOrderStatus(id);
             this.setGoodList(id);
         }
         setClicAperture(id) {
             var lottery_info = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id];
             var lottery_goods_list = lottery_info.goods3;
-            for (var i in lottery_goods_list) {
-                if (lottery_goods_list[i].id == 'g001') {
-                    this._orderIndex.scene.gold_val.text = lottery_goods_list[i].num;
-                }
-                else if (lottery_goods_list[i].id == 'exp001') {
-                    this._orderIndex.scene.exp_val.text = lottery_goods_list[i].num;
-                }
+            if (lottery_info.status == 1) {
+                this._orderIndex.scene.inner_box.getChildByName("order_await").visible = false;
+                this._orderIndex.scene.inner_box.getChildByName("order_detail").visible = true;
+            }
+            else {
+                this._orderIndex.scene.inner_box.getChildByName("order_await").visible = true;
+                this._orderIndex.scene.inner_box.getChildByName("order_detail").visible = false;
             }
             for (var _z in this._orderList.dataSource) {
-                if (this._orderList.dataSource[_z].id == id) {
-                    var source = this._orderList.dataSource[_z];
+                if (this._orderList.dataSource[_z].id !== id) {
                     var index = Number(_z);
-                    source.aperture.visible = true;
-                    this._orderList.setItem(index, source);
-                }
-                else {
-                    var _source = this._orderList.dataSource[_z];
-                    var _index = Number(_z);
-                    _source.aperture.visible = false;
-                    this._orderList.setItem(_index, _source);
+                    var _cell = this._orderList.getCell(index);
+                    _cell.rotation = 0;
                 }
             }
         }
         setGoodList(id) {
             var lottery_good = dataJson.getInstance().GET_SYS_FLOWER_LOTTERY()[id].goods;
             var user_good_info = dataGlobal.getInstance().userGoodInfo;
-            this._good_list = this._orderIndex.scene.good_list;
+            this._good_list = this._orderIndex.scene.inner_box.getChildByName("order_detail").getChildByName("good_list");
             this._good_list.dataSource = [];
             for (var i in lottery_good) {
                 var tmp_arr = [];
@@ -11523,28 +12209,23 @@
                     },
                     gnum: {
                         text: ''
+                    },
+                    already: {
+                        visible: true
                     }
                 };
                 if (result) {
                     var str = "" + user_good_info[lottery_good[i].id].num + "/" + lottery_good[i].num + '';
+                    good_item.already.visible = true;
                 }
                 else {
                     var str = "" + user_good_info[lottery_good[i].id].num + "/" + lottery_good[i].num + '';
+                    good_item.already.visible = false;
                 }
                 good_item.gnum.text = str;
                 this._good_list.addItem(good_item);
-                this._good_list.renderHandler = new Laya.Handler(this, this.goodSelectHandler, null, false);
                 this._good_list.visible = true;
             }
-        }
-        goodSelectHandler(cell, index) {
-            cell.on(Laya.Event.CLICK, this, this.clickGoodItem, [cell.dataSource, index]);
-        }
-        clickGoodItem(obj, index) {
-            var id = this._good_list.getCell(index).name;
-            var x = this._good_list.getCell(index).x + this._good_list.x;
-            var y = this._good_list.getCell(index).y + this._good_list.y;
-            orderController.getInstance().showOrderGoodGoTip(x, y, id);
         }
         isGoodsEnough(data) {
             var userGoodInfo = dataGlobal.getInstance().userGoodInfo;
@@ -11560,30 +12241,16 @@
             return result;
         }
         lotteryAct(type) {
-            if (type == 2) {
-                Laya.stage.event(GAMEEVENT.TXTTIP, ['物品不足，无法提交']);
-                return;
-            }
-            var id = orderController.getInstance().model._order_id;
-            let tmp_websocket = webSocketJson.getInstance();
-            let tmp_data = {
-                'a': "lottery_act",
-                'm': "gzhq_lottery",
-                'd': {
-                    'lottery_id': id
-                },
-                'code': 1
-            };
-            tmp_websocket.sendMessage(tmp_data);
+            console.log('提交订单');
         }
         showOrderTime() {
-            var timeStr = orderController.getInstance().model.thisDay;
-            this._time.text = globalFun.getInstance().getCountDown(timeStr);
-            this._time.visible = true;
         }
         closeOrder() {
             orderController.getInstance().model.clearOrderTime();
             this.tweenHide();
+        }
+        removeLottery() {
+            var _id = orderController.getInstance().model._order_id;
         }
     }
 
@@ -11613,9 +12280,6 @@
         goFun(type, id) {
             this.tweenHide();
             orderController.getInstance().closeOrder();
-            console.log(type, id);
-            console.log(type, id);
-            console.log(type, id);
             if (type == 5) {
                 infoController.getInstance().showBottonDiv('factory');
                 var factoryGoodInfo = dataJson.getInstance().GET_SYS_FACTORY_GOOD();
@@ -11659,7 +12323,6 @@
             this._orderCom.setLotteryList();
         }
         clickOrderItem(id) {
-            this._orderCom.clickOrderItem(id);
         }
         showOrderGoodGoTip(x, y, id) {
             var _orderGoodGoTip = new orderGoodGoTip();
@@ -11680,11 +12343,47 @@
         constructor() {
         }
         LotteryInfoBak(data) {
+            data = {
+                "ga": "lottery_info_bak",
+                "gd": [
+                    {
+                        "lottery_id": "rw101",
+                        "task_uid": "456489646464",
+                        "task_uid_pic": "aaa",
+                        "type": "1",
+                        "is_ok": "1"
+                    },
+                    {
+                        "lottery_id": "rw201",
+                        "task_uid": "456489646464",
+                        "task_uid_pic": "aaa",
+                        "type": "1",
+                        "is_ok": "1"
+                    },
+                    {
+                        "lottery_id": "rw301",
+                        "task_uid": "456489646464",
+                        "task_uid_pic": "aaa",
+                        "type": "1",
+                        "is_ok": "1"
+                    },
+                ],
+                "code": 1
+            };
             data = data.gd;
             dataGlobal.getInstance().setlotteryInfo(data, true);
             orderController.getInstance().sendGood(data);
         }
         SendGoodBak(data) {
+            data = {
+                "ga": "send_good_bak", "code": 1,
+                "gd": {
+                    "hh6001": { "id": "hh6001", "num": 1 },
+                    "hh6002": { "id": "hh6002", "num": 10 },
+                    "hh6003": { "id": "hh6003", "num": 10 },
+                    "hh6004": { "id": "hh6004", "num": 10 }
+                }
+            };
             data = data.gd;
             dataGlobal.getInstance().setUserGoodInfo(data);
             orderController.getInstance().model.setOrderTimeout();
@@ -12405,13 +13104,605 @@
         }
     }
 
+    class resConfig {
+        static getDynamicResUrl(signname, type = 0) {
+            for (var key in resConfig.dynamicRes) {
+                if (resConfig.dynamicRes[key] && resConfig.dynamicRes[key]['sign'] == signname) {
+                    if (type == 1) {
+                        return resConfig.dynamicRes[key];
+                    }
+                    else {
+                        return resConfig.dynamicRes[key]['url'];
+                    }
+                }
+            }
+            return 'null';
+        }
+        static getResUrl(signname) {
+            for (var key in resConfig.farm) {
+                if (resConfig.farm[key] && resConfig.farm[key]['sign'] == signname) {
+                    return resConfig.farm[key]['url'];
+                }
+            }
+            for (var key in resConfig.loadingRes) {
+                if (resConfig.loadingRes[key] && resConfig.loadingRes[key]['sign'] == signname) {
+                    return resConfig.loadingRes[key]['url'];
+                }
+            }
+            return 'null';
+        }
+    }
+    resConfig._url = '';
+    resConfig.loadingRes = [
+        { url: resConfig._url + 'ui.json', type: Laya.Loader.JSON },
+        { url: resConfig._url + 'res/atlas/loading.atlas', type: Laya.Loader.ATLAS, sign: 'login' },
+        { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE },
+    ];
+    resConfig.animalRes = [
+        { url: resConfig._url + 'res/atlas/animal/muchang_jimc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_jimc' },
+        { url: resConfig._url + 'res/atlas/animal/muchang_jimc.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/animal/muchang_niumc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_niumc' },
+        { url: resConfig._url + 'res/atlas/animal/muchang_niumc.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_yangmc' },
+        { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.png', type: Laya.Loader.IMAGE },
+    ];
+    resConfig.fontRes = [
+        { url: resConfig._url + 'res/atlas/font.atlas', type: Laya.Loader.JSON, sign: 'font' },
+        { url: resConfig._url + 'res/atlas/font.png', type: Laya.Loader.IMAGE },
+    ];
+    resConfig.farm = [
+        { url: resConfig._url + 'res/atlas/animal/muchang_jimc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_jimc' },
+        { url: resConfig._url + 'res/atlas/animal/muchang_jimc.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/animal/muchang_niumc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_niumc' },
+        { url: resConfig._url + 'res/atlas/animal/muchang_niumc.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_yangmc' },
+        { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/base.atlas', type: Laya.Loader.ATLAS, sign: 'base' },
+        { url: resConfig._url + 'res/atlas/base.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/product.atlas', type: Laya.Loader.ATLAS, sign: 'product' },
+        { url: resConfig._url + 'res/atlas/product.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/animal.atlas', type: Laya.Loader.ATLAS, sign: 'animal' },
+        { url: resConfig._url + 'res/atlas/main.atlas', type: Laya.Loader.ATLAS, sign: 'main' },
+        { url: resConfig._url + 'res/atlas/farm.atlas', type: Laya.Loader.ATLAS, sign: 'farm' },
+        { url: resConfig._url + 'res/atlas/warehouse.atlas', type: Laya.Loader.ATLAS, sign: 'warehouse' },
+        { url: resConfig._url + 'res/atlas/order.atlas', type: Laya.Loader.ATLAS, sign: 'order' },
+        { url: resConfig._url + 'res/atlas/factory.atlas', type: Laya.Loader.ATLAS, sign: 'factory' },
+        { url: resConfig._url + 'res/atlas/character.atlas', type: Laya.Loader.ATLAS, sign: 'character' },
+        { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/animal.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/farm.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/farm1.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/warehouse.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/order.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/factory.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/character.png', type: Laya.Loader.IMAGE },
+    ];
+    resConfig.dynamicRes = [];
+
+    class resManger {
+        constructor() {
+            this.resaddrlist = [];
+            this.resaddrlist = resConfig.farm;
+        }
+        static getInstance() {
+            if (resManger._instance == null) {
+                resManger._instance = new resManger();
+            }
+            return resManger._instance;
+        }
+        addRes(signname) {
+            var tmpurl = resConfig.getDynamicResUrl(signname, 1);
+            if (tmpurl) {
+                this.resaddrlist.push(tmpurl);
+            }
+        }
+        addGroupRes(GroupRes) {
+            this.resaddrlist = GroupRes;
+        }
+        startLoad(progress_event, complete_event, progress_data, complete_data) {
+            if (this.loader == null) {
+                this.loader = new Laya.LoaderManager();
+            }
+            var tmparr = this.resaddrlist;
+            progress_data = progress_data ? progress_data : '';
+            complete_data = complete_data ? complete_data : '';
+            this.loader.load(tmparr, Laya.Handler.create(this, this.onComplete, [complete_event, complete_data]), Laya.Handler.create(this, this.onProgress, [progress_event, progress_data], false));
+        }
+        onProgress(progress_event, progress_data, param) {
+            var percent = Math.floor(param * 100);
+            if (progress_event) {
+                Laya.stage.event(progress_event, [percent, progress_data]);
+            }
+        }
+        onComplete(complete_event, complete_data) {
+            if (complete_event) {
+                Laya.stage.event(complete_event, complete_data);
+            }
+            this.resaddrlist = [];
+        }
+        getRes(name) {
+            return null;
+        }
+        setBitmapFont() {
+            this.mBitmapFont = new Laya.BitmapFont();
+            resManger.getInstance().addGroupRes(resConfig.fontRes);
+            resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFONT, GAMEEVENT.ONPROGRESSFONT);
+            Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFont);
+        }
+        onResCompleteFont() {
+            Laya.Text.registerBitmapFont("userFont", this.mBitmapFont);
+        }
+        userFont() {
+            return this.mBitmapFont;
+        }
+    }
+
+    var TimeLine = Laya.TimeLine;
+    class animalIndex {
+        constructor() {
+            this.timeLine = new TimeLine();
+            resManger.getInstance().addGroupRes(resConfig.animalRes);
+            resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSANIMAL, GAMEEVENT.ONLOADCOMPLETEANIMAL);
+        }
+        initAnimalAni(type) {
+            let PATH = '';
+            let _x = 0;
+            let _y = 0;
+            if (type == 'chicken') {
+                PATH = 'res/atlas/animal/muchang_jimc.atlas';
+                _x = 503;
+                _y = 662;
+            }
+            else if (type == 'cow') {
+                PATH = 'res/atlas/animal/muchang_niumc.atlas';
+                _x = 881;
+                _y = 397;
+            }
+            else if (type = 'pig') {
+                PATH = 'res/atlas/animal/muchang_yangmc.atlas';
+                _x = 994;
+                _y = 910;
+            }
+            let _Animation = new Laya.Animation();
+            _Animation.loadAtlas(PATH);
+            _Animation.interval = 60;
+            _Animation.index = 2;
+            _Animation.play();
+            _Animation.scaleX = 1.7;
+            _Animation.scaleY = 1.7;
+            _Animation.name = type;
+            _Animation.pos(_x, _y);
+            _Animation.on(Laya.Event.CLICK, this, this.binClickAni);
+            return _Animation;
+        }
+        setTimer(ani) {
+            if (ani._timer) {
+                ani._timer.clear(this, this.timerFun);
+            }
+            ani._timer = new Laya.Timer();
+            ani._timer.loop(300, this, this.timerFun, [ani]);
+        }
+        timerFun(ani) {
+            var rect = new Laya.Rectangle(ani.x, ani.y, 100, 100);
+            ani.hitArea = rect;
+            var data = dataGlobal.getInstance().animalInfo[ani.name];
+            if (!data.is_lock) {
+                ani.visible = false;
+            }
+            if (data.feed_time <= 0) {
+            }
+        }
+        createTimerLine(Ani) {
+            var timeLine = new TimeLine();
+            if (Ani.name == 'chicken') {
+                timeLine.addLabel("turnRight", 0).to(Ani, { x: 503, y: 637, scaleX: 1.6, scaleY: 1.6, }, 1000, null, 0)
+                    .addLabel("turnRight", 0).to(Ani, { x: 656, y: 672, scaleX: 1.7, scaleY: 1.7 }, 1000, null, 0)
+                    .addLabel("turnRight", 0).to(Ani, { x: 936, y: 558, scaleX: 1.55, scaleY: 1.55 }, 1500, null, 0)
+                    .addLabel("turnRight", 0).to(Ani, { x: 1040, y: 558, skewY: 180 }, 0, null, 0)
+                    .addLabel("turnLeft", 0).to(Ani, { x: 783, y: 368, scaleX: 1.3, scaleY: 1.3, }, 3000, null, 0)
+                    .addLabel("turnUp", 0).to(Ani, { x: 503, y: 470, scaleX: 1.5, scaleY: 1.5 }, 3000, null, 0)
+                    .addLabel("turnUp", 0).to(Ani, { x: 503, y: 470, scaleX: 1.5, scaleY: 1.5, skewY: 0 }, 0, null, 0)
+                    .addLabel("turnRight", 0).to(Ani, { x: 503, y: 662, scaleX: 1.6, scaleY: 1.6 }, 1000, null, 0);
+            }
+            if (Ani.name == 'cow') {
+            }
+            if (Ani.name == 'pig') {
+            }
+            timeLine.play(0, true);
+        }
+        binClickAni(Ani) {
+            console.log(Ani);
+            console.log(Ani);
+            console.log(Ani);
+        }
+    }
+
+    class orderIndex$1 extends baseWindow {
+        constructor() {
+            super();
+            this._orderItem = {};
+        }
+        onShowOrder() {
+            this._orderIndex = new ui.materialorder.materialOrderUI();
+            this._orderIndex.name = 'orderIndex';
+            this._orderIndex.pivot(this._orderIndex.width / 2, this._orderIndex.height / 2);
+            this.addChild(this._orderIndex);
+            this.tweenShow();
+            this._orderIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeOrder);
+            this._materialList = this._orderIndex.scene.material_list;
+            this._materialList.visible = false;
+            this.getMaterialInfo();
+        }
+        getMaterialInfo() {
+            Laya.stage.event(NETWORKEVENT.MATERIALINFOBAK);
+        }
+        sendGood(data) {
+            Laya.stage.event(NETWORKEVENT.SENDGOODMATERIALBAK);
+        }
+        setMaterialList() {
+            var material_info = dataJson.getInstance().GET_SYS_MATERIAL_INFO();
+            var grade = 6;
+            this._materialList.dataSource = [];
+            for (var i in material_info) {
+                var _materialItem = {
+                    id: i,
+                    status: '',
+                    order_list: {
+                        visible: false
+                    },
+                    locked_text: {
+                        text: "",
+                        visible: false
+                    },
+                    locked_bg: {
+                        visible: false
+                    },
+                    lock_btn: {
+                        visible: false,
+                    },
+                    lock_num: {
+                        visible: false,
+                        text: ""
+                    },
+                    timer: {
+                        visible: false
+                    },
+                    tips_text: {
+                        text: "",
+                        visible: false
+                    },
+                    getnow_btn: {
+                        visible: false
+                    },
+                    getnow_num: {
+                        text: '',
+                        visible: false
+                    },
+                };
+                if (grade < Number(material_info[i].grade)) {
+                    _materialItem.status = "0";
+                    _materialItem.locked_bg.visible = true;
+                    _materialItem.locked_text.text = "到达" + material_info[i].grade + "级可解锁";
+                    _materialItem.locked_text.visible = true;
+                    _materialItem.locked_text.visible = true;
+                }
+                else {
+                    if (material_info[i].is_lock == 1) {
+                        _materialItem.status = "1";
+                        if (material_info[i].t > 0) {
+                            _materialItem.status = "3";
+                            _materialItem.getnow_btn.visible = true;
+                            _materialItem.timer.visible = true;
+                            _materialItem.tips_text.visible = true;
+                            _materialItem.tips_text.text = material_info[i].t;
+                            _materialItem.getnow_num.visible = true;
+                            _materialItem.getnow_num.text = material_info[i].get_num;
+                            materialController.getInstance().model.setOrderTime(material_info[i].t, i);
+                        }
+                    }
+                    else {
+                        _materialItem.status = "2";
+                        _materialItem.lock_btn.visible = true;
+                        _materialItem.lock_num.visible = true;
+                        _materialItem.lock_num.text = material_info[i].lock_num;
+                    }
+                }
+                this._materialList.addItem(_materialItem);
+                this._materialList.visible = true;
+                this._materialList.renderHandler = new Laya.Handler(this, this.setGoodsList, [i]);
+            }
+            materialController.getInstance().model.setOrderTimeout();
+        }
+        setGoodsList(id) {
+            var material_info = dataJson.getInstance().GET_SYS_MATERIAL_INFO();
+            for (var i in this._materialList.cells) {
+                var _index = Number(i);
+                var _cell = this._materialList.getCell(_index);
+                var _dataSource = this._materialList.getItem(_index);
+                var _info = material_info[_dataSource.id];
+                if (_dataSource.status === "1") {
+                    this.renderMaterialOrder(_cell, _dataSource);
+                }
+            }
+        }
+        renderMaterialOrder(_cell, _dataSource) {
+            var materialOrderInfo = dataJson.getInstance().GET_SYS_MATERIAL_ORDERLIST()[_dataSource.id];
+            var _orderList = _cell.getChildByName("order_list");
+            _orderList.dataSource = [];
+            if (materialOrderInfo.status == 0) {
+                for (var i in materialOrderInfo.goods) {
+                    var _item = {
+                        lid: {
+                            visible: false
+                        },
+                        good_icon: {
+                            skin: "",
+                            visible: false
+                        },
+                        good_num: {
+                            text: "",
+                            visible: false
+                        },
+                        already: {
+                            visible: false
+                        }
+                    };
+                    if (materialOrderInfo.goods[i].status == 1) {
+                        _item.already.visible = true;
+                        _item.lid.visible = true;
+                    }
+                    else {
+                        _item.good_icon.skin = 'product/' + materialOrderInfo.goods[i].id + '.png';
+                        _item.good_icon.visible = true;
+                        _item.good_num.text = '×' + materialOrderInfo.goods[i].num;
+                        _item.good_num.visible = true;
+                    }
+                    _orderList.addItem(_item);
+                }
+                _orderList.visible = true;
+                _orderList.renderHandler = new Laya.Handler(this, this.bindOrderEvent, [materialOrderInfo]);
+            }
+            else {
+            }
+        }
+        bindOrderEvent(info, cell, index) {
+            cell.on(Laya.Event.CLICK, this, this.onCellClick, [cell, index, info]);
+        }
+        onCellClick(cell, index, info) {
+            var x = cell.x + cell.parent.parent.x;
+            var y = cell.y + cell.parent.parent.y;
+            materialController.getInstance().showOrderTip(x, y, info, index);
+        }
+        closeOrder() {
+            this.tweenHide();
+        }
+        showOrderTime(id) {
+            var timeStr = materialController.getInstance().model.thisTime[id];
+            for (var i in this._materialList.cells) {
+                var _index = Number(i);
+                if (this._materialList.getItem(_index).id == id) {
+                    var _item = this._materialList.getItem(_index);
+                    _item.tips_text.text = globalFun.getInstance().getCountDown(timeStr);
+                    this._materialList.setItem(_index, _item);
+                }
+            }
+        }
+    }
+
+    class orderTip extends baseTips {
+        constructor() {
+            super();
+        }
+        showOrderTip(x, y, info, index) {
+            this._orderTip = new ui.materialorder.orderTipsUI;
+            this._orderTip.x = x - CONST.DESIGNSTAGEWIDTH / 2 - 45;
+            this._orderTip.y = (y - CONST.DESIGNSTAGEHEIGHT / 2) * CONST.STAGEHEIGHT / CONST.DESIGNSTAGEHEIGHT;
+            this.addChild(this._orderTip);
+            this.showTip();
+            console.log(info, index);
+            var need_num = info.goods[index].num;
+            console.log(need_num);
+            var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()['hh6003'];
+            this._orderTip.scene.get_btn.off(Laya.Event.CLICK, this, this.getProduct.bind(this));
+            this._orderTip.scene.getChildByName("num").text = good_info.num + '/' + need_num;
+            this._orderTip.scene.good_icon.skin = "product/" + info.goods[index].id + '.png';
+            if (good_info.num === need_num || good_info.num > need_num) {
+                this._orderTip.scene.getChildByName("num").color = "#0eb544";
+                var _status = 'load';
+            }
+            if (good_info.num < need_num) {
+                this._orderTip.scene.getChildByName("num").color = "#ee2e45";
+                var _status = 'purchase';
+            }
+            this._orderTip.scene.get_btn.on(Laya.Event.CLICK, this, this.getProduct.bind(this), [_status, info, index]);
+            this.modal.on(Laya.Event.CLICK, this, this.hideLayer);
+        }
+        getProduct(_status, info, index) {
+            if (_status == 'load') {
+                console.log('进行装载');
+            }
+            else {
+                tipController.getInstance();
+                var _info = {
+                    "skin": "product/" + info.goods[index].id + '.png',
+                    "num_txt": info.goods[index].num,
+                    "price": '11'
+                };
+                console.log(_info);
+                var confirm_fun = function () {
+                };
+                Laya.stage.event(GAMEEVENT.BASETIPS, ["商品不足", '从工厂和农场生产商品，或者你现在可以用钻石购买', _info, confirm_fun]);
+                this.hideLayer();
+            }
+        }
+    }
+
+    class materialView {
+        constructor() {
+        }
+        onShowOrder() {
+            this._materialCom = new orderIndex$1;
+            this._materialCom.onShowOrder();
+        }
+        sendGood(data) {
+            this._materialCom.sendGood(data);
+        }
+        setMaterialList() {
+            this._materialCom.setMaterialList();
+        }
+        clickOrderItem(id) {
+        }
+        getLotteryInfo() {
+        }
+        showOrderTime(id) {
+            this._materialCom.showOrderTime(id);
+        }
+        showOrderTip(x, y, info, index) {
+            var _materialTip = new orderTip();
+            _materialTip.showOrderTip(x, y, info, index);
+        }
+        closeOrder() {
+            this._materialCom.closeOrder();
+        }
+    }
+
+    class orderNetwork$1 {
+        constructor() {
+        }
+        MaterialInfoBak(data) {
+            data = {
+                "ga": "material_info_bak",
+                "gd": [
+                    {
+                        "aterial_id": "material101",
+                        "task_uid": "456489646464",
+                        "task_uid_pic": "aaa",
+                        "type": "1",
+                        "is_ok": "1"
+                    },
+                    {
+                        "aterial_id": "material201",
+                        "task_uid": "456489646464",
+                        "task_uid_pic": "aaa",
+                        "type": "1",
+                        "is_ok": "1"
+                    },
+                    {
+                        "aterial_id": "material301",
+                        "task_uid": "456489646464",
+                        "task_uid_pic": "aaa",
+                        "type": "1",
+                        "is_ok": "1"
+                    },
+                ],
+                "code": 1
+            };
+            data = data.gd;
+            dataGlobal.getInstance().setMaterialInfo(data, true);
+            materialController.getInstance().sendGood(data);
+        }
+        SendGoodBak(data) {
+            data = {
+                "ga": "send_good_material_bak", "code": 1,
+                "gd": {
+                    "hh6001": { "id": "hh6001", "num": 1 },
+                    "hh6002": { "id": "hh6002", "num": 10 },
+                    "hh6003": { "id": "hh6003", "num": 10 },
+                    "hh6004": { "id": "hh6004", "num": 10 }
+                }
+            };
+            data = data.gd;
+            dataGlobal.getInstance().setUserGoodInfo(data);
+            materialController.getInstance().setMaterialList();
+        }
+        MaterialActBak(data) {
+            data = data.gd;
+            var tmp_arr = [];
+            tmp_arr.push(data);
+            dataGlobal.getInstance().setlotteryInfo(tmp_arr);
+            infoController.getInstance().getUserInfo();
+        }
+    }
+
+    class materialModel {
+        constructor() {
+            this._material_id = '';
+            this.thisTime = {};
+        }
+        setOrderTime(time, id) {
+            this.thisTime[id] = time;
+        }
+        setOrderTimeout() {
+            if (this._timer) {
+                return;
+            }
+            this._timer = new Laya.Timer();
+            this._timer.loop(1000, this, this.timerFun);
+        }
+        timerFun() {
+            for (var id in this.thisTime) {
+                if (this.thisTime[id] <= 0) {
+                    return;
+                }
+                this.thisTime[id]--;
+                materialController.getInstance().showOrderTime(id);
+            }
+        }
+        clearOrderTime() {
+            if (this._timer) {
+                this._timer.clear(this, this.timerFun);
+            }
+        }
+    }
+
+    class materialController {
+        constructor() {
+            this.model = new materialModel;
+            this._network = new orderNetwork$1;
+            Laya.stage.on(NETWORKEVENT.MATERIALINFOBAK, this, this._network.MaterialInfoBak);
+            Laya.stage.on(NETWORKEVENT.SENDGOODMATERIALBAK, this, this._network.SendGoodBak);
+        }
+        static getInstance() {
+            if (materialController._instance == null) {
+                materialController._instance = new materialController;
+            }
+            return materialController._instance;
+        }
+        onShow() {
+            if (this._materialview == null) {
+                this._materialview = new materialView;
+            }
+            this._materialview.onShowOrder();
+        }
+        sendGood(data) {
+            if (this._materialview == null) {
+                this._materialview = new materialView;
+            }
+            this._materialview.sendGood(data);
+        }
+        setMaterialList() {
+            this._materialview.setMaterialList();
+        }
+        showOrderTip(x, y, info, index) {
+            this._materialview.showOrderTip(x, y, info, index);
+        }
+        showOrderTime(id) {
+            this._materialview.showOrderTime(id);
+        }
+    }
+
+    var Event = Laya.Event;
     class farmIndex extends baseScene {
         constructor() {
             super();
+            this.lastDistance = 0;
         }
         onShow(type) {
             if (this._farmIndex == null) {
                 this._farmIndex = new ui.farm.farmIndexsceneUI();
+                this._animalIndex = new animalIndex;
                 this.width = this._farmIndex.width;
                 this.height = this._farmIndex.height;
                 this._farmIndex.name = 'farmIndex';
@@ -12442,7 +13733,127 @@
             this._farmIndex.scene.upgrade.on(Laya.Event.CLICK, this, this.onMenuClick, ['upgrade']);
             this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);
             this._farmIndex.scene.rank.on(Laya.Event.CLICK, this, this.onMenuClick, ['rank']);
+            this._farmIndex.scene.material_box.on(Laya.Event.CLICK, this, this.onMenuClick, ['material_order']);
+            this._cowBox = this._farmIndex.scene.cow_box;
+            this._pigBox = this._farmIndex.scene.pig_box;
+            this._chickenBox = this._farmIndex.scene.chicken_box;
+            this._materialbox = this._farmIndex.scene.material_box;
+            this._material_1 = this._farmIndex.scene.material_1;
+            this._material_2 = this._farmIndex.scene.material_2;
+            this._material_3 = this._farmIndex.scene.material_3;
             this.cleanAllStatu();
+            this.initMaterial();
+        }
+        initMaterial() {
+            var material_info = dataJson.getInstance().GET_SYS_MATERIAL_INFO();
+            console.log('farm-index', 'material_info-------------------------', material_info);
+            for (var i in material_info) {
+                if (material_info[i].is_lock == 1) {
+                    if (i == 'MATERIAL301' && material_info[i].t == 0) {
+                        this._material_1.visible = true;
+                        this.setBalloonAni(this._material_1, 'onbase');
+                    }
+                    if (i == 'MATERIAL302' && material_info[i].t == 0) {
+                        this._material_2.visible = true;
+                        this.setBalloonAni(this._material_2, 'onbase');
+                    }
+                    if (i == 'MATERIAL303' && material_info[i].t == 0) {
+                        this._material_3.visible = true;
+                        this.setBalloonAni(this._material_3, 'onbase');
+                    }
+                }
+            }
+        }
+        setBalloonAni(_sprite, type) {
+            if (type == 'onbase') {
+            }
+            if (type == 'flyout') {
+            }
+            if (type == 'flyin') {
+            }
+        }
+        initAnimal() {
+            var _animals = ['pig', 'chicken', 'cow'];
+            for (var i in _animals) {
+                this.initAnimalStatic(_animals[i]);
+                this.setAnimalTimer(_animals[i]);
+            }
+        }
+        setAnimalTimer(type) {
+            var data = dataGlobal.getInstance().animalInfo[type];
+            var _animalBox = this._farmIndex.scene.getChildByName(type + '_box');
+            if (data.feed_time > 0 || data.product.grow_time_tol > 0) {
+                if (_animalBox._timer) {
+                    _animalBox._timer.clear(this, this.timerFun);
+                }
+                _animalBox._timer = new Laya.Timer();
+                _animalBox._timer.loop(1000, this, this.timerFun, [type]);
+            }
+        }
+        timerFun(type) {
+            var data = dataGlobal.getInstance().animalInfo[type];
+            var _animalBox = this._farmIndex.scene.getChildByName(type + '_box');
+            var _surplus_grow_time = data.product.grow_time_tol - data.product.mature_time;
+            if (data.feed_time == 0 && _surplus_grow_time == 0) {
+                _animalBox._timer.clear(this, this.timerFun);
+            }
+            if (_surplus_grow_time > 0) {
+                data.product.mature_time++;
+            }
+            if (data.product.grow_time_tol < data.product.mature_time || data.product.grow_time_tol == data.product.mature_time) {
+                if (_animalBox.static != "harvest") {
+                    _animalBox.static = "harvest";
+                    Laya.stage.event(NETWORKEVENT.ANIMALPRODUCTMATURE, _animalBox.type);
+                }
+            }
+        }
+        initAnimalStatic(type) {
+            var data = dataGlobal.getInstance().animalInfo[type];
+            var _animalBox = this._farmIndex.scene.getChildByName(type + '_box');
+            _animalBox.type = type;
+            _animalBox.getChildByName('bgkuang').visible = false;
+            _animalBox.getChildByName('crop').visible = false;
+            _animalBox.getChildByName('feed').visible = false;
+            _animalBox.off(Laya.Event.CLICK, this, this.onClickAnimal);
+            if (!data.is_lock) {
+                _animalBox.static = 'unlock';
+                _animalBox.visible = false;
+            }
+            else {
+                if (data.feed_time <= 0) {
+                    _animalBox.static = 'feed';
+                    _animalBox.getChildByName('feed').visible = true;
+                    _animalBox.getChildByName('bgkuang').visible = true;
+                }
+                else {
+                    if (data.product.grow_time_tol == data.product.mature_time) {
+                        _animalBox.static = 'harvest';
+                        _animalBox.getChildByName('crop').visible = true;
+                        _animalBox.getChildByName('bgkuang').visible = true;
+                    }
+                    else {
+                        _animalBox.static = 'producing';
+                    }
+                }
+            }
+            _animalBox.on(Laya.Event.CLICK, this, this.onClickAnimal, [_animalBox]);
+        }
+        onClickAnimal(animalBox) {
+            console.log(animalBox.static);
+            if (animalBox.static == 'harvest') {
+                this.onHarvest(animalBox);
+            }
+            if (animalBox.static == 'feed') {
+                this.onFeed(animalBox);
+            }
+            if (animalBox.static == 'producing') {
+            }
+        }
+        onHarvest(animalBox) {
+            console.log('发送收获请求');
+        }
+        onFeed(animalBox) {
+            console.log('发送喂饲料请求');
         }
         loadSeedList() {
             this._seedListClass = new farmSeedList();
@@ -12534,7 +13945,7 @@
             this.recoveryBtn(type);
             switch (type) {
                 case 'building':
-                    this._farmIndex.scene.building.skin = 'main/btn_cangku2.png';
+                    this._farmIndex.scene.building.skin = 'main/warehouse.png.png';
                     this.onClickBuilding();
                     break;
                 case 'upgrade':
@@ -12555,11 +13966,14 @@
                 case 'rank':
                     this.onClickRank();
                     break;
+                case "material_order":
+                    this.onClickMaterialOrder();
+                    break;
             }
         }
         recoveryBtn(type) {
             this.muneClickStr = type;
-            this._farmIndex.scene.building.skin = 'main/btn_cangku1.png';
+            this._farmIndex.scene.building.skin = 'main/warehouse.png';
             this._farmIndex.scene.upgrade.skin = 'main/btn_shengji1.png';
             this._farmIndex.scene.email.skin = 'main/btn_youxiang1.png';
             this._farmIndex.scene.order.skin = 'main/btn_dingdan1.png';
@@ -12592,6 +14006,36 @@
         onClickEmail() {
             emailController.getInstance().onShowEmail();
         }
+        onClickMaterialOrder() {
+            materialController.getInstance().onShow();
+        }
+        onMouseDown(e) {
+            var touches = e.touches;
+            if (touches && touches.length == 2) {
+                this.lastDistance = this.getDistance(touches);
+                console.log('双指缩放', this.lastDistance);
+                Laya.stage.on(Event.MOUSE_MOVE, this, this.onMouseMove);
+            }
+        }
+        onMouseMove(e) {
+            var distance = this.getDistance(e.touches);
+            console.log('判断当前距离与上次距离变化，确定是放大还是缩小');
+            console.log(distance);
+            const factor = 0.01;
+            this.lastDistance = distance;
+        }
+        onMouseUp(e) {
+            Laya.stage.off(Event.MOUSE_MOVE, this, this.onMouseMove);
+        }
+        getDistance(points) {
+            var distance = 0;
+            if (points && points.length == 2) {
+                var dx = points[0].stageX - points[1].stageX;
+                var dy = points[0].stageY - points[1].stageY;
+                distance = Math.sqrt(dx * dx + dy * dy);
+            }
+            return distance;
+        }
     }
 
     class farmView {
@@ -12623,6 +14067,11 @@
         }
         setPlantFramLand() {
             this._indexCom.setPlantFramLand();
+        }
+        onShowAnimal() {
+        }
+        initAnimal() {
+            this._indexCom.initAnimal();
         }
     }
 
@@ -12775,6 +14224,17 @@
             dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);
             farmController.getInstance().initLand();
         }
+        AnimalProductMature(data) {
+            var _data = {
+                "ga": "animal_product_mature",
+                "gd": {
+                    "type": data.type
+                },
+            };
+            console.log(data);
+            dataGlobal.getInstance().setAnimalInfo(_data);
+            farmController.getInstance().initAnimal();
+        }
     }
 
     class farmController {
@@ -12791,6 +14251,8 @@
             Laya.stage.on(NETWORKEVENT.FARMINITCOLLECTFLOWER, this, this._network.FarmCollectFlower);
             Laya.stage.on(NETWORKEVENT.FARMINITGROWFLOWER, this, this._network.FarmInitGrowFlower);
             Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFAT, this, this._network.FarmInitFlowerFat);
+            Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEANIMAL, this, this.onResCompleteAnimal);
+            Laya.stage.on(NETWORKEVENT.ANIMALPRODUCTMATURE, this, this._network.AnimalProductMature);
         }
         static getInstance() {
             if (farmController._instance == null) {
@@ -12815,6 +14277,9 @@
             };
             tmp_websocket.sendMessage(tmp_data);
         }
+        onResCompleteAnimal() {
+            this._farmview.onShowAnimal();
+        }
         onShowFarmInitField(data) {
             this._farmview.onShowFarmInitField(data);
         }
@@ -12836,126 +14301,15 @@
         setPlantFramLand() {
             this._farmview.setPlantFramLand();
         }
-    }
-
-    class resConfig {
-        static getDynamicResUrl(signname, type = 0) {
-            for (var key in resConfig.dynamicRes) {
-                if (resConfig.dynamicRes[key] && resConfig.dynamicRes[key]['sign'] == signname) {
-                    if (type == 1) {
-                        return resConfig.dynamicRes[key];
-                    }
-                    else {
-                        return resConfig.dynamicRes[key]['url'];
-                    }
-                }
-            }
-            return 'null';
-        }
-        static getResUrl(signname) {
-            for (var key in resConfig.farm) {
-                if (resConfig.farm[key] && resConfig.farm[key]['sign'] == signname) {
-                    return resConfig.farm[key]['url'];
-                }
-            }
-            for (var key in resConfig.loadingRes) {
-                if (resConfig.loadingRes[key] && resConfig.loadingRes[key]['sign'] == signname) {
-                    return resConfig.loadingRes[key]['url'];
-                }
-            }
-            return 'null';
-        }
-    }
-    resConfig._url = '';
-    resConfig.loadingRes = [
-        { url: resConfig._url + 'ui.json', type: Laya.Loader.JSON },
-        { url: resConfig._url + 'res/atlas/loading.atlas', type: Laya.Loader.ATLAS, sign: 'login' },
-        { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE },
-    ];
-    resConfig.fontRes = [
-        { url: resConfig._url + 'res/atlas/font.atlas', type: Laya.Loader.JSON, sign: 'font' },
-        { url: resConfig._url + 'res/atlas/font.png', type: Laya.Loader.IMAGE },
-    ];
-    resConfig.farm = [
-        { url: resConfig._url + 'res/atlas/main.atlas', type: Laya.Loader.ATLAS, sign: 'main' },
-        { url: resConfig._url + 'res/atlas/farm.atlas', type: Laya.Loader.ATLAS, sign: 'farm' },
-        { url: resConfig._url + 'res/atlas/warehouse.atlas', type: Laya.Loader.ATLAS, sign: 'warehouse' },
-        { url: resConfig._url + 'res/atlas/order.atlas', type: Laya.Loader.ATLAS, sign: 'order' },
-        { url: resConfig._url + 'res/atlas/factory.atlas', type: Laya.Loader.ATLAS, sign: 'factory' },
-        { url: resConfig._url + 'res/atlas/character.atlas', type: Laya.Loader.ATLAS, sign: 'character' },
-        { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/farm.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/farm1.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/warehouse.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/order.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/factory.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/character.png', type: Laya.Loader.IMAGE },
-    ];
-    resConfig.dynamicRes = [];
-
-    class resManger {
-        constructor() {
-            this.resaddrlist = [];
-            this.resaddrlist = resConfig.farm;
-        }
-        static getInstance() {
-            if (resManger._instance == null) {
-                resManger._instance = new resManger();
-            }
-            return resManger._instance;
-        }
-        addRes(signname) {
-            var tmpurl = resConfig.getDynamicResUrl(signname, 1);
-            if (tmpurl) {
-                this.resaddrlist.push(tmpurl);
-            }
-        }
-        addGroupRes(GroupRes) {
-            this.resaddrlist = GroupRes;
-        }
-        startLoad(progress_event, complete_event, progress_data, complete_data) {
-            if (this.loader == null) {
-                this.loader = new Laya.LoaderManager();
-            }
-            var tmparr = this.resaddrlist;
-            progress_data = progress_data ? progress_data : '';
-            complete_data = complete_data ? complete_data : '';
-            this.loader.load(tmparr, Laya.Handler.create(this, this.onComplete, [complete_event, complete_data]), Laya.Handler.create(this, this.onProgress, [progress_event, progress_data], false));
-        }
-        onProgress(progress_event, progress_data, param) {
-            var percent = Math.floor(param * 100);
-            if (progress_event) {
-                Laya.stage.event(progress_event, [percent, progress_data]);
-            }
-        }
-        onComplete(complete_event, complete_data) {
-            if (complete_event) {
-                Laya.stage.event(complete_event, complete_data);
-            }
-            this.resaddrlist = [];
-        }
-        getRes(name) {
-            return null;
-        }
-        setBitmapFont() {
-            this.mBitmapFont = new Laya.BitmapFont();
-            resManger.getInstance().addGroupRes(resConfig.fontRes);
-            resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSFONT, GAMEEVENT.ONPROGRESSFONT);
-            Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEFARM, this, this.onResCompleteFont);
-        }
-        onResCompleteFont() {
-            Laya.Text.registerBitmapFont("userFont", this.mBitmapFont);
-        }
-        userFont() {
-            return this.mBitmapFont;
+        initAnimal() {
+            this._farmview.initAnimal();
         }
     }
 
     class loginWin extends baseScene {
         constructor() {
             super();
+            this.lastDistance = 0;
         }
         addEvents() {
             this._login_sence.scene.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
@@ -12984,7 +14338,6 @@
             this._login_sence.scene.login_btn.on(Laya.Event.CLICK, this, this.loginBtn);
         }
         loginBtn() {
-            console.log("点击登录按钮");
             Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
             var tmp_dataGlobal = dataGlobal.getInstance();
             var userid = Laya.LocalStorage.getItem("WYD:GAME:USER");
@@ -13019,7 +14372,6 @@
         }
         onupdateFarm(x) {
             this._login_sence.scene.loading_txt.text = x + '%';
-            console.log(x);
             var num = Math.floor(x / (100 / 9)) - 1;
             this._login_sence.scene.loginProgressBar.value = x / 100;
             this._login_sence.scene.loading_icon.url = "ui://login/0_0000" + num;

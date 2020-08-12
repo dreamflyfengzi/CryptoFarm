@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":3,
+    "selecteID":26,
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
-    "maxID":26,
+    "maxID":35,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -16,9 +16,51 @@
     "child":[
         {
             "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite,n0",
-            "props":{"y":0,"x":12,"width":1241,"var":"n0","texture":"main/pic_tongyongdi.png","height":2688},
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":320,"x":12,"width":1218,"skin":"warehouse/PopupOuter.png","sizeGrid":"27,19,32,16","height":1706},
+            "nodeParent":2,
+            "label":"Image",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":34,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":246,"x":278,"width":660,"skin":"warehouse/TitleBar_01.png","sizeGrid":"31,97,25,96","height":162},
+            "nodeParent":2,
+            "label":"Image",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":26,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Text",
+                    "searchKey":"Text,n5",
+                    "props":{"y":-4,"x":40,"width":581,"var":"n5","valign":"middle","text":"仓库","height":166,"fontSize":68,"font":"Microsoft YaHei","color":"#7D4815","bold":true,"align":"center"},
+                    "nodeParent":26,
+                    "label":"n5",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":6,
+                    "child":[
+                        ]
+                }]
+        },
+        {
+            "x":15,
+            "type":"Button",
+            "searchKey":"Button,n0",
+            "props":{"y":572,"x":33,"width":1176,"var":"n0","stateNum":"1","skin":"warehouse/Popup 1.png","sizeGrid":"34,31,50,26","height":1202},
             "nodeParent":2,
             "label":"n0",
             "isDirectory":false,
@@ -30,23 +72,9 @@
         },
         {
             "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite,n3",
-            "props":{"y":2345,"x":12,"width":432,"var":"n3","texture":"warehouse/pic_caidai.png","height":157},
-            "nodeParent":2,
-            "label":"n3",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":4,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
             "type":"Text",
             "searchKey":"Text,good_num",
-            "props":{"y":2380,"x":69,"width":289,"var":"good_num","text":"容量：5/70","strokeColor":"#602b07","stroke":3,"padding":"2","height":70,"fontSize":48,"font":"Microsoft YaHei","color":"#fdfbfb"},
+            "props":{"y":1801.5,"x":50,"width":286,"var":"good_num","valign":"middle","text":"容量：5/70","padding":"2","height":128,"fontSize":55,"font":"Microsoft YaHei","color":"#fdfbfb","bold":true},
             "nodeParent":2,
             "label":"good_num",
             "isDirectory":false,
@@ -59,22 +87,8 @@
         {
             "x":15,
             "type":"Text",
-            "searchKey":"Text,n5",
-            "props":{"y":51,"x":491,"width":140,"var":"n5","text":"仓库","height":89,"fontSize":68,"font":"gameFont1","color":"#7D4815","bold":true},
-            "nodeParent":2,
-            "label":"n5",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":6,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Text",
             "searchKey":"Text,n6",
-            "props":{"y":132,"x":410,"width":302,"var":"n6","text":"点击物品可出售","height":51,"fontSize":36,"font":"Microsoft YaHei","color":"#A2613A","bold":true,"align":"center"},
+            "props":{"y":1956,"x":0,"width":386,"var":"n6","text":"点击物品可出售","height":43,"fontSize":36,"font":"Microsoft YaHei","color":"#A2613A","bold":true,"align":"center"},
             "nodeParent":2,
             "label":"n6",
             "isDirectory":false,
@@ -88,7 +102,7 @@
             "x":15,
             "type":"Button",
             "searchKey":"Button,close_btn",
-            "props":{"y":51,"x":962,"var":"close_btn","stateNum":"1","skin":"factory/pic_guanbi2.png"},
+            "props":{"y":277,"x":1047,"width":149,"var":"close_btn","stateNum":"1","skin":"warehouse/btn_close.png","height":139},
             "nodeParent":2,
             "label":"close_btn",
             "isDirectory":false,
@@ -102,7 +116,7 @@
             "x":15,
             "type":"Button",
             "searchKey":"Button,upgrade_btn",
-            "props":{"y":2330,"x":827.5,"width":336,"var":"upgrade_btn","stateNum":"1","skin":"main/btn_huang.png","sizeGrid":"62,48,62,48","labelStrokeColor":"#532b06","labelStroke":4,"labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#fff","labelBold":true,"label":"升级","height":139},
+            "props":{"y":1860,"x":831,"width":336,"var":"upgrade_btn","stateNum":"1","skin":"warehouse/btn_green_medium.png","sizeGrid":"34,33,45,30","labelStrokeColor":"#532b06","labelStroke":4,"labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#fff","labelBold":true,"label":"升级","height":139},
             "nodeParent":2,
             "label":"upgrade_btn",
             "isDirectory":false,
@@ -114,23 +128,9 @@
         },
         {
             "x":15,
-            "type":"Image",
-            "searchKey":"Image,n10",
-            "props":{"y":592,"x":183,"width":913,"var":"n10","skin":"warehouse/pic_liebiaokuang3.png","sizeGrid":"25,25,25,25","height":999},
-            "nodeParent":2,
-            "label":"n10",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":10,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
             "type":"Box",
             "searchKey":"Box,item_title_div",
-            "props":{"y":393,"x":237,"width":805,"var":"item_title_div","height":157},
+            "props":{"y":423,"x":22,"width":1145,"var":"item_title_div","height":157},
             "nodeParent":2,
             "label":"item_title_div",
             "isOpen":false,
@@ -142,36 +142,50 @@
                 {
                     "type":"Button",
                     "searchKey":"Button,item_all",
-                    "props":{"y":55,"x":0,"width":198,"var":"item_all","stateNum":"1","skin":"warehouse/btn_biaoqian1.png","sizeGrid":"40,35,40,35","labelStrokeColor":"#fdfbfb","labelSize":49,"labelFont":"Microsoft YaHei","labelColors":"#fff","labelBold":true,"label":"所有","height":110},
+                    "props":{"y":27,"x":58,"width":230,"var":"item_all","stateNum":"1","skin":"warehouse/Tab 2.png","sizeGrid":"40,25,40,24","labelSize":49,"labelFont":"Microsoft YaHei","labelColors":"#ab7c28","labelBold":true,"label":"所有","height":130},
                     "nodeParent":11,
                     "label":"item_all",
                     "isOpen":true,
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":12,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Button",
+                    "searchKey":"Button,item_crops",
+                    "props":{"y":27,"x":330,"width":230,"var":"item_crops","stateNum":"1","skin":"warehouse/Tab 1.png","sizeGrid":"17,35,8,35","labelStrokeColor":"#976214","labelSize":49,"labelFont":"Microsoft YaHei","labelColors":"#976214","labelBold":true,"height":130},
+                    "nodeParent":11,
+                    "label":"item_crops",
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
-                    "compId":12,
+                    "compId":27,
                     "child":[
                         {
                             "type":"Sprite",
-                            "searchKey":"Sprite,item_all_biao",
-                            "props":{"y":95.5,"x":82,"var":"item_all_biao","texture":"warehouse/pic_biao.png"},
-                            "nodeParent":12,
-                            "label":"item_all_biao",
+                            "searchKey":"Sprite",
+                            "props":{"y":22,"x":60,"width":110,"texture":"warehouse/IconProduct1.png","height":86},
+                            "nodeParent":27,
+                            "label":"Sprite",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
-                            "compId":13,
+                            "compId":29,
                             "child":[
                                 ]
                         }]
                 },
                 {
                     "type":"Button",
-                    "searchKey":"Button,item_flower",
-                    "props":{"y":55,"x":311,"width":198,"var":"item_flower","stateNum":"1","skin":"warehouse/btn_biaoqian2.png","sizeGrid":"40,35,40,35","labelStrokeColor":"#976214","labelSize":49,"labelFont":"Microsoft YaHei","labelColors":"#976214","labelBold":true,"label":"花卉","height":110},
+                    "searchKey":"Button,item_goods",
+                    "props":{"y":27,"x":603,"width":230,"var":"item_goods","stateNum":"1","skin":"warehouse/btn_biaoqian2.png","sizeGrid":"40,35,40,35","labelStrokeColor":"#976214","labelSize":49,"labelFont":"Microsoft YaHei","labelColors":"#976214","labelBold":true,"height":130},
                     "nodeParent":11,
-                    "label":"item_flower",
-                    "isOpen":true,
+                    "label":"item_goods",
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -179,24 +193,24 @@
                     "child":[
                         {
                             "type":"Sprite",
-                            "searchKey":"Sprite,item_flower_biao",
-                            "props":{"y":95.5,"x":82,"var":"item_flower_biao","texture":"warehouse/pic_biao.png"},
+                            "searchKey":"Sprite",
+                            "props":{"y":22,"x":60,"width":110,"texture":"warehouse/IconProduct2.png","height":86},
                             "nodeParent":14,
-                            "label":"item_flower_biao",
+                            "label":"Sprite",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
-                            "compId":15,
+                            "compId":30,
                             "child":[
                                 ]
                         }]
                 },
                 {
                     "type":"Button",
-                    "searchKey":"Button,item_good",
-                    "props":{"y":55,"x":621,"width":198,"var":"item_good","stateNum":"1","skin":"warehouse/btn_biaoqian2.png","sizeGrid":"40,35,40,35","labelStrokeColor":"#fdfbfb","labelSize":49,"labelFont":"Microsoft YaHei","labelColors":"#976214","labelBold":true,"label":"商品","height":110},
+                    "searchKey":"Button,item_building",
+                    "props":{"y":27,"x":875,"width":230,"var":"item_building","stateNum":"1","skin":"warehouse/btn_biaoqian2.png","sizeGrid":"40,35,40,35","labelStrokeColor":"#fdfbfb","labelSize":49,"labelFont":"Microsoft YaHei","labelColors":"#976214","labelBold":true,"height":130},
                     "nodeParent":11,
-                    "label":"item_good",
+                    "label":"item_building",
                     "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -205,14 +219,14 @@
                     "child":[
                         {
                             "type":"Sprite",
-                            "searchKey":"Sprite,item_good_biao",
-                            "props":{"y":95.5,"x":82,"var":"item_good_biao","texture":"warehouse/pic_biao.png"},
+                            "searchKey":"Sprite",
+                            "props":{"y":22,"x":60,"width":110,"texture":"warehouse/IconProduct3.png","height":86},
                             "nodeParent":16,
-                            "label":"item_good_biao",
+                            "label":"Sprite",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
-                            "compId":17,
+                            "compId":31,
                             "child":[
                                 ]
                         }]
@@ -222,21 +236,20 @@
             "x":15,
             "type":"List",
             "searchKey":"List,good_list",
-            "props":{"y":560,"x":180.5,"width":904,"visible":false,"var":"good_list","spaceY":30,"spaceX":100,"repeatY":4,"repeatX":4,"renderType":"render","height":991},
+            "props":{"y":580,"x":46,"width":1150,"visible":false,"var":"good_list","spaceY":30,"spaceX":50,"repeatY":4,"repeatX":4,"renderType":"render","height":1161},
             "nodeParent":2,
             "label":"good_list",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":18,
             "child":[
                 {
-                    "x":30,
                     "type":"Box",
                     "source":"warehouse/good_item.scene",
                     "searchKey":"Box,good_item_box,good_item_box",
-                    "props":{"var":"good_item_box","renderType":"render","name":"good_item_box"},
+                    "props":{"y":0,"x":0,"width":245,"var":"good_item_box","renderType":"render","name":"good_item_box","height":277},
                     "nodeParent":18,
                     "label":"good_item_box",
                     "isOpen":true,
@@ -246,10 +259,9 @@
                     "compId":21,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,gnum,gnum",
-                            "props":{"y":153,"x":25,"width":101,"var":"gnum","valign":"middle","text":"5","name":"gnum","height":69,"fontSize":60,"color":"#7D4815","align":"center"},
+                            "props":{"y":185,"x":65,"width":101,"var":"gnum","valign":"middle","text":"5","name":"gnum","height":69,"fontSize":60,"color":"#7D4815","bold":true,"align":"center"},
                             "nodeParent":21,
                             "label":"gnum",
                             "isDirectory":false,
@@ -260,44 +272,15 @@
                                 ]
                         },
                         {
-                            "x":45,
-                            "type":"Sprite",
-                            "searchKey":"Sprite,n2,n2",
-                            "props":{"y":113,"x":11,"width":130,"var":"n2","texture":"main/pic_yingzi.png","name":"n2","height":53,"alpha":0.3},
-                            "nodeParent":21,
-                            "label":"n2",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":22,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,gicon,gicon",
-                            "props":{"y":10,"x":10,"width":130,"var":"gicon","skin":"farm/hh02_4.png","name":"gicon","height":130},
+                            "props":{"y":10,"x":31,"width":169,"var":"gicon","skin":"farm/hh02_4.png","name":"gicon","height":175},
                             "nodeParent":21,
                             "label":"gicon",
                             "isDirectory":false,
                             "isAniNode":false,
                             "hasChild":false,
                             "compId":23,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Label",
-                            "searchKey":"Label,gid",
-                            "props":{"y":5,"x":1,"width":0,"visible":false,"valign":"middle","name":"gid","height":0,"fontSize":60,"font":"1","color":"#7D4815","align":"center"},
-                            "nodeParent":21,
-                            "label":"gid",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":25,
                             "child":[
                                 ]
                         }]

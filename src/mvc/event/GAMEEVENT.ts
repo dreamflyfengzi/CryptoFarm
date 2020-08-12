@@ -21,6 +21,7 @@ export default class GAMEEVENT{
   public static TIPSKUAN:string = 'TIPSKUAN';//游戏的弹窗
   public static TXTTIP:string = 'TXTTIP';//飘字提醒
   public static GOLDTIP:string = 'GOLDTIP';//金币提醒弹窗
+  public static BASETIPS:string = 'BASETIPS'; //弹窗
   /**农场 */
   public static FARM:string = 'FARM';//打开农场
   public static ONPROGRESSFARM:string = 'ONPROGRESSFARM';//加载农场
@@ -34,4 +35,8 @@ export default class GAMEEVENT{
 
   // 开发测试
   public static TEST_LOGIN_FARM:string = 'FARM';//打开农场
+
+  //加载动物
+  public static ONPROGRESSANIMAL:string = 'ONPROGRESSANIMAL';//加载动物
+  public static ONLOADCOMPLETEANIMAL:string = 'ONLOADCOMPLETEANIMAL';//加载动物成功
 }

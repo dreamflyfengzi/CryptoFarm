@@ -11,9 +11,12 @@ import NETWORKEVENT from '../event/NETWORKEVENT'
 import factoryController from '../factory/factoryController'
 import webSocketJson from '../../net/webSocketJson'
 import httpJson from '../../net/httpJson'
+import bankController from '../bank/bankController'
 export class infoIndex extends baseWindow {
 
   private _topSence: Laya.Sprite;//顶层对象
+  private _diamond_box: Laya.Box; //钻石框
+  private _gold_box: Laya.Box; //金币框
   // //用户的信息
   // private _top_div:fairygui.GGroup;
   // private _bottom_div:fairygui.GGroup;
@@ -40,6 +43,10 @@ export class infoIndex extends baseWindow {
     this._topSence.scene.top_kuan.on(Laya.Event.CLICK, this, function () {
       Laya.stage.event(NETWORKEVENT.USERCOUNTINFO)
     });
+    this._diamond_box = this._topSence.scene.diamond_kuan; //钻石
+    this._gold_box = this._topSence.scene.gold_kuan; //金币
+    this._diamond_box.on(Laya.Event.CLICK,this,this.showBank,['diamond']);
+    this._gold_box.on(Laya.Event.CLICK,this,this.showBank,['gold']);
     //暂时
     // this._topSence.scene.gold_kuan.on(Laya.Event.CLICK, this, function () {
     //   Laya.stage.event(NETWORKEVENT.SENDUSERGRADEUP)
@@ -96,11 +103,11 @@ export class infoIndex extends baseWindow {
   public onShowUserInfo() {
     //获取用户的信息
     var data = dataGlobal.getInstance().userInfo;
-    this._topSence.scene.upic.skin = data.pic;
-    this._topSence.scene.uname.text = data.nickname;
-    this._topSence.scene.level.text = data.grade;
+    // this._topSence.scene.upic.skin = data.pic;
+    // this._topSence.scene.uname.text = data.nickname;
+    // this._topSence.scene.level.text = data.grade;
     this._topSence.scene.level.visible = true;
-    this._topSence.scene.upic.visible = true;
+    // this._topSence.scene.upic.visible = true;
     this._topSence.scene.uexp.value = Math.floor(data.exp / data.upgrade_exp * 100) > 100 ? 100 : data.exp / data.upgrade_exp;
     this._topSence.scene.gold_val.text = Math.floor(data.have_gold) + '';
   }
@@ -111,14 +118,19 @@ export class infoIndex extends baseWindow {
    */
   public showBottonDiv(data) {
     if (data == 'farm') {//这个是在农场页面的
-      this._topSence.scene.farm_bottom.visible = true;
-      this._topSence.scene.factory_bottom.visible = false;
+      this._topSence.scene.current_btn.getChildByName("main_icon").skin = 'main/pic_gongchnag1.png';
+      this._topSence.scene.current_btn.on(Laya.Event.CLICK, this, this.showSecen, ['factory'])
+      // this._topSence.scene.farm_bottom.visible = true;
+      // this._topSence.scene.factory_bottom.visible = false;
     } else if (data == 'factory') {//这个是在工厂页面的
-      this._topSence.scene.factory_bottom.visible = true;
-      this._topSence.scene.farm_bottom.visible = false;
+      this._topSence.scene.current_btn.getChildByName("main_icon").skin = 'main/pic_huatian1.png';
+      this._topSence.scene.current_btn.on(Laya.Event.CLICK, this, this.showSecen, ['farm'])
+      // this._topSence.scene.factory_bottom.visible = true;
+      // this._topSence.scene.farm_bottom.visible = false;
     } else if (data == 'all') {//全部隐藏
-      this._topSence.scene.factory_bottom.visible = false;
-      this._topSence.scene.farm_bottom.visible = false;
+      this._topSence.scene.getChildByName('main_btn').visible = false;
+      // this._topSence.scene.factory_bottom.visible = false;
+      // this._topSence.scene.farm_bottom.visible = false;
     }
   }
   /**
@@ -153,5 +165,16 @@ export class infoIndex extends baseWindow {
     // console.log("发送websocket数据",tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
     // Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
+  }
+
+  /**
+   * 银行初始化
+   */
+  private showBank(type){
+    // if (type =='gold') {
+    //   // this._gold_box.getChildByName('bank_btn')
+    //   // Laya.Tween.to(this._gold_box.getChildByName('bank_btn'),{scaleX:1.2,scaleY:1.2},1200) //todo放大效果
+    // }
+    bankController.getInstance().onShowBank(type);
   }
 }

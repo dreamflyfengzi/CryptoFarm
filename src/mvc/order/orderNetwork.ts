@@ -9,34 +9,33 @@ export default class orderNetwork {
   }
   //获取当天订单列表的协议
   public LotteryInfoBak(data) {
-    // console.log(data);
-    // data = {
-    //   "ga":"lottery_info_bak",
-    //   "gd":[
-    //     {
-    //       "lottery_id":"rw101",
-    //       "task_uid":"456489646464",
-    //       "task_uid_pic":"aaa",
-    //       "type":"1",
-    //       "is_ok":"1"
-    //     },
-    //     {
-    //       "lottery_id":"rw201",
-    //       "task_uid":"456489646464",
-    //       "task_uid_pic":"aaa",
-    //       "type":"1",
-    //       "is_ok":"1"
-    //     },
-    //     {
-    //       "lottery_id":"rw301",
-    //       "task_uid":"456489646464",
-    //       "task_uid_pic":"aaa",
-    //       "type":"1",
-    //       "is_ok":"1"
-    //     },
-    //   ],
-    //   "code":1
-    // };
+    data = {
+      "ga": "lottery_info_bak",
+      "gd": [
+        {
+          "lottery_id": "rw101",
+          "task_uid": "456489646464",
+          "task_uid_pic": "aaa",
+          "type": "1",
+          "is_ok": "1"
+        },
+        {
+          "lottery_id": "rw201",
+          "task_uid": "456489646464",
+          "task_uid_pic": "aaa",
+          "type": "1",
+          "is_ok": "1"
+        },
+        {
+          "lottery_id": "rw301",
+          "task_uid": "456489646464",
+          "task_uid_pic": "aaa",
+          "type": "1",
+          "is_ok": "1"
+        },
+      ],
+      "code": 1
+    };
     //初始化页面
     data = data.gd;
     //保存任务的配置
@@ -46,11 +45,16 @@ export default class orderNetwork {
   }
   //获取到物品
   public SendGoodBak(data) {
-    // data = {"ga":"send_good_bak","code":1,
-    // "gd":
-    // {"hh6001":
-    // {"id":"hh6001","num":1},
-    // "hh6002":{"id":"hh6002","num":10},"hh6003":{"id":"hh6003","num":10},"hh6004":{"id":"hh6004","num":10}}};
+    data = {
+      "ga": "send_good_bak", "code": 1,
+      "gd":
+      {
+        "hh6001": { "id": "hh6001", "num": 1 },
+        "hh6002": { "id": "hh6002", "num": 10 }, 
+        "hh6003": { "id": "hh6003", "num": 10 }, 
+        "hh6004": { "id": "hh6004", "num": 10 }
+      }
+    };
     data = data.gd;
     //保存物品信息
     dataGlobal.getInstance().setUserGoodInfo(data);

@@ -17,17 +17,54 @@ export default class factoryIndex extends baseScene {
 
   private _factory: Laya.Sprite;//顶层对象
   private _factory_div: Laya.List;//工厂组
+  private downMouseY = 0;
+  private offsetY = 0;
+  private maxY = 0;
+  private minY = -6312;
 
   constructor() {
     super();
+    Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.mouseDown)
+    Laya.stage.on(Laya.Event.MOUSE_UP, this, this.mouseUp)
   }
+
+  private mouseDown() {
+    this.downMouseY = Laya.stage.mouseY
+    console.log('鼠标按下', this.downMouseY)
+    Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseMove)
+    Laya.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseMoveOff)
+  }
+
+  private mouseMove() {
+    let y = this.offsetY - (Laya.stage.mouseY - this.downMouseY)
+    console.log('鼠标移动', y)
+    this.moveMap(y)
+  }
+
+  private mouseUp() {
+    Laya.stage.off(Laya.Event.MOUSE_MOVE, this, this.mouseMove)
+  }
+
+  private mouseMoveOff() {
+    Laya.stage.off(Laya.Event.MOUSE_MOVE, this, this.mouseMove)
+  }
+  private moveMap(y) {
+    this._factory.scene.bg.y = this._factory.scene.bg.y - y / 10
+    if (this._factory.scene.bg.y < this.minY) {
+      this._factory.scene.bg.y = this.minY
+    }
+    if (this._factory.scene.bg.y > this.maxY) {
+      this._factory.scene.bg.y = this.maxY
+    }
+  }
+
+
+
   /**显示工厂场景(type:1.当前页面隐藏切换，2.当前页面去除切换 */
   public onShow(type) {
     if (this._factory == null) {
       this._factory = new ui.factory.factoryUI;
-      // this._factory.pivot(this._factory.width,0);//设置轴心
-      // this._factory.pos(CONST.ADAPTION,CONST.STAGEADAPTION);//设置坐标位置
-      this.adaption();
+
       // this.setScale(this._factory);
       this._factory.name = 'factory';
       //初始化信息
@@ -42,15 +79,6 @@ export default class factoryIndex extends baseScene {
 
     // this.tweenAlphaAdd(this._factory.displayObject,this._factory.displayObject.name,type);
     this.tweenTranAdd(this._factory, this._factory.name, type, 'left');
-  }
-  /**
-   * 自适应
-   */
-  private adaption() {
-    //轴心在左上角，需要计算一下y轴的位置
-    // this._factory.y = -CONST.STAGEADAPTION;
-    // this._factory_div.y = this._factory_div.y + CONST.ADAPTION;
-    // this._factory_div.height = this._factory_div.height * (CONST.DESIGNSTAGEWIDTH/CONST.DESIGNSTAGEHEIGHT)/(CONST.STAGEWIDTH/CONST.STAGEHEIGHT);
   }
   //判断是否有需要打开的工厂
   private isOpenFactoryInfo() {
@@ -71,13 +99,13 @@ export default class factoryIndex extends baseScene {
   private get_factory_info() {
     let tmp_http = httpJson.getInstance();
     let tmp_data = {
-    	'a':"send_factory",
-    	'm':"init",
-    	'd':{},
-    	'code':1
+      'a': "send_factory",
+      'm': "init",
+      'd': {},
+      'code': 1
     };
-    console.log("发送http数据",tmp_data);
-    tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
+    console.log("发送http数据", tmp_data);
+    tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
     // Laya.stage.event(NETWORKEVENT.SENDFACTORYBAK);
   }
   /**
@@ -108,7 +136,7 @@ export default class factoryIndex extends baseScene {
         factory_icon.skin = data[id][myData[id].grade].pic + '.png';
         var factory_level = factory_div.getChildByName('factory_level');//工厂等级
         factory_level.text = myData[id].grade;
-       
+
         // factory_div.touchable = true;
         var good_list_bgdi = factory_div.getChildByName('good_list_bgdi');//生产完成物品列表的背景下角
         var good_list_bg = factory_div.getChildByName('good_list_bg');//生产完成物品列表的背景
@@ -119,7 +147,7 @@ export default class factoryIndex extends baseScene {
           //获取物品的列表
           var good_data = dataJson.getInstance().GET_SYS_FACTORY_GOOD();
           //显示生产成功的列表
-          if (succ_goods_num>3) {
+          if (succ_goods_num > 3) {
             good_list_bg.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
           }
           good_list.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
@@ -225,14 +253,14 @@ export default class factoryIndex extends baseScene {
   private factory_create_act(id: string) {
     let tmp_websocket = webSocketJson.getInstance();
     let tmp_data = {
-    	'a':"factory_create",
-    	'm':"gzhq_factory",
-    	'd':{
-    		'mf_id':id
-    	},
-    	'code':1
+      'a': "factory_create",
+      'm': "gzhq_factory",
+      'd': {
+        'mf_id': id
+      },
+      'code': 1
     };
-    console.log("发送websocket数据",tmp_data);
+    console.log("发送websocket数据", tmp_data);
     tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FACTORYCREATEBAK);
 
@@ -244,14 +272,14 @@ export default class factoryIndex extends baseScene {
   public factory_good_save(id: string) {
     let tmp_websocket = webSocketJson.getInstance();
     let tmp_data = {
-    	'a':"factory_good_save",
-    	'm':"gzhq_factory",
-    	'd':{
-    		'mf_id':id
-    	},
-    	'code':1
+      'a': "factory_good_save",
+      'm': "gzhq_factory",
+      'd': {
+        'mf_id': id
+      },
+      'code': 1
     };
-    console.log("发送websocket数据",tmp_data);
+    console.log("发送websocket数据", tmp_data);
     tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FACTORYGOODSAVEBAK);
   }

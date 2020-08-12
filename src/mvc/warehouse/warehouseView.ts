@@ -3,9 +3,11 @@
 */
 import warehouseIndex from './warehouseIndex'
 import warehouseSellTip from './warehouseSellTip'
+import warehouseUpgradeTip from './upgradeWarehouse'
 export default class warehouseView {
   private _warehouseCom: warehouseIndex;
   private _warehouseSellCom: warehouseSellTip;
+  private _warehouseUpgradeCom: warehouseUpgradeTip;
   constructor() {
     //先添加包
     // fairygui.UIConfig.packageFileExtension = 'json';
@@ -43,5 +45,12 @@ export default class warehouseView {
   public showSellTip(id: string) {
     this._warehouseSellCom = new warehouseSellTip;
     this._warehouseSellCom.showSellTip(id);
+  }
+  /**
+  * 展示仓库扩建
+  */
+  public showUpgradeTip(tools_list) {
+    this._warehouseUpgradeCom = new warehouseUpgradeTip;
+    this._warehouseUpgradeCom.showUpgradeTip(tools_list);
   }
 }

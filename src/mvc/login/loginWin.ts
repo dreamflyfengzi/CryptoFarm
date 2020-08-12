@@ -13,13 +13,26 @@ import resConfig from '../resconfig/resConfig'
 import CONST from '../../const/CONST'
 import dataGlobal from '../resconfig/dataGlobal'
 
+import Sprite = Laya.Sprite;
+import Stage = Laya.Stage;
+import Text = Laya.Text;
+import Event = Laya.Event;
+import Browser = Laya.Browser;
+import WebGL = Laya.WebGL;
+
+
 export default class loginWin extends baseScene {
-  private _login_sence:Laya.Sprite;//显示列表
+  private _login_sence: Laya.Sprite;//显示列表
+  private _pivotX: number;
+  private _pivotY: number;
+  private sp: Laya.Sprite;
+  //上次记录的两个触模点之间距离
+  private lastDistance: number = 0;
+  private dragRegion: Laya.Rectangle;
 
   constructor() {
     super();
   }
-
 
   public addEvents() {
     this._login_sence.scene.login_btn.clickHandler = new Laya.Handler(this, this.loginBtn);
@@ -27,34 +40,35 @@ export default class loginWin extends baseScene {
   }
 
   public onShow() {
-    if(this._login_sence == null){
+    if (this._login_sence == null) {
       this._login_sence = new ui.login.loginUI();
       this._login_sence.name = 'loading';
+
     }
     //显示
     // this._login_sence.pivot(this._login_sence.width/2,this._login_sence.height/2);//设置轴心
     // this._login_sence.pos(CONST.STAGEWIDTH/2,CONST.STAGEHEIGHT/2);//设置坐标位置
     this.setScale(this._login_sence);
     this.adaption();
-    
+
     this._login_sence.name = 'login';
 
     this.addEvents();
     //这里显示登录
-    this.tweenAlphaAdd(this._login_sence,'login',2);
+    this.tweenAlphaAdd(this._login_sence, 'login', 2);
   }
-		/**
-		 * 自适应
-		 */
-		private adaption(){
-			//轴心在左上角，需要计算一下y轴的位置
-			// this._login_sence.y = -CONST.STAGEADAPTION;
-			// console.log('this._login_group.y',this._login_group.y,CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH,CONST.DESIGNSTAGEHEIGHT);
-			var sc = CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH;
-			var a = (sc*CONST.DESIGNSTAGEHEIGHT-CONST.STAGEHEIGHT)/sc;
-			this._login_sence.scene.login_group.y = this._login_sence.scene.login_group.y - CONST.ADAPTION;
-			this._login_sence.scene.loading_group.y = this._login_sence.scene.loading_group.y - CONST.ADAPTION;
-		}
+  /**
+   * 自适应
+   */
+  private adaption() {
+    //轴心在左上角，需要计算一下y轴的位置
+    // this._login_sence.y = -CONST.STAGEADAPTION;
+    // console.log('this._login_group.y',this._login_group.y,CONST.STAGEWIDTH/CONST.DESIGNSTAGEWIDTH,CONST.DESIGNSTAGEHEIGHT);
+    var sc = CONST.STAGEWIDTH / CONST.DESIGNSTAGEWIDTH;
+    var a = (sc * CONST.DESIGNSTAGEHEIGHT - CONST.STAGEHEIGHT) / sc;
+    this._login_sence.scene.login_group.y = this._login_sence.scene.login_group.y - CONST.ADAPTION;
+    this._login_sence.scene.loading_group.y = this._login_sence.scene.loading_group.y - CONST.ADAPTION;
+  }
   /**
 		 * 展示登录按钮
 		 */
@@ -69,74 +83,72 @@ export default class loginWin extends baseScene {
    */
 
   public loginBtn() {
-    console.log("点击登录按钮")
     Laya.stage.event(GAMEEVENT.TEST_LOGIN_FARM);
-    // return
     // if (this._login_check.selected) {
-      //获取一下公共的数据
-      var tmp_dataGlobal = dataGlobal.getInstance();
+    //获取一下公共的数据
+    var tmp_dataGlobal = dataGlobal.getInstance();
 
-      var userid = Laya.LocalStorage.getItem("WYD:GAME:USER");
-      if (!userid || userid.length < 8) {
-        var myDate = new Date();
-        var year = myDate.getFullYear();
-        var month = myDate.getMonth() + 1;
-        var date = myDate.getDate();
-        var hour = myDate.getHours();
-        var minute = myDate.getMinutes();
-        var second = myDate.getSeconds();
-        userid = "WYD" + year + month + date + hour + minute + second + dataGlobal.getRound(10000, 99999);
-        Laya.LocalStorage.setItem("WYD:GAME:USER", userid);
-        console.log("用户保存的ID", userid);
+    var userid = Laya.LocalStorage.getItem("WYD:GAME:USER");
+    if (!userid || userid.length < 8) {
+      var myDate = new Date();
+      var year = myDate.getFullYear();
+      var month = myDate.getMonth() + 1;
+      var date = myDate.getDate();
+      var hour = myDate.getHours();
+      var minute = myDate.getMinutes();
+      var second = myDate.getSeconds();
+      userid = "WYD" + year + month + date + hour + minute + second + dataGlobal.getRound(10000, 99999);
+      Laya.LocalStorage.setItem("WYD:GAME:USER", userid);
+      console.log("用户保存的ID", userid);
+    }
+    //这里发送用户的code给服务端
+    let mydata = {
+      "a": "login",
+      "m": "init",
+      "d": {
+        "code": userid,
+        "reid": '',
+        "sid": '',
+        "sid2": '',
+        "sys": '',
+        "tid": CONST.IS_TB //非淘宝注册
       }
-      //这里发送用户的code给服务端
-      let mydata = {
-        "a": "login",
-        "m": "init",
-        "d": {
-          "code": userid,
-          "reid": '',
-          "sid": '',
-          "sid2": '',
-          "sys": '',
-          "tid": CONST.IS_TB //非淘宝注册
-        }
-      };
-      //看看有没有推广参数
-      console.log(tmp_dataGlobal.query);
-      // if (typeof (tmp_dataGlobal.query) != "undefined" && tmp_dataGlobal.query.uid != "") {
-      //   mydata.d.reid = tmp_dataGlobal.query.uid;
-      // } else {
-      //   console.log("参数2：", typeof (tmp_dataGlobal.query.uid));
-      // }
-      // if (typeof (tmp_dataGlobal.query.sid) != "undefined" && tmp_dataGlobal.query.sid != "") {
-      //   mydata.d.sid = tmp_dataGlobal.query.sid;
-      // }
-      // if (typeof (tmp_dataGlobal.query.sid2) != "undefined" && tmp_dataGlobal.query.sid2 != "") {
-      //   mydata.d.sid2 = tmp_dataGlobal.query.sid2;
-      // }
+    };
+    //看看有没有推广参数
+    console.log(tmp_dataGlobal.query);
+    // if (typeof (tmp_dataGlobal.query) != "undefined" && tmp_dataGlobal.query.uid != "") {
+    //   mydata.d.reid = tmp_dataGlobal.query.uid;
+    // } else {
+    //   console.log("参数2：", typeof (tmp_dataGlobal.query.uid));
+    // }
+    // if (typeof (tmp_dataGlobal.query.sid) != "undefined" && tmp_dataGlobal.query.sid != "") {
+    //   mydata.d.sid = tmp_dataGlobal.query.sid;
+    // }
+    // if (typeof (tmp_dataGlobal.query.sid2) != "undefined" && tmp_dataGlobal.query.sid2 != "") {
+    //   mydata.d.sid2 = tmp_dataGlobal.query.sid2;
+    // }
 
-      // //操作系统
-      // if (typeof (tmp_dataGlobal.query.system) != "undefined" && tmp_dataGlobal.query.system != "") {
-      //   mydata.d.sys = tmp_dataGlobal.query.system;
-      // }
-      console.log("这是登陆要提交的数据:", mydata);
-      let tmp_http = httpJson.getInstance();
-      tmp_http.httpPost(CONST.LOGIN_URL,mydata);
+    // //操作系统
+    // if (typeof (tmp_dataGlobal.query.system) != "undefined" && tmp_dataGlobal.query.system != "") {
+    //   mydata.d.sys = tmp_dataGlobal.query.system;
+    // }
+    console.log("这是登陆要提交的数据:", mydata);
+    let tmp_http = httpJson.getInstance();
+    tmp_http.httpPost(CONST.LOGIN_URL, mydata);
 
     // } else {
     //   console.log('请阅读手册');
     // }
 
-  
-}
+
+  }
   /**
    * 加载农场
    */
   public onupdateFarm(x) {
     this._login_sence.scene.loading_txt.text = x + '%';
     var num = Math.floor(x / (100 / 9)) - 1;
-    this._login_sence.scene.loginProgressBar.value = x/100;
+    this._login_sence.scene.loginProgressBar.value = x / 100;
     this._login_sence.scene.loading_icon.url = "ui://login/0_0000" + num;
   }
   /** */

@@ -39,7 +39,7 @@ export default class orderController{
 	public sendGood(data){
 		if(this._orderview == null){
 			//初始化视图的类
-			this._orderview = new  orderView;
+			this._orderview = new orderView;
     }
 		this._orderview.sendGood(data);
 	}

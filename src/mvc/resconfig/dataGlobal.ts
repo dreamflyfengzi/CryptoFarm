@@ -23,91 +23,147 @@ userProp = {
 //用户长连接地址
 gameWS = "连的地址:端口";
 */
- /*农田信息
+/*农田信息
 $return_init_field = array(
-    "ga"=>"init_field",
-    "gd"=>array(
-        array(
-            'ff_id'=>'花田编号',
-            'max_grade'=>'花田的最高等级',//花田的最高等级
-            'ff_vip'=>'花田等级',//1未开锁，2等级一，3等级二，4等级三
-            'ff_exp'=>'花田当前的经验值',
-            'seed'=>'花田生长加速百分比',
-            'is_lock'=>'是否可以解锁花田',//1是2否
-            'next_seed'=>'下一级花田生长加速百分比',
-            'next_exp'=>'花田的升下一级经验值',
-            'ff_id_unlocknum'=>'解锁所需金币',
-            'next_ff_id_glod'=>'下一级升级所需金币',
-            'pic'=>"huatianlv1",//'花田正常图片',
-            'ain'=>"",//'花田正常动画',
-            'fat_time'=>'当前施肥时间',
-            'fat_time_tol'=>'施肥总时间',
-            
-            'seed_data'=>array(//花卉数据
-                'grow_time_tol'=>'生长总时间',
-                'mature_time'=>'当前成熟时间',
-                'next_mature_time'=>'下一阶段成长时间',
-                'grow_static'=>'当前生长状态',//1发芽期、2生长期、3花苞期、4成熟期
-                'water_time'	=> '可以浇水时间', //
-                'is_water'	=> '是否可以浇水', //是否可以浇水 1是2否
-                'id'=>"hh01",//'花卉ID',
-                'name'=>"红玫瑰",//'花卉名称',
-                'grade'=>"1",//'花卉等级',
-                'pic'=>"hmgseed",//'当前花卉图片',
-                'ain'=>"",//'当前花卉动画',
-            )
-        ),
-        
-    ),
-    "code"=>1
+   "ga"=>"init_field",
+   "gd"=>array(
+       array(
+           'ff_id'=>'花田编号',
+           'max_grade'=>'花田的最高等级',//花田的最高等级
+           'ff_vip'=>'花田等级',//1未开锁，2等级一，3等级二，4等级三
+           'ff_exp'=>'花田当前的经验值',
+           'seed'=>'花田生长加速百分比',
+           'is_lock'=>'是否可以解锁花田',//1是2否
+           'next_seed'=>'下一级花田生长加速百分比',
+           'next_exp'=>'花田的升下一级经验值',
+           'ff_id_unlocknum'=>'解锁所需金币',
+           'next_ff_id_glod'=>'下一级升级所需金币',
+           'pic'=>"huatianlv1",//'花田正常图片',
+           'ain'=>"",//'花田正常动画',
+           'fat_time'=>'当前施肥时间',
+           'fat_time_tol'=>'施肥总时间',
+           
+           'seed_data'=>array(//花卉数据
+               'grow_time_tol'=>'生长总时间',
+               'mature_time'=>'当前成熟时间',
+               'next_mature_time'=>'下一阶段成长时间',
+               'grow_static'=>'当前生长状态',//1发芽期、2生长期、3花苞期、4成熟期
+               'water_time'	=> '可以浇水时间', //
+               'is_water'	=> '是否可以浇水', //是否可以浇水 1是2否
+               'id'=>"hh01",//'花卉ID',
+               'name'=>"红玫瑰",//'花卉名称',
+               'grade'=>"1",//'花卉等级',
+               'pic'=>"hmgseed",//'当前花卉图片',
+               'ain'=>"",//'当前花卉动画',
+           )
+       ),
+       
+   ),
+   "code"=>1
 );*/
-export default class dataGlobal{
+export default class dataGlobal {
 
-  private static _instance:dataGlobal;
+  private static _instance: dataGlobal;
 
-  public userInfo:any;//用户自己的信息
-  public userProp:any;//用户的属性
-  public gameWS:string;//用户长连接地址
-  public farmInfo:any;//花田信息
-  public factory:any;//工厂的信息
-  public userGoodInfo:any;//用户物品信息
-  public warehouseInfo:any;//仓库的信息
-  public lotteryInfo:any;//订单任务
-  public marketInfo:any;//市场信息
-  public query={//推广的参数
-      "uid":'',
-      "sid":'',
-      "sid2":'',
-      "system":''
+  public userInfo: any;//用户自己的信息
+  public userProp: any;//用户的属性
+  public gameWS: string;//用户长连接地址
+  public farmInfo: any;//花田信息
+  public factory: any;//工厂的信息
+  public userGoodInfo: any;//用户物品信息
+  public warehouseInfo: any;//仓库的信息
+  public lotteryInfo: any;//订单任务
+  public materialInfo: any;//订单任务
+  public marketInfo: any;//市场信息
+  public animalInfo: any;//动物信息
+  public query = {//推广的参数
+    "uid": '',
+    "sid": '',
+    "sid2": '',
+    "system": ''
   };
 
-  constructor(){
-      this.query.system = this.get_sys();
-      this.farmInfo = {};
-      this.userInfo = {};
-      // this.userInfo = {
-      //   "nickname":'魔动闪霸',
-      //   "uid":'7754555',
-      //   "exp":'700',
-      //   "upgrade_exp":'775',
-      //   "flower_num":'111',
-      //   "order_num":'11111',
-      //   "goods_num":'11',
-      //   "grade": 12, //用户等级
-      //   "have_gold":10000 //用户金币
-      // };
-      this.factory = {};
-      this.userGoodInfo = {};
-      this.warehouseInfo = {};
-      this.lotteryInfo = {};
-      this.marketInfo = {};
+  constructor() {
+    this.query.system = this.get_sys();
+    this.farmInfo = {};
+    this.userInfo = {};
+    // this.userInfo = {
+    //   "nickname":'魔动闪霸',
+    //   "uid":'7754555',
+    //   "exp":'700',
+    //   "upgrade_exp":'775',
+    //   "flower_num":'111',
+    //   "order_num":'11111',
+    //   "goods_num":'11',
+    //   "grade": 12, //用户等级
+    //   "have_gold":10000 //用户金币
+    // };
+    this.factory = {};
+    this.userGoodInfo = {};
+    this.warehouseInfo = {};
+    this.lotteryInfo = {};
+    this.materialInfo = {};
+    this.marketInfo = {};
+
+    // 'next_seed'=>'下一级花田生长加速百分比',
+    // 'next_exp'=>'花田的升下一级经验值',
+    // 'ff_id_unlocknum'=>'解锁所需金币',
+    // 'next_ff_id_glod'=>'下一级升级所需金币',
+    // 'pic'=>"huatianlv1",//'花田正常图片',
+    // 'ain'=>"",//'花田正常动画',
+    // 'fat_time'=>'当前施肥时间',
+    // 'fat_time_tol'=>'施肥总时间',
+
+    // 'seed_data'=>array(//花卉数据
+    //     'grow_time_tol'=>'生长总时间',
+    //     'mature_time'=>'当前成熟时间',
+    //     'next_mature_time'=>'下一阶段成长时间',
+    //     'grow_static'=>'当前生长状态',//1发芽期、2生长期、3花苞期、4成熟期
+    //     'water_time'	=> '可以浇水时间', //
+    //     'is_water'	=> '是否可以浇水', //是否可以浇水 1是2否
+    //     'id'=>"hh01",//'花卉ID',
+    //     'name'=>"红玫瑰",//'花卉名称',
+    //     'grade'=>"1",//'花卉等级',
+    //     'pic'=>"hmgseed",//'当前花卉图片',
+    //     'ain'=>"",//'当前花卉动画',
+    // )
+    this.animalInfo = {
+      "chicken": {
+        "is_lock": 0, //0需要购买动物 1已经购买
+        "locklevel": 5,//购买级别
+        "status": 1, //0饥饿状态 1
+        "unlocknum": 1000,//动物的价格
+        "feed_time": 0,//当前饲料剩余的时间
+        'feed_time_tol': 10000,//饲料总时间（进度条）
+        "product": ''
+      },
+      "cow": {
+        "is_lock": 1, //0需要购买动物 1已经购买
+        "locklevel": 5,//购买级别
+        "unlocknum": 1000,//动物的价格
+        "feed_time": 0,//当前饲料剩余的时间
+        'feed_time_tol': 10000,//饲料总时间（进度条）
+        "product": ''
+      },
+      "pig": {
+        "is_lock": 1, //0需要购买动物 1已经购买
+        "locklevel": 5,//购买级别
+        "unlocknum": 1000,//动物的价格
+        "feed_time": 7777,//当前饲料剩余的时间
+        'feed_time_tol': 10000,//饲料总时间（进度条）
+        "product": {
+          'grow_time_tol': 1000,//成熟总时间
+          "mature_time": 990,//当前成熟时间
+        }
+      }
+    };
   }
 
-  public static getInstance(){
-      if(dataGlobal._instance == null){
-          dataGlobal._instance = new dataGlobal();
-      }
-      return dataGlobal._instance;
+  public static getInstance() {
+    if (dataGlobal._instance == null) {
+      dataGlobal._instance = new dataGlobal();
+    }
+    return dataGlobal._instance;
   }
 
   //设置用户自己的信息
@@ -131,39 +187,39 @@ export default class dataGlobal{
 
   }
   */
-  public setUserInfo(data:any){
-      //用户自己的信息
-      if(typeof data.sid != 'undefined'){ this.userInfo.sid = data.sid }
-      if(typeof data.sid2 != 'undefined'){ this.userInfo.sid2 = data.sid2 }
-      if(typeof data.uid != 'undefined'){  this.userInfo.uid = data.uid }
-      if(typeof data.name != 'undefined'){ this.userInfo.name = data.name }
-      if(typeof data.nickname != 'undefined'){ this.userInfo.nickname = data.nickname }
-      if(typeof data.pic != 'undefined'){ this.userInfo.pic = data.pic }
-      if(typeof data.sex != 'undefined'){ this.userInfo.sex = data.sex }
-      if(typeof data.token != 'undefined'){ this.userInfo.token = data.token }
-      if(typeof data.have_gold != 'undefined'){ this.userInfo.have_gold = data.have_gold }
-      if(typeof data.grade != 'undefined'){ this.userInfo.grade = data.grade }
-      if(typeof data.exp != 'undefined'){ this.userInfo.exp = data.exp }
-      if(typeof data.flower_num != 'undefined'){ this.userInfo.flower_num = data.flower_num }
-      if(typeof data.order_num != 'undefined'){ this.userInfo.order_num = data.order_num }
-      if(typeof data.goods_num != 'undefined'){ this.userInfo.goods_num = data.goods_num }
-      // if(data.upic){ this.userInfo.upic = data.upic }
-      // if(data.uname){ this.userInfo.uname = data.uname }
-      if(typeof data.upgrade_exp != 'undefined'){ this.userInfo.upgrade_exp = data.upgrade_exp }
+  public setUserInfo(data: any) {
+    //用户自己的信息
+    if (typeof data.sid != 'undefined') { this.userInfo.sid = data.sid }
+    if (typeof data.sid2 != 'undefined') { this.userInfo.sid2 = data.sid2 }
+    if (typeof data.uid != 'undefined') { this.userInfo.uid = data.uid }
+    if (typeof data.name != 'undefined') { this.userInfo.name = data.name }
+    if (typeof data.nickname != 'undefined') { this.userInfo.nickname = data.nickname }
+    if (typeof data.pic != 'undefined') { this.userInfo.pic = data.pic }
+    if (typeof data.sex != 'undefined') { this.userInfo.sex = data.sex }
+    if (typeof data.token != 'undefined') { this.userInfo.token = data.token }
+    if (typeof data.have_gold != 'undefined') { this.userInfo.have_gold = data.have_gold }
+    if (typeof data.grade != 'undefined') { this.userInfo.grade = data.grade }
+    if (typeof data.exp != 'undefined') { this.userInfo.exp = data.exp }
+    if (typeof data.flower_num != 'undefined') { this.userInfo.flower_num = data.flower_num }
+    if (typeof data.order_num != 'undefined') { this.userInfo.order_num = data.order_num }
+    if (typeof data.goods_num != 'undefined') { this.userInfo.goods_num = data.goods_num }
+    // if(data.upic){ this.userInfo.upic = data.upic }
+    // if(data.uname){ this.userInfo.uname = data.uname }
+    if (typeof data.upgrade_exp != 'undefined') { this.userInfo.upgrade_exp = data.upgrade_exp }
 
-      //设置推广参数
-      if(typeof data.sid != 'undefined'){
-          this.query.sid = data.sid;
-      }
-      if(typeof data.sid2 != 'undefined'){
-          this.query.sid2 = data.sid2;
-      }
-      if(typeof data.sid2 != 'undefined'){
-          this.query.uid = data.uid;
-      }
+    //设置推广参数
+    if (typeof data.sid != 'undefined') {
+      this.query.sid = data.sid;
+    }
+    if (typeof data.sid2 != 'undefined') {
+      this.query.sid2 = data.sid2;
+    }
+    if (typeof data.sid2 != 'undefined') {
+      this.query.uid = data.uid;
+    }
 
   }
- 
+
   //设置用户的属性
   /*
   data = {
@@ -175,16 +231,16 @@ export default class dataGlobal{
       'up_time'=>升级时间
   }
   */
-  public setUserProp(data:any){
-      this.userProp = data;
+  public setUserProp(data: any) {
+    this.userProp = data;
   }
 
   //设置用户游戏长连接地址
   /*
   ws = "长连接地址:端口号"
   */
-  public setGameWS(ws:string){
-      this.gameWS = ws;
+  public setGameWS(ws: string) {
+    this.gameWS = ws;
   }
 
   //获取某个范围的随机数据
@@ -192,71 +248,71 @@ export default class dataGlobal{
   lowValue=>最小值,
   highValue=>最大值
   */
-  public static getRound(lowValue,highValue){
-      var choice=highValue-lowValue;
-      return Math.floor(Math.random()*choice+lowValue);
+  public static getRound(lowValue, highValue) {
+    var choice = highValue - lowValue;
+    return Math.floor(Math.random() * choice + lowValue);
   }
 
   //返回手机设备名
-  public get_sys(){
-      //Laya.Browser.onAndroid?1:(Laya.Browser.onIOS?2:3);
-      let tmp_sys = Laya.Browser.userAgent;
-      if(Laya.Browser.onAndroid){
-          tmp_sys += ",Android";
-      }
-      if(Laya.Browser.onIOS){
-          tmp_sys += ",ios";
-      }
-      if(Laya.Browser.onIPad){
-          tmp_sys += ",ipad";
-      }
-      if(Laya.Browser.onIPhone){
-          tmp_sys += ",iphone";
-      }
-      return tmp_sys;
+  public get_sys() {
+    //Laya.Browser.onAndroid?1:(Laya.Browser.onIOS?2:3);
+    let tmp_sys = Laya.Browser.userAgent;
+    if (Laya.Browser.onAndroid) {
+      tmp_sys += ",Android";
+    }
+    if (Laya.Browser.onIOS) {
+      tmp_sys += ",ios";
+    }
+    if (Laya.Browser.onIPad) {
+      tmp_sys += ",ipad";
+    }
+    if (Laya.Browser.onIPhone) {
+      tmp_sys += ",iphone";
+    }
+    return tmp_sys;
   }
   /**
    * 保存农田的信息(以农田的id命名)
    * @param data 保存的字段
    * @param id 农田的id,如果有的话就是修改id的农田，没有的话就是修改所有的农田
    */
-  public setFarmInfo(data:any,id?:string){
-      if(id){
-          this.farmInfo[id] = this.farmInfo[id]?this.farmInfo[id]:{};//
-          for(var i in data){
-              this.farmInfo[id][i] = (this.farmInfo[id][i] || this.farmInfo[id][i] == 0)?this.farmInfo[id][i]:(typeof data[i] =='object'?{}:'');
-              if(typeof data[i] =='object'){
-                  for(var y in data[i]){
-                      this.farmInfo[id][i][y] = ( this.farmInfo[id][i][y] || this.farmInfo[id][i][y] == 0)?this.farmInfo[id][i][y]:'';
-                      this.farmInfo[id][i][y] = data[i][y];
-                  }
-              }else{
-                  this.farmInfo[id][i] = data[i];
-              }
+  public setFarmInfo(data: any, id?: string) {
+    if (id) {
+      this.farmInfo[id] = this.farmInfo[id] ? this.farmInfo[id] : {};//
+      for (var i in data) {
+        this.farmInfo[id][i] = (this.farmInfo[id][i] || this.farmInfo[id][i] == 0) ? this.farmInfo[id][i] : (typeof data[i] == 'object' ? {} : '');
+        if (typeof data[i] == 'object') {
+          for (var y in data[i]) {
+            this.farmInfo[id][i][y] = (this.farmInfo[id][i][y] || this.farmInfo[id][i][y] == 0) ? this.farmInfo[id][i][y] : '';
+            this.farmInfo[id][i][y] = data[i][y];
           }
-      }else{
-          for(var i in data){
-              this.farmInfo[data[i].ff_id] = this.farmInfo[data[i].ff_id]?this.farmInfo[data[i].ff_id]:{};//
-              for(var y in data[i]){
-                  this.farmInfo[data[i].ff_id][y] = this.farmInfo[data[i].ff_id][y]?this.farmInfo[data[i].ff_id][y]:(typeof data[i][y] =='object'?{}:'');//
-                  if(typeof data[i][y] =='object' ){
-                      for(var q in data[i][y]){
-                          this.farmInfo[data[i].ff_id][y][q] = data[i][y][q];
-                      }
-                  }else{
-                      this.farmInfo[data[i].ff_id][y] = data[i][y];
-                  }
-              }
-          }
-          
+        } else {
+          this.farmInfo[id][i] = data[i];
+        }
       }
+    } else {
+      for (var i in data) {
+        this.farmInfo[data[i].ff_id] = this.farmInfo[data[i].ff_id] ? this.farmInfo[data[i].ff_id] : {};//
+        for (var y in data[i]) {
+          this.farmInfo[data[i].ff_id][y] = this.farmInfo[data[i].ff_id][y] ? this.farmInfo[data[i].ff_id][y] : (typeof data[i][y] == 'object' ? {} : '');//
+          if (typeof data[i][y] == 'object') {
+            for (var q in data[i][y]) {
+              this.farmInfo[data[i].ff_id][y][q] = data[i][y][q];
+            }
+          } else {
+            this.farmInfo[data[i].ff_id][y] = data[i][y];
+          }
+        }
+      }
+
+    }
   }
   /**
    * 置空某个花田花的信息
    * id:花田ID
    */
-  public setFlowerInfo(id){
-      this.farmInfo[id].seed_data = {};
+  public setFlowerInfo(id) {
+    this.farmInfo[id].seed_data = {};
   }
   /**
    * array(
@@ -289,25 +345,25 @@ export default class dataGlobal{
    * @param data:工厂数据
    * @param id ：工厂的ID（如果有的话就是指定的工厂，没有就是保存全部）
    */
-   public setFactory(data:any,id?:string){
-      if(id){
-          this.factory[id] = data;
-          
-      }else{
-          this.factory = data?data:{};
-      }
-      
-   }
-   /**
-   * 购买槽位后保存
-   * @param data:工厂数据
-   * @param id ：工厂的ID（如果有的话就是指定的工厂，没有就是保存全部）
-   */
-  public buySetFactory(data){
-      if(data.mf_id){
-          this.factory[data.mf_id].grade = data.grade;
-          this.factory[data.mf_id].open_seat_num = data.open_seat_num;
-      }
+  public setFactory(data: any, id?: string) {
+    if (id) {
+      this.factory[id] = data;
+
+    } else {
+      this.factory = data ? data : {};
+    }
+
+  }
+  /**
+  * 购买槽位后保存
+  * @param data:工厂数据
+  * @param id ：工厂的ID（如果有的话就是指定的工厂，没有就是保存全部）
+  */
+  public buySetFactory(data) {
+    if (data.mf_id) {
+      this.factory[data.mf_id].grade = data.grade;
+      this.factory[data.mf_id].open_seat_num = data.open_seat_num;
+    }
   }
   /**
    * 修改用户物品信息
@@ -321,10 +377,10 @@ export default class dataGlobal{
           )
       )
    */
-  public setUserGoodInfo(data){
-      for(var i in data){
-          this.userGoodInfo[data[i].id] = data[i]
-      }
+  public setUserGoodInfo(data) {
+    for (var i in data) {
+      this.userGoodInfo[data[i].id] = data[i]
+    }
   }
   /**
    * 保存仓库的信息
@@ -345,14 +401,14 @@ export default class dataGlobal{
       )
   ),
    */
-  public setWarehouseInfo(data:any){
-      if(typeof data.store_id != 'undefined'){ this.warehouseInfo.store_id = data.store_id }
-      if(typeof data.grade != 'undefined'){ this.warehouseInfo.grade = data.grade }
-      if(typeof data.num != 'undefined'){ this.warehouseInfo.num = data.num }
-      if(typeof data.num2 != 'undefined'){ this.warehouseInfo.num2 = data.num2 }
-      if(typeof data.num3 != 'undefined'){ this.warehouseInfo.num3 = data.num3 }
-      if(typeof data.name != 'undefined'){ this.warehouseInfo.name = data.name }
-      if(typeof data.data_info != 'undefined'){ this.warehouseInfo.data_info = data.data_info }
+  public setWarehouseInfo(data: any) {
+    if (typeof data.store_id != 'undefined') { this.warehouseInfo.store_id = data.store_id }
+    if (typeof data.grade != 'undefined') { this.warehouseInfo.grade = data.grade }
+    if (typeof data.num != 'undefined') { this.warehouseInfo.num = data.num }
+    if (typeof data.num2 != 'undefined') { this.warehouseInfo.num2 = data.num2 }
+    if (typeof data.num3 != 'undefined') { this.warehouseInfo.num3 = data.num3 }
+    if (typeof data.name != 'undefined') { this.warehouseInfo.name = data.name }
+    if (typeof data.data_info != 'undefined') { this.warehouseInfo.data_info = data.data_info }
   }
 
   /**
@@ -370,11 +426,11 @@ export default class dataGlobal{
       )
   ),
    */
-  public setMarketInfo(data:any){
-    if(typeof data.store_id != 'undefined'){ this.marketInfo.store_id = data.store_id }
-    if(typeof data.num != 'undefined'){ this.marketInfo.num = data.num }
-    if(typeof data.data_info != 'undefined'){ this.marketInfo.data_info = data.data_info }
-}
+  public setMarketInfo(data: any) {
+    if (typeof data.store_id != 'undefined') { this.marketInfo.store_id = data.store_id }
+    if (typeof data.num != 'undefined') { this.marketInfo.num = data.num }
+    if (typeof data.data_info != 'undefined') { this.marketInfo.data_info = data.data_info }
+  }
   /**
    * 设置订单任务信息
    * @param data :任务数据
@@ -396,13 +452,62 @@ export default class dataGlobal{
       )
   ),
    */
-  public setlotteryInfo(data,type?:boolean){
-    if(type){
+  public setlotteryInfo(data, type?: boolean) {
+    if (type) {
       this.lotteryInfo = {};
     }
-    for(var i in data){
+    for (var i in data) {
       this.lotteryInfo[data[i].lottery_id] = data[i];
+    }
+  }
+
+
+  /**
+   * 设置材料订单任务信息
+   * @param data :任务数据
+   * @param type :false:单条覆盖，true清除后再覆盖
+   * array(
+      array(
+          'material_id'=>'任务ID',
+          'task_uid'=>'分配任务用户id',
+          'task_uid_pic'=>'分配任务用户头像',
+          'type'=>'任务类型',
+          'is_ok'=>'是否已完成任务',
+      ),
+      array(
+          'material_id'=>'任务ID',
+          'task_uid'=>'分配任务用户id',
+          'task_uid_pic'=>'分配任务用户头像',
+          'type'=>'任务类型',
+          'is_ok'=>'是否已完成任务',
+      )
+  ),
+   */
+  public setMaterialInfo(data, type?: boolean) {
+    if (type) {
+      this.materialInfo = {};
+    }
+    for (var i in data) {
+      this.materialInfo[data[i].lottery_id] = data[i];
+    }
+  }
+  /**
+   * 设置用户的动物信息
+   */
+  public setAnimalInfo(data: any) {
+    if (data.ga == "animal_product_mature") {
+      this.animalInfo[data.gd.type] = {
+        "is_lock": 1, //0需要购买动物 1已经购买
+        "locklevel": 5,//购买级别
+        "unlocknum": 1000,//动物的价格
+        "feed_time": 7777,//当前饲料剩余的时间
+        'feed_time_tol': 10000,//饲料总时间（进度条）
+        "product": {
+          'grow_time_tol': 1000,//成熟总时间
+          "mature_time": 1000,//当前成熟时间
+        }
       }
+    }
   }
 
 }

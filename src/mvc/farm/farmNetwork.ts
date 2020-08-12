@@ -125,7 +125,7 @@ export default class farmNetwork {
     // data = {"ga":"init_flower_water","gd":{"ff_id":"ht02","fat_time":0,"fat_time_tol":0,"ff_exp":500,"seed_data":{"grow_time_tol":5000,"mature_time":900,"grow_static":2,"id":"hh02","name":"\u7ea2\u73ab\u7470","grade":"1","pic":"hh02_2","ain":""},"exp_data":{"exp":"20","exp2":"2","t":"7200"},"msg":"\u6d47\u6c34\u6210\u529f"},"code":1};
     var myData = data.gd;
     var tmp_arr = {
-      'ff_id':myData.ff_id,
+      'ff_id': myData.ff_id,
       'fat_time': myData.fat_time,
       'fat_time_tol': myData.fat_time_tol,
       'ff_exp': myData.ff_exp,
@@ -186,5 +186,20 @@ export default class farmNetwork {
     }
     dataGlobal.getInstance().setFarmInfo(tmp_arr, myData.ff_id);//保存农田信息
     farmController.getInstance().initLand();//重置农田
+  }
+
+  /**
+   * 动物产品成熟
+   */
+  public AnimalProductMature (data) {
+    var _data = {
+      "ga":"animal_product_mature",
+      "gd":{
+        "type":data.type
+      },
+    }
+    console.log(data)
+    dataGlobal.getInstance().setAnimalInfo(_data);//保存农田信息
+    farmController.getInstance().initAnimal();//重置动物
   }
 }

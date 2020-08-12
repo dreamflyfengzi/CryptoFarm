@@ -17,6 +17,73 @@ P FA9D1CBE pic_jindulan.png
 P 4A24FA8C pic_xing1.png
 P 38CF3941 pic_xing2.png
 R 2486F677 pic_yingzijiao.png
+D animal
+P 9C987E7C chicken_home.png
+P 25BDF9CA chicken_product.png
+P 8B47291B cow_home.png
+P 826BF271 cow_product.png
+P 1C46F696 feed_chicken.png
+P 18D0BE3A feed_cow.png
+P 06586944 feed_pig.png
+P 778438E4 pig.png
+P 75DD54B8 pig_home.png
+P 5C7CA317 pig_product.png
+P 864A9286 超萌动物农场模拟经营游戏素材-LINE布朗农场-图标_2_(_爱给网_aigei_com.png
+D base
+R D59E6797 2.png
+P E2F98575 balloon.png
+P BD636F4A balloon2.png
+P FC77DEB3 balloon3.png
+P 9CE6D940 balloonbase.png
+P 9FF0ABF3 Button_00.png
+P C045C216 Button_2.png
+P DBAF1467 Button_3.png
+P CDFB8104 Button_Back.png
+P DDD4857D Button_Help.png
+P 1C09ED46 ButtonBlue.png
+P C11F9E5D ButtonEdit.png
+P 36010ACC ButtonGray.png
+P B13B2646 ButtonGreen.png
+P 52CAA497 Cash_pack_01.png
+P E152F8DE Cash_pack_02.png
+P D04FBF46 Cash_pack_03.png
+P 15E74F2A Cash_pack_04.png
+P A77FD4AD Cash_pack_05.png
+P E23A0432 Cash_pack_06.png
+P 8BF26CD2 Coin_pack_01.png
+P E37472F5 Coin_pack_02.png
+P A4C86322 Coin_pack_03.png
+P 0C849C1D Coin_pack_04.png
+P 1CA04E87 Coin_pack_05.png
+P AE6B49C3 Coin_pack_06.png
+P 1EAF2202 DECORATION 01.png
+P CDA4F48D DECORATION 04.png
+R 709BFB51 fanpage_bg2.png
+P 0E92E85A FARM 01.png
+P C1331C25 FARM 02.png
+P F3DCCFF7 FARM 03.png
+P A472A4A5 Icon Clock.png
+P C8D501CD Icon_Clock_02.png
+P 62B09764 Icon_Coin.png
+P F29E6D1C Icon_Experience_01.png
+P 279E9438 Icon_Experience_02.png
+P 447A8DB9 Icon_Experience_03.png
+P 27440A5D Icon_Notice_01.png
+P F116E65B Icon_Notice_02.png
+P 4C275136 Icon_Plus.png
+P 2EA9B1DF Label.png
+P FDB7E435 Label_01.png
+P 89948021 Label_02.png
+P A2094CCC Label_Offer.png
+P 431EDFA4 LabelNew.png
+P A4CC033B Panel_01$bar.png
+P 320A5E6B Panel_01.png
+P 82506B12 Popcorn Enable.png
+P 24E096FD Popup 1.png
+R ADB966F1 Ribbon_red.png
+P 95954EE2 Slide 2.png
+P 9855C156 ui_1.png
+P 11A83F92 ui_popup3.png
 D character
 P 31ED3016 pic_dingdan.png
 R 08F1126D pic_guang.png
@@ -32,10 +99,20 @@ R BB282686 pic_xian.png
 R D8BC82ED pic_xinxikuang-1.png
 R C647ECB2 pic_xinxikuang.png
 D factory
+P DF2E0360 230.png
 R FF58FED6 Bg_factory1.png
 R 1D28AD34 Bg_factory2.png
 R CB37DCF3 Bg_zhizuo1.png
 R 249E7939 Bg_zhizuo2.png
+P A350688D coin_icon.png
+P F7CDA703 Factory_Border.png
+P CD4B40EF Factory_Gear_01.png
+P 5EEC3F27 Factory_Gear_02.png
+P 5971C2E1 Factory_Tray_01.png
+P 6F3616DA Factory_Tray_02.png
+R B65A5298 factorybg.jpg
+P D3E2B7B2 Icon_Buy.png
+P 8E6261EA Order.png
 P 8EBC2D20 pic_10_6.png
 P E885B18B pic_11_6.png
 P EE19CDEA pic_1_6.png
@@ -94,6 +171,7 @@ R 5499CDFC pic_xian2.png
 P AC080E8E pic_xing.png
 P 548B8E3D pic_youzhao.png
 P 3F889A55 pic_zhuangshi.png
+P C675D396 Popup_Factory.png
 D farm
 S 60309804 bg.png
 R 28EADC6F btn_cangku1.png
@@ -111,6 +189,10 @@ P 316F3026 btn_youxiang1.png
 P E4A937B5 btn_youxiang2.png
 R 942686A3 farmBg_1.png
 R 391A2005 farmBg_2.png
+P C6F5BCBE foam_1.png
+P CA1F3EBD foam_2.png
+P 9349A1AF foam_3.png
+P C1B1F9A6 foam_4.png
 P 099CA723 hh01_1.png
 P D3772544 hh01_2.png
 P D37BCD1B hh01_3.png
@@ -225,17 +307,35 @@ R 4506520A btn_xuanzhong.png.png
 P 7CE94D8A btn_xuanzhong.png1.png
 P 316F3026 btn_youxiang1.png
 P E4A937B5 btn_youxiang2.png
+P B78A0A95 common_button_txt_202_blue.png
+P AD3F7814 common_inventory_gauge_bg_hud.png
+P C2DD98FD daily_icon_mass_delivery.png
 R 942686A3 farmBg_1.png
 R 391A2005 farmBg_2.png
 P D90992CF friend_selected_bg.png
 P 9EE19079 friend_selected_flag.png
+P D62CA893 gem_shop_icon_effect_01.png
+P 96947B43 gem_shop_icon_effect_02.png
+P 0710DAE1 gem_shop_icon_step1.png
+P 18DF05F4 gem_shop_icon_step2.png
+P 2EB69FBA gem_shop_icon_step3.png
+P 9D4958F5 gem_shop_icon_step4.png
+P A8D35604 gem_shop_icon_step5.png
+P 060D2398 gem_shop_icon_step6.png
+P BA517B68 hud_exp_progress$bar.png
+P 3D2DA17F hud_exp_progress.png
+P CF5055F4 icon_avatar_frame_friend_bg.png
 P 5C4BFE31 icon_message.png
 P AA879736 icon_raccoon.png
 P B4F771A7 icon_setting.png
 P D913AD7D mall_buy_less_button.png
 P A94CA27D mall_buy_more_button.png
 P CF9C2B7E mall_number_board_.png
+P 7A9F0B5B mastery_brown_level_up_star.png
+P 630E611A mastery_btn_buy_medal.png
 P 2A60B072 message.png
+P 83316D1B more.png
+R 13126200 muchang_jimc.png
 P FB0F7AB3 pic_10_1.png
 P 7D397EF5 pic_10_2.png
 P E12C4C13 pic_10_3.png
@@ -313,7 +413,7 @@ R B223C570 pic_dibu.png
 P 79AE67B3 pic_dikuang.png
 P 7FB3189F pic_duihuakuang.png
 P 6D1838A1 pic_feiliao.png
-P 2DF8161C pic_gongchnag1.png
+P 4C25E991 pic_gongchnag1.png
 P D71D8671 pic_gongchnag2.png.png
 P 2EB1410A pic_huatian1.png
 P 47B559DB pic_huatian2.png
@@ -360,11 +460,25 @@ P 9A454E97 seting.png
 P 60C8B746 shop.png
 P 56746E5D shu.png
 R 37F34170 stick.png
+P 35FD2AB7 warehouse.png
+P 38137A60 超萌动物农场模拟经营游戏素材-LINE布朗农场-乳制品的图标_爱给网_aigei_com.png
 D order
+P 2170F872 Arrow.png
+P CE934CAF Avatar 6 Enable.png
+P A0ECAF92 Background.png
 P 5A4072EC btn_guanbi2.png
 P 99A82A00 btn_huang.png
 P 7703466D btn_hui.png
 P F24C9223 btn_lan.png
+P 01CE3656 Button_Remove.png
+P EC54F6F7 Icon_Close.png
+P DA541197 Order Pin 1.png
+P 3B97FEBD Order Pin 2.png
+P 8E6261EA Order.png
+P 6982EDF4 Order_01.png
+P 0B33FB62 Order_03.png
+P 2BE20F7C Order_Pin.png
+P AF596C06 Order_Stick.png
 P 6FD34DA3 pic_exp.png
 P 7E3D3F30 pic_gou.png
 P 027BE790 pic_guanbi2.png
@@ -384,14 +498,109 @@ P DA9C88B8 pic_zhaungshi3.png
 P FBAE7FD1 pic_zhaungshi4.png
 R 1E382158 pic_zhi.png
 R 476D7C65 pic_zhixuanzhongzhi.png
+R CCF32F9B Popup_Airship.png
+P A544EEDF PopupOuter.png
+P 8ABD802A Ship.png
+P 2BACC585 Ship_Background.png
+P 1BBAF82C Ship_Cabin.png
+P 36864142 Ship_Locked.png
+P A176CE8E Ship_ReceiveBox_Behind.png
+P 3020B967 Ship_ReceiveBox_Front.png
+P 3CE81762 Ship_SendBox.png
+P 0C92CF6D Ship_SendBoxCap.png
+R F7BE496B TitleBar_03.png
+D product
+P A24F824C product01.png
+P 1C4037F4 product02.png
 D warehouse
 P 50F9DEBF btn_biaoqian1.png
 P E991C878 btn_biaoqian2.png
+P 877AF0A1 btn_close.png
+P BC2031A0 btn_gray_medium.png
+P 366889BA btn_green_medium.png
 P 9732B653 btn_jia.png
 P CE5A9424 btn_jian.png
+P 42FA52E2 Bubble_Arrow.png
+P 4B3731DB Bubble_Popup.png
+P 803896AA Button_4.png
+P 2F61D092 Button_5.png
+P D09CDDC3 Button_8.png
+P CF195B3E Button_9.png
+P 2C505FAD common_button_close.png
+P F186FEB5 common_inventory_shelf.png
+P 12442582 common_window_bg_wood01.png
+P 5A312DBD common_window_box_dark.png
+P D4AF2D56 Icon_Checked.png
+P 3B67C706 IconProduct1.png
+P 4D3497EA IconProduct2.png
+P 3AB4AA3F IconProduct3.png
 P 753EB1DB pic_biao.png
 P A4E6D6E8 pic_caidai.png
 P D36B61D1 pic_jiantou.png
 P 2176964E pic_kuang8.png
 P 566058FB pic_kuang9.png
 P 67EA4CBE pic_liebiaokuang3.png
+P 24E096FD Popup 1.png
+P A544EEDF PopupOuter.png
+P F7DE93EA Tab 1.png
+P 016F2433 Tab 2.png
+P D586F7B2 TitleBar_01.png
+P CA5F2735 TitleBar_02.png
+P 70947C04 tool001.png
+P 52D6CFD1 tool002.png
+P 61EB9113 tool003.png
+P 60BD3D51 tool004.png
+P F60248F3 toppan.png
+P 11A83F92 ui_popup3.png
+P 9BB9A288 windowmain.png
+D animal/muchang_jimc
+P 9737D5C8 stand0.png
+P 5204EC63 stand1.png
+P 3ADADA71 stand2.png
+P C076D76E stand3.png
+P CD4D34C1 stand4.png
+P 91E4350F stand5.png
+P EFAB0060 stand6.png
+P E521BD74 stand7.png
+P 046D948D walk0.png
+P CBCCCD3B walk1.png
+P 93CDA768 walk2.png
+P BED0CF80 walk3.png
+P 557F06AF walk4.png
+P D752E1E6 walk5.png
+P 91AF545C walk6.png
+P ADC53637 walk7.png
+D animal/muchang_niumc
+P 35FAECAF stand0.png
+P 1949E26B stand1.png
+P 15C52BBB stand2.png
+P 56C18D55 stand3.png
+P 85956141 stand4.png
+P 74EF1ABC stand5.png
+P E6DC574D stand6.png
+P EB5BF382 stand7.png
+P 447784A1 walk0.png
+P 6FAE038E walk1.png
+P 46A77188 walk2.png
+P 7ABBF1F7 walk3.png
+P 4828344F walk4.png
+P DE76C2D6 walk5.png
+P 2439EC94 walk6.png
+P CEADA5BB walk7.png
+D animal/muchang_yangmc
+P 2797EAB9 stand0.png
+P A97655F3 stand1.png
+P 8770AC56 stand2.png
+P 957E360B stand3.png
+P 30D71713 stand4.png
+P 9129847C stand5.png
+P 07808187 stand6.png
+P B0F49983 stand7.png
+P 07D19644 walk0.png
+P A07983A8 walk1.png
+P 32F351DA walk2.png
+P 76183EF3 walk3.png
+P 26EDCCA0 walk4.png
+P FD21B5CE walk5.png
+P BD6BFB6A walk6.png
+P E0F8FBD0 walk7.png

@@ -33,7 +33,7 @@ export default class orderView {
    * id:任务ID
    */
   public clickOrderItem(id) {
-    this._orderCom.clickOrderItem(id);
+    // this._orderCom.clickOrderItem(id); //todo First
   }
   /**
    *前往的框
