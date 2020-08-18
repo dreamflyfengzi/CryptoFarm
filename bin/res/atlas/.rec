@@ -18,19 +18,33 @@ P 4A24FA8C pic_xing1.png
 P 38CF3941 pic_xing2.png
 R 2486F677 pic_yingzijiao.png
 D animal
-P 9C987E7C chicken_home.png
-P 25BDF9CA chicken_product.png
-P 8B47291B cow_home.png
-P 826BF271 cow_product.png
-P 1C46F696 feed_chicken.png
-P 18D0BE3A feed_cow.png
-P 06586944 feed_pig.png
-P 778438E4 pig.png
-P 75DD54B8 pig_home.png
-P 5C7CA317 pig_product.png
-P 864A9286 超萌动物农场模拟经营游戏素材-LINE布朗农场-图标_2_(_爱给网_aigei_com.png
+R 51D87F27 Sheep.atlas
+R 301EEA26 Sheep.json
+P 729ED113 Sheep.png
+D avatar
+P C095886C Avatar10Disable.png
+P B350BBC0 Avatar10Enable.png
+P 6B38588A Avatar2Disable.png
+P 7D13F8C1 Avatar2Enable.png
+P 94E69E1A Avatar3Disable.png
+P A8546836 Avatar3Enable.png
+P 3F0C5BD9 Avatar4Disable.png
+P A54D0536 Avatar4Enable.png
+P 503F2415 Avatar5Disable.png
+P 7BCCC4DA Avatar5Enable.png
+P 74A3A615 Avatar6Disable.png
+P D3876645 Avatar6Enable.png
+P D80D756E Avatar7Disable.png
+P E38FEC3E Avatar7Enable.png
+P 0453F97D Avatar8Disable.png
+P 8D49F366 Avatar8Enable.png
+P 7D2D6FDC Avatar9Disable.png
+P 811201DE Avatar9Enable.png
+P 0C498786 AvatarBorder.png
+P 0165EF2E AvatarSelected.png
 D base
 R D59E6797 2.png
+P FB723380 AvatarBorder.png
 P E2F98575 balloon.png
 P BD636F4A balloon2.png
 P FC77DEB3 balloon3.png
@@ -56,12 +70,30 @@ P A4C86322 Coin_pack_03.png
 P 0C849C1D Coin_pack_04.png
 P 1CA04E87 Coin_pack_05.png
 P AE6B49C3 Coin_pack_06.png
+P 5C59FC8A common_window_bg_wood01_dot_line.png
 P 1EAF2202 DECORATION 01.png
 P CDA4F48D DECORATION 04.png
 R 709BFB51 fanpage_bg2.png
 P 0E92E85A FARM 01.png
 P C1331C25 FARM 02.png
 P F3DCCFF7 FARM 03.png
+R 1E45068D freemarket_bg2.png
+P 3B3642DF freemarket_bg2_1.png
+P C9098BC9 freemarket_bg2_2.png
+P 0AACA669 freemarket_box_ad_status.png
+P 23C87DBB freemarket_box_empty.png
+P 5B0A109F freemarket_box_price_bg.png
+P 4710C7F9 freemarket_button_friend.png
+P 574A0B07 freemarket_button_minus_normal.png
+P 97F5151C freemarket_button_plus_normal.png
+P 69B9363C freemarket_shelf.png
+P 04FD09C2 freemarket_tent.png
+P 69F7665D freemarket_title.png
+P C63EFD37 gem_shop_icon_bg (2).png
+P 1C64F056 gem_shop_icon_bgitem.png
+P 962B0BC9 gem_shop_icon_bgitem2.png
+P B1C35BE4 gem_shop_shelf.png
+P 01333C1F gem_shop_tag.png
 P A472A4A5 Icon Clock.png
 P C8D501CD Icon_Clock_02.png
 P 62B09764 Icon_Coin.png
@@ -71,6 +103,7 @@ P 447A8DB9 Icon_Experience_03.png
 P 27440A5D Icon_Notice_01.png
 P F116E65B Icon_Notice_02.png
 P 4C275136 Icon_Plus.png
+P CFC250E5 ingame_cut_text_bg.png
 P 2EA9B1DF Label.png
 P FDB7E435 Label_01.png
 P 89948021 Label_02.png
@@ -80,10 +113,25 @@ P A4CC033B Panel_01$bar.png
 P 320A5E6B Panel_01.png
 P 82506B12 Popcorn Enable.png
 P 24E096FD Popup 1.png
+P 32A28AE5 Popup 2.png
+R F9256934 popup3.png
+P 3FC2DE13 Product Tray.png
 R ADB966F1 Ribbon_red.png
+P B3823000 shop_item_category_01.png
+P BA83FB50 shop_item_category_02.png
+P 18DCE243 shop_item_category_03.png
+P 5D7A18FB shop_item_category_04.png
+P 014C12DD shop_item_category_05.png
+P 9301E786 shop_item_stand_basic.png
+P 9ABF7125 shop_shelf_gacha.png
 P 95954EE2 Slide 2.png
+P 1E109192 social_list_portrait_cover.png
+P D3D262F7 TitleBar.png
+R 9707DC89 top_shop.png
+P AD978174 toptitle.png
 P 9855C156 ui_1.png
 P 11A83F92 ui_popup3.png
+R 2213C8C8 www.layabox.com.html
 D character
 P 31ED3016 pic_dingdan.png
 R 08F1126D pic_guang.png
@@ -100,10 +148,12 @@ R D8BC82ED pic_xinxikuang-1.png
 R C647ECB2 pic_xinxikuang.png
 D factory
 P DF2E0360 230.png
+P 09187BF2 bakery_icon.png
 R FF58FED6 Bg_factory1.png
 R 1D28AD34 Bg_factory2.png
 R CB37DCF3 Bg_zhizuo1.png
 R 249E7939 Bg_zhizuo2.png
+P 2BCD07C7 cake_bakery_icon.png
 P A350688D coin_icon.png
 P F7CDA703 Factory_Border.png
 P CD4B40EF Factory_Gear_01.png
@@ -111,6 +161,7 @@ P 5EEC3F27 Factory_Gear_02.png
 P 5971C2E1 Factory_Tray_01.png
 P 6F3616DA Factory_Tray_02.png
 R B65A5298 factorybg.jpg
+P 8FCC0D89 feed_mill_icon.png
 P D3E2B7B2 Icon_Buy.png
 P 8E6261EA Order.png
 P 8EBC2D20 pic_10_6.png
@@ -308,6 +359,8 @@ P 7CE94D8A btn_xuanzhong.png1.png
 P 316F3026 btn_youxiang1.png
 P E4A937B5 btn_youxiang2.png
 P B78A0A95 common_button_txt_202_blue.png
+P ACCA79B7 common_button_txt_202_green.png
+P CE684486 common_button_txt_202_yellow.png
 P AD3F7814 common_inventory_gauge_bg_hud.png
 P C2DD98FD daily_icon_mass_delivery.png
 R 942686A3 farmBg_1.png
@@ -512,7 +565,9 @@ R F7BE496B TitleBar_03.png
 D product
 P A24F824C product01.png
 P 1C4037F4 product02.png
+D resource
 D warehouse
+R 78F6B136 billboard_bg_roof.png
 P 50F9DEBF btn_biaoqian1.png
 P E991C878 btn_biaoqian2.png
 P 877AF0A1 btn_close.png
@@ -527,6 +582,7 @@ P 2F61D092 Button_5.png
 P D09CDDC3 Button_8.png
 P CF195B3E Button_9.png
 P 2C505FAD common_button_close.png
+P AD3F7814 common_inventory_gauge_bg_hud.png
 P F186FEB5 common_inventory_shelf.png
 P 12442582 common_window_bg_wood01.png
 P 5A312DBD common_window_box_dark.png
@@ -534,6 +590,7 @@ P D4AF2D56 Icon_Checked.png
 P 3B67C706 IconProduct1.png
 P 4D3497EA IconProduct2.png
 P 3AB4AA3F IconProduct3.png
+P 8AAFC085 login_bonus_window_bg.png
 P 753EB1DB pic_biao.png
 P A4E6D6E8 pic_caidai.png
 P D36B61D1 pic_jiantou.png
@@ -553,54 +610,52 @@ P 60BD3D51 tool004.png
 P F60248F3 toppan.png
 P 11A83F92 ui_popup3.png
 P 9BB9A288 windowmain.png
-D animal/muchang_jimc
-P 9737D5C8 stand0.png
-P 5204EC63 stand1.png
-P 3ADADA71 stand2.png
-P C076D76E stand3.png
-P CD4D34C1 stand4.png
-P 91E4350F stand5.png
-P EFAB0060 stand6.png
-P E521BD74 stand7.png
-P 046D948D walk0.png
-P CBCCCD3B walk1.png
-P 93CDA768 walk2.png
-P BED0CF80 walk3.png
-P 557F06AF walk4.png
-P D752E1E6 walk5.png
-P 91AF545C walk6.png
-P ADC53637 walk7.png
-D animal/muchang_niumc
-P 35FAECAF stand0.png
-P 1949E26B stand1.png
-P 15C52BBB stand2.png
-P 56C18D55 stand3.png
-P 85956141 stand4.png
-P 74EF1ABC stand5.png
-P E6DC574D stand6.png
-P EB5BF382 stand7.png
-P 447784A1 walk0.png
-P 6FAE038E walk1.png
-P 46A77188 walk2.png
-P 7ABBF1F7 walk3.png
-P 4828344F walk4.png
-P DE76C2D6 walk5.png
-P 2439EC94 walk6.png
-P CEADA5BB walk7.png
-D animal/muchang_yangmc
-P 2797EAB9 stand0.png
-P A97655F3 stand1.png
-P 8770AC56 stand2.png
-P 957E360B stand3.png
-P 30D71713 stand4.png
-P 9129847C stand5.png
-P 07808187 stand6.png
-P B0F49983 stand7.png
-P 07D19644 walk0.png
-P A07983A8 walk1.png
-P 32F351DA walk2.png
-P 76183EF3 walk3.png
-P 26EDCCA0 walk4.png
-P FD21B5CE walk5.png
-P BD6BFB6A walk6.png
-P E0F8FBD0 walk7.png
+D base/www.layabox.com_files
+R 64297C33 bundle.js.下载
+R D74517FF index.js.下载
+R 5EF50835 laya.core.js.下载
+R 835A5D4A laya.physics.js.下载
+R BAE0216E laya.ui.js.下载
+D resource/crops
+P C4871807 Cacao_1.png
+P E5343F54 Cacao_2.png
+P 9D8738A9 Cacao_3.png
+P 910866EE CacaoDisable.png
+P C0142444 CacaoEnable.png
+P 043C9A9A Carrot_1.png
+P 21A02AAF Carrot_2.png
+P D14DFBB4 Carrot_3.png
+P 97303B2E CarrotDisable.png
+P B2E68543 CarrotEnable.png
+P 24353666 Cotton_1.png
+P B73D7FB4 Cotton_2.png
+P E349160F Cotton_3.png
+P 8BC3808D CottonDisable.png
+P 62283E97 CottonEnable.png
+P 486D528E Potato_1.png
+P F96CBC72 Potato_2.png
+P 7D650680 Potato_3.png
+P AA69AEBD PotatoDisable.png
+P B6A702B9 PotatoEnable.png
+P 0366CE5A Strawberry_1.png
+P 4AFB4835 Strawberry_2.png
+P 256E5BC1 Strawberry_3.png
+P 25081AC8 StrawberryDisable.png
+P 46AB66D4 StrawberryEnable.png
+P C0DD4BFE Sugarcane_1.png
+P EF26D832 Sugarcane_2.png
+P 7E0E64A7 Sugarcane_3.png
+P F7FB2995 SugarcaneDisable.png
+P 876C92FA SugarcaneEnable.png
+P 11A7836F Tomato_1.png
+P 89CCA490 Tomato_2.png
+P 0109F2DD Tomato_3.png
+P A7D68484 TomatoDisable.png
+P 884AC991 TomatoEnable.png
+P CB041D0B Wheat_1.png
+P E05D4BF3 Wheat_2.png
+P 5CF8F3FC Wheat_3.png
+P C1ECBD08 WheatDisable.png
+P 6074980E WheatEnable.png
+D resource/products
+D resource/tools

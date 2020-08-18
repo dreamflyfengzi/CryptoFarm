@@ -25,11 +25,24 @@ export default class farmNetwork {
    * 获取种子列表
    */
   public FarmInitSeedList(data) {
-    // data = {"ga":"init_seed_list","gd":[{"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":"1","grade2":"1","grade3":"100","pic":"ui:\/\/farm\/hh01_1","ain":"","gold":100},{"id":"hh02","name":"\u9ed1\u73ab\u7470","grade":"1","grade2":"1","grade3":"100","pic":"ui:\/\/farm\/hh01_2","ain":"","gold":100},{"id":"hh03","name":"\u9ec4\u73ab\u7470","grade":"1","grade2":"1","grade3":"500","pic":"ui:\/\/farm\/hh01_3","ain":"","gold":100},{"id":"hh04","name":"\u9752\u73ab\u7470","grade":"1","grade2":"1","grade3":"400","pic":"ui:\/\/farm\/hh01_4","ain":"","gold":150},{"id":"hh05","name":"\u9752\u73ab\u7470","grade":"1","grade2":"1","grade3":"300","pic":"ui:\/\/farm\/hh02_1","ain":"","gold":200},{"id":"hh06","name":"\u9752\u73ab\u7470","grade":"1","grade2":"20","grade3":"200","pic":"ui:\/\/farm\/hh02_2","ain":"","gold":300}],"code":1};
+    // new种子数据
+    data = {
+      "ga": "init_seed_list",
+      "gd": {
+        "seed_data": [
+          {
+            "id": "wheat"
+          },
+        ]
+
+      },
+      "code": 1
+    };
+
     //先存一份种子的数据
     farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
     //保存一份肥料的数据
-    farmController.getInstance().model.setFatData(data.gd.fat_data);
+    // farmController.getInstance().model.setFatData(data.gd.fat_data);
     //设置农田的信息
     farmController.getInstance().onFarmInitSeedList(data.gd);
   }
@@ -76,6 +89,7 @@ export default class farmNetwork {
    * 请求种植操作
    */
   public FarmInitPlantFlower(data) {
+    console.log("请求种植-------------")
     // data = {"ga":"init_plant_flower","gd":{"ff_id":"ht01","fat_time":0,"fat_time_tol":0,"ff_exp":500,"seed_data":{"grow_time_tol":5000,"mature_time":500,"grow_static":1,"id":"hh01","name":"\u7ea2\u73ab\u7470","grade":"1","pic":"hh01_1","ain":""},"msg":"\u79cd\u690d\u6210\u529f"},"code":1};
     var myData = data.gd;
     var tmp_arr = {
@@ -191,11 +205,11 @@ export default class farmNetwork {
   /**
    * 动物产品成熟
    */
-  public AnimalProductMature (data) {
+  public AnimalProductMature(data) {
     var _data = {
-      "ga":"animal_product_mature",
-      "gd":{
-        "type":data.type
+      "ga": "animal_product_mature",
+      "gd": {
+        "type": data.type
       },
     }
     console.log(data)

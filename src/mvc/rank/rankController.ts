@@ -21,7 +21,7 @@ export default class rankController {
   constructor() {
     // this.model = new rankModel;
     this._network = new rankNetwork;
-    Laya.stage.on(NETWORKEVENT.MARKETINFOBAK, this, this._network.MarketInfoBak);//获取市场信息
+    // Laya.stage.on(NETWORKEVENT., this, this._network.MarketInfoBak);//获取市场信息
     // Laya.stage.on(NETWORKEVENT.LOTTERYINFOBAK,this,this._network.LotteryInfoBak);//获取当天市场列表的协议
     // Laya.stage.on(NETWORKEVENT.SENDGOODBAK,this,this._network.SendGoodBak);//获取当天市场列表的协议
     // Laya.stage.on(NETWORKEVENT.LOTTERYACTBAK,this,this._network.LotteryActBak);//提交市场协议

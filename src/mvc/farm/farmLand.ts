@@ -169,7 +169,6 @@ export default class farmLand extends ui.farm.farmLandUI {
    * 点击田操作
    */
   private onClickLand() {
-    console.log('点击田地操作+++++++++++++++++++++++++++++++++++')
     // 这里因为响应太快，可能会被误认为第二次点击，所以先清理一下状态先
     if (farmController.getInstance().model.clickLandStatic == 'harvest' || farmController.getInstance().model.clickLandStatic == 'water') {
       farmController.getInstance().model.setClickLandStatic('');

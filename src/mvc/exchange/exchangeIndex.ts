@@ -30,6 +30,11 @@ export default class exchangeIndex extends baseWindow {
   private _time: any;//倒计时时间
   private _flagMarket: false;
   private _flagMy: false;
+
+  //new 
+  private _marketType: string; //当前市场类型 
+  private _marketList: Laya.List;//市场列表
+
   constructor() {
     super();
     this._exchangeItem = {}
@@ -41,81 +46,60 @@ export default class exchangeIndex extends baseWindow {
     this._exchangeIndex.pivot(this._exchangeIndex.width / 2, this._exchangeIndex.height / 2);//设置轴心
     this.addChild(this._exchangeIndex);
     this.tweenShow();
-    //初始化参数
-    this._my_list = this._exchangeIndex.scene.getChildByName('my_list'); //我的物品列表
-    // this._my_list.visible = false;
-    this._market_list = this._exchangeIndex.scene.getChildByName('market_list'); //市场物品列表
-    // this._market_list.visible = false;
-    this._material_btn = this._exchangeIndex.scene.getChildByName('material_btn'); //我的材料按钮
-
-    this._market_btn = this._exchangeIndex.scene.getChildByName('market_btn'); //我的材料按钮
     this._exchangeIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeexchange);
-    this._exchangeIndex.scene.screen_btn.on(Laya.Event.CLICK, this, this.goScreen);
-     
-    //初始化选项
-    this.switchItem('market');
-    //获取用户的物品数据
-    this.store_info();
-    // 绑定切换事件
-    this.changeSceneList()
-  }
-  /**
-   * 两个列表的切换
-   */
-  public changeSceneList() {
-    this._market_btn.on(Laya.Event.CLICK, this, function () {
-      if (this._type != 'market') {
-        this.switchItem('market');
-      }
-    }.bind(this));
-
-    this._material_btn.on(Laya.Event.CLICK, this, function () {
-      if (this._type != 'material') {
-        this.switchItem('material');
-      }
-    }.bind(this));
+    // this._exchangeIndex.scene.n5.on(Laya.Event.CLICK, this, this.showBuyTip,['1']);
+    // _marketType
+    this.getInfo()
+    this._marketList = this._exchangeIndex.scene.list;
+    // this._marketList.dataSource = []
   }
 
+
   /**
-		 * 获取列表信息
-		 */
-  public store_info() {
-    if (this._type == 'market' ) {
-       Laya.stage.event(NETWORKEVENT.MARKETINFOBAK);
-    }
-    let tmp_http = httpJson.getInstance();
-    let tmp_data = {
-      'a': "store_info",
-      'm': "store",
-      'd': {},
-      'code': 1
-    };
-    tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-    // Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
+	 * 获取列表信息
+	 */
+  public getInfo() {
+    //1.发送请求 
+    Laya.stage.event(NETWORKEVENT.EXCHANGEINFOBAK)
+    // if (this._type == 'market') {
+    //   Laya.stage.event(NETWORKEVENT.MARKETINFOBAK);
+    // }
+    // let tmp_http = httpJson.getInstance();
+    // let tmp_data = {
+    //   'a': "store_info",
+    //   'm': "store",
+    //   'd': {},
+    //   'code': 1
+    // };
+    // tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
+    // // Laya.stage.event(NETWORKEVENT.STOREINFOBAK);
   }
   /**
    * 初始化市场列表信息
    * @param str 
    */
-  public initMarketGoodList() {
-    var data = dataGlobal.getInstance().marketInfo;//查询仓库的信息
-    var _data_info = data.data_info;
-    this._market_list.vScrollBarSkin = ''
-    // this._market_list.dataSource = [];
-    for (var i in _data_info) {
-      var dataItem = {
-        id:_data_info[i].good_id,
-        detailed:{
-          skin:"factory/pic_"+_data_info[i].good_id+".png"
-        },
-        order_gold_val:{
-          text:_data_info[i].price+'ONES'
-        }
-      }
-      this._market_list.addItem(dataItem)
-      this._market_list.visible = true;
-      this.bindClickMarketItem(this._market_list.getCell(Number(i)),Number(i))
-    }
+  public initExchangeList() {
+    var data = dataGlobal.getInstance().exchangeInfo;//查询仓库的信息
+    console.log(data)
+    console.log(data)
+    console.log(data)
+    // var _data_info = data.data_info;
+    // this._market_list.vScrollBarSkin = ''
+    // // this._market_list.dataSource = [];
+    // for (var i in _data_info) {
+    //   var dataItem = {
+    //     id: _data_info[i].good_id,
+    //     detailed: {
+    //       skin: "factory/pic_" + _data_info[i].good_id + ".png"
+    //     },
+    //     order_gold_val: {
+    //       text: _data_info[i].price + 'ONES'
+    //     }
+    //   }
+    //   this._market_list.addItem(dataItem)
+    //   this._market_list.visible = true;
+    //   this.bindClickMarketItem(this._market_list.getCell(Number(i)), Number(i))
+    // }
     // this._market_list.cells
     // this._market_list.renderHandler = new Laya.Handler(this, this.bindClickMarketItem)
   }
@@ -126,22 +110,22 @@ export default class exchangeIndex extends baseWindow {
    */
   public initMyGoodList() {
     var data = dataGlobal.getInstance().marketInfo;//查询仓库的信息
-    var _data_info = data.data_info;  
-      this._market_list.vScrollBarSkin = ''
+    var _data_info = data.data_info;
+    this._market_list.vScrollBarSkin = ''
     // this._my_list.dataSource = [];
     for (var i in _data_info) {
       var dataItem = {
-        id:_data_info[i].good_id,
-        icon:{
-          skin:"factory/pic_"+_data_info[i].good_id+".png"
+        id: _data_info[i].good_id,
+        icon: {
+          skin: "factory/pic_" + _data_info[i].good_id + ".png"
         },
-        order_gold_val:{
-          text:_data_info[i].good_name
+        order_gold_val: {
+          text: _data_info[i].good_name
         }
       }
       this._my_list.addItem(dataItem)
       this._my_list.visible = true;
-      this.bindClickMyItem(this._my_list.getCell(Number(i)),Number(i))
+      this.bindClickMyItem(this._my_list.getCell(Number(i)), Number(i))
     }
     // this._market_list.cells
     // this._market_list.renderHandler = new Laya.Handler(this, this.bindClickMarketItem)
@@ -150,11 +134,11 @@ export default class exchangeIndex extends baseWindow {
    * 绑定点击事件
    * @param 单个选项卡 
    */
-  private bindClickMarketItem(cell,index) {
+  private bindClickMarketItem(cell, index) {
     if (this._flagMarket) {
       return
     }
-    cell.on(Laya.Event.CLICK,this,function(){
+    cell.on(Laya.Event.CLICK, this, function () {
       this._flagMarket = true
       this.showBuyTip(this._market_list.getItem(index).id)
     }.bind(this))
@@ -162,18 +146,18 @@ export default class exchangeIndex extends baseWindow {
     // item.on(Laya.Event.CLICK, this, this.showSellTip(this._market_list.getItem(index).id));
   }
 
-   /**
-   * 绑定点击事件
-   * @param 单个选项卡 
-   */
-  private bindClickMyItem(cell,index) {
+  /**
+  * 绑定点击事件
+  * @param 单个选项卡 
+  */
+  private bindClickMyItem(cell, index) {
     if (this._flagMy) {
       return
     }
-    cell.on(Laya.Event.CLICK,this,function(){
+    cell.on(Laya.Event.CLICK, this, function () {
       this._flagMy = true
       this.showSellTip(this._market_list.getItem(index).id)
- 
+
     }.bind(this))
   }
 
@@ -182,23 +166,23 @@ export default class exchangeIndex extends baseWindow {
 	* str:切换的选项卡（market，material）
 	*/
   private switchItem(str) {
-    this._type = str;
-    if (this._type == 'market') {
-      this._material_btn.skin = 'main/btn_hui.png';
-      this._market_btn.skin = 'main/btn_huang.png';
-      this._my_list.visible = false;
-      this._market_list.visible = true;
-      this._exchangeIndex.scene.n5.text = '交易市场';
-      this.initMarketGoodList();
-    }
-    if (this._type == 'material') {
-      this._my_list.visible = true;
-      this._market_list.visible = false;
-      this._market_btn.skin = 'main/btn_hui.png';
-      this._material_btn.skin = 'main/btn_huang.png';
-      this._exchangeIndex.scene.n5.text = '我的材料'
-      this.initMyGoodList();
-    }
+    // this._type = str;
+    // if (this._type == 'market') {
+    //   this._material_btn.skin = 'main/btn_hui.png';
+    //   this._market_btn.skin = 'main/btn_huang.png';
+    //   this._my_list.visible = false;
+    //   this._market_list.visible = true;
+    //   this._exchangeIndex.scene.n5.text = '交易市场';
+    //   this.initMarketGoodList();
+    // }
+    // if (this._type == 'material') {
+    //   this._my_list.visible = true;
+    //   this._market_list.visible = false;
+    //   this._market_btn.skin = 'main/btn_hui.png';
+    //   this._material_btn.skin = 'main/btn_huang.png';
+    //   this._exchangeIndex.scene.n5.text = '我的材料'
+    //   this.initMyGoodList();
+    // }
   }
 
   /**
@@ -216,8 +200,8 @@ export default class exchangeIndex extends baseWindow {
     // item.off(Laya.Event.CLICK, this, this.showSellTip(id))
     exchangeController.getInstance().showBuyTip(id);
   }
-  
-  
+
+
   /**
    * 出售
    */
@@ -228,7 +212,7 @@ export default class exchangeIndex extends baseWindow {
   /**
    * 筛选
    */
-  private goScreen (){
+  private goScreen() {
     if (this._screenView == null) {
       //初始化视图的类
       this._screenView = new screen;

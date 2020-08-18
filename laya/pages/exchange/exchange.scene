@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":2,
-    "selecteID":61,
+    "selectedBox":27,
+    "selecteID":37,
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
-    "maxID":62,
+    "maxID":81,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -18,7 +18,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,n1",
-            "props":{"y":352,"x":33,"width":1193,"var":"n1","skin":"warehouse/pic_kuang8.png","sizeGrid":"50,50,60,50","height":1736},
+            "props":{"y":0,"x":-4,"width":1250,"var":"n1","skin":"base/popup3.png","sizeGrid":"56,57,73,68","height":2688},
             "nodeParent":2,
             "label":"n1",
             "isDirectory":false,
@@ -30,71 +30,15 @@
         },
         {
             "x":15,
-            "type":"Image",
-            "searchKey":"Image,n0",
-            "props":{"y":377,"x":74,"width":1112,"var":"n0","skin":"order/pic_liebiaokuang2.png","sizeGrid":"50,50,50,50","height":1652},
-            "nodeParent":2,
-            "label":"n0",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":7,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Image",
-            "searchKey":"Image,n4",
-            "props":{"y":356,"x":66,"width":1128,"var":"n4","skin":"order/pic_zhaungshi2.png","sizeGrid":"100,100,50,100","height":209},
-            "nodeParent":2,
-            "label":"n4",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":8,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
             "type":"Sprite",
-            "searchKey":"Sprite,n2",
-            "props":{"y":282,"x":259,"var":"n2","texture":"order/pic_zhaungshi4.png"},
+            "searchKey":"Sprite",
+            "props":{"y":0,"x":-175,"width":1604,"texture":"base/top_shop.png","height":252},
             "nodeParent":2,
-            "label":"n2",
+            "label":"Sprite",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":9,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite,n3",
-            "props":{"y":282,"x":963,"var":"n3","texture":"order/pic_zhaungshi4.png"},
-            "nodeParent":2,
-            "label":"n3",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":10,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Label",
-            "searchKey":"Label,n5",
-            "props":{"y":409,"x":414,"width":431,"var":"n5","valign":"middle","text":"交易市场","strokeColor":"#0a7792","stroke":4,"height":121,"fontSize":80,"font":"Microsoft YaHei","color":"#f6f3f3","align":"center"},
-            "nodeParent":2,
-            "label":"n5",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":11,
+            "compId":62,
             "child":[
                 ]
         },
@@ -102,7 +46,7 @@
             "x":15,
             "type":"Sprite",
             "searchKey":"Sprite,close_btn",
-            "props":{"y":428,"x":1068,"width":93,"var":"close_btn","texture":"order/pic_guanbi3.png","height":83},
+            "props":{"y":66.5,"x":1067,"width":163,"var":"close_btn","texture":"warehouse/btn_close.png","height":166},
             "nodeParent":2,
             "label":"close_btn",
             "isDirectory":false,
@@ -114,258 +58,23 @@
         },
         {
             "x":15,
-            "type":"List",
-            "searchKey":"List,my_list,my_list",
-            "props":{"y":796,"x":92,"width":1077,"visible":true,"var":"my_list","spaceY":20,"repeatX":3,"renderType":"render","name":"my_list","height":1000,"elasticEnabled":false},
+            "type":"Label",
+            "searchKey":"Label,n5",
+            "props":{"y":19,"x":270,"width":702,"var":"n5","valign":"middle","text":"交易市场","strokeColor":"#555050","stroke":10,"height":233,"fontSize":100,"font":"Microsoft YaHei","color":"#f1966b","bold":true,"align":"center"},
             "nodeParent":2,
-            "label":"my_list",
-            "isOpen":true,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":47,
-            "child":[
-                {
-                    "x":30,
-                    "type":"Box",
-                    "searchKey":"Box,order_item",
-                    "props":{"y":0,"x":0,"width":363,"renderType":"render","name":"order_item","height":336},
-                    "nodeParent":47,
-                    "label":"order_item",
-                    "isOpen":true,
-                    "isDirectory":true,
-                    "isAniNode":false,
-                    "hasChild":true,
-                    "compId":48,
-                    "child":[
-                        {
-                            "x":45,
-                            "type":"Image",
-                            "searchKey":"Image,order_n0",
-                            "props":{"y":0,"x":0,"width":340,"skin":"warehouse/pic_kuang9.png","sizeGrid":"50,58,56,60","name":"order_n0","height":315},
-                            "nodeParent":48,
-                            "label":"order_n0",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":49,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Label",
-                            "searchKey":"Label,order_gold_val",
-                            "props":{"y":218,"x":21,"width":287,"valign":"bottom","text":"物品名称","strokeColor":"#A46223","stroke":0,"name":"order_gold_val","height":75,"fontSize":50,"font":"Microsoft YaHei","color":"#A46223","bold":true,"align":"center"},
-                            "nodeParent":48,
-                            "label":"order_gold_val",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":50,
-                            "child":[
-                                ],
-                            "$HIDDEN":false
-                        },
-                        {
-                            "x":45,
-                            "type":"Image",
-                            "searchKey":"Image,icon",
-                            "props":{"y":23,"x":89.5,"width":154,"skin":"main/pic_6_6.png","name":"icon","height":177},
-                            "nodeParent":48,
-                            "label":"icon",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":51,
-                            "child":[
-                                ]
-                        }]
-                }],
-            "$HIDDEN":false
-        },
-        {
-            "x":15,
-            "type":"List",
-            "searchKey":"List,market_list,market_list",
-            "props":{"y":796,"x":91.5,"width":1077,"visible":true,"var":"market_list","spaceY":20,"repeatX":3,"renderType":"render","name":"market_list","height":1000,"elasticEnabled":false},
-            "nodeParent":2,
-            "label":"market_list",
-            "isOpen":true,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":16,
-            "child":[
-                {
-                    "x":30,
-                    "type":"Box",
-                    "searchKey":"Box,order_item,order_item",
-                    "props":{"y":0,"x":0,"width":363,"var":"order_item","renderType":"render","name":"order_item","height":336},
-                    "nodeParent":16,
-                    "label":"order_item",
-                    "isOpen":false,
-                    "isDirectory":true,
-                    "isAniNode":false,
-                    "hasChild":true,
-                    "compId":27,
-                    "child":[
-                        {
-                            "type":"Image",
-                            "searchKey":"Image,order_n0,order_n0",
-                            "props":{"y":0,"x":0,"width":340,"var":"order_n0","skin":"order/pic_kuang8.png","sizeGrid":"50,58,56,60","name":"order_n0","height":315},
-                            "nodeParent":27,
-                            "label":"order_n0",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":28,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Label",
-                            "searchKey":"Label,order_gold_val,order_gold_val",
-                            "props":{"y":224,"x":17,"width":300,"var":"order_gold_val","valign":"bottom","text":"物品名称","strokeColor":"#A46223","stroke":0,"name":"order_gold_val","height":62,"fontSize":45,"font":"Microsoft YaHei","color":"#A46223","bold":true,"align":"center"},
-                            "nodeParent":27,
-                            "label":"order_gold_val",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":37,
-                            "child":[
-                                ],
-                            "$HIDDEN":false
-                        },
-                        {
-                            "type":"Image",
-                            "searchKey":"Image,detailed,detailed",
-                            "props":{"y":23,"x":89.5,"width":154,"var":"detailed","skin":"main/pic_6_6.png","name":"detailed","height":177},
-                            "nodeParent":27,
-                            "label":"detailed",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":43,
-                            "child":[
-                                ]
-                        }]
-                }],
-            "$HIDDEN":false
-        },
-        {
-            "x":15,
-            "type":"Image",
-            "searchKey":"Image,n8",
-            "props":{"y":1842,"x":74,"width":1109,"var":"n8","skin":"order/pic_zhaungshi3.png","sizeGrid":"28,40,25,40","height":187},
-            "nodeParent":2,
-            "label":"n8",
+            "label":"n5",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":13,
+            "compId":11,
             "child":[
                 ]
-        },
-        {
-            "x":15,
-            "type":"Button",
-            "searchKey":"Button,material_btn,material_btn",
-            "props":{"y":1873,"x":734,"width":304,"var":"material_btn","stateNum":"1","skin":"main/btn_hui.png","sizeGrid":"54,48,76,46","name":"material_btn","labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#fff","labelBold":true,"labelAlign":"center","label":"我的材料","height":143},
-            "nodeParent":2,
-            "label":"material_btn",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":45,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Button",
-            "searchKey":"Button,market_btn,market_btn",
-            "props":{"y":1873,"x":165,"width":304,"var":"market_btn","stateNum":"1","skin":"main/btn_huang.png","sizeGrid":"54,48,76,46","name":"market_btn","labelStrokeColor":"#4e2e1d","labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#4e2e1d","labelBold":true,"label":"市场","height":143},
-            "nodeParent":2,
-            "label":"market_btn",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":46,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Box",
-            "searchKey":"Box,paging",
-            "props":{"y":601.5,"x":414,"width":391,"var":"paging","height":132},
-            "nodeParent":2,
-            "label":"paging",
-            "isOpen":false,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":57,
-            "child":[
-                {
-                    "type":"Sprite",
-                    "searchKey":"Sprite,paging_bg",
-                    "props":{"y":0,"x":5,"width":381,"var":"paging_bg","texture":"main/mall_number_board_.png","height":141},
-                    "nodeParent":57,
-                    "label":"paging_bg",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":54,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Sprite",
-                    "searchKey":"Sprite,paging_last_btn",
-                    "props":{"y":17,"x":15,"width":90,"var":"paging_last_btn","texture":"main/mall_buy_less_button.png","height":90},
-                    "nodeParent":57,
-                    "label":"paging_last_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":55,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Sprite",
-                    "searchKey":"Sprite,paging_next_btn",
-                    "props":{"y":17,"x":280,"width":90,"var":"paging_next_btn","texture":"main/mall_buy_more_button.png","height":90},
-                    "nodeParent":57,
-                    "label":"paging_next_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":56,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Label",
-                    "searchKey":"Label,paging_num",
-                    "props":{"y":25,"x":108,"width":172,"var":"paging_num","valign":"middle","text":"1 / 21","strokeColor":"#7f8a92","stroke":8,"height":91,"fontSize":60,"font":"Microsoft YaHei","color":"#f9f9f9","bold":false,"align":"center"},
-                    "nodeParent":57,
-                    "label":"paging_num",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":58,
-                    "child":[
-                        ]
-                }]
         },
         {
             "x":15,
             "type":"Label",
             "searchKey":"Label,total",
-            "props":{"y":626,"x":103,"width":172,"var":"total","valign":"middle","text":"全部：","strokeColor":"#7f8a92","stroke":0,"height":91,"fontSize":60,"font":"Microsoft YaHei","color":"#c07920","bold":true,"align":"center"},
+            "props":{"y":469,"x":-443,"width":152,"var":"total","valign":"middle","text":"在售商品：","strokeColor":"#7f8a92","stroke":0,"height":91,"fontSize":60,"font":"Microsoft YaHei","color":"#c07920","bold":true,"align":"center"},
             "nodeParent":2,
             "label":"total",
             "isDirectory":false,
@@ -379,7 +88,7 @@
             "x":15,
             "type":"Label",
             "searchKey":"Label,total_num",
-            "props":{"y":626,"x":248.5,"width":137,"var":"total_num","valign":"middle","text":"111","strokeColor":"#7f8a92","stroke":0,"height":91,"fontSize":65,"font":"Microsoft YaHei","color":"#f6e279","bold":false,"align":"center"},
+            "props":{"y":298,"x":-894,"width":137,"var":"total_num","valign":"middle","text":"111","strokeColor":"#af9051","stroke":10,"height":91,"fontSize":65,"font":"Microsoft YaHei","color":"#f6f6f6","bold":true,"align":"center"},
             "nodeParent":2,
             "label":"total_num",
             "isDirectory":false,
@@ -391,15 +100,172 @@
         },
         {
             "x":15,
+            "type":"List",
+            "searchKey":"List,list,list",
+            "props":{"y":528,"x":-4,"width":1252,"visible":true,"var":"list","spaceY":30,"spaceX":18,"renderType":"render","name":"list","height":2100,"elasticEnabled":false},
+            "nodeParent":2,
+            "label":"list",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":16,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Box",
+                    "searchKey":"Box,order_item,order_item",
+                    "props":{"y":0,"x":0,"width":409,"var":"order_item","renderType":"render","name":"order_item","height":519},
+                    "nodeParent":16,
+                    "label":"order_item",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":false,
+                    "hasChild":true,
+                    "compId":27,
+                    "child":[
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,order_n0,order_n0",
+                            "props":{"y":0,"x":8,"width":393,"var":"order_n0","skin":"base/social_list_portrait_cover.png","name":"order_n0","height":540},
+                            "nodeParent":27,
+                            "label":"order_n0",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":28,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,detailed,detailed",
+                            "props":{"y":188,"x":110,"width":159,"var":"detailed","skin":"product/product02.png","name":"detailed","height":164},
+                            "nodeParent":27,
+                            "label":"detailed",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":43,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,order_gold_price,order_gold_price",
+                            "props":{"y":428,"x":76.5,"width":256,"var":"order_gold_price","valign":"bottom","text":"151","strokeColor":"#a16e43","stroke":10,"name":"order_gold_price","height":67,"fontSize":50,"font":"Microsoft YaHei","color":"#ffffff","bold":true,"align":"center"},
+                            "nodeParent":27,
+                            "label":"order_gold_price",
+                            "isOpen":true,
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":37,
+                            "child":[
+                                ],
+                            "$HIDDEN":false
+                        }]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
             "type":"Button",
             "searchKey":"Button,screen_btn,screen_btn",
-            "props":{"y":609.5,"x":893.5,"width":221,"var":"screen_btn","stateNum":"1","skin":"main/btn_lan.png","sizeGrid":"54,48,76,46","name":"screen_btn","labelStrokeColor":"#cfeeef","labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#cfeeef","labelBold":true,"label":"筛选","height":124},
+            "props":{"y":274,"x":-344,"width":238,"var":"screen_btn","stateNum":"1","skin":"warehouse/btn_green_medium.png","sizeGrid":"20,57,21,57","name":"screen_btn","labelStrokeColor":"#423e38","labelStroke":5,"labelSize":50,"labelFont":"Microsoft YaHei","labelColors":"#f9f9f9","labelBold":true,"label":"筛选","height":129},
             "nodeParent":2,
             "label":"screen_btn",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
             "compId":61,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":2628,"x":-18,"width":1278,"skin":"base/gem_shop_shelf.png","sizeGrid":"0,9,0,9","height":226},
+            "nodeParent":2,
+            "label":"Image",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":68,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":292,"x":-5,"width":652,"texture":"warehouse/TitleBar_02.png","height":180},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":72,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,crops_btn",
+            "props":{"y":232.5,"x":755,"width":150,"var":"crops_btn","skin":"base/shop_item_category_01.png","height":313},
+            "nodeParent":2,
+            "label":"crops_btn",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":77,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,product_btn",
+            "props":{"y":239,"x":905,"width":150,"var":"product_btn","texture":"base/shop_item_category_02.png","height":310},
+            "nodeParent":2,
+            "label":"product_btn",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":78,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,market_type",
+            "props":{"y":298,"x":-4,"width":561,"var":"market_type","valign":"middle","text":"作物市场","strokeColor":"#884917","stroke":10,"height":160,"fontSize":75,"font":"Microsoft YaHei","color":"#f1e7e2","bold":true,"align":"center"},
+            "nodeParent":2,
+            "label":"market_type",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":73,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,tool_btn",
+            "props":{"y":236,"x":1055,"width":152,"var":"tool_btn","texture":"base/shop_item_category_03.png","height":310},
+            "nodeParent":2,
+            "label":"tool_btn",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":79,
             "child":[
                 ]
         }],

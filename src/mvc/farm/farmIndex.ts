@@ -39,9 +39,7 @@ export default class farmIndex extends baseScene {
   private _seedListClass: farmSeedList;
   private _seedList: Laya.Sprite;//种子列表
   private _animalIndex: animalIndex;
-  private _chickenBox: Laya.Box; //鸡 
-  private _cowBox: Laya.Box; //牛 
-  private _pigBox: Laya.Box; //猪 
+
 
   //上次记录的两个触模点之间距离
   private lastDistance: number = 0;
@@ -102,15 +100,15 @@ export default class farmIndex extends baseScene {
     this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);//交易
     this._farmIndex.scene.rank.on(Laya.Event.CLICK, this, this.onMenuClick, ['rank']);//排行榜
     this._farmIndex.scene.material_box.on(Laya.Event.CLICK, this, this.onMenuClick, ['material_order']);//材料订单
-    this._cowBox = this._farmIndex.scene.cow_box;
-    this._pigBox = this._farmIndex.scene.pig_box;
-    this._chickenBox = this._farmIndex.scene.chicken_box;
+  
     this._materialbox = this._farmIndex.scene.material_box;
     this._material_1 = this._farmIndex.scene.material_1;
     this._material_2 = this._farmIndex.scene.material_2;
     this._material_3 = this._farmIndex.scene.material_3;
     this.cleanAllStatu();//重置所有的按钮状态
     this.initMaterial()
+
+    this.initAnimal()
   }
   /**
    * 获取订单数量
@@ -154,12 +152,19 @@ export default class farmIndex extends baseScene {
    * 初始化动物所有的
    */
   public initAnimal() {
-    var _animals = ['pig', 'chicken', 'cow'];
-    for (var i in _animals) {
-      this.initAnimalStatic(_animals[i]);
-      //设置定时器
-      this.setAnimalTimer(_animals[i]);
-    }
+    var ani: Laya.Animation = new Laya.Animation();
+    ani.loadAtlas("animal/Sheep.atlas"); // 加载图集动画
+    ani.interval = 30; // 设置播放间隔（单位：毫秒）
+    ani.index = 1; // 当前播放索引
+    ani.play(); // 播放图集动画
+
+    // 获取动画的边界信息
+  
+    ani.pivot(100, 100);
+
+    ani.pos(Laya.stage.width / 2, Laya.stage.height / 2);
+
+    Laya.stage.addChild(ani);
   }
   /**
    * 设置动物定时器

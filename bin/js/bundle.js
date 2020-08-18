@@ -115,8 +115,27 @@
             this.query.system = this.get_sys();
             this.farmInfo = {};
             this.userInfo = {};
+            this.userInfo = {
+                "nickname": '魔动闪霸',
+                "uid": '7754555',
+                "exp": '700',
+                "upgrade_exp": '775',
+                "flower_num": '111',
+                "order_num": '11111',
+                "goods_num": '11',
+                "grade": 12,
+                "have_gold": 10000,
+                "lower_level_unlock": [
+                    {
+                        "type": "crops",
+                        "id": "crops_1"
+                    }
+                ],
+            };
             this.factory = {};
-            this.userGoodInfo = {};
+            this.userGoodInfo = {
+                "wheat": { id: "wheat", num: "10" }
+            };
             this.warehouseInfo = {};
             this.lotteryInfo = {};
             this.materialInfo = {};
@@ -161,6 +180,9 @@
         setUserInfo(data) {
             if (typeof data.sid != 'undefined') {
                 this.userInfo.sid = data.sid;
+            }
+            if (typeof data.avatar != 'undefined') {
+                this.userInfo.avatar = data.avatar;
             }
             if (typeof data.sid2 != 'undefined') {
                 this.userInfo.sid2 = data.sid2;
@@ -213,6 +235,36 @@
             if (typeof data.sid2 != 'undefined') {
                 this.query.uid = data.uid;
             }
+            data.lower_level_unlock = [
+                {
+                    "type": "crops",
+                    "id": "crops_1"
+                },
+                {
+                    "type": "crops",
+                    "id": "crops_1"
+                },
+                {
+                    "type": "crops",
+                    "id": "crops_1"
+                },
+                {
+                    "type": "crops",
+                    "id": "crops_1"
+                },
+                {
+                    "type": "crops",
+                    "id": "crops_1"
+                },
+                {
+                    "type": "crops",
+                    "id": "crops_1"
+                },
+                {
+                    "type": "crops",
+                    "id": "crops_1"
+                }
+            ];
         }
         setUserProp(data) {
             this.userProp = data;
@@ -329,6 +381,14 @@
                 this.marketInfo.data_info = data.data_info;
             }
         }
+        setExchangeInfo(data) {
+            if (typeof data.type != 'undefined') {
+                this.exchangeInfo.type = data.type;
+            }
+            if (typeof data.data_info != 'undefined') {
+                this.marketInfo.data_info = data.data_info;
+            }
+        }
         setlotteryInfo(data, type) {
             if (type) {
                 this.lotteryInfo = {};
@@ -414,6 +474,15 @@
         (function (base) {
             var tip;
             (function (tip) {
+                class avatar_tipUI extends Laya.Scene {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/avatar_tip");
+                    }
+                }
+                tip.avatar_tipUI = avatar_tipUI;
+                REG("ui.base.tip.avatar_tipUI", avatar_tipUI);
                 class baseTipsUI extends Laya.Scene {
                     constructor() { super(); }
                     createChildren() {
@@ -432,6 +501,15 @@
                 }
                 tip.gold_tipUI = gold_tipUI;
                 REG("ui.base.tip.gold_tipUI", gold_tipUI);
+                class nickname_tipUI extends Laya.Scene {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/nickname_tip");
+                    }
+                }
+                tip.nickname_tipUI = nickname_tipUI;
+                REG("ui.base.tip.nickname_tipUI", nickname_tipUI);
                 class popupUI extends Laya.Scene {
                     constructor() { super(); }
                     createChildren() {
@@ -502,15 +580,6 @@
     (function (ui) {
         var exchange;
         (function (exchange) {
-            class buyBulletUI extends Laya.Scene {
-                constructor() { super(); }
-                createChildren() {
-                    super.createChildren();
-                    this.loadScene("exchange/buyBullet");
-                }
-            }
-            exchange.buyBulletUI = buyBulletUI;
-            REG("ui.exchange.buyBulletUI", buyBulletUI);
             class exchangeUI extends Laya.Scene {
                 constructor() { super(); }
                 createChildren() {
@@ -538,6 +607,15 @@
             }
             exchange.selltipUI = selltipUI;
             REG("ui.exchange.selltipUI", selltipUI);
+            class tradeingHomeUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("exchange/tradeingHome");
+                }
+            }
+            exchange.tradeingHomeUI = tradeingHomeUI;
+            REG("ui.exchange.tradeingHomeUI", tradeingHomeUI);
         })(exchange = ui.exchange || (ui.exchange = {}));
     })(ui || (ui = {}));
     (function (ui) {
@@ -1007,7 +1085,9 @@
     NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
     NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
     NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
-    NETWORKEVENT.GAMEFAILTIP = 'game_fail_tip';
+    NETWORKEVENT.GAMEFAILTIP = "game_fail_tip";
+    NETWORKEVENT.USERNICKNAMECHANGE = "user_nickname_change";
+    NETWORKEVENT.USERAVATARCHANGE = "user_avatar_change";
     NETWORKEVENT.INITINFO = "init_info";
     NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
     NETWORKEVENT.FARMINITFIELD = "init_field";
@@ -1035,7 +1115,6 @@
     NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
     NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
     NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
-    NETWORKEVENT.MARKETINFOBAK = 'market_info_bak';
     NETWORKEVENT.MATERIALINFOBAK = 'material_info';
     NETWORKEVENT.SENDGOODMATERIALBAK = 'send_good_material_bak';
     NETWORKEVENT.ANIMALPRODUCTMATURE = "animal_product_mature";
@@ -1065,6 +1144,9 @@
                 dataJson._instance = new dataJson();
             }
             return dataJson._instance;
+        }
+        GET_FARM_SEED_CONFIG() {
+            return this.FARM_SEED_CONFIG;
         }
         GET_SYS_STORE_INFO() {
             return this.SYS_STORE_INFO;
@@ -2198,356 +2280,6 @@
                         "ain7": ""
                     }
                 },
-                "hh6002": {
-                    "1": {
-                        "id": "hh6002",
-                        "name": "勿忘我",
-                        "grade": "1",
-                        "grade2": "1",
-                        "grade3": "100",
-                        "gold": "10",
-                        "num": "1",
-                        "num2": "15",
-                        "t": "60000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_4_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_4_1",
-                        "ain2": "",
-                        "time2": "20000",
-                        "pic3": "ui://base/pic_4_2",
-                        "ain3": "",
-                        "time3": "20000",
-                        "pic4": "ui://base/pic_4_3",
-                        "ain4": "",
-                        "time4": "20000",
-                        "pic5": "ui://base/pic_4_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_4_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_4_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6003": {
-                    "1": {
-                        "id": "hh6003",
-                        "name": "百合",
-                        "grade": "1",
-                        "grade2": "3",
-                        "grade3": "100",
-                        "gold": "20",
-                        "num": "5",
-                        "num2": "20",
-                        "t": "72000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_2_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_2_1",
-                        "ain2": "",
-                        "time2": "24000",
-                        "pic3": "ui://base/pic_2_2",
-                        "ain3": "",
-                        "time3": "24000",
-                        "pic4": "ui://base/pic_2_3",
-                        "ain4": "",
-                        "time4": "24000",
-                        "pic5": "ui://base/pic_2_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_2_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_2_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6004": {
-                    "1": {
-                        "id": "hh6004",
-                        "name": "紫罗兰",
-                        "grade": "1",
-                        "grade2": "3",
-                        "grade3": "100",
-                        "gold": "30",
-                        "num": "1",
-                        "num2": "20",
-                        "t": "75000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_5_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_5_1",
-                        "ain2": "",
-                        "time2": "25000",
-                        "pic3": "ui://base/pic_5_2",
-                        "ain3": "",
-                        "time3": "25000",
-                        "pic4": "ui://base/pic_5_3",
-                        "ain4": "",
-                        "time4": "25000",
-                        "pic5": "ui://base/pic_5_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_5_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_5_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6005": {
-                    "1": {
-                        "id": "hh6005",
-                        "name": "红花",
-                        "grade": "1",
-                        "grade2": "4",
-                        "grade3": "100",
-                        "gold": "40",
-                        "num": "1",
-                        "num2": "30",
-                        "t": "90000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_6_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_6_1",
-                        "ain2": "",
-                        "time2": "30000",
-                        "pic3": "ui://base/pic_6_2",
-                        "ain3": "",
-                        "time3": "30000",
-                        "pic4": "ui://base/pic_6_3",
-                        "ain4": "",
-                        "time4": "30000",
-                        "pic5": "ui://base/pic_6_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_6_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_6_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6006": {
-                    "1": {
-                        "id": "hh6006",
-                        "name": "澳洲腊梅",
-                        "grade": "1",
-                        "grade2": "4",
-                        "grade3": "100",
-                        "gold": "40",
-                        "num": "1",
-                        "num2": "30",
-                        "t": "90000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_10_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_6_1",
-                        "ain2": "",
-                        "time2": "30000",
-                        "pic3": "ui://base/pic_6_2",
-                        "ain3": "",
-                        "time3": "30000",
-                        "pic4": "ui://base/pic_6_3",
-                        "ain4": "",
-                        "time4": "30000",
-                        "pic5": "ui://base/pic_6_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_10_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_10_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6007": {
-                    "1": {
-                        "id": "hh6007",
-                        "name": "粉玫瑰",
-                        "grade": "1",
-                        "grade2": "4",
-                        "grade3": "100",
-                        "gold": "40",
-                        "num": "1",
-                        "num2": "30",
-                        "t": "90000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_6_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_6_1",
-                        "ain2": "",
-                        "time2": "30000",
-                        "pic3": "ui://base/pic_6_2",
-                        "ain3": "",
-                        "time3": "30000",
-                        "pic4": "ui://base/pic_6_3",
-                        "ain4": "",
-                        "time4": "30000",
-                        "pic5": "ui://base/pic_6_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_8_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_8_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6008": {
-                    "1": {
-                        "id": "hh6008",
-                        "name": "向日葵",
-                        "grade": "1",
-                        "grade2": "4",
-                        "grade3": "100",
-                        "gold": "40",
-                        "num": "1",
-                        "num2": "30",
-                        "t": "90000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_1_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_1_1",
-                        "ain2": "",
-                        "time2": "30000",
-                        "pic3": "ui://base/pic_1_2",
-                        "ain3": "",
-                        "time3": "30000",
-                        "pic4": "ui://base/pic_1_3",
-                        "ain4": "",
-                        "time4": "30000",
-                        "pic5": "ui://base/pic_1_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_1_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_1_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6009": {
-                    "1": {
-                        "id": "hh6009",
-                        "name": "雏菊",
-                        "grade": "1",
-                        "grade2": "4",
-                        "grade3": "100",
-                        "gold": "40",
-                        "num": "1",
-                        "num2": "30",
-                        "t": "90000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_9_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_6_1",
-                        "ain2": "",
-                        "time2": "30000",
-                        "pic3": "ui://base/pic_6_2",
-                        "ain3": "",
-                        "time3": "30000",
-                        "pic4": "ui://base/pic_6_3",
-                        "ain4": "",
-                        "time4": "30000",
-                        "pic5": "ui://base/pic_6_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_9_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_9_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6010": {
-                    "1": {
-                        "id": "hh6010",
-                        "name": "白桔梗",
-                        "grade": "1",
-                        "grade2": "4",
-                        "grade3": "100",
-                        "gold": "40",
-                        "num": "1",
-                        "num2": "30",
-                        "t": "90000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_11_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_6_1",
-                        "ain2": "",
-                        "time2": "30000",
-                        "pic3": "ui://base/pic_6_2",
-                        "ain3": "",
-                        "time3": "30000",
-                        "pic4": "ui://base/pic_6_3",
-                        "ain4": "",
-                        "time4": "30000",
-                        "pic5": "ui://base/pic_6_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_11_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_11_6",
-                        "ain7": ""
-                    }
-                },
-                "hh6011": {
-                    "1": {
-                        "id": "hh6011",
-                        "name": "香槟玫瑰",
-                        "grade": "1",
-                        "grade2": "4",
-                        "grade3": "100",
-                        "gold": "40",
-                        "num": "1",
-                        "num2": "30",
-                        "t": "90000",
-                        "speed": "100",
-                        "exp": "100",
-                        "exp2": "100",
-                        "pic": "ui://base/pic_7_5",
-                        "ain": "",
-                        "time": "0",
-                        "pic2": "ui://base/pic_6_1",
-                        "ain2": "",
-                        "time2": "30000",
-                        "pic3": "ui://base/pic_6_2",
-                        "ain3": "",
-                        "time3": "30000",
-                        "pic4": "ui://base/pic_6_3",
-                        "ain4": "",
-                        "time4": "30000",
-                        "pic5": "ui://base/pic_6_4",
-                        "ain5": "",
-                        "time5": "0",
-                        "pic6": "ui://base/pic_7_6",
-                        "ain6": "",
-                        "pic7": "ui://base/pic_7_6",
-                        "ain7": ""
-                    }
-                }
             };
             this.SYS_FLOWER_FIELD = {
                 "ht01": {
@@ -8997,6 +8729,34 @@
                     "info": "花卉"
                 }
             };
+            this.FARM_SEED_CONFIG = {
+                "wheat": {
+                    "id": "Wheat",
+                    "name": "小麦",
+                    "lowestgrade": "1",
+                    "t": "120",
+                    "speed": "0",
+                    "exp": "3",
+                    "pic": "",
+                    "price": "20",
+                    "instage": "0"
+                },
+                "corn": {},
+                "sugarcane": {},
+                "soybean": {},
+                "rice": {},
+                "carrot": {},
+                "potato": {},
+                "tomato": {},
+                "vegetables": {},
+                "pepper": {},
+                "strawberry": {},
+                "cotton": {},
+                "coffee": {},
+                "cocoa": {},
+                "lily": {},
+                "peony": {}
+            };
         }
     }
 
@@ -9608,7 +9368,6 @@
             }
         }
         onClickLand() {
-            console.log('点击田地操作+++++++++++++++++++++++++++++++++++');
             if (farmController.getInstance().model.clickLandStatic == 'harvest' || farmController.getInstance().model.clickLandStatic == 'water') {
                 farmController.getInstance().model.setClickLandStatic('');
                 return;
@@ -9985,35 +9744,28 @@
             var seed_arr = farmController.getInstance().model.seedData;
             var isshow = true;
             for (var i in seed_arr) {
-                var seed_info = dataJson.getInstance().GET_SYS_FLOWER_PLANTS()[seed_arr[i].id];
-                for (var z in this._seed_list.dataSource) {
-                    if (this._seed_list.dataSource[z].name === seed_info[1].id) {
-                        var _seedItem = this._seed_list.dataSource[z];
-                        _seedItem.index = Number(z);
-                        var _index = Number(z);
-                    }
-                }
-                this.initSeedItem(_seedItem);
-                if (grade >= seed_arr[i].grade2 && grade <= seed_arr[i].grade3) {
-                    if (have_gold >= seed_arr[i].gold) {
-                        _seedItem.gold_num.color = '#EDFF24';
-                    }
-                    else {
-                        _seedItem.gold_num.color = '#FF3E24';
-                    }
-                    _seedItem.visible = true;
-                }
-                else {
-                    if (Math.floor(seed_info[1].grade2) <= Math.floor(grade) + 1 && isshow) {
-                        isshow = false;
-                        _seedItem.visible = true;
-                    }
-                    else {
-                        _seedItem.visible = true;
-                    }
+                var seed_info = dataJson.getInstance().GET_FARM_SEED_CONFIG()[seed_arr[i].id];
+                var warehouse_num = dataGlobal.getInstance().userGoodInfo[seed_arr[i].id].num;
+                console.log('种子配置信息', seed_info, warehouse_num);
+                var _seedItem = {
+                    id: seed_info.id,
+                    name: seed_info.name,
+                    index: 0,
+                    seep_pic: {
+                        skin: "resource/crops/" + seed_info.id + "Enable.png"
+                    },
+                    gold_num: {
+                        text: warehouse_num,
+                    },
+                    suo_div: {
+                        visible: false
+                    },
+                    visible: true
+                };
+                if (warehouse_num < 1) {
                     _seedItem.suo_div.visible = true;
-                    _seedItem.gold_num.color = '#274200';
                 }
+                this._seed_list.addItem(_seedItem);
             }
             this._seed_list.renderHandler = null;
             this._seed_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
@@ -10051,16 +9803,11 @@
         }
         itemSelectHandler(cell, index) {
             cell.off(Laya.Event.CLICK, this, this.onClick);
-            var grade = dataGlobal.getInstance().userInfo.grade;
-            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var seed_arr = farmController.getInstance().model.seedData;
-            if (grade >= seed_arr[index].grade2 && grade <= seed_arr[index].grade3) {
-                if (have_gold >= seed_arr[index].gold) {
-                    cell.on(Laya.Event.CLICK, this, this.onClick, ['buy', { 'id': seed_arr[index].id }]);
-                }
-                else {
-                    cell.on(Laya.Event.CLICK, this, this.onClick, ['noMoney', { 'gold': seed_arr[index].gold }]);
-                }
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            var warehouse_num = dataGlobal.getInstance().userGoodInfo[seed_arr[index].id].num;
+            if (warehouse_num > 0) {
+                cell.on(Laya.Event.CLICK, this, this.onClick, ['plant', { 'id': seed_arr[index].id }]);
             }
             else {
                 cell.on(Laya.Event.CLICK, this, this.onClick, ['lock', { 'grade': seed_arr[index].grade2, 'name': seed_arr[index].name }]);
@@ -10076,23 +9823,9 @@
         }
         onClick(itemStatic, arr) {
             tipController.getInstance();
-            if (itemStatic == 'buy') {
+            if (itemStatic == 'plant') {
                 var landId = farmController.getInstance().model.landId;
                 this.onPlant(landId, arr.id);
-            }
-            else if (itemStatic == 'noMoney') {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.gold + '金币', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
-            }
-            else if (itemStatic == 'lock') {
-                Laya.stage.event(GAMEEVENT.TIPSKUAN, ['种植该种子需要' + arr.grade + '级', '确定', '取消', function () {
-                        tipController.getInstance().close();
-                    }, function () {
-                        tipController.getInstance().close();
-                    }]);
             }
         }
         onPlant(landId, id) {
@@ -11741,20 +11474,197 @@
             this._userInfoTip.pivotX = 0.5 * this._userInfoTip.width;
             this._userInfoTip.pivotY = 0.5 * this._userInfoTip.height;
             this.addChild(this._userInfoTip);
-            this.tweenShow();
+            this.showLayer();
             var data = dataGlobal.getInstance().userInfo;
+            console.log(data);
             this._userInfoTip.scene.uname.text = data.nickname;
             this._userInfoTip.scene.id.text = data.uid;
-            this._userInfoTip.scene.grade.text = data.grade;
-            this._userInfoTip.scene.exp.text = Math.floor(data.exp) + '/' + Math.floor(data.upgrade_exp);
-            this._userInfoTip.scene.exp_progress.value = Math.floor(data.exp) / Math.floor(data.upgrade_exp);
-            this._userInfoTip.scene.flower_num.text = data.flower_num;
-            this._userInfoTip.scene.order_num.text = data.order_num;
-            this._userInfoTip.scene.good_num.text = data.goods_num;
+            this._userInfoTip.scene.ugrade.text = data.grade;
+            this._userInfoTip.scene.next_grade.text = Number(data.grade) + 1 + "级将解锁";
+            this._userInfoTip.scene.user_header.skin = data.pic;
             this._userInfoTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeUserInfoKuan);
+            this._userInfoTip.scene.change_name.on(Laya.Event.CLICK, this, this.changeNickName);
+            this._userInfoTip.scene.change_userpic.on(Laya.Event.CLICK, this, this.changeUserPic);
+            this.renderUnlockingList();
         }
         closeUserInfoKuan() {
-            this.tweenHide();
+            this.hideLayer();
+        }
+        changeNickName() {
+            infoController.getInstance().infoUserChangeNickName();
+        }
+        refreshUserInfo() {
+            var data = dataGlobal.getInstance().userInfo;
+            this._userInfoTip.scene.uname.text = data.nickname;
+            this._userInfoTip.scene.user_header.skin = data.pic;
+        }
+        changeUserPic() {
+            infoController.getInstance().infoUserChangePic();
+        }
+        renderUnlockingList() {
+            var data = dataGlobal.getInstance().userInfo.lower_level_unlock;
+            console.log(data, data);
+            console.log(data, data);
+            console.log(data, data);
+            this._unlockList = this._userInfoTip.scene.crops_list;
+            this._unlockList.dataSource = [];
+            for (var i in data) {
+                var _item = {
+                    lock_crops: {
+                        skin: "product/product01.png"
+                    }
+                };
+                this._unlockList.addItem(_item);
+            }
+        }
+    }
+
+    class infoUserTip$1 extends baseTips {
+        constructor() {
+            super();
+        }
+        show() {
+            this._useNickNameTip = new ui.base.tip.nickname_tipUI;
+            this._useNickNameTip.pivotX = 0.5 * this._useNickNameTip.width;
+            this._useNickNameTip.pivotY = 0.5 * this._useNickNameTip.height;
+            this.addChild(this._useNickNameTip);
+            this.showLayer();
+            var data = dataGlobal.getInstance().userInfo;
+            this._useNickNameTip.scene.tips_text.text = data.nickname;
+            this._useNickNameTip.scene.close_btn.on(Laya.Event.CLICK, this, this.close);
+            this._useNickNameTip.scene.confirm_btn.on(Laya.Event.CLICK, this, this.submitNickName);
+        }
+        close() {
+            this.hideLayer();
+        }
+        submitNickName() {
+            var nickname = this._useNickNameTip.scene.tips_text.text;
+            var _data = {
+                "nickname": nickname
+            };
+            dataGlobal.getInstance().setUserInfo(_data);
+            Laya.stage.event(NETWORKEVENT.USERNICKNAMECHANGE);
+        }
+    }
+
+    class infoUserTip$2 extends baseTips {
+        constructor() {
+            super();
+        }
+        show() {
+            this._useAvatarTip = new ui.base.tip.avatar_tipUI;
+            this._useAvatarTip.pivotX = 0.5 * this._useAvatarTip.width;
+            this._useAvatarTip.pivotY = 0.5 * this._useAvatarTip.height;
+            this.addChild(this._useAvatarTip);
+            this.showLayer();
+            var data = dataGlobal.getInstance().userInfo;
+            this._avatarList = this._useAvatarTip.scene.avatar_list;
+            this.initAvatarList();
+            this._useAvatarTip.scene.close_btn.on(Laya.Event.CLICK, this, this.close);
+            this._useAvatarTip.scene.get_btn.on(Laya.Event.CLICK, this, this.submitAvatar);
+        }
+        close() {
+            this.hideLayer();
+        }
+        initAvatarList() {
+            this.avatarList = [
+                {
+                    "id": "2",
+                    "able": 1,
+                    "select": 0
+                },
+                {
+                    "id": "3",
+                    "able": 1,
+                    "select": 0
+                },
+                {
+                    "id": "4",
+                    "able": 1,
+                    "select": 0
+                },
+                {
+                    "id": "5",
+                    "able": 1,
+                    "select": 0
+                },
+                {
+                    "id": "6",
+                    "able": 1,
+                    "select": 0
+                },
+                {
+                    "id": "7",
+                    "able": 1,
+                    "select": 0
+                },
+                {
+                    "id": "8",
+                    "able": 1,
+                    "select": 0
+                },
+                {
+                    "id": "9",
+                    "able": 1,
+                    "select": 0
+                },
+                {
+                    "id": "10",
+                    "able": 1,
+                    "select": 0
+                }
+            ];
+            this._avatarList.dataSource = [];
+            for (var i = 0; i < this.avatarList.length; i++) {
+                var _item = {
+                    id: "",
+                    icon: {
+                        skin: ""
+                    },
+                    select: {
+                        skin: ""
+                    }
+                };
+                _item.id = this.avatarList[i].id;
+                if (this.avatarList[i].able) {
+                    _item.icon.skin = "avatar/Avatar" + this.avatarList[i].id + "Enable.png";
+                }
+                else {
+                    _item.icon.skin = "avatar/Avatar" + this.avatarList[i].id + "Disable.png";
+                }
+                if (this.avatarList[i].select) {
+                    _item.select.skin = "avatar/AvatarSelected.png";
+                }
+                else {
+                    _item.select.skin = "avatar/AvatarBorder.png";
+                }
+                this._avatarList.addItem(_item);
+                this._avatarList.renderHandler = new Laya.Handler(this, this.bindClick);
+            }
+        }
+        bindClick(cell, index) {
+            cell.on(Laya.Event.CLICK, this, this.selectAvatar, [cell, index]);
+        }
+        selectAvatar(cell, index) {
+            var _item = this._avatarList.getItem(index);
+            _item.select.skin = "avatar/AvatarSelected.png";
+            for (var i = 0; i < this.avatarList.length; i++) {
+                if (i != index) {
+                    console.log(i, index);
+                    var otherItem = this._avatarList.getItem(i);
+                    otherItem.select.skin = "avatar/AvatarBorder.png";
+                    this._avatarList.setItem(i, otherItem);
+                }
+            }
+            this._select = _item.id;
+            this._avatarList.setItem(index, _item);
+        }
+        submitAvatar() {
+            var _data = {
+                "avatar": this._select
+            };
+            dataGlobal.getInstance().setUserInfo(_data);
+            Laya.stage.event(NETWORKEVENT.USERAVATARCHANGE);
         }
     }
 
@@ -11850,6 +11760,26 @@
             this._userUgradeTip = new infoUserUpgradeTip;
             this._userUgradeTip.infoUserUpgradeTip(data);
         }
+        infoUserChangeNickName() {
+            this._infoNickNameTip = new infoUserTip$1;
+            this._infoNickNameTip.show();
+        }
+        refreshUserInfo(type) {
+            console.log(type);
+            console.log(type);
+            console.log(type);
+            if (type == 'changeNickName') {
+                this._infoNickNameTip.close();
+            }
+            if (type == "changeAvatar") {
+                this._infoAvatarTip.close();
+            }
+            this._userInfoTip.refreshUserInfo();
+        }
+        infoUserChangePic() {
+            this._infoAvatarTip = new infoUserTip$2;
+            this._infoAvatarTip.show();
+        }
     }
 
     class infoNetwork {
@@ -11885,6 +11815,8 @@
             Laya.stage.on(GAMEEVENT.SHOWINFODIV, this, this.showInfoDiv);
             Laya.stage.on(NETWORKEVENT.SENDUSERGRADEUP, this, this._network.SendUserGradeUp);
             Laya.stage.on(NETWORKEVENT.USERCOUNTINFO, this, this._network.UserCountInfo);
+            Laya.stage.on(NETWORKEVENT.USERNICKNAMECHANGE, this, this.refreshUserInfo, ['changeNickName']);
+            Laya.stage.on(NETWORKEVENT.USERAVATARCHANGE, this, this.refreshUserInfo, ['changeAvatar']);
         }
         static getInstance() {
             if (infoController._instance == null) {
@@ -11922,6 +11854,15 @@
         }
         infoUserUpgradeTip(data) {
             this._infoview.infoUserUpgradeTip(data);
+        }
+        infoUserChangeNickName() {
+            this._infoview.infoUserChangeNickName();
+        }
+        infoUserChangePic() {
+            this._infoview.infoUserChangePic();
+        }
+        refreshUserInfo(type) {
+            this._infoview.refreshUserInfo(type);
         }
     }
 
@@ -12544,59 +12485,18 @@
             this._exchangeIndex.pivot(this._exchangeIndex.width / 2, this._exchangeIndex.height / 2);
             this.addChild(this._exchangeIndex);
             this.tweenShow();
-            this._my_list = this._exchangeIndex.scene.getChildByName('my_list');
-            this._market_list = this._exchangeIndex.scene.getChildByName('market_list');
-            this._material_btn = this._exchangeIndex.scene.getChildByName('material_btn');
-            this._market_btn = this._exchangeIndex.scene.getChildByName('market_btn');
             this._exchangeIndex.scene.close_btn.on(Laya.Event.CLICK, this, this.closeexchange);
-            this._exchangeIndex.scene.screen_btn.on(Laya.Event.CLICK, this, this.goScreen);
-            this.switchItem('market');
-            this.store_info();
-            this.changeSceneList();
+            this.getInfo();
+            this._marketList = this._exchangeIndex.scene.list;
         }
-        changeSceneList() {
-            this._market_btn.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'market') {
-                    this.switchItem('market');
-                }
-            }.bind(this));
-            this._material_btn.on(Laya.Event.CLICK, this, function () {
-                if (this._type != 'material') {
-                    this.switchItem('material');
-                }
-            }.bind(this));
+        getInfo() {
+            Laya.stage.event(NETWORKEVENT.EXCHANGEINFOBAK);
         }
-        store_info() {
-            if (this._type == 'market') {
-                Laya.stage.event(NETWORKEVENT.MARKETINFOBAK);
-            }
-            let tmp_http = httpJson.getInstance();
-            let tmp_data = {
-                'a': "store_info",
-                'm': "store",
-                'd': {},
-                'code': 1
-            };
-            tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
-        }
-        initMarketGoodList() {
-            var data = dataGlobal.getInstance().marketInfo;
-            var _data_info = data.data_info;
-            this._market_list.vScrollBarSkin = '';
-            for (var i in _data_info) {
-                var dataItem = {
-                    id: _data_info[i].good_id,
-                    detailed: {
-                        skin: "factory/pic_" + _data_info[i].good_id + ".png"
-                    },
-                    order_gold_val: {
-                        text: _data_info[i].price + 'ONES'
-                    }
-                };
-                this._market_list.addItem(dataItem);
-                this._market_list.visible = true;
-                this.bindClickMarketItem(this._market_list.getCell(Number(i)), Number(i));
-            }
+        initExchangeList() {
+            var data = dataGlobal.getInstance().exchangeInfo;
+            console.log(data);
+            console.log(data);
+            console.log(data);
         }
         initMyGoodList() {
             var data = dataGlobal.getInstance().marketInfo;
@@ -12636,23 +12536,6 @@
             }.bind(this));
         }
         switchItem(str) {
-            this._type = str;
-            if (this._type == 'market') {
-                this._material_btn.skin = 'main/btn_hui.png';
-                this._market_btn.skin = 'main/btn_huang.png';
-                this._my_list.visible = false;
-                this._market_list.visible = true;
-                this._exchangeIndex.scene.n5.text = '交易市场';
-                this.initMarketGoodList();
-            }
-            if (this._type == 'material') {
-                this._my_list.visible = true;
-                this._market_list.visible = false;
-                this._market_btn.skin = 'main/btn_hui.png';
-                this._material_btn.skin = 'main/btn_huang.png';
-                this._exchangeIndex.scene.n5.text = '我的材料';
-                this.initMyGoodList();
-            }
         }
         closeexchange() {
             this.tweenHide();
@@ -12671,23 +12554,22 @@
         }
     }
 
-    class warehouseSellTip$1 extends baseTips {
+    class tradeingHome extends baseTips {
         constructor() {
             super();
         }
         showSellTip(id) {
             this._id = id;
-            this._sellTip = new ui.exchange.buyBulletUI();
+            this._sellTip = new ui.exchange.tradeingHomeUI();
             this._sellTip.pivotX = 0.5 * this._sellTip.width;
             this._sellTip.pivotY = 0.5 * this._sellTip.height;
             this.addChild(this._sellTip);
-            this.tweenShow();
-            this._sellTip.scene.close_btn.on(Laya.Event.CLICK, this, this.closeSellTip);
+            this.showLayer();
+            this._sellTip.scene.return_btn.on(Laya.Event.CLICK, this, this.closeSellTip);
             this._sellTip.scene.cancel.on(Laya.Event.CLICK, this, this.closeSellTip);
-            this.initInfo();
         }
         closeSellTip() {
-            this.tweenHide();
+            this.hideLayer();
         }
         initInfo() {
             var good_info = dataGlobal.getInstance().marketInfo.data_info;
@@ -12786,8 +12668,8 @@
             this._exchangeCom = new exchangeIndex;
             this._exchangeCom.onShowexchange();
         }
-        initMarketGoodList() {
-            this._exchangeCom.initMarketGoodList();
+        initExchangeList() {
+            this._exchangeCom.initExchangeList();
         }
         sendGood(data) {
         }
@@ -12803,8 +12685,8 @@
             this._exchangeCom.closeexchange();
         }
         showBuyTip(id) {
-            this._exchangeBuyCom = new warehouseSellTip$1;
-            this._exchangeBuyCom.showSellTip(id);
+            this._tradeingHome = new tradeingHome;
+            this._tradeingHome.showSellTip(id);
         }
         showSellTip(id) {
             this._exchangeSellCom = new exchangeSellTip;
@@ -12815,26 +12697,43 @@
     class exchangeNetwork {
         constructor() {
         }
-        MarketInfoBak(data) {
+        ExchangeInfoBak(data) {
+            data = {
+                "ga": "exchange_info_bak",
+                "code": 1,
+                "gd": {
+                    "type": "crops",
+                    "data_info": [
+                        {
+                            "id": "bouquet3",
+                            "price": "1.884"
+                        },
+                        {
+                            "id": "bouquet3",
+                            "price": "1.884"
+                        },
+                    ]
+                }
+            };
             data = data.gd;
-            dataGlobal.getInstance().setMarketInfo(data);
+            dataGlobal.getInstance().setExchangeInfo(data);
             var good_arr = [];
             for (var i in data.data_info) {
                 var tmp_arr = {
-                    'id': data.data_info[i].good_id,
-                    'num': data.data_info[i].num,
-                    'price': data.data_info[i].price,
+                    'id': data.data_info[i].id,
+                    'price': data.data_info[i].price
                 };
                 good_arr.push(tmp_arr);
             }
             dataGlobal.getInstance().setMarketInfo(good_arr);
-            exchangeController.getInstance().initMarketGoodList();
+            exchangeController.getInstance().initExchangeList();
         }
     }
 
     class exchangeController {
         constructor() {
             this._network = new exchangeNetwork;
+            Laya.stage.on(NETWORKEVENT.EXCHANGEINFOBAK, this, this._network.ExchangeInfoBak);
         }
         static getInstance() {
             if (exchangeController._instance == null) {
@@ -12848,9 +12747,9 @@
             }
             this._exchangeView.onShowExchange();
         }
-        initMarketGoodList() {
+        initExchangeList() {
             if (this._exchangeView) {
-                this._exchangeView.initMarketGoodList();
+                this._exchangeView.initExchangeList();
             }
         }
         showBuyTip(id) {
@@ -13042,7 +12941,6 @@
     class rankController {
         constructor() {
             this._network = new exchangeNetwork$1;
-            Laya.stage.on(NETWORKEVENT.MARKETINFOBAK, this, this._network.MarketInfoBak);
         }
         static getInstance() {
             if (rankController._instance == null) {
@@ -13138,25 +13036,18 @@
         { url: resConfig._url + 'res/atlas/loading.atlas', type: Laya.Loader.ATLAS, sign: 'login' },
         { url: resConfig._url + 'res/atlas/loading.png', type: Laya.Loader.IMAGE },
     ];
-    resConfig.animalRes = [
-        { url: resConfig._url + 'res/atlas/animal/muchang_jimc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_jimc' },
-        { url: resConfig._url + 'res/atlas/animal/muchang_jimc.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/animal/muchang_niumc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_niumc' },
-        { url: resConfig._url + 'res/atlas/animal/muchang_niumc.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_yangmc' },
-        { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.png', type: Laya.Loader.IMAGE },
-    ];
+    resConfig.animalRes = [];
     resConfig.fontRes = [
         { url: resConfig._url + 'res/atlas/font.atlas', type: Laya.Loader.JSON, sign: 'font' },
         { url: resConfig._url + 'res/atlas/font.png', type: Laya.Loader.IMAGE },
     ];
     resConfig.farm = [
-        { url: resConfig._url + 'res/atlas/animal/muchang_jimc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_jimc' },
-        { url: resConfig._url + 'res/atlas/animal/muchang_jimc.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/animal/muchang_niumc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_niumc' },
-        { url: resConfig._url + 'res/atlas/animal/muchang_niumc.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_yangmc' },
-        { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/avatar.atlas', type: Laya.Loader.ATLAS, sign: 'avatar' },
+        { url: resConfig._url + 'res/atlas/avatar.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/resource/crops.atlas', type: Laya.Loader.ATLAS, sign: 'crops' },
+        { url: resConfig._url + 'res/atlas/resource/crops.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/atlas/animal/Sheep.atlas', type: Laya.Loader.ATLAS, sign: 'Sheep' },
+        { url: resConfig._url + 'res/atlas/animal/Sheep.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/base.atlas', type: Laya.Loader.ATLAS, sign: 'base' },
         { url: resConfig._url + 'res/atlas/base.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/product.atlas', type: Laya.Loader.ATLAS, sign: 'product' },
@@ -13734,15 +13625,13 @@
             this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);
             this._farmIndex.scene.rank.on(Laya.Event.CLICK, this, this.onMenuClick, ['rank']);
             this._farmIndex.scene.material_box.on(Laya.Event.CLICK, this, this.onMenuClick, ['material_order']);
-            this._cowBox = this._farmIndex.scene.cow_box;
-            this._pigBox = this._farmIndex.scene.pig_box;
-            this._chickenBox = this._farmIndex.scene.chicken_box;
             this._materialbox = this._farmIndex.scene.material_box;
             this._material_1 = this._farmIndex.scene.material_1;
             this._material_2 = this._farmIndex.scene.material_2;
             this._material_3 = this._farmIndex.scene.material_3;
             this.cleanAllStatu();
             this.initMaterial();
+            this.initAnimal();
         }
         initMaterial() {
             var material_info = dataJson.getInstance().GET_SYS_MATERIAL_INFO();
@@ -13773,11 +13662,14 @@
             }
         }
         initAnimal() {
-            var _animals = ['pig', 'chicken', 'cow'];
-            for (var i in _animals) {
-                this.initAnimalStatic(_animals[i]);
-                this.setAnimalTimer(_animals[i]);
-            }
+            var ani = new Laya.Animation();
+            ani.loadAtlas("animal/Sheep.atlas");
+            ani.interval = 30;
+            ani.index = 1;
+            ani.play();
+            ani.pivot(100, 100);
+            ani.pos(Laya.stage.width / 2, Laya.stage.height / 2);
+            Laya.stage.addChild(ani);
         }
         setAnimalTimer(type) {
             var data = dataGlobal.getInstance().animalInfo[type];
@@ -14085,7 +13977,6 @@
         }
         setFarmSeed(data) {
             this.seedData = data;
-            console.log(this.seedData);
         }
         setLandId(str) {
             this.landId = str;
@@ -14103,8 +13994,18 @@
             farmController.getInstance().onShowFarmInitField(data.gd);
         }
         FarmInitSeedList(data) {
+            data = {
+                "ga": "init_seed_list",
+                "gd": {
+                    "seed_data": [
+                        {
+                            "id": "wheat"
+                        },
+                    ]
+                },
+                "code": 1
+            };
             farmController.getInstance().model.setFarmSeed(data.gd.seed_data);
-            farmController.getInstance().model.setFatData(data.gd.fat_data);
             farmController.getInstance().onFarmInitSeedList(data.gd);
         }
         FarmInitFlowerGrade(data) {
@@ -14139,6 +14040,7 @@
             infoController.getInstance().getUserInfo();
         }
         FarmInitPlantFlower(data) {
+            console.log("请求种植-------------");
             var myData = data.gd;
             var tmp_arr = {
                 'fat_time': myData.fat_time,

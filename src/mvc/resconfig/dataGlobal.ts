@@ -70,12 +70,16 @@ export default class dataGlobal {
   public gameWS: string;//用户长连接地址
   public farmInfo: any;//花田信息
   public factory: any;//工厂的信息
-  public userGoodInfo: any;//用户物品信息
+  public userGoodInfo: any;//用户物品信息 use
   public warehouseInfo: any;//仓库的信息
   public lotteryInfo: any;//订单任务
   public materialInfo: any;//订单任务
   public marketInfo: any;//市场信息
   public animalInfo: any;//动物信息
+
+  // 交易市场
+  public exchangeInfo:any; //use
+
   public query = {//推广的参数
     "uid": '',
     "sid": '',
@@ -87,19 +91,29 @@ export default class dataGlobal {
     this.query.system = this.get_sys();
     this.farmInfo = {};
     this.userInfo = {};
-    // this.userInfo = {
-    //   "nickname":'魔动闪霸',
-    //   "uid":'7754555',
-    //   "exp":'700',
-    //   "upgrade_exp":'775',
-    //   "flower_num":'111',
-    //   "order_num":'11111',
-    //   "goods_num":'11',
-    //   "grade": 12, //用户等级
-    //   "have_gold":10000 //用户金币
-    // };
+    this.userInfo = {
+      "nickname":'魔动闪霸',
+      "uid":'7754555',
+      "exp":'700',
+      "upgrade_exp":'775',
+      "flower_num":'111',
+      "order_num":'11111',
+      "goods_num":'11',
+      "grade": 12, //用户等级
+      "have_gold":10000, //用户金币
+      "lower_level_unlock":[
+        {
+          "type":"crops",
+          "id":"crops_1"
+        }
+      ],//下级解锁物
+    };
     this.factory = {};
-    this.userGoodInfo = {};
+
+    //用户库存数量 use
+    this.userGoodInfo = {
+      "wheat": {id: "wheat", num: "10"}
+    };
     this.warehouseInfo = {};
     this.lotteryInfo = {};
     this.materialInfo = {};
@@ -190,6 +204,7 @@ export default class dataGlobal {
   public setUserInfo(data: any) {
     //用户自己的信息
     if (typeof data.sid != 'undefined') { this.userInfo.sid = data.sid }
+    if (typeof data.avatar != 'undefined') { this.userInfo.avatar = data.avatar }
     if (typeof data.sid2 != 'undefined') { this.userInfo.sid2 = data.sid2 }
     if (typeof data.uid != 'undefined') { this.userInfo.uid = data.uid }
     if (typeof data.name != 'undefined') { this.userInfo.name = data.name }
@@ -218,6 +233,37 @@ export default class dataGlobal {
       this.query.uid = data.uid;
     }
 
+    // 暂时
+    data.lower_level_unlock =[
+      {
+        "type":"crops",
+        "id":"crops_1"
+      },
+      {
+        "type":"crops",
+        "id":"crops_1"
+      },
+      {
+        "type":"crops",
+        "id":"crops_1"
+      },
+      {
+        "type":"crops",
+        "id":"crops_1"
+      },
+      {
+        "type":"crops",
+        "id":"crops_1"
+      },
+      {
+        "type":"crops",
+        "id":"crops_1"
+      },
+      {
+        "type":"crops",
+        "id":"crops_1"
+      }
+    ]//下级解锁物
   }
 
   //设置用户的属性
@@ -229,12 +275,10 @@ export default class dataGlobal {
       'grade'=>当前等级
       'exp'=>当前等级经验
       'up_time'=>升级时间
-  }
-  */
+  }*/
   public setUserProp(data: any) {
     this.userProp = data;
   }
-
   //设置用户游戏长连接地址
   /*
   ws = "长连接地址:端口号"
@@ -352,7 +396,7 @@ export default class dataGlobal {
     } else {
       this.factory = data ? data : {};
     }
-
+    
   }
   /**
   * 购买槽位后保存
@@ -431,6 +475,27 @@ export default class dataGlobal {
     if (typeof data.num != 'undefined') { this.marketInfo.num = data.num }
     if (typeof data.data_info != 'undefined') { this.marketInfo.data_info = data.data_info }
   }
+  "type":"crops"
+  "data_info":[
+    {
+      "id":"bouquet3",
+      "price":"1.884"
+    },
+    {
+      "id":"bouquet3",
+      "price":"1.884"
+    },
+  ]
+  /**
+   * 保存交易市场信息
+   * @param data 
+   * @param type 
+   */
+  public setExchangeInfo(data:any) {
+    if (typeof data.type != 'undefined') { this.exchangeInfo.type = data.type }
+    if (typeof data.data_info != 'undefined') { this.marketInfo.data_info = data.data_info }
+  }
+
   /**
    * 设置订单任务信息
    * @param data :任务数据

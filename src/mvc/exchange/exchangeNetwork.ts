@@ -4,74 +4,39 @@ export default class exchangeNetwork {
   constructor() {
   }
   //获取市场的信息
-  public MarketInfoBak(data) {
-    // data = {
-    //   "ga":"market_info_bak",
-    //   "code":1,
-    //   "gd":{
-    //     "store_id":"45",
-    //     "num":"5",
-    //     "data_info":[
-    //       {
-    //         "good_id":"bouquet3",
-    //         "price":"1.884",
-    //         "num":"105",
-    //         'seller':'xsefrty',
-    //         'good_name':'花卉',
-            
-
-    //       },
-    //       {
-    //         "good_id":"bouquet1",
-    //         "price":"2.23421",
-    //         "num":"145",
-    //         'seller':'xsefrty',
-    //         'good_name':'花卉',
-            
-    //       },
-    //       {
-    //         "good_id":"bouquet2",
-    //         "price":"1.884",
-    //         "num":"105",
-    //         'seller':'xsefrty',
-    //         'good_name':'花卉',
-            
-    //       },
-    //       {
-    //         "good_id":"bouquet5",
-    //         "price":"2.23421",
-    //         "num":"111",
-    //         'seller':'xsefrty',
-    //         'good_name':'花卉',
-            
-    //       },
-    //       {
-    //         "good_id":"bouquet4",
-    //         "price":"14",
-    //         "num":"1",
-    //         'seller':'xsefrty',
-    //         'good_name':'花卉',
-            
-    //       }
-    //     ]
-    //   }
-    // };
+  public ExchangeInfoBak(data) {
+    data = {
+      "ga":"exchange_info_bak",
+      "code":1,
+      "gd":{
+        "type":"crops",
+        "data_info":[
+          {
+            "id":"bouquet3",
+            "price":"1.884"
+          },
+          {
+            "id":"bouquet3",
+            "price":"1.884"
+          },
+        ]
+      }
+    };
     //保存市场的信息
     data = data.gd;
-    dataGlobal.getInstance().setMarketInfo(data);
+    dataGlobal.getInstance().setExchangeInfo(data);
     //保存一下物品
     var good_arr = [];
     for (var i in data.data_info) {
       var tmp_arr = { 
-        'id': data.data_info[i].good_id, 
-        'num': data.data_info[i].num ,
-        'price': data.data_info[i].price ,
+        'id': data.data_info[i].id, 
+        'price': data.data_info[i].price 
       };
       good_arr.push(tmp_arr);
     }
     dataGlobal.getInstance().setMarketInfo(good_arr);
     //设置市场的商品列表信息
-    exchangeController.getInstance().initMarketGoodList();
+    exchangeController.getInstance().initExchangeList();
   }
   // public StoreUpGread(data){
   //   //保存仓库的信息

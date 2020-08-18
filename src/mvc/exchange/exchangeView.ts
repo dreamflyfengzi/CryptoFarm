@@ -2,11 +2,11 @@
 * name 
 */
 import exchangeIndex from './exchangeIndex'
-import exchangeBuyCom from './exchangeBuyTip'
+import tradeingHome from './tradeingHome'
 import exchangeSellCom from './exchangeSellTip'
 export default class exchangeView {
   private _exchangeCom: exchangeIndex;
-  private _exchangeBuyCom: exchangeBuyCom;
+  private _tradeingHome: tradeingHome;
   private _exchangeSellCom: exchangeSellCom;
   constructor() {
     //先添加包
@@ -24,8 +24,8 @@ export default class exchangeView {
    * 展示市场列表
    * @param data 
    */
-  public initMarketGoodList() {
-    this._exchangeCom.initMarketGoodList()
+  public initExchangeList() {
+    this._exchangeCom.initExchangeList()
   }
   /**
    * 获取物品
@@ -70,8 +70,8 @@ export default class exchangeView {
    * 出售框
    */
   public showBuyTip(id: string) {
-    this._exchangeBuyCom = new exchangeBuyCom;
-    this._exchangeBuyCom.showSellTip(id);
+    this._tradeingHome = new tradeingHome;
+    this._tradeingHome.showSellTip(id);
   }
 
    /**

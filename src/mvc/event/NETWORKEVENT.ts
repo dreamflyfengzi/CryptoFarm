@@ -2,14 +2,18 @@
 * name;
 */
 export default class NETWORKEVENT{
+  
   public static CONNECTONOPEN:string = "pid_1000";//'websocket链接成功';
   public static CONNECTONCLOSE:string = "pid_1001";//"websocket断开链接";
 
 
   public static HTTP_LOGIN_OK:string = "HTTP_LOGIN_OK";//"用户登陆成功回调";
   public static HTTP_ERROR_BAK:string = "HTTP_ERROR_BAK";//"用户登陆失败回调";
-  public static GAMEFAILTIP:string = 'game_fail_tip';//'请求接口报错回调'
-  
+  public static GAMEFAILTIP:string = "game_fail_tip";//'请求接口报错回调'
+
+  // 基本信息相关
+  public static USERNICKNAMECHANGE:string = "user_nickname_change";//修改昵称
+  public static USERAVATARCHANGE:string = "user_avatar_change";//修改头像
   public static INITINFO:string = "init_info";//获取用户信息
   public static USERCOUNTINFO:string = 'user_count_info_bak';//玩家信息框获取的协议
   public static FARMINITFIELD:string = "init_field";//获取所有农田的信息
@@ -42,7 +46,8 @@ export default class NETWORKEVENT{
   public static LOTTERYACTBAK:string = 'lottery_act_bak';//提交订单的协议
   public static SHOWSELLTIP:string = 'show_sell_tip';//暂时
   
-  public static MARKETINFOBAK:string = 'market_info_bak';//获取仓库信息
+  // 交易市场
+  // public static MARKETINFOBAK:string = 'market_info_bak';//交易市场信息
 
   public static MATERIALINFOBAK:string = 'material_info';//材料订单
   public static SENDGOODMATERIALBAK:string = 'send_good_material_bak';//材料订单
@@ -52,6 +57,7 @@ export default class NETWORKEVENT{
    */
   public static ANIMALPRODUCTMATURE = "animal_product_mature";//动物产品成熟
 
+
   /**
    * Exchange
    * 交易市场部分
@@ -59,4 +65,6 @@ export default class NETWORKEVENT{
   public static EXCHANGEINFOBAK:string = 'exchange_info_bak';//返回市场交易信息  市场   传递信息+筛选类型
   public static EXCHANGEMYMATERIAL:string = 'exchange_my_material' //返回我的可出售物品信息
   // public static 
+
+
 }

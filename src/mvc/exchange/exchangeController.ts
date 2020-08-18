@@ -21,7 +21,7 @@ export default class exchangeController {
   constructor() {
     // this.model = new exchangeModel;
     this._network = new exchangeNetwork;
-    // Laya.stage.on(NETWORKEVENT.EXCHANGEINFOBAK, this, this._network.MarketInfoBak);//获取市场信息
+    Laya.stage.on(NETWORKEVENT.EXCHANGEINFOBAK, this, this._network.ExchangeInfoBak);//获取市场信息
     // Laya.stage.on(NETWORKEVENT.LOTTERYINFOBAK,this,this._network.LotteryInfoBak);//获取当天市场列表的协议
     // Laya.stage.on(NETWORKEVENT.SENDGOODBAK,this,this._network.SendGoodBak);//获取当天市场列表的协议
     // Laya.stage.on(NETWORKEVENT.LOTTERYACTBAK,this,this._network.LotteryActBak);//提交市场协议
@@ -39,10 +39,10 @@ export default class exchangeController {
    * initMarketGoodList 
    * 市场列表
    */
-  public initMarketGoodList() {
+  public initExchangeList() {
     if (this._exchangeView) {
       //初始化视图的类
-      this._exchangeView.initMarketGoodList();
+      this._exchangeView.initExchangeList();
     }
   }
   /**

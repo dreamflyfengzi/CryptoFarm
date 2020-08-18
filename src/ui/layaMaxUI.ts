@@ -59,6 +59,20 @@ export module ui.base.scene {
     REG("ui.base.scene.topSceneUI",topSceneUI);
 }
 export module ui.base.tip {
+    export class avatar_tipUI extends Laya.Scene {
+		public outsider:Laya.Image;
+		public title:Laya.Label;
+		public get_btn:Laya.Button;
+		public confirm_btn:Laya.Label;
+		public close_btn:Laya.Button;
+		public avatar_list:Laya.List;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("base/tip/avatar_tip");
+        }
+    }
+    REG("ui.base.tip.avatar_tipUI",avatar_tipUI);
     export class baseTipsUI extends Laya.Scene {
 		public outsider:Laya.Image;
 		public title:Laya.Label;
@@ -90,6 +104,20 @@ export module ui.base.tip {
         }
     }
     REG("ui.base.tip.gold_tipUI",gold_tipUI);
+    export class nickname_tipUI extends Laya.Scene {
+		public outsider:Laya.Image;
+		public title:Laya.Label;
+		public tips_text:Laya.TextInput;
+		public get_btn:Laya.Button;
+		public confirm_btn:Laya.Label;
+		public close_btn:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("base/tip/nickname_tip");
+        }
+    }
+    REG("ui.base.tip.nickname_tipUI",nickname_tipUI);
     export class popupUI extends Laya.Scene {
 		public top:Laya.Image;
 		public main_bg:Laya.Image;
@@ -141,14 +169,18 @@ export module ui.base.tip {
 		public n0:Laya.Image;
 		public n20:Laya.Image;
 		public n1:Laya.Sprite;
-		public user_header:Laya.Sprite;
-		public n18:Laya.Label;
+		public ugrade:Laya.Label;
 		public uname:Laya.Label;
 		public n22:Laya.Label;
 		public id:Laya.Label;
 		public close_btn:Laya.Button;
 		public n32:Laya.Label;
 		public change_name:Laya.Sprite;
+		public usericon:Laya.Box;
+		public user_header:Laya.Image;
+		public change_userpic:Laya.Sprite;
+		public crops_list:Laya.List;
+		public next_grade:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -186,52 +218,22 @@ export module ui.email {
     REG("ui.email.emailUI",emailUI);
 }
 export module ui.exchange {
-    export class buyBulletUI extends Laya.Scene {
-		public n0:Laya.Image;
-		public close_btn:Laya.Sprite;
-		public icon:Laya.Image;
-		public good_name:Laya.Label;
-		public item_n1:Laya.Image;
-		public n2:Laya.Label;
-		public seller:Laya.Label;
-		public n3:Laya.Label;
-		public price:Laya.Label;
-		public company:Laya.Label;
-		public describe:Laya.Label;
-		public buy_btn:Laya.Button;
-		public cancel:Laya.Button;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("exchange/buyBullet");
-        }
-    }
-    REG("ui.exchange.buyBulletUI",buyBulletUI);
     export class exchangeUI extends Laya.Scene {
 		public n1:Laya.Image;
-		public n0:Laya.Image;
-		public n4:Laya.Image;
-		public n2:Laya.Sprite;
-		public n3:Laya.Sprite;
-		public n5:Laya.Label;
 		public close_btn:Laya.Sprite;
-		public my_list:Laya.List;
-		public market_list:Laya.List;
-		public order_item:Laya.Box;
-		public order_n0:Laya.Image;
-		public order_gold_val:Laya.Label;
-		public detailed:Laya.Image;
-		public n8:Laya.Image;
-		public material_btn:Laya.Button;
-		public market_btn:Laya.Button;
-		public paging:Laya.Box;
-		public paging_bg:Laya.Sprite;
-		public paging_last_btn:Laya.Sprite;
-		public paging_next_btn:Laya.Sprite;
-		public paging_num:Laya.Label;
+		public n5:Laya.Label;
 		public total:Laya.Label;
 		public total_num:Laya.Label;
+		public list:Laya.List;
+		public order_item:Laya.Box;
+		public order_n0:Laya.Image;
+		public detailed:Laya.Image;
+		public order_gold_price:Laya.Label;
 		public screen_btn:Laya.Button;
+		public crops_btn:Laya.Image;
+		public product_btn:Laya.Sprite;
+		public market_type:Laya.Label;
+		public tool_btn:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -274,6 +276,15 @@ export module ui.exchange {
         }
     }
     REG("ui.exchange.selltipUI",selltipUI);
+    export class tradeingHomeUI extends Laya.Scene {
+		public return_btn:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("exchange/tradeingHome");
+        }
+    }
+    REG("ui.exchange.tradeingHomeUI",tradeingHomeUI);
 }
 export module ui.factory {
     export class baseFactoryUI extends Laya.Scene {
@@ -422,7 +433,6 @@ export module ui.factory {
 }
 export module ui.farm {
     export class farmIndexsceneUI extends Laya.Scene {
-		public balloon_onbase:Laya.FrameAnimation;
 		public balloon_flyout:Laya.FrameAnimation;
 		public balloon_flyin:Laya.FrameAnimation;
 		public farmbg_1:Laya.Sprite;
@@ -433,17 +443,11 @@ export module ui.farm {
 		public email:Laya.Button;
 		public building:Laya.Button;
 		public upgrade:Laya.Button;
-		public cow_box:Laya.Box;
-		public animal_cow:Laya.Animation;
-		public chicken_box:Laya.Box;
-		public animal_chicken:Laya.Animation;
-		public pig_box:Laya.Box;
-		public animal_pig:Laya.Animation;
-		public exchange:Laya.Sprite;
 		public bg_kuan:Laya.Box;
 		public n71:Laya.Sprite;
 		public n72:Laya.Sprite;
 		public n74:Laya.Image;
+		public exchange:Laya.Image;
 		public material_box:Laya.Box;
 		public material_order:Laya.Sprite;
 		public material_1:Laya.Image;
@@ -492,7 +496,6 @@ export module ui.farm {
 		public n0:Laya.Image;
 		public seep_pic:Laya.Sprite;
 		public n2:Laya.Image;
-		public n3:Laya.Sprite;
 		public gold:laya.display.Text;
 		public suo_div:Laya.Box;
 		public n4:Laya.Image;
@@ -507,10 +510,7 @@ export module ui.farm {
     export class seedListUI extends Laya.Scene {
 		public n1:Laya.Image;
 		public seed_list:Laya.List;
-		public n9:Laya.Image;
 		public seep_pic:Laya.Image;
-		public n2:Laya.Image;
-		public n3:Laya.Sprite;
 		public suo_div:Laya.Box;
 		public n4:Laya.Image;
 		public n5:Laya.Sprite;

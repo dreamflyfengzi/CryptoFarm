@@ -23,7 +23,6 @@ export default class farmModel{
 		 */
 		public setFarmSeed(data){
       this.seedData = data;
-      console.log(this.seedData)
 		}
 		/**
 		 * 设置选中田的ID

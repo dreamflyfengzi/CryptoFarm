@@ -29,7 +29,9 @@ export default class infoController{
 		Laya.stage.on(GAMEEVENT.HIDEINFODIV,this,this.hideInfoDiv);//隐藏用户信息
 		Laya.stage.on(GAMEEVENT.SHOWINFODIV,this,this.showInfoDiv);//显示用户信息
 		Laya.stage.on(NETWORKEVENT.SENDUSERGRADEUP,this,this._network.SendUserGradeUp);//显示用户信息	
-		Laya.stage.on(NETWORKEVENT.USERCOUNTINFO,this,this._network.UserCountInfo);//玩家信息框获取的协议
+    Laya.stage.on(NETWORKEVENT.USERCOUNTINFO,this,this._network.UserCountInfo);//玩家信息框获取的协议
+    Laya.stage.on(NETWORKEVENT.USERNICKNAMECHANGE,this, this.refreshUserInfo,['changeNickName']); //修改昵称成功
+    Laya.stage.on(NETWORKEVENT.USERAVATARCHANGE,this, this.refreshUserInfo,['changeAvatar']); //修改昵称成功
 	}
 	// /**添加用户信息的内容 */
 	public onShow(){
@@ -90,5 +92,28 @@ export default class infoController{
 		this._infoview.infoUserUpgradeTip(data);
 	}
 	
-	
+	/**
+   * 改变昵称
+   * infoUserChangeNickName
+   */
+  public infoUserChangeNickName () {
+    this._infoview.infoUserChangeNickName();
+  }
+  
+  /**
+   * 改变头像
+   * @param type infoUserChangePic
+   */
+  public infoUserChangePic () {
+    this._infoview.infoUserChangePic();
+  }
+
+  /**
+   * 刷新用户信息
+   */
+  public refreshUserInfo (type) {
+  
+      this._infoview.refreshUserInfo(type);
+    
+  }
 }
