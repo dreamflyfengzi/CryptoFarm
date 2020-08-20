@@ -11,8 +11,11 @@ export default class resConfig {
   ]
 
   public static animalRes: Array<any> = [
-    // { url: resConfig._url + 'animal/U135_1.json', type: Laya.Loader.ATLAS, sign: 'U135_1' },
-    // { url: resConfig._url + 'animal/U135_1.png', type: Laya.Loader.IMAGE},
+    // { url: resConfig._url + 'animal/NI_02_ske.json', type: Laya.Loader.ATLAS, sign: 'NI_02_tex' },
+    // { url: resConfig._url + 'animal/NI_02_tex.json', type: Laya.Loader.JSON, sign: 'NI_02_tex' },
+    // { url: resConfig._url + 'animal/NI_02_tex.png', type: Laya.Loader.IMAGE},
+    // { url: resConfig._url + 'res/atlas/animal.atlas',  type: Laya.Loader.ATLAS, sign: 'animal' },
+    // { url: resConfig._url + 'res/atlas/animal.png', type: Laya.Loader.IMAGE },
   ]
   /**字体资源 */
   public static fontRes: Array<any> = [
@@ -32,22 +35,13 @@ export default class resConfig {
     // { url: resConfig._url + 'res/atlas/resource/tools.atlas', type: Laya.Loader.ATLAS, sign: 'products' },
     // { url: resConfig._url + 'res/atlas/resource/products.png', type: Laya.Loader.IMAGE },
     // { url: resConfig._url + 'res/atlas/resource/tools.png', type: Laya.Loader.IMAGE },
-    //动物资源
-    // { url: resConfig._url + 'animal/Sheep.png', type: Laya.Loader.IMAGE },
-    // { url: resConfig._url + 'animal/Sheep.atlas', type: Laya.Loader.ATLAS, sign: 'Sheep' },
-    { url: resConfig._url + 'res/atlas/animal/Sheep.atlas',  type: Laya.Loader.ATLAS, sign: 'Sheep' },
-    { url: resConfig._url + 'res/atlas/animal/Sheep.png', type: Laya.Loader.IMAGE },
-    // { url: resConfig._url + 'animal/Sheep.json', type: Laya.Loader.ATLAS, sign: 'Sheep' },
-    // { url: resConfig._url + 'res/atlas/animal/muchang_niumc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_niumc' },
-    // { url: resConfig._url + 'res/atlas/animal/muchang_niumc.png', type: Laya.Loader.IMAGE },
-    // { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_yangmc' },
-    // { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.png', type: Laya.Loader.IMAGE },
+   
     //base
     { url: resConfig._url + 'res/atlas/base.atlas', type: Laya.Loader.ATLAS, sign: 'base' },
     { url: resConfig._url + 'res/atlas/base.png', type: Laya.Loader.IMAGE },
     { url: resConfig._url + 'res/atlas/product.atlas', type: Laya.Loader.ATLAS, sign: 'product' },
     { url: resConfig._url + 'res/atlas/product.png', type: Laya.Loader.IMAGE },
-    { url: resConfig._url + 'res/atlas/animal.atlas', type: Laya.Loader.ATLAS, sign: 'animal' },
+    // { url: resConfig._url + 'res/atlas/animal.atlas', type: Laya.Loader.ATLAS, sign: 'animal' },
     { url: resConfig._url + 'res/atlas/main.atlas', type: Laya.Loader.ATLAS, sign: 'main' },
     { url: resConfig._url + 'res/atlas/farm.atlas', type: Laya.Loader.ATLAS, sign: 'farm' },
     { url: resConfig._url + 'res/atlas/warehouse.atlas', type: Laya.Loader.ATLAS, sign: 'warehouse' },
@@ -56,7 +50,7 @@ export default class resConfig {
     { url: resConfig._url + 'res/atlas/character.atlas', type: Laya.Loader.ATLAS, sign: 'character' },
     { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
     { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
-    { url: resConfig._url + 'res/atlas/animal.png', type: Laya.Loader.IMAGE },
+    // { url: resConfig._url + 'res/atlas/animal.png', type: Laya.Loader.IMAGE },
     { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
     { url: resConfig._url + 'res/atlas/farm.png', type: Laya.Loader.IMAGE },
     { url: resConfig._url + 'res/atlas/farm1.png', type: Laya.Loader.IMAGE },

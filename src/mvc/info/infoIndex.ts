@@ -12,11 +12,15 @@ import factoryController from '../factory/factoryController'
 import webSocketJson from '../../net/webSocketJson'
 import httpJson from '../../net/httpJson'
 import bankController from '../bank/bankController'
+import mailController from '../mail/mailController'
 export class infoIndex extends baseWindow {
 
   private _topSence: Laya.Sprite;//顶层对象
   private _diamond_box: Laya.Box; //钻石框
   private _gold_box: Laya.Box; //金币框
+  private _mail_btn:Laya.Sprite;//邮箱按钮
+  private _help_btn:Laya.Sprite;//帮助按钮
+  private _setting_btn:Laya.Sprite;//设置按钮
   // //用户的信息
   // private _top_div:fairygui.GGroup;
   // private _bottom_div:fairygui.GGroup;
@@ -45,8 +49,14 @@ export class infoIndex extends baseWindow {
     });
     this._diamond_box = this._topSence.scene.diamond_kuan; //钻石
     this._gold_box = this._topSence.scene.gold_kuan; //金币
+    this._mail_btn = this._topSence.scene.mail_btn; //邮箱
+    this._help_btn = this._topSence.scene.help_btn; //帮助
+    this._help_btn = this._topSence.scene.setting_kuan; //设置
     this._diamond_box.on(Laya.Event.CLICK,this,this.showBank,['diamond']);
     this._gold_box.on(Laya.Event.CLICK,this,this.showBank,['gold']);
+    this._mail_btn.on(Laya.Event.CLICK,this,this.showMail);
+    // this._help_btn.on(Laya.Event.CLICK,this,this.showHelp);
+    // this._help_btn.on(Laya.Event.CLICK,this,this.showSetting);
     //暂时
     // this._topSence.scene.gold_kuan.on(Laya.Event.CLICK, this, function () {
     //   Laya.stage.event(NETWORKEVENT.SENDUSERGRADEUP)
@@ -176,5 +186,16 @@ export class infoIndex extends baseWindow {
     //   // Laya.Tween.to(this._gold_box.getChildByName('bank_btn'),{scaleX:1.2,scaleY:1.2},1200) //todo放大效果
     // }
     bankController.getInstance().onShowBank(type);
+  }
+
+  /**
+   * 邮箱
+   */
+  private showMail(){
+    // if (type =='gold') {
+    //   // this._gold_box.getChildByName('bank_btn')
+    //   // Laya.Tween.to(this._gold_box.getChildByName('bank_btn'),{scaleX:1.2,scaleY:1.2},1200) //todo放大效果
+    // }
+    mailController.getInstance().onShowMail();
   }
 }

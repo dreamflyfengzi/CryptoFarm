@@ -18,9 +18,9 @@ P 4A24FA8C pic_xing1.png
 P 38CF3941 pic_xing2.png
 R 2486F677 pic_yingzijiao.png
 D animal
-R 51D87F27 Sheep.atlas
-R 301EEA26 Sheep.json
-P 729ED113 Sheep.png
+R 349590E7 NIU_01_ske_ske.json
+R D192E3CC NIU_01_ske_tex.json
+S 60254AEB NIU_01_ske_tex.png
 D avatar
 P C095886C Avatar10Disable.png
 P B350BBC0 Avatar10Enable.png
@@ -49,6 +49,7 @@ P E2F98575 balloon.png
 P BD636F4A balloon2.png
 P FC77DEB3 balloon3.png
 P 9CE6D940 balloonbase.png
+P 95ED4735 bus.png
 P 9FF0ABF3 Button_00.png
 P C045C216 Button_2.png
 P DBAF1467 Button_3.png
@@ -64,15 +65,25 @@ P D04FBF46 Cash_pack_03.png
 P 15E74F2A Cash_pack_04.png
 P A77FD4AD Cash_pack_05.png
 P E23A0432 Cash_pack_06.png
+P 311FBB2E close_1.png
 P 8BF26CD2 Coin_pack_01.png
 P E37472F5 Coin_pack_02.png
 P A4C86322 Coin_pack_03.png
 P 0C849C1D Coin_pack_04.png
 P 1CA04E87 Coin_pack_05.png
 P AE6B49C3 Coin_pack_06.png
+P D84B7906 common_button_option_off (2).png
+P 212C6F4F common_button_option_on (2).png
+P 8F8E4370 common_icon_small_deco.png
+P A10E2520 common_icon_small_item (2).png
+P 9035F90A common_icon_small_resident_bonus_box_03 (2).png
+P 14629522 common_icon_small_resident_bonus_box_04 (2).png
+P 19E5A84A common_icon_small_resident_bonus_box_05 (2).png
 P 5C59FC8A common_window_bg_wood01_dot_line.png
+P 29D83CB2 confirm_1.png
 P 1EAF2202 DECORATION 01.png
 P CDA4F48D DECORATION 04.png
+P 305AE3AB diamond.png
 R 709BFB51 fanpage_bg2.png
 P 0E92E85A FARM 01.png
 P C1331C25 FARM 02.png
@@ -94,6 +105,7 @@ P 1C64F056 gem_shop_icon_bgitem.png
 P 962B0BC9 gem_shop_icon_bgitem2.png
 P B1C35BE4 gem_shop_shelf.png
 P 01333C1F gem_shop_tag.png
+P 382FEFF6 help.png
 P A472A4A5 Icon Clock.png
 P C8D501CD Icon_Clock_02.png
 P 62B09764 Icon_Coin.png
@@ -109,6 +121,12 @@ P FDB7E435 Label_01.png
 P 89948021 Label_02.png
 P A2094CCC Label_Offer.png
 P 431EDFA4 LabelNew.png
+R D20BFC17 mailbg.png
+P 755115E1 npc_talkbox_order_box_arrow (2).png
+P CA300507 option_bgm_off (2).png
+P AF039A41 option_bgm_on (2).png
+P 725BAB54 option_eff_off (2).png
+P AFB72345 option_eff_on (2).png
 P A4CC033B Panel_01$bar.png
 P 320A5E6B Panel_01.png
 P 82506B12 Popcorn Enable.png
@@ -126,12 +144,12 @@ P 9301E786 shop_item_stand_basic.png
 P 9ABF7125 shop_shelf_gacha.png
 P 95954EE2 Slide 2.png
 P 1E109192 social_list_portrait_cover.png
+P 84304F06 splice.png
 P D3D262F7 TitleBar.png
 R 9707DC89 top_shop.png
 P AD978174 toptitle.png
 P 9855C156 ui_1.png
 P 11A83F92 ui_popup3.png
-R 2213C8C8 www.layabox.com.html
 D character
 P 31ED3016 pic_dingdan.png
 R 08F1126D pic_guang.png
@@ -311,11 +329,11 @@ P A52DD392 shifei_sf01.png
 P 45456C4B shouhuo.png
 P 56746E5D shu.png
 D font
-R 0657DF52 gameFont.fnt
+R 9B2722D6 gameFont.fnt
 P 759C34B5 gameFont.png
-R 673FA22B gameFont1.fnt
+R F467498C gameFont1.fnt
 P D10CC82E gameFont1.png
-R 285BA834 public_font.fnt
+R EDB789F8 public_font.fnt
 P 7518985D public_font.png
 D loading
 P 553A8BCB 0_00000.png
@@ -586,6 +604,7 @@ P AD3F7814 common_inventory_gauge_bg_hud.png
 P F186FEB5 common_inventory_shelf.png
 P 12442582 common_window_bg_wood01.png
 P 5A312DBD common_window_box_dark.png
+R 75260E9A desktop.ini
 P D4AF2D56 Icon_Checked.png
 P 3B67C706 IconProduct1.png
 P 4D3497EA IconProduct2.png
@@ -610,12 +629,6 @@ P 60BD3D51 tool004.png
 P F60248F3 toppan.png
 P 11A83F92 ui_popup3.png
 P 9BB9A288 windowmain.png
-D base/www.layabox.com_files
-R 64297C33 bundle.js.下载
-R D74517FF index.js.下载
-R 5EF50835 laya.core.js.下载
-R 835A5D4A laya.physics.js.下载
-R BAE0216E laya.ui.js.下载
 D resource/crops
 P C4871807 Cacao_1.png
 P E5343F54 Cacao_2.png
@@ -657,5 +670,3 @@ P E05D4BF3 Wheat_2.png
 P 5CF8F3FC Wheat_3.png
 P C1ECBD08 WheatDisable.png
 P 6074980E WheatEnable.png
-D resource/products
-D resource/tools

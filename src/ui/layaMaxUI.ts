@@ -48,6 +48,9 @@ export module ui.base.scene {
 		public factory_fu_btn:Laya.Box;
 		public fu_btn_txt:Laya.Button;
 		public fu_txt:Laya.Sprite;
+		public setting_btn:Laya.Sprite;
+		public mail_btn:Laya.Sprite;
+		public help_btn:Laya.Sprite;
 		public current_btn:Laya.Image;
 		public main_icon:Laya.Image;
         constructor(){ super()}
@@ -62,10 +65,7 @@ export module ui.base.tip {
     export class avatar_tipUI extends Laya.Scene {
 		public outsider:Laya.Image;
 		public title:Laya.Label;
-		public get_btn:Laya.Button;
-		public confirm_btn:Laya.Label;
 		public close_btn:Laya.Button;
-		public avatar_list:Laya.List;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -207,8 +207,11 @@ export module ui.base {
 export module ui.email {
     export class emailUI extends Laya.Scene {
 		public n1:Laya.Image;
-		public n0:Laya.Image;
 		public close_btn:Laya.Sprite;
+		public n5:Laya.Label;
+		public mail_num:Laya.Label;
+		public help_btn:Laya.Sprite;
+		public mail_list:Laya.List;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -736,6 +739,22 @@ export module ui.rank {
         }
     }
     REG("ui.rank.rankUI",rankUI);
+}
+export module ui.setting {
+    export class settingUI extends Laya.Scene {
+		public outsider:Laya.Image;
+		public title:Laya.Label;
+		public get_btn:Laya.Button;
+		public confirm_btn:Laya.Label;
+		public close_btn:Laya.Button;
+		public avatar_list:Laya.List;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("setting/setting");
+        }
+    }
+    REG("ui.setting.settingUI",settingUI);
 }
 export module ui.warehouse {
     export class sell_tipUI extends Laya.Scene {

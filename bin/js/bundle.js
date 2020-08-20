@@ -2,7 +2,8 @@
     'use strict';
 
     class GameConfig {
-        constructor() { }
+        constructor() {
+        }
         static init() {
             var reg = Laya.ClassUtils.regClass;
         }
@@ -140,6 +141,7 @@
             this.lotteryInfo = {};
             this.materialInfo = {};
             this.marketInfo = {};
+            this.mailInfo = {};
             this.animalInfo = {
                 "chicken": {
                     "is_lock": 0,
@@ -419,6 +421,9 @@
                     }
                 };
             }
+        }
+        setMailInfo(data) {
+            this.mailInfo = data;
         }
     }
 
@@ -1120,6 +1125,7 @@
     NETWORKEVENT.ANIMALPRODUCTMATURE = "animal_product_mature";
     NETWORKEVENT.EXCHANGEINFOBAK = 'exchange_info_bak';
     NETWORKEVENT.EXCHANGEMYMATERIAL = 'exchange_my_material';
+    NETWORKEVENT.MAILINFOBAK = 'mail_info_bak';
 
     class GAMECONFIG {
     }
@@ -11381,6 +11387,181 @@
         }
     }
 
+    class mailIndex extends baseTips {
+        constructor() {
+            super();
+        }
+        onShowMail() {
+            this._mailScene = new ui.email.emailUI;
+            this._mailScene.pivotX = 0.5 * this._mailScene.width;
+            this._mailScene.pivotY = 0.5 * this._mailScene.height;
+            this.addChild(this._mailScene);
+            this.showLayer();
+            this._mailScene.scene.close_btn.on(Laya.Event.CLICK, this, this.closeScene);
+            this._mailList = this._mailScene.scene.mail_list;
+            this.getMailInfo();
+        }
+        getMailInfo() {
+            Laya.stage.event(NETWORKEVENT.MAILINFOBAK);
+        }
+        initMailList() {
+            var data = dataGlobal.getInstance().mailInfo;
+            this._mailList.dataSource = [];
+            for (var i in data) {
+                var _item = {
+                    id: data[i].mail_id,
+                    gift: {
+                        skin: ''
+                    },
+                    from_text: {
+                        text: ""
+                    },
+                    describe_list: {
+                        dataSource: []
+                    },
+                    operate_btn: {
+                        gray: false
+                    }
+                };
+                if (data[i].type == 1) {
+                    _item.gift.skin = 'base/common_icon_small_resident_bonus_box_04 (2).png';
+                }
+                _item.from_text.text = data[i].text;
+                _item.describe_list.dataSource = data[i].return;
+                if (data[i].return) {
+                    for (var f in _item.describe_list.dataSource) {
+                        if (_item.describe_list.dataSource[f].type == 'exp') {
+                            var _data = _item.describe_list.dataSource[f];
+                            _item.describe_list.dataSource[f] = {
+                                gift_icon: {
+                                    skin: "base/Icon_Experience_03.png"
+                                },
+                                gift_num: {
+                                    text: _data.num
+                                }
+                            };
+                        }
+                        if (_item.describe_list.dataSource[f].type == 'diamond') {
+                            var _data = _item.describe_list.dataSource[f];
+                            _item.describe_list.dataSource[f] = {
+                                gift_icon: {
+                                    skin: "base/diamond.png"
+                                },
+                                gift_num: {
+                                    text: _data.num
+                                }
+                            };
+                        }
+                    }
+                }
+                if (data[i].is_harvest == 0) {
+                    _item.operate_btn.gray = false;
+                }
+                else {
+                    _item.operate_btn.gray = true;
+                }
+                this._mailList.addItem(_item);
+                this._mailList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
+            }
+        }
+        itemSelectHandler(cell, index) {
+            cell.getChildByName("operate_btn").on(Laya.Event.CLICK, this, this.onCellClick, [cell, index]);
+        }
+        onCellClick(cell, index) {
+            console.log(cell.dataSource.id, index);
+            var mailInfo = dataGlobal.getInstance().mailInfo[index];
+            console.log(mailInfo);
+        }
+        closeScene() {
+            this.hideLayer();
+        }
+    }
+
+    class mailView {
+        constructor() {
+        }
+        onShowMail() {
+            if (this._mailCom == null) {
+                this._mailCom = new mailIndex;
+            }
+            this._mailCom.onShowMail();
+        }
+        initMailList() {
+            this._mailCom.initMailList();
+        }
+    }
+
+    class orderNetwork {
+        constructor() {
+        }
+        MailInfoBak(data) {
+            data = {
+                "ga": "mail_info_bak",
+                "gd": [
+                    {
+                        "mail_id": "ml01",
+                        "type": "1",
+                        "text": "交易达成！",
+                        "is_harvest": "0",
+                        "return": [
+                            {
+                                "type": "diamond",
+                                "num": "300"
+                            },
+                            {
+                                "type": "exp",
+                                "num": "300"
+                            }
+                        ]
+                    },
+                    {
+                        "mail_id": "ml02",
+                        "type": "1",
+                        "text": "交易达成！",
+                        "is_harvest": "1",
+                        "return": [
+                            {
+                                "type": "exp",
+                                "num": "300"
+                            },
+                            {
+                                "type": "diamond",
+                                "num": "300"
+                            }
+                        ]
+                    },
+                ],
+                "code": 1
+            };
+            data = data.gd;
+            dataGlobal.getInstance().setMailInfo(data);
+            mailController.getInstance().initMailList();
+        }
+    }
+
+    class mailController {
+        constructor() {
+            this._mailView = new mailView;
+            this._network = new orderNetwork;
+            Laya.stage.on(NETWORKEVENT.MAILINFOBAK, this, this._network.MailInfoBak);
+        }
+        static getInstance() {
+            if (mailController._instance == null) {
+                mailController._instance = new mailController;
+            }
+            return mailController._instance;
+        }
+        onShowMail() {
+            if (this._mailView == null) {
+                this._mailView = new mailView;
+            }
+            this._mailView.onShowMail();
+        }
+        initMailList() {
+            this._mailView.initMailList();
+        }
+    }
+
     class infoIndex extends baseWindow {
         constructor() {
             super();
@@ -11396,8 +11577,12 @@
             });
             this._diamond_box = this._topSence.scene.diamond_kuan;
             this._gold_box = this._topSence.scene.gold_kuan;
+            this._mail_btn = this._topSence.scene.mail_btn;
+            this._help_btn = this._topSence.scene.help_btn;
+            this._help_btn = this._topSence.scene.setting_kuan;
             this._diamond_box.on(Laya.Event.CLICK, this, this.showBank, ['diamond']);
             this._gold_box.on(Laya.Event.CLICK, this, this.showBank, ['gold']);
+            this._mail_btn.on(Laya.Event.CLICK, this, this.showMail);
             this.adaption();
             this.showChild(this._topSence);
             this._topSence.mouseThrough = true;
@@ -11462,6 +11647,9 @@
         }
         showBank(type) {
             bankController.getInstance().onShowBank(type);
+        }
+        showMail() {
+            mailController.getInstance().onShowMail();
         }
     }
 
@@ -11732,7 +11920,6 @@
                 this._infoCom = new infoIndex;
             }
             this._infoCom.onShow();
-            console.log(this._infoCom.mouseThrough);
         }
         onShowUserInfo() {
             this._infoCom.onShowUserInfo();
@@ -12280,7 +12467,7 @@
         }
     }
 
-    class orderNetwork {
+    class orderNetwork$1 {
         constructor() {
         }
         LotteryInfoBak(data) {
@@ -12379,7 +12566,7 @@
     class orderController {
         constructor() {
             this.model = new orderModel;
-            this._network = new orderNetwork;
+            this._network = new orderNetwork$1;
             Laya.stage.on(NETWORKEVENT.LOTTERYINFOBAK, this, this._network.LotteryInfoBak);
             Laya.stage.on(NETWORKEVENT.SENDGOODBAK, this, this._network.SendGoodBak);
             Laya.stage.on(NETWORKEVENT.LOTTERYACTBAK, this, this._network.LotteryActBak);
@@ -13046,13 +13233,10 @@
         { url: resConfig._url + 'res/atlas/avatar.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/resource/crops.atlas', type: Laya.Loader.ATLAS, sign: 'crops' },
         { url: resConfig._url + 'res/atlas/resource/crops.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/animal/Sheep.atlas', type: Laya.Loader.ATLAS, sign: 'Sheep' },
-        { url: resConfig._url + 'res/atlas/animal/Sheep.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/base.atlas', type: Laya.Loader.ATLAS, sign: 'base' },
         { url: resConfig._url + 'res/atlas/base.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/product.atlas', type: Laya.Loader.ATLAS, sign: 'product' },
         { url: resConfig._url + 'res/atlas/product.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/animal.atlas', type: Laya.Loader.ATLAS, sign: 'animal' },
         { url: resConfig._url + 'res/atlas/main.atlas', type: Laya.Loader.ATLAS, sign: 'main' },
         { url: resConfig._url + 'res/atlas/farm.atlas', type: Laya.Loader.ATLAS, sign: 'farm' },
         { url: resConfig._url + 'res/atlas/warehouse.atlas', type: Laya.Loader.ATLAS, sign: 'warehouse' },
@@ -13061,7 +13245,6 @@
         { url: resConfig._url + 'res/atlas/character.atlas', type: Laya.Loader.ATLAS, sign: 'character' },
         { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
-        { url: resConfig._url + 'res/atlas/animal.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/farm.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/farm1.png', type: Laya.Loader.IMAGE },
@@ -13459,7 +13642,7 @@
         }
     }
 
-    class orderNetwork$1 {
+    class orderNetwork$2 {
         constructor() {
         }
         MaterialInfoBak(data) {
@@ -13551,7 +13734,7 @@
     class materialController {
         constructor() {
             this.model = new materialModel;
-            this._network = new orderNetwork$1;
+            this._network = new orderNetwork$2;
             Laya.stage.on(NETWORKEVENT.MATERIALINFOBAK, this, this._network.MaterialInfoBak);
             Laya.stage.on(NETWORKEVENT.SENDGOODMATERIALBAK, this, this._network.SendGoodBak);
         }
@@ -13663,12 +13846,9 @@
         }
         initAnimal() {
             var ani = new Laya.Animation();
-            ani.loadAtlas("animal/Sheep.atlas");
-            ani.interval = 30;
-            ani.index = 1;
+            ani.loadAtlas("animal/NI_02_tex.json");
             ani.play();
             ani.pivot(100, 100);
-            ani.pos(Laya.stage.width / 2, Laya.stage.height / 2);
             Laya.stage.addChild(ani);
         }
         setAnimalTimer(type) {

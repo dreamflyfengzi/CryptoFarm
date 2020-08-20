@@ -76,6 +76,7 @@ export default class dataGlobal {
   public materialInfo: any;//订单任务
   public marketInfo: any;//市场信息
   public animalInfo: any;//动物信息
+  public mailInfo:any;//邮件信息
 
   // 交易市场
   public exchangeInfo:any; //use
@@ -118,6 +119,7 @@ export default class dataGlobal {
     this.lotteryInfo = {};
     this.materialInfo = {};
     this.marketInfo = {};
+    this.mailInfo = {};
 
     // 'next_seed'=>'下一级花田生长加速百分比',
     // 'next_exp'=>'花田的升下一级经验值',
@@ -573,6 +575,13 @@ export default class dataGlobal {
         }
       }
     }
+  }
+
+  /**
+   * 设置用户邮件信息
+   */
+  public setMailInfo(data:any) {
+      this.mailInfo = data;
   }
 
 }

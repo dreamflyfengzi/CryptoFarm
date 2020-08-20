@@ -23,7 +23,6 @@ export default class infoView {
     }
     this._infoCom.onShow();
     // this._infoCom.blendMode = true;
-    console.log(this._infoCom.mouseThrough)
   }
   /**
    * 设置页面用户信息

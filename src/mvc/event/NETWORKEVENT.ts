@@ -66,5 +66,7 @@ export default class NETWORKEVENT{
   public static EXCHANGEMYMATERIAL:string = 'exchange_my_material' //返回我的可出售物品信息
   // public static 
 
-
+  /**邮件相关 */
+  public static MAILINFOBAK:string = 'mail_info_bak';//获取邮件
+  public static MAILOPERATE:string = 'mail_operate';//收获返回物品
 }
