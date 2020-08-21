@@ -38,6 +38,9 @@ export default class farmSeedList extends ui.farm.seedListUI {
   //添加种子选项
   private addSeedItem(data) {
     this._dataSeedList = []
+    console.log(data)
+    console.log(data)
+    console.log(data)
     for (var i in data) {
 
       var _seedItem = {
@@ -56,6 +59,7 @@ export default class farmSeedList extends ui.farm.seedListUI {
         },
         visible: false
       };
+
       this.initSeedItem(_seedItem);
       this._dataSeedList.push(_seedItem)
     }
@@ -92,7 +96,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
       }
       this._dataFertilizer.push(_seedItem)
     }
-
 
   }
   //先初始化层
@@ -205,11 +208,11 @@ export default class farmSeedList extends ui.farm.seedListUI {
     var seed_arr = farmController.getInstance().model.seedData;
     var grade = dataGlobal.getInstance().userInfo.grade;
     var _id = seed_arr[index];
-    console.log(seed_arr,_id)
+    console.log(seed_arr, _id)
     var warehouse_num = dataGlobal.getInstance().userGoodInfo[_id.id].num;//查询仓库数量
     // var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     //获取种子列表信息
-    if (Number(warehouse_num)> 0) { //有库存
+    if (Number(warehouse_num) > 0) { //有库存
       cell.on(Laya.Event.CLICK, this, this.onClick, ['plant', { 'id': seed_arr[index].id }])
     } else { //库存不够
       //不可以解锁
@@ -235,7 +238,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
    * itemStatic:种子的状态
    * arr:种子的数据（id：种子的id，gold:所需的金币，grade:所需要的级别）
    */
-
   private onClick(itemStatic: string, arr: any) {
     tipController.getInstance();
     if (itemStatic == 'plant') {

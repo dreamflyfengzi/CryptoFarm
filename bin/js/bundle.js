@@ -9678,6 +9678,9 @@
         }
         addSeedItem(data) {
             this._dataSeedList = [];
+            console.log(data);
+            console.log(data);
+            console.log(data);
             for (var i in data) {
                 var _seedItem = {
                     id: 'seed_' + data[i].id,

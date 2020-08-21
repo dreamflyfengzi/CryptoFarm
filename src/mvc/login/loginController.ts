@@ -121,6 +121,6 @@ export default class loginController {
     if (this._loginview == null) {
       this._loginview = new loginView;
     }
-    this._loginview.init();
+    this._loginview.init(); 
   }
 }
