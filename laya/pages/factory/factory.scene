@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":329,
-    "selecteID":5,
+    "selecteID":330,
     "searchKey":"Scene",
     "props":{"x":0,"width":1246,"sceneColor":"#000000","pivotX":0,"height":2688},
     "nodeParent":-1,
-    "maxID":330,
+    "maxID":331,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -79,7 +79,7 @@
                     "x":30,
                     "type":"List",
                     "searchKey":"List,factory_div",
-                    "props":{"y":6693,"x":-2,"width":1246,"visible":false,"var":"factory_div","spaceY":70,"repeatY":3,"repeatX":2,"renderType":"render","height":2307},
+                    "props":{"y":6576,"x":-2118,"width":1246,"visible":false,"var":"factory_div","spaceY":70,"repeatY":3,"repeatX":2,"renderType":"render","height":2307},
                     "nodeParent":329,
                     "label":"factory_div",
                     "isOpen":false,
@@ -339,6 +339,20 @@
                                     "$HIDDEN":true
                                 }]
                         }]
+                },
+                {
+                    "x":30,
+                    "type":"Sprite",
+                    "searchKey":"Sprite",
+                    "props":{"y":6217,"x":265,"width":517,"texture":"factory/530057_1.png","height":477},
+                    "nodeParent":329,
+                    "label":"Sprite",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":330,
+                    "child":[
+                        ]
                 }],
             "$LOCKED":true,
             "$HIDDEN":false

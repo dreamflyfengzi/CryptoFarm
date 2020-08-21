@@ -88,9 +88,6 @@ export default class infoView {
 * 刷新用户信息
 */
   public refreshUserInfo(type) {
-    console.log(type)
-    console.log(type)
-    console.log(type)
     
     if (type == 'changeNickName') {
       this._infoNickNameTip.close();

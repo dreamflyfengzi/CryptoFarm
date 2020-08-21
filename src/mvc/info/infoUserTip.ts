@@ -25,7 +25,6 @@ export default class infoUserTip extends baseTips {
 
     //获取用户的信息
     var data = dataGlobal.getInstance().userInfo;
-    console.log(data)
     this._userInfoTip.scene.uname.text = data.nickname;
     this._userInfoTip.scene.id.text = data.uid;
     this._userInfoTip.scene.ugrade.text = data.grade;
@@ -71,9 +70,6 @@ export default class infoUserTip extends baseTips {
    */
   public renderUnlockingList(){
     var data = dataGlobal.getInstance().userInfo.lower_level_unlock;
-    console.log(data,data)
-    console.log(data,data)
-    console.log(data,data)
     this._unlockList = this._userInfoTip.scene.crops_list;
     this._unlockList.dataSource = [];
     for (var i in data ) {

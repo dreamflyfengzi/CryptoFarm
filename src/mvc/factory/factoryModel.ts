@@ -56,7 +56,6 @@ import httpJson from '../../net/httpJson'
 				},
 				'code':1
 			};
-			console.log("发送websocket数据",tmp_data);
 			tmp_websocket.sendMessage(tmp_data);
 			// Laya.stage.event(NETWORKEVENT.FACTORYGOODGETBAK);
     }

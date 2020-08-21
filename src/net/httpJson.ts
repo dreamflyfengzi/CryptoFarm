@@ -48,7 +48,6 @@ export default class httpJson {
 	
   */
   public httpPost(url: string, data: any) {
-    console.log(url,data)
     if (url == "") {
       console.log("没有输入提交地址");
       return;

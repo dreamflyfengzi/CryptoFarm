@@ -35,6 +35,7 @@ export default class tipController {
   }
   /**基础弹窗 */
   public baseTipsShow(title_txt: string, tips: string, info:object, confirm_fun: Function) {
+    console.log("提示1")
     if (this._basetipview == null) {
       this._basetipview = new basetipview();
     }
@@ -42,6 +43,7 @@ export default class tipController {
   }
   /**提醒弹窗 */
   public tipShow(content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
+    console.log("提示2")
     if (this._tipview == null) {
       this._tipview = new tipView();
     }
@@ -49,6 +51,7 @@ export default class tipController {
   }
   /**金币提醒弹窗 */
   public goldTipShow(title: string, content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
+    console.log("提示2")
     if (this._tipview == null) {
       this._tipview = new tipView;
     }

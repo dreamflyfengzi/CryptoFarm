@@ -36,6 +36,16 @@ export default class resConfig {
     // { url: resConfig._url + 'res/atlas/resource/products.png', type: Laya.Loader.IMAGE },
     // { url: resConfig._url + 'res/atlas/resource/tools.png', type: Laya.Loader.IMAGE },
    
+    //动物资源
+    // { url: resConfig._url + 'animal/Sheep.png', type: Laya.Loader.IMAGE },
+    // { url: resConfig._url + 'animal/Sheep.atlas', type: Laya.Loader.ATLAS, sign: 'Sheep' },
+    // { url: resConfig._url + 'res/atlas/animal/Sheep.atlas',  type: Laya.Loader.ATLAS, sign: 'Sheep' },
+    // { url: resConfig._url + 'res/atlas/animal/Sheep.png', type: Laya.Loader.IMAGE },
+    // { url: resConfig._url + 'animal/Sheep.json', type: Laya.Loader.ATLAS, sign: 'Sheep' },
+    // { url: resConfig._url + 'res/atlas/animal/muchang_niumc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_niumc' },
+    // { url: resConfig._url + 'res/atlas/animal/muchang_niumc.png', type: Laya.Loader.IMAGE },
+    // { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.atlas', type: Laya.Loader.ATLAS, sign: 'muchang_yangmc' },
+    // { url: resConfig._url + 'res/atlas/animal/muchang_yangmc.png', type: Laya.Loader.IMAGE },
     //base
     { url: resConfig._url + 'res/atlas/base.atlas', type: Laya.Loader.ATLAS, sign: 'base' },
     { url: resConfig._url + 'res/atlas/base.png', type: Laya.Loader.IMAGE },

@@ -150,7 +150,7 @@ export default class webSocketJson {
    * 处理接收到的数据
   */
   private onMessage(evt) {
-    console.log("onMessage", evt.data);
+    // console.log("onMessage", evt.data);
     if (evt.data != "PONG" && evt.data != "pong") {
       var tmp_data = JSON.parse(evt.data);
       if (typeof (tmp_data.ga) != "undefined") {

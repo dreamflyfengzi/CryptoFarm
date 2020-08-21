@@ -27,20 +27,18 @@ export default class tipIndex extends baseWindow {
    * @param cancel_fun   ：取消监听函数
    */
   public tipShow(content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
-    console.log(content_txt)
-    var _tipKuan = new ui.base.tishi_tipUI();
+    console.log(content_txt,confirm_txt,cancel_txt,confirm_fun,cancel_fun)
+    console.log(content_txt,confirm_txt,cancel_txt,confirm_fun,cancel_fun)
+    console.log(content_txt,confirm_txt,cancel_txt,confirm_fun,cancel_fun)
+    var _tipKuan = new ui.base.tip.holeTipUI();
     _tipKuan.content_txt.text = content_txt;
-    _tipKuan.confirm_btn.label = confirm_txt;
-    _tipKuan.cancel_btn.label = cancel_txt;
     // _tipKuan.confirm_btn.on(Laya.event.Click,this, confirm_fun);
     _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
-    _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, this.close);
+    _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
+    _tipKuan.confirm_btn.label = confirm_txt
+    _tipKuan.cancel_btn.label = cancel_txt
     _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
     _tipKuan.pivot(_tipKuan.width / 2, _tipKuan.height / 2);//设置轴心
-    // _tipKuan.cancel_btn.asLoader.onClick(this, cancel_fun);
-    // _tipKuan.close_btn.asLoader.onClick(this, this.close);
-    // _tipKuan.displayObject.pivotX = 0.5 * _tipKuan.displayObject.width;
-    // _tipKuan.displayObject.pivotY = 0.5 * _tipKuan.displayObject.height;
     this.addChild(_tipKuan);
     this.tweenShow();
   }
@@ -48,7 +46,6 @@ export default class tipIndex extends baseWindow {
     this.tweenHide();
   }
   public gameFailTip(data) {
-    console.log('错误提醒3')
     var myData = data.gd;
     this.tipShow(myData.msg, '确定', '取消', function () {
       this.close();
@@ -85,11 +82,9 @@ export default class tipIndex extends baseWindow {
    * @param cancel_fun   ：取消监听函数
    */
   public goldTipShow(title: string, content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
-     var _tipKuan = new ui.base.tishi_tipUI();
+     var _tipKuan = new ui.base.tip.holeTipUI();
      this.addChild(_tipKuan)
     _tipKuan.content_txt.text = content_txt;
-    _tipKuan.confirm_btn.label = confirm_txt;
-    _tipKuan.cancel_btn.label = cancel_txt;
     _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
     _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
     _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);

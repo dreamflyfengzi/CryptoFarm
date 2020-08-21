@@ -6,6 +6,8 @@ import dataJson from '../resconfig/dataJson'
 import dataGlobal from '../resconfig/dataGlobal'
 import httpJson from '../../net/httpJson'
 import CONST from '../../const/CONST'
+import GAMEEVENT from '../event/GAMEEVENT'
+import tipController from '../baseView/public/tip/tipController'
 export default class mailIndex extends baseTips {
   private _type: string;
   private _mailScene: Laya.Sprite;//顶层对象
@@ -44,6 +46,9 @@ export default class mailIndex extends baseTips {
  */
   public initMailList() {
     var data = dataGlobal.getInstance().mailInfo;//查询仓库的信息
+    //邮件总数
+    this._mailScene.scene.mail_num.text = Object.keys(data).length +'/100'
+
     this._mailList.dataSource = [];
     for (var i in data) {
       var _item = {
@@ -107,6 +112,8 @@ export default class mailIndex extends baseTips {
       this._mailList.addItem(_item)
       this._mailList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false)
     }
+    
+    this._mailScene.scene.help_btn.on(Laya.Event.CLICK,this,this.onClickHelp)
   }
 
    /**
@@ -142,4 +149,17 @@ export default class mailIndex extends baseTips {
   public closeScene() {
     this.hideLayer();
   }
+
+  /**
+   * 帮助提示
+   */
+  private onClickHelp() {    
+    tipController.getInstance()
+    console.log("帮助")
+    var confirm_fun = function (){
+        
+    }
+    Laya.stage.event(GAMEEVENT.GOLDTIP, ["提示", '当邮箱内的邮件超过上限时，每收到一封新邮件，将会永久删除一封最旧的邮件，为了避免不必要损失，请及时查收邮件。', {}, confirm_fun]);
+  }
+  
 }

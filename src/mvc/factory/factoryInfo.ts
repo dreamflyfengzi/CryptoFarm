@@ -247,7 +247,6 @@ export default class factoryInfo extends baseWindow {
     	},
     	'code':1
     };
-    console.log("发送websocket数据",tmp_data);
     tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FACTORYOPENSEATNUMBAK);
   }
@@ -274,7 +273,6 @@ export default class factoryInfo extends baseWindow {
     	},
     	'code':1
     };
-    console.log("发送websocket数据",tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL,tmp_data);
     // Laya.stage.event(NETWORKEVENT.SENDGOODBAK);
   }
@@ -403,7 +401,6 @@ export default class factoryInfo extends baseWindow {
     	},
     	'code':1
     };
-    console.log("发送websocket数据",tmp_data);
     tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FACTORYACTBAK);
   }

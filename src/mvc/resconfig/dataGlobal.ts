@@ -494,8 +494,8 @@ export default class dataGlobal {
    * @param type 
    */
   public setExchangeInfo(data:any) {
-    if (typeof data.type != 'undefined') { this.exchangeInfo.type = data.type }
-    if (typeof data.data_info != 'undefined') { this.marketInfo.data_info = data.data_info }
+    // if (typeof data.type != 'undefined') { this.exchangeInfo.type = data.type }
+    // if (typeof data.data_info != 'undefined') { this.marketInfo.data_info = data.data_info }
   }
 
   /**

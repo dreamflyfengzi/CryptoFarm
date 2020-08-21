@@ -30,14 +30,12 @@ export default class factoryIndex extends baseScene {
 
   private mouseDown() {
     this.downMouseY = Laya.stage.mouseY
-    console.log('鼠标按下', this.downMouseY)
     Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseMove)
     Laya.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseMoveOff)
   }
 
   private mouseMove() {
     let y = this.offsetY - (Laya.stage.mouseY - this.downMouseY)
-    console.log('鼠标移动', y)
     this.moveMap(y)
   }
 
@@ -104,7 +102,6 @@ export default class factoryIndex extends baseScene {
       'd': {},
       'code': 1
     };
-    console.log("发送http数据", tmp_data);
     tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
     // Laya.stage.event(NETWORKEVENT.SENDFACTORYBAK);
   }
@@ -260,7 +257,6 @@ export default class factoryIndex extends baseScene {
       },
       'code': 1
     };
-    console.log("发送websocket数据", tmp_data);
     tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FACTORYCREATEBAK);
 
@@ -279,7 +275,6 @@ export default class factoryIndex extends baseScene {
       },
       'code': 1
     };
-    console.log("发送websocket数据", tmp_data);
     tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FACTORYGOODSAVEBAK);
   }

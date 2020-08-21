@@ -114,8 +114,8 @@ export default class loginWin extends baseScene {
         "tid": CONST.IS_TB //非淘宝注册
       }
     };
+
     //看看有没有推广参数
-    console.log(tmp_dataGlobal.query);
     // if (typeof (tmp_dataGlobal.query) != "undefined" && tmp_dataGlobal.query.uid != "") {
     //   mydata.d.reid = tmp_dataGlobal.query.uid;
     // } else {
@@ -132,7 +132,6 @@ export default class loginWin extends baseScene {
     // if (typeof (tmp_dataGlobal.query.system) != "undefined" && tmp_dataGlobal.query.system != "") {
     //   mydata.d.sys = tmp_dataGlobal.query.system;
     // }
-    console.log("这是登陆要提交的数据:", mydata);
     let tmp_http = httpJson.getInstance();
     tmp_http.httpPost(CONST.LOGIN_URL, mydata);
 
@@ -161,8 +160,8 @@ export default class loginWin extends baseScene {
     farmController.getInstance();
     resManger.getInstance().addGroupRes(resConfig.farm);//加载农场资源
     resManger.getInstance().startLoad('', GAMEEVENT.FARM, '', [2]);
-    // //这里加载首页（之前预加载过的了,这里检查加载一次）登录接上后放到登录完成代码
-    // //如果已经登陆成功
+    //这里加载首页（之前预加载过的了,这里检查加载一次）登录接上后放到登录完成代码
+    //如果已经登陆成功
     // if (dataGlobal.getInstance().userInfo && dataGlobal.getInstance().userInfo.uid) {
     //   farmController.getInstance();
     //   resManger.getInstance().addGroupRes(resConfig.farm);

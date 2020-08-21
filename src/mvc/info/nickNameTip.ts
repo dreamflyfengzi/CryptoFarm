@@ -25,7 +25,6 @@ export default class infoUserTip extends baseTips {
     //获取用户的信息
     var data = dataGlobal.getInstance().userInfo;
 
-    // console.log(data)
     this._useNickNameTip.scene.tips_text.text = data.nickname;
     // this._useNickNameTip.scene.id.text = data.uid;
     // this._useNickNameTip.scene.ugrade.text = data.grade;

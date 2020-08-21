@@ -13,7 +13,7 @@ import orderController from '../order/orderController'
 import exchangeController from '../exchange/exchangeController'
 import CONST from '../../const/CONST'
 import rankController from '../rank/rankController'
-import emailController from '../email/emailController'
+import emailController from '../setting/settingController'
 import webSocketJson from '../../net/webSocketJson'
 import animalIndex from './animalIndex'
 import dataGlobal from '../resconfig/dataGlobal'
@@ -115,7 +115,6 @@ export default class farmIndex extends baseScene {
    */
   private initMaterial() {
     var material_info = dataJson.getInstance().GET_SYS_MATERIAL_INFO();
-    console.log('farm-index', 'material_info-------------------------', material_info)
     for (var i in material_info) {
       if (material_info[i].is_lock == 1) {
         if (i == 'MATERIAL301' && material_info[i].t == 0) {
@@ -167,6 +166,7 @@ export default class farmIndex extends baseScene {
     Laya.stage.addChild(ani);
 
     
+   
   }
   /**
    * 设置动物定时器
@@ -198,7 +198,6 @@ export default class farmIndex extends baseScene {
     }
     if (_surplus_grow_time > 0) {
       data.product.mature_time++
-      // console.log(_surplus_grow_time)
     }
     if (data.product.grow_time_tol < data.product.mature_time || data.product.grow_time_tol == data.product.mature_time) {
       if (_animalBox.static != "harvest") {
@@ -251,7 +250,6 @@ export default class farmIndex extends baseScene {
    * onClickAnimal
    */
   private onClickAnimal(animalBox) {
-    console.log(animalBox.static)
     if (animalBox.static == 'harvest') { //收获产物
       this.onHarvest(animalBox);
     }
@@ -269,7 +267,6 @@ export default class farmIndex extends baseScene {
    */
   private onHarvest(animalBox) {
     //发送收获请求
-    console.log('发送收获请求')
   }
 
   /**
@@ -277,7 +274,6 @@ export default class farmIndex extends baseScene {
    */
   private onFeed(animalBox) {
     //发送喂饲料请求
-    console.log('发送喂饲料请求')
   }
 
   /**
@@ -435,10 +431,7 @@ export default class farmIndex extends baseScene {
       case 'upgrade':
         this.onClickUpgrade();
         break;
-      case 'email':
-        this._farmIndex.scene.email.skin = 'main/btn_youxiang2.png';
-        this.onClickEmail();
-        break;
+    
       case 'order':
         this.onClickOrder();
         this._farmIndex.scene.order.skin = 'main/btn_dingdan2.png';
@@ -513,12 +506,6 @@ export default class farmIndex extends baseScene {
     rankController.getInstance().onShowRank();
   }
 
-  /**
-   * 点击邮箱
-   */
-  private onClickEmail() {
-    emailController.getInstance().onShowEmail();
-  }
 
   /**
    * 点击材料订单
@@ -542,8 +529,6 @@ export default class farmIndex extends baseScene {
 
   private onMouseMove(e: Event): void {
     var distance: number = this.getDistance(e.touches);
-    console.log('判断当前距离与上次距离变化，确定是放大还是缩小')
-    console.log(distance)
     const factor: number = 0.01;
     // var _scale = Laya.stage.scaleX;
     //  _scale += (distance - this.lastDistance) * factor;

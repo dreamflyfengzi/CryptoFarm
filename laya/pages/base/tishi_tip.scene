@@ -2,11 +2,11 @@
     "x":0,
     "type":"Dialog",
     "selectedBox":2,
-    "selecteID":6,
+    "selecteID":10,
     "searchKey":"Dialog",
     "props":{"width":937,"sceneColor":"#00ff66","height":934},
     "nodeParent":-1,
-    "maxID":10,
+    "maxID":18,
     "label":"Dialog",
     "isOpen":true,
     "isDirectory":true,
@@ -14,34 +14,6 @@
     "hasChild":true,
     "compId":2,
     "child":[
-        {
-            "x":15,
-            "type":"Sprite",
-            "searchKey":"Sprite,tip_bg",
-            "props":{"y":0,"x":0,"width":937,"var":"tip_bg","texture":"main/pic_tongyongdi.png","height":934},
-            "nodeParent":2,
-            "label":"tip_bg",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":3,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Button",
-            "searchKey":"Button,close_btn",
-            "props":{"y":-50,"x":764,"var":"close_btn","stateNum":"1","skin":"main/btn_guanbi2.png"},
-            "nodeParent":2,
-            "label":"close_btn",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":4,
-            "child":[
-                ]
-        },
         {
             "x":15,
             "type":"Text",
@@ -58,29 +30,101 @@
         },
         {
             "x":15,
-            "type":"Button",
-            "searchKey":"Button,confirm_btn",
-            "props":{"y":728,"x":76,"width":319,"var":"confirm_btn","stateNum":"1","skin":"main/btn_lan.png","sizeGrid":"62,62,48,48","labelSize":70,"labelFont":"SimSun","label":"确定","height":139},
+            "type":"Image",
+            "searchKey":"Image,outsider,outsider",
+            "props":{"y":113,"x":10,"width":917,"var":"outsider","skin":"warehouse/Popup 1.png","sizeGrid":"51,54,77,64","name":"outsider","height":729},
             "nodeParent":2,
-            "label":"confirm_btn",
+            "label":"outsider",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":6,
+            "compId":10,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,topbar",
+            "props":{"y":21,"x":207,"width":545,"texture":"warehouse/TitleBar_01.png","name":"topbar","height":140},
+            "nodeParent":2,
+            "label":"topbar",
+            "isOpen":true,
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":11,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,title",
+            "props":{"y":21,"x":248,"width":466,"var":"title","valign":"bottom","text":"提示","strokeColor":"#af5707","stroke":3,"height":103,"fontSize":65,"font":"Microsoft YaHei","color":"#fff","bold":true,"align":"center"},
+            "nodeParent":2,
+            "label":"title",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":12,
             "child":[
                 ]
         },
         {
             "x":15,
             "type":"Button",
-            "searchKey":"Button,cancel_btn",
-            "props":{"y":728,"x":536,"width":319,"var":"cancel_btn","stateNum":"1","skin":"main/btn_huang.png","sizeGrid":"62,62,48,48","labelSize":70,"label":"取消","height":139},
+            "searchKey":"Button,close_btn",
+            "props":{"y":91,"x":831,"width":113,"var":"close_btn","stateNum":"1","skin":"warehouse/btn_close.png","height":118},
             "nodeParent":2,
-            "label":"cancel_btn",
+            "label":"close_btn",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":7,
+            "compId":13,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,tips_text",
+            "props":{"y":325,"x":63,"wordWrap":true,"width":811,"var":"tips_text","valign":"bottom","text":"从工厂和农场生产商品，或者你现在可以用钻石购买","leading":20,"height":196,"fontSize":50,"font":"Microsoft YaHei","color":"#cd8b57","bold":true,"align":"center"},
+            "nodeParent":2,
+            "label":"tips_text",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":14,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Button",
+            "searchKey":"Button,get_btn",
+            "props":{"y":634,"x":286,"width":365,"var":"get_btn","stateNum":"1","skin":"warehouse/btn_green_medium.png","sizeGrid":"36,35,50,38","labelStrokeColor":"#A2613A","labelStroke":10,"labelSize":59,"labelFont":"Microsoft YaHei","labelColors":"#fff","labelBold":true,"height":145},
+            "nodeParent":2,
+            "label":"get_btn",
+            "isOpen":true,
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":15,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "searchKey":"Label,btn_num,btn_num",
+            "props":{"y":634,"x":352,"width":233,"var":"btn_num","valign":"middle","text":"好的","strokeColor":"#7D4815","stroke":4,"name":"btn_num","height":162,"fontSize":60,"font":"Microsoft YaHei","color":"#fff","bold":true,"align":"center"},
+            "nodeParent":2,
+            "label":"btn_num",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":16,
             "child":[
                 ]
         }],

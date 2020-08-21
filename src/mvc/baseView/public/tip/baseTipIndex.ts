@@ -87,11 +87,9 @@ export default class tipIndex extends baseWindow {
    * @param cancel_fun   ：取消监听函数
    */
   public goldTipShow(title: string, content_txt: string, confirm_txt: string, cancel_txt: string, confirm_fun: Function, cancel_fun: Function) {
-     var _tipKuan = new ui.base.tishi_tipUI();
+     var _tipKuan = new ui.base.tip.holeTipUI();
      this.addChild(_tipKuan)
     _tipKuan.content_txt.text = content_txt;
-    _tipKuan.confirm_btn.label = confirm_txt;
-    _tipKuan.cancel_btn.label = cancel_txt;
     _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
     _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
     _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);

@@ -80,9 +80,6 @@ export default class exchangeIndex extends baseWindow {
    */
   public initExchangeList() {
     var data = dataGlobal.getInstance().exchangeInfo;//查询仓库的信息
-    console.log(data)
-    console.log(data)
-    console.log(data)
     // var _data_info = data.data_info;
     // this._market_list.vScrollBarSkin = ''
     // // this._market_list.dataSource = [];

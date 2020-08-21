@@ -27,27 +27,6 @@ export module ui.base.scene {
 		public uexp:Laya.ProgressBar;
 		public level:Laya.Label;
 		public diamond_kuan:Laya.Box;
-		public bottom_div:Laya.Box;
-		public bottom_bg:Laya.Sprite;
-		public farm_bottom:Laya.Box;
-		public n46:Laya.Sprite;
-		public n47:Laya.Sprite;
-		public main_btn_kuan:Laya.Box;
-		public n43:Laya.Button;
-		public main_btn:Laya.Button;
-		public main_btn_txt:Laya.Sprite;
-		public fu_kuan:Laya.Box;
-		public farm_green_btn:Laya.Button;
-		public factory_bottom:Laya.Box;
-		public n44:Laya.Sprite;
-		public n45:Laya.Sprite;
-		public factory_main_btn:Laya.Box;
-		public factory_main_bar:Laya.Button;
-		public factory_main_txt:Laya.Button;
-		public main_txt:Laya.Sprite;
-		public factory_fu_btn:Laya.Box;
-		public fu_btn_txt:Laya.Button;
-		public fu_txt:Laya.Sprite;
 		public setting_btn:Laya.Sprite;
 		public mail_btn:Laya.Sprite;
 		public help_btn:Laya.Sprite;
@@ -65,7 +44,10 @@ export module ui.base.tip {
     export class avatar_tipUI extends Laya.Scene {
 		public outsider:Laya.Image;
 		public title:Laya.Label;
+		public get_btn:Laya.Button;
+		public confirm_btn:Laya.Label;
 		public close_btn:Laya.Button;
+		public avatar_list:Laya.List;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -90,13 +72,13 @@ export module ui.base.tip {
     }
     REG("ui.base.tip.baseTipsUI",baseTipsUI);
     export class gold_tipUI extends Laya.Scene {
-		public n10:Laya.Image;
-		public close_btn:Laya.Sprite;
-		public content_txt:Laya.Label;
-		public cancel_btn:Laya.Button;
+		public outsider:Laya.Image;
+		public content_txt:laya.display.Text;
 		public confirm_btn:Laya.Button;
-		public n9:Laya.Sprite;
+		public cancel_btn:Laya.Button;
+		public close_btn:Laya.Button;
 		public title:Laya.Label;
+		public n9:Laya.Sprite;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -104,6 +86,19 @@ export module ui.base.tip {
         }
     }
     REG("ui.base.tip.gold_tipUI",gold_tipUI);
+    export class holeTipUI extends Laya.Dialog {
+		public outsider:Laya.Image;
+		public content_txt:laya.display.Text;
+		public confirm_btn:Laya.Button;
+		public cancel_btn:Laya.Button;
+		public close_btn:Laya.Button;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("base/tip/holeTip");
+        }
+    }
+    REG("ui.base.tip.holeTipUI",holeTipUI);
     export class nickname_tipUI extends Laya.Scene {
 		public outsider:Laya.Image;
 		public title:Laya.Label;
@@ -131,19 +126,6 @@ export module ui.base.tip {
         }
     }
     REG("ui.base.tip.popupUI",popupUI);
-    export class tishi_tip1UI extends Laya.Dialog {
-		public tip_bg:Laya.Sprite;
-		public close_btn:Laya.Button;
-		public content_txt:laya.display.Text;
-		public confirm_btn:Laya.Button;
-		public cancel_btn:Laya.Button;
-        constructor(){ super()}
-        createChildren():void {
-            super.createChildren();
-            this.loadScene("base/tip/tishi_tip1");
-        }
-    }
-    REG("ui.base.tip.tishi_tip1UI",tishi_tip1UI);
     export class upgrade_tipUI extends Laya.Scene {
 		public n3:Laya.Image;
 		public n13:Laya.Image;
@@ -191,11 +173,13 @@ export module ui.base.tip {
 }
 export module ui.base {
     export class tishi_tipUI extends Laya.Dialog {
-		public tip_bg:Laya.Sprite;
-		public close_btn:Laya.Button;
 		public content_txt:laya.display.Text;
-		public confirm_btn:Laya.Button;
-		public cancel_btn:Laya.Button;
+		public outsider:Laya.Image;
+		public title:Laya.Label;
+		public close_btn:Laya.Button;
+		public tips_text:Laya.Label;
+		public get_btn:Laya.Button;
+		public btn_num:Laya.Label;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -440,8 +424,6 @@ export module ui.farm {
 		public balloon_flyin:Laya.FrameAnimation;
 		public farmbg_1:Laya.Sprite;
 		public farmbg_2:Laya.Sprite;
-		public n40:Laya.Sprite;
-		public rank:Laya.Sprite;
 		public order:Laya.Button;
 		public email:Laya.Button;
 		public building:Laya.Button;
@@ -451,6 +433,7 @@ export module ui.farm {
 		public n72:Laya.Sprite;
 		public n74:Laya.Image;
 		public exchange:Laya.Image;
+		public rank:Laya.Image;
 		public material_box:Laya.Box;
 		public material_order:Laya.Sprite;
 		public material_1:Laya.Image;
@@ -742,12 +725,7 @@ export module ui.rank {
 }
 export module ui.setting {
     export class settingUI extends Laya.Scene {
-		public outsider:Laya.Image;
-		public title:Laya.Label;
-		public get_btn:Laya.Button;
-		public confirm_btn:Laya.Label;
 		public close_btn:Laya.Button;
-		public avatar_list:Laya.List;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

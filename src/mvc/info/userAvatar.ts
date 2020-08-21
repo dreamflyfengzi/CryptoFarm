@@ -126,7 +126,6 @@ export default class infoUserTip extends baseTips {
     _item.select.skin = "avatar/AvatarSelected.png";
     for (var i = 0; i < this.avatarList.length; i++) {
       if (i != index) {
-        console.log(i,index)
         var otherItem = this._avatarList.getItem(i)
         otherItem.select.skin = "avatar/AvatarBorder.png";
         this._avatarList.setItem(i,otherItem)

@@ -46,7 +46,6 @@ export default class screenScene extends baseWindow {
    * 确认筛选
    */
   public confirmScreen() {
-    console.log('发送网络请求进行筛选')
     this.tweenHide();
   }
 
@@ -57,7 +56,6 @@ export default class screenScene extends baseWindow {
   public initScreenList() {
     // var data = dataJson.getInstance().GET_SYS_FACTORY_GOOD()[this._mf_id][this._id].good;//获取列表信息
     this._screen_list.dataSource = []
-    console.log(this._screen_list)
     var data = [1, 2, 3, 4]
     for (var i in data) {
       var _data = {

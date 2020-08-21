@@ -31,7 +31,8 @@ export default class farmNetwork {
       "gd": {
         "seed_data": [
           {
-            "id": "wheat"
+            "id": "wheat",
+            "pic":"resource/crops/WheatEnable.png"
           },
         ]
 
@@ -212,7 +213,6 @@ export default class farmNetwork {
         "type": data.type
       },
     }
-    console.log(data)
     dataGlobal.getInstance().setAnimalInfo(_data);//保存农田信息
     farmController.getInstance().initAnimal();//重置动物
   }

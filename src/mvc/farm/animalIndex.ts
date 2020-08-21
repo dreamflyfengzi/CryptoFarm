@@ -108,9 +108,6 @@ export default class animalIndex {
 
   private binClickAni(Ani) {
 
-    console.log(Ani)
-    console.log(Ani)
-    console.log(Ani)
     // pause()暂停时间轴动画
     //resume()恢复时间轴动画
   }

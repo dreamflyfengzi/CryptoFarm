@@ -61,7 +61,6 @@ export default class loginController {
 
   //显示主场景
   public showFarmView() {
-    console.log('显示主场景')
     
     //确保只做一只跳入主场景的操作
     Laya.stage.off(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);

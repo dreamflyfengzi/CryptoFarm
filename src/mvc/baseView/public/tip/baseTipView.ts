@@ -33,7 +33,6 @@ export default class baseTipView {
   }
   /**服务的错误提醒 */
   public gameFailTip(data) {
-    console.log('错误提醒2')
     if (this._baseTipIndex == null) {
       this._baseTipIndex = new baseTipIndex;
     }

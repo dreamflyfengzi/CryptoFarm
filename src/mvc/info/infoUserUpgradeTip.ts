@@ -26,7 +26,6 @@ export class infoUserUpgradeTip extends baseTips{
     this.tweenShow();
     this._userInfoTip.scene.y_btn.on(Laya.Event.CLICK,this,this.closeUserUpgradeTip);
     this.good_list = this._userInfoTip.scene.good_div.getChildByName('good_list')
-    console.log( this.good_list)
     //获取用户的信息
     this._userInfoTip.scene.new_grade.text = 'LV'+data.grade2;
     this._userInfoTip.scene.add_gold.text = '+'+(data.num?data.num:0);
@@ -68,7 +67,6 @@ export class infoUserUpgradeTip extends baseTips{
         this._userInfoTip.scene.t9.visible = false;
       }
     }
-    console.log(this.good_list.cells,this._userInfoTip.scene.n10)
   }
   private closeUserUpgradeTip(){
     this.tweenHide();

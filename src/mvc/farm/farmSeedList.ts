@@ -1,6 +1,6 @@
-// /*
-// * 种子的类
-// */
+/*
+* 种子的类
+*/
 import { ui } from '../../ui/layaMaxUI'
 import dataGlobal from '../resconfig/dataGlobal'
 import farmController from './farmController'
@@ -39,15 +39,13 @@ export default class farmSeedList extends ui.farm.seedListUI {
   private addSeedItem(data) {
     this._dataSeedList = []
     for (var i in data) {
-      let index = data[i].pic.lastIndexOf("/");
-      var _skin = data[i].pic.substring(index + 1, data[i].pic.length);
 
       var _seedItem = {
         id: 'seed_' + data[i].id,
         name: data[i].id,
         index: 0,
         seep_pic: {
-          skin: 'main/' + _skin + '.png'
+          skin: data[i].pic
         },
         gold_num: {
           text: data[i].gold,
@@ -110,15 +108,15 @@ export default class farmSeedList extends ui.farm.seedListUI {
     if (farmController.getInstance().model.clickLandStatic == 'plant') {
       this.setSeedItem();//设置种子信息
     }
-    if (farmController.getInstance().model.clickLandStatic == 'fertilizer') {
-      this.setFatItem();//设置施肥信息
-    }
+    // if (farmController.getInstance().model.clickLandStatic == 'fertilizer') {
+    //   this.setFatItem();//设置施肥信息
+    // }
   }
   /**
    * 2设置花种信息
    */
   public setSeedItem() {
-    this._seed_list.dataSource = this._dataSeedList;
+    this._seed_list.dataSource = [];
     var grade = dataGlobal.getInstance().userInfo.grade;
     var have_gold = dataGlobal.getInstance().userInfo.have_gold;
     //获取种子列表信息
@@ -158,7 +156,8 @@ export default class farmSeedList extends ui.farm.seedListUI {
       this._seed_list.addItem(_seedItem)
     }
     this._seed_list.renderHandler = null;
-    this._seed_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false)
+    // this.itemSelectHandler
+    this._seed_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, [], false)
     this._seed_list.visible = true;
     this._seedListScene.visible = true;
   }
@@ -167,36 +166,36 @@ export default class farmSeedList extends ui.farm.seedListUI {
   /**
    * 2设置施肥信息
    */
-  private setFatItem() {
-    this._seed_list.dataSource = this._dataFertilizer;
-    var grade = dataGlobal.getInstance().userInfo.grade;//用户等级
-    var have_gold = dataGlobal.getInstance().userInfo.have_gold;//用户金币
-    var fat_arr = farmController.getInstance().model.fatData;//获取肥料信息
-    for (var i in fat_arr) {
-      //查询一下肥料的信息
-      var fat_info = dataJson.getInstance().GET_SYS_FLOWER_COMPOSTED()[fat_arr[i].id];
+  // private setFatItem() {
+  //   this._seed_list.dataSource = this._dataFertilizer;
+  //   var grade = dataGlobal.getInstance().userInfo.grade;//用户等级
+  //   var have_gold = dataGlobal.getInstance().userInfo.have_gold;//用户金币
+  //   var fat_arr = farmController.getInstance().model.fatData;//获取肥料信息
+  //   for (var i in fat_arr) {
+  //     //查询一下肥料的信息
+  //     var fat_info = dataJson.getInstance().GET_SYS_FLOWER_COMPOSTED()[fat_arr[i].id];
 
-      for (var z in this._seed_list.dataSource) {
-        if (this._seed_list.dataSource[z].name === fat_info[1].id) {
-          var _seedItem = this._seed_list.dataSource[z];
-          _seedItem.index = Number(z);
-        }
-      }
-      _seedItem.suo_div.visible = false;
-      if (have_gold >= fat_arr[i].num) {//够钱
-        _seedItem.gold_num.color = '#EDFF24';
-        _seedItem.visible = true
-      } else {//不够钱
-        _seedItem.gold_num.color = '#FF3E24';
-        _seedItem.visible = true
-      }
-      _seedItem.visible = true
-    }
-    this._seed_list.visible = true;
-    this._seedListScene.visible = true;
-    this._seed_list.renderHandler = null;
-    this._seed_list.renderHandler = new Laya.Handler(this, this.itemFatSelectHandler, [fat_arr], false)
-  }
+  //     for (var z in this._seed_list.dataSource) {
+  //       if (this._seed_list.dataSource[z].name === fat_info[1].id) {
+  //         var _seedItem = this._seed_list.dataSource[z];
+  //         _seedItem.index = Number(z);
+  //       }
+  //     }
+  //     _seedItem.suo_div.visible = false;
+  //     if (have_gold >= fat_arr[i].num) {//够钱
+  //       _seedItem.gold_num.color = '#EDFF24';
+  //       _seedItem.visible = true
+  //     } else {//不够钱
+  //       _seedItem.gold_num.color = '#FF3E24';
+  //       _seedItem.visible = true
+  //     }
+  //     _seedItem.visible = true
+  //   }
+  //   this._seed_list.visible = true;
+  //   this._seedListScene.visible = true;
+  //   this._seed_list.renderHandler = null;
+  //   this._seed_list.renderHandler = new Laya.Handler(this, this.itemFatSelectHandler, [fat_arr], false)
+  // }
 
 
 
@@ -205,16 +204,13 @@ export default class farmSeedList extends ui.farm.seedListUI {
     cell.off(Laya.Event.CLICK, this, this.onClick)
     var seed_arr = farmController.getInstance().model.seedData;
     var grade = dataGlobal.getInstance().userInfo.grade;
-    var warehouse_num = dataGlobal.getInstance().userGoodInfo[seed_arr[index].id].num;//查询仓库数量
+    var _id = seed_arr[index];
+    console.log(seed_arr,_id)
+    var warehouse_num = dataGlobal.getInstance().userGoodInfo[_id.id].num;//查询仓库数量
     // var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-    // //获取种子列表信息
-    if (warehouse_num > 0) { //有库存
+    //获取种子列表信息
+    if (Number(warehouse_num)> 0) { //有库存
       cell.on(Laya.Event.CLICK, this, this.onClick, ['plant', { 'id': seed_arr[index].id }])
-      //   //可以解锁
-      //   if (have_gold >= seed_arr[index].gold) {//够钱
-      //   } else {//不够钱
-      //     cell.on(Laya.Event.CLICK, this, this.onClick, ['noMoney', { 'gold': seed_arr[index].gold }])
-      //   }
     } else { //库存不够
       //不可以解锁
       cell.on(Laya.Event.CLICK, this, this.onClick, ['lock', { 'grade': seed_arr[index].grade2, 'name': seed_arr[index].name }])
@@ -227,8 +223,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
     cell.off(Laya.Event.CLICK, this, this.onFertilizer)
     cell.on(Laya.Event.CLICK, this, this.onFertilizer, [{ 'id': arr[index].id, 'num': arr[index].num }]);
   }
-
-
 
   /**
    * 隐藏

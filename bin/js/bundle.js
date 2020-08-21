@@ -2,8 +2,7 @@
     'use strict';
 
     class GameConfig {
-        constructor() {
-        }
+        constructor() { }
         static init() {
             var reg = Laya.ClassUtils.regClass;
         }
@@ -384,12 +383,6 @@
             }
         }
         setExchangeInfo(data) {
-            if (typeof data.type != 'undefined') {
-                this.exchangeInfo.type = data.type;
-            }
-            if (typeof data.data_info != 'undefined') {
-                this.marketInfo.data_info = data.data_info;
-            }
         }
         setlotteryInfo(data, type) {
             if (type) {
@@ -506,6 +499,15 @@
                 }
                 tip.gold_tipUI = gold_tipUI;
                 REG("ui.base.tip.gold_tipUI", gold_tipUI);
+                class holeTipUI extends Laya.Dialog {
+                    constructor() { super(); }
+                    createChildren() {
+                        super.createChildren();
+                        this.loadScene("base/tip/holeTip");
+                    }
+                }
+                tip.holeTipUI = holeTipUI;
+                REG("ui.base.tip.holeTipUI", holeTipUI);
                 class nickname_tipUI extends Laya.Scene {
                     constructor() { super(); }
                     createChildren() {
@@ -524,15 +526,6 @@
                 }
                 tip.popupUI = popupUI;
                 REG("ui.base.tip.popupUI", popupUI);
-                class tishi_tip1UI extends Laya.Dialog {
-                    constructor() { super(); }
-                    createChildren() {
-                        super.createChildren();
-                        this.loadScene("base/tip/tishi_tip1");
-                    }
-                }
-                tip.tishi_tip1UI = tishi_tip1UI;
-                REG("ui.base.tip.tishi_tip1UI", tishi_tip1UI);
                 class upgrade_tipUI extends Laya.Scene {
                     constructor() { super(); }
                     createChildren() {
@@ -807,6 +800,20 @@
         })(rank = ui.rank || (ui.rank = {}));
     })(ui || (ui = {}));
     (function (ui) {
+        var setting;
+        (function (setting) {
+            class settingUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("setting/setting");
+                }
+            }
+            setting.settingUI = settingUI;
+            REG("ui.setting.settingUI", settingUI);
+        })(setting = ui.setting || (ui.setting = {}));
+    })(ui || (ui = {}));
+    (function (ui) {
         var warehouse;
         (function (warehouse) {
             class sell_tipUI extends Laya.Scene {
@@ -1027,7 +1034,6 @@
             }
         }
         httpPost(url, data) {
-            console.log(url, data);
             if (url == "") {
                 console.log("没有输入提交地址");
                 return;
@@ -1126,6 +1132,7 @@
     NETWORKEVENT.EXCHANGEINFOBAK = 'exchange_info_bak';
     NETWORKEVENT.EXCHANGEMYMATERIAL = 'exchange_my_material';
     NETWORKEVENT.MAILINFOBAK = 'mail_info_bak';
+    NETWORKEVENT.MAILOPERATE = 'mail_operate';
 
     class GAMECONFIG {
     }
@@ -8893,13 +8900,15 @@
             super();
         }
         tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            console.log(content_txt);
-            var _tipKuan = new ui.base.tishi_tipUI();
+            console.log(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+            console.log(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+            console.log(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
+            var _tipKuan = new ui.base.tip.holeTipUI();
             _tipKuan.content_txt.text = content_txt;
+            _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
+            _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
             _tipKuan.confirm_btn.label = confirm_txt;
             _tipKuan.cancel_btn.label = cancel_txt;
-            _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
-            _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, this.close);
             _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
             _tipKuan.pivot(_tipKuan.width / 2, _tipKuan.height / 2);
             this.addChild(_tipKuan);
@@ -8909,7 +8918,6 @@
             this.tweenHide();
         }
         gameFailTip(data) {
-            console.log('错误提醒3');
             var myData = data.gd;
             this.tipShow(myData.msg, '确定', '取消', function () {
                 this.close();
@@ -8933,11 +8941,9 @@
             }));
         }
         goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            var _tipKuan = new ui.base.tishi_tipUI();
+            var _tipKuan = new ui.base.tip.holeTipUI();
             this.addChild(_tipKuan);
             _tipKuan.content_txt.text = content_txt;
-            _tipKuan.confirm_btn.label = confirm_txt;
-            _tipKuan.cancel_btn.label = cancel_txt;
             _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
             _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
             _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
@@ -8969,7 +8975,6 @@
             this._tipCom.gameTxtTip(txt, call_fun);
         }
         gameFailTip(data) {
-            console.log('错误提醒2');
             if (this._tipCom == null) {
                 this._tipCom = new tipIndex;
             }
@@ -9028,11 +9033,9 @@
             }));
         }
         goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
-            var _tipKuan = new ui.base.tishi_tipUI();
+            var _tipKuan = new ui.base.tip.holeTipUI();
             this.addChild(_tipKuan);
             _tipKuan.content_txt.text = content_txt;
-            _tipKuan.confirm_btn.label = confirm_txt;
-            _tipKuan.cancel_btn.label = cancel_txt;
             _tipKuan.confirm_btn.on(Laya.Event.CLICK, this, confirm_fun);
             _tipKuan.cancel_btn.on(Laya.Event.CLICK, this, cancel_fun);
             _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
@@ -9064,7 +9067,6 @@
             this._baseTipIndex.gameTxtTip(txt, call_fun);
         }
         gameFailTip(data) {
-            console.log('错误提醒2');
             if (this._baseTipIndex == null) {
                 this._baseTipIndex = new tipIndex$1;
             }
@@ -9093,18 +9095,21 @@
             return tipController._instance;
         }
         baseTipsShow(title_txt, tips, info, confirm_fun) {
+            console.log("提示1");
             if (this._basetipview == null) {
                 this._basetipview = new baseTipView();
             }
             this._basetipview.tipShow(title_txt, tips, info, confirm_fun);
         }
         tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            console.log("提示2");
             if (this._tipview == null) {
                 this._tipview = new tipView();
             }
             this._tipview.tipShow(content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun);
         }
         goldTipShow(title, content_txt, confirm_txt, cancel_txt, confirm_fun, cancel_fun) {
+            console.log("提示2");
             if (this._tipview == null) {
                 this._tipview = new tipView;
             }
@@ -9224,7 +9229,6 @@
             Laya.stage.event(GAMEEVENT.LOGIN_FARM);
         }
         onMessage(evt) {
-            console.log("onMessage", evt.data);
             if (evt.data != "PONG" && evt.data != "pong") {
                 var tmp_data = JSON.parse(evt.data);
                 if (typeof (tmp_data.ga) != "undefined") {
@@ -9675,14 +9679,12 @@
         addSeedItem(data) {
             this._dataSeedList = [];
             for (var i in data) {
-                let index = data[i].pic.lastIndexOf("/");
-                var _skin = data[i].pic.substring(index + 1, data[i].pic.length);
                 var _seedItem = {
                     id: 'seed_' + data[i].id,
                     name: data[i].id,
                     index: 0,
                     seep_pic: {
-                        skin: 'main/' + _skin + '.png'
+                        skin: data[i].pic
                     },
                     gold_num: {
                         text: data[i].gold,
@@ -9739,12 +9741,9 @@
             if (farmController.getInstance().model.clickLandStatic == 'plant') {
                 this.setSeedItem();
             }
-            if (farmController.getInstance().model.clickLandStatic == 'fertilizer') {
-                this.setFatItem();
-            }
         }
         setSeedItem() {
-            this._seed_list.dataSource = this._dataSeedList;
+            this._seed_list.dataSource = [];
             var grade = dataGlobal.getInstance().userInfo.grade;
             var have_gold = dataGlobal.getInstance().userInfo.have_gold;
             var seed_arr = farmController.getInstance().model.seedData;
@@ -9774,45 +9773,18 @@
                 this._seed_list.addItem(_seedItem);
             }
             this._seed_list.renderHandler = null;
-            this._seed_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
+            this._seed_list.renderHandler = new Laya.Handler(this, this.itemSelectHandler, [], false);
             this._seed_list.visible = true;
             this._seedListScene.visible = true;
-        }
-        setFatItem() {
-            this._seed_list.dataSource = this._dataFertilizer;
-            var grade = dataGlobal.getInstance().userInfo.grade;
-            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
-            var fat_arr = farmController.getInstance().model.fatData;
-            for (var i in fat_arr) {
-                var fat_info = dataJson.getInstance().GET_SYS_FLOWER_COMPOSTED()[fat_arr[i].id];
-                for (var z in this._seed_list.dataSource) {
-                    if (this._seed_list.dataSource[z].name === fat_info[1].id) {
-                        var _seedItem = this._seed_list.dataSource[z];
-                        _seedItem.index = Number(z);
-                    }
-                }
-                _seedItem.suo_div.visible = false;
-                if (have_gold >= fat_arr[i].num) {
-                    _seedItem.gold_num.color = '#EDFF24';
-                    _seedItem.visible = true;
-                }
-                else {
-                    _seedItem.gold_num.color = '#FF3E24';
-                    _seedItem.visible = true;
-                }
-                _seedItem.visible = true;
-            }
-            this._seed_list.visible = true;
-            this._seedListScene.visible = true;
-            this._seed_list.renderHandler = null;
-            this._seed_list.renderHandler = new Laya.Handler(this, this.itemFatSelectHandler, [fat_arr], false);
         }
         itemSelectHandler(cell, index) {
             cell.off(Laya.Event.CLICK, this, this.onClick);
             var seed_arr = farmController.getInstance().model.seedData;
             var grade = dataGlobal.getInstance().userInfo.grade;
-            var warehouse_num = dataGlobal.getInstance().userGoodInfo[seed_arr[index].id].num;
-            if (warehouse_num > 0) {
+            var _id = seed_arr[index];
+            console.log(seed_arr, _id);
+            var warehouse_num = dataGlobal.getInstance().userGoodInfo[_id.id].num;
+            if (Number(warehouse_num) > 0) {
                 cell.on(Laya.Event.CLICK, this, this.onClick, ['plant', { 'id': seed_arr[index].id }]);
             }
             else {
@@ -10381,7 +10353,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_websocket.sendMessage(tmp_data);
         }
         getCurrentFactory() {
@@ -10543,7 +10514,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_websocket.sendMessage(tmp_data);
         }
         getUserGood(id) {
@@ -10565,7 +10535,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         initProductionGoodList() {
@@ -10675,7 +10644,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_websocket.sendMessage(tmp_data);
         }
         showFactoryMake(mf_id, id) {
@@ -10722,13 +10690,11 @@
         }
         mouseDown() {
             this.downMouseY = Laya.stage.mouseY;
-            console.log('鼠标按下', this.downMouseY);
             Laya.stage.on(Laya.Event.MOUSE_MOVE, this, this.mouseMove);
             Laya.stage.on(Laya.Event.MOUSE_OUT, this, this.mouseMoveOff);
         }
         mouseMove() {
             let y = this.offsetY - (Laya.stage.mouseY - this.downMouseY);
-            console.log('鼠标移动', y);
             this.moveMap(y);
         }
         mouseUp() {
@@ -10780,7 +10746,6 @@
                 'd': {},
                 'code': 1
             };
-            console.log("发送http数据", tmp_data);
             tmp_http.httpPost(CONST.LOGIN_URL, tmp_data);
         }
         showFactory() {
@@ -10897,7 +10862,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_websocket.sendMessage(tmp_data);
         }
         factory_good_save(id) {
@@ -10910,7 +10874,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_websocket.sendMessage(tmp_data);
         }
         onShowFactoryInfo(id) {
@@ -11039,7 +11002,6 @@
                 },
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_websocket.sendMessage(tmp_data);
             Laya.stage.event(NETWORKEVENT.FACTORYUPGRADEBAK);
         }
@@ -11406,6 +11368,7 @@
         }
         initMailList() {
             var data = dataGlobal.getInstance().mailInfo;
+            this._mailScene.scene.mail_num.text = Object.keys(data).length + '/100';
             this._mailList.dataSource = [];
             for (var i in data) {
                 var _item = {
@@ -11463,6 +11426,7 @@
                 this._mailList.addItem(_item);
                 this._mailList.renderHandler = new Laya.Handler(this, this.itemSelectHandler, null, false);
             }
+            this._mailScene.scene.help_btn.on(Laya.Event.CLICK, this, this.onClickHelp);
         }
         itemSelectHandler(cell, index) {
             cell.getChildByName("operate_btn").on(Laya.Event.CLICK, this, this.onCellClick, [cell, index]);
@@ -11470,10 +11434,20 @@
         onCellClick(cell, index) {
             console.log(cell.dataSource.id, index);
             var mailInfo = dataGlobal.getInstance().mailInfo[index];
-            console.log(mailInfo);
+            if (mailInfo.is_harvest == 1) {
+                return;
+            }
+            Laya.stage.event(NETWORKEVENT.MAILOPERATE);
         }
         closeScene() {
             this.hideLayer();
+        }
+        onClickHelp() {
+            tipController.getInstance();
+            console.log("帮助");
+            var confirm_fun = function () {
+            };
+            Laya.stage.event(GAMEEVENT.GOLDTIP, ["提示", '当邮箱内的邮件超过上限时，每收到一封新邮件，将会永久删除一封最旧的邮件，为了避免不必要损失，请及时查收邮件。', {}, confirm_fun]);
         }
     }
 
@@ -11537,6 +11511,8 @@
             dataGlobal.getInstance().setMailInfo(data);
             mailController.getInstance().initMailList();
         }
+        MailOperate(data) {
+        }
     }
 
     class mailController {
@@ -11544,6 +11520,7 @@
             this._mailView = new mailView;
             this._network = new orderNetwork;
             Laya.stage.on(NETWORKEVENT.MAILINFOBAK, this, this._network.MailInfoBak);
+            Laya.stage.on(NETWORKEVENT.MAILOPERATE, this, this._network.MailOperate);
         }
         static getInstance() {
             if (mailController._instance == null) {
@@ -11562,6 +11539,47 @@
         }
     }
 
+    class settingIndex extends baseWindow {
+        constructor() {
+            super();
+        }
+        onShow() {
+            this._settingScene = new ui.setting.settingUI;
+            this._settingScene.scene.close_btn.on(Laya.Event.CLICK, this, this.tweenHide);
+            this._settingScene.pivot(this._settingScene.width / 2, this._settingScene.height / 2);
+            this.addChild(this._settingScene);
+            this.tweenShow();
+        }
+        closeScene() {
+        }
+    }
+
+    class settingView {
+        constructor() {
+        }
+        onShowSetting() {
+            this._settingCom = new settingIndex;
+            this._settingCom.onShow();
+        }
+    }
+
+    class settingController {
+        constructor() {
+        }
+        static getInstance() {
+            if (settingController._instance == null) {
+                settingController._instance = new settingController;
+            }
+            return settingController._instance;
+        }
+        onShowSetting() {
+            if (this._settingView == null) {
+                this._settingView = new settingView;
+            }
+            this._settingView.onShowSetting();
+        }
+    }
+
     class infoIndex extends baseWindow {
         constructor() {
             super();
@@ -11570,8 +11588,6 @@
             this._topSence = new ui.base.scene.topSceneUI;
             this._topSence.scene.level.visible = false;
             this._topSence.scene.top_kuan.on(Laya.Event.CLICK, this, this.userCountInfo);
-            this._topSence.scene.farm_green_btn.on(Laya.Event.CLICK, this, this.showSecen, ['factory']);
-            this._topSence.scene.factory_fu_btn.on(Laya.Event.CLICK, this, this.showSecen, ['farm']);
             this._topSence.scene.top_kuan.on(Laya.Event.CLICK, this, function () {
                 Laya.stage.event(NETWORKEVENT.USERCOUNTINFO);
             });
@@ -11579,10 +11595,11 @@
             this._gold_box = this._topSence.scene.gold_kuan;
             this._mail_btn = this._topSence.scene.mail_btn;
             this._help_btn = this._topSence.scene.help_btn;
-            this._help_btn = this._topSence.scene.setting_kuan;
+            this._setting_btn = this._topSence.scene.setting_btn;
             this._diamond_box.on(Laya.Event.CLICK, this, this.showBank, ['diamond']);
             this._gold_box.on(Laya.Event.CLICK, this, this.showBank, ['gold']);
             this._mail_btn.on(Laya.Event.CLICK, this, this.showMail);
+            this._setting_btn.on(Laya.Event.CLICK, this, this.showSetting);
             this.adaption();
             this.showChild(this._topSence);
             this._topSence.mouseThrough = true;
@@ -11609,6 +11626,7 @@
         }
         onShowUserInfo() {
             var data = dataGlobal.getInstance().userInfo;
+            this._topSence.scene.level.text = data.grade;
             this._topSence.scene.level.visible = true;
             this._topSence.scene.uexp.value = Math.floor(data.exp / data.upgrade_exp * 100) > 100 ? 100 : data.exp / data.upgrade_exp;
             this._topSence.scene.gold_val.text = Math.floor(data.have_gold) + '';
@@ -11651,6 +11669,9 @@
         showMail() {
             mailController.getInstance().onShowMail();
         }
+        showSetting() {
+            settingController.getInstance().onShowSetting();
+        }
     }
 
     class infoUserTip extends baseTips {
@@ -11664,7 +11685,6 @@
             this.addChild(this._userInfoTip);
             this.showLayer();
             var data = dataGlobal.getInstance().userInfo;
-            console.log(data);
             this._userInfoTip.scene.uname.text = data.nickname;
             this._userInfoTip.scene.id.text = data.uid;
             this._userInfoTip.scene.ugrade.text = data.grade;
@@ -11691,9 +11711,6 @@
         }
         renderUnlockingList() {
             var data = dataGlobal.getInstance().userInfo.lower_level_unlock;
-            console.log(data, data);
-            console.log(data, data);
-            console.log(data, data);
             this._unlockList = this._userInfoTip.scene.crops_list;
             this._unlockList.dataSource = [];
             for (var i in data) {
@@ -11838,7 +11855,6 @@
             _item.select.skin = "avatar/AvatarSelected.png";
             for (var i = 0; i < this.avatarList.length; i++) {
                 if (i != index) {
-                    console.log(i, index);
                     var otherItem = this._avatarList.getItem(i);
                     otherItem.select.skin = "avatar/AvatarBorder.png";
                     this._avatarList.setItem(i, otherItem);
@@ -11868,7 +11884,6 @@
             this.tweenShow();
             this._userInfoTip.scene.y_btn.on(Laya.Event.CLICK, this, this.closeUserUpgradeTip);
             this.good_list = this._userInfoTip.scene.good_div.getChildByName('good_list');
-            console.log(this.good_list);
             this._userInfoTip.scene.new_grade.text = 'LV' + data.grade2;
             this._userInfoTip.scene.add_gold.text = '+' + (data.num ? data.num : 0);
             var good_list = data.up_data;
@@ -11905,7 +11920,6 @@
                     this._userInfoTip.scene.t9.visible = false;
                 }
             }
-            console.log(this.good_list.cells, this._userInfoTip.scene.n10);
         }
         closeUserUpgradeTip() {
             this.tweenHide();
@@ -11952,9 +11966,6 @@
             this._infoNickNameTip.show();
         }
         refreshUserInfo(type) {
-            console.log(type);
-            console.log(type);
-            console.log(type);
             if (type == 'changeNickName') {
                 this._infoNickNameTip.close();
             }
@@ -11973,7 +11984,6 @@
         constructor() {
         }
         InitInfo(data) {
-            console.log(data);
             dataGlobal.getInstance().setUserInfo(data.gd);
             infoController.getInstance().onShowUserInfo();
         }
@@ -12629,12 +12639,10 @@
             this.tweenHide();
         }
         confirmScreen() {
-            console.log('发送网络请求进行筛选');
             this.tweenHide();
         }
         initScreenList() {
             this._screen_list.dataSource = [];
-            console.log(this._screen_list);
             var data = [1, 2, 3, 4];
             for (var i in data) {
                 var _data = {
@@ -12681,9 +12689,6 @@
         }
         initExchangeList() {
             var data = dataGlobal.getInstance().exchangeInfo;
-            console.log(data);
-            console.log(data);
-            console.log(data);
         }
         initMyGoodList() {
             var data = dataGlobal.getInstance().marketInfo;
@@ -13148,47 +13153,6 @@
         }
     }
 
-    class emailIndex extends baseWindow {
-        constructor() {
-            super();
-        }
-        onShow() {
-            this._emailScene = new ui.email.emailUI;
-            this._emailScene.scene.close_btn.on(Laya.Event.CLICK, this, this.tweenHide);
-            this._emailScene.pivot(this._emailScene.width / 2, this._emailScene.height / 2);
-            this.addChild(this._emailScene);
-            this.tweenShow();
-        }
-        closeScene() {
-        }
-    }
-
-    class emailView {
-        constructor() {
-        }
-        onShowEmail() {
-            this._emailCom = new emailIndex;
-            this._emailCom.onShow();
-        }
-    }
-
-    class emailController {
-        constructor() {
-        }
-        static getInstance() {
-            if (emailController._instance == null) {
-                emailController._instance = new emailController;
-            }
-            return emailController._instance;
-        }
-        onShowEmail() {
-            if (this._emailView == null) {
-                this._emailView = new emailView;
-            }
-            this._emailView.onShowEmail();
-        }
-    }
-
     class resConfig {
         static getDynamicResUrl(signname, type = 0) {
             for (var key in resConfig.dynamicRes) {
@@ -13387,9 +13351,6 @@
             timeLine.play(0, true);
         }
         binClickAni(Ani) {
-            console.log(Ani);
-            console.log(Ani);
-            console.log(Ani);
         }
     }
 
@@ -13818,7 +13779,6 @@
         }
         initMaterial() {
             var material_info = dataJson.getInstance().GET_SYS_MATERIAL_INFO();
-            console.log('farm-index', 'material_info-------------------------', material_info);
             for (var i in material_info) {
                 if (material_info[i].is_lock == 1) {
                     if (i == 'MATERIAL301' && material_info[i].t == 0) {
@@ -13911,7 +13871,6 @@
             _animalBox.on(Laya.Event.CLICK, this, this.onClickAnimal, [_animalBox]);
         }
         onClickAnimal(animalBox) {
-            console.log(animalBox.static);
             if (animalBox.static == 'harvest') {
                 this.onHarvest(animalBox);
             }
@@ -13922,10 +13881,8 @@
             }
         }
         onHarvest(animalBox) {
-            console.log('发送收获请求');
         }
         onFeed(animalBox) {
-            console.log('发送喂饲料请求');
         }
         loadSeedList() {
             this._seedListClass = new farmSeedList();
@@ -14023,10 +13980,6 @@
                 case 'upgrade':
                     this.onClickUpgrade();
                     break;
-                case 'email':
-                    this._farmIndex.scene.email.skin = 'main/btn_youxiang2.png';
-                    this.onClickEmail();
-                    break;
                 case 'order':
                     this.onClickOrder();
                     this._farmIndex.scene.order.skin = 'main/btn_dingdan2.png';
@@ -14075,9 +14028,6 @@
         onClickRank() {
             rankController.getInstance().onShowRank();
         }
-        onClickEmail() {
-            emailController.getInstance().onShowEmail();
-        }
         onClickMaterialOrder() {
             materialController.getInstance().onShow();
         }
@@ -14091,8 +14041,6 @@
         }
         onMouseMove(e) {
             var distance = this.getDistance(e.touches);
-            console.log('判断当前距离与上次距离变化，确定是放大还是缩小');
-            console.log(distance);
             const factor = 0.01;
             this.lastDistance = distance;
         }
@@ -14179,7 +14127,8 @@
                 "gd": {
                     "seed_data": [
                         {
-                            "id": "wheat"
+                            "id": "wheat",
+                            "pic": "resource/crops/WheatEnable.png"
                         },
                     ]
                 },
@@ -14313,7 +14262,6 @@
                     "type": data.type
                 },
             };
-            console.log(data);
             dataGlobal.getInstance().setAnimalInfo(_data);
             farmController.getInstance().initAnimal();
         }
@@ -14447,8 +14395,6 @@
                     "tid": CONST.IS_TB
                 }
             };
-            console.log(tmp_dataGlobal.query);
-            console.log("这是登陆要提交的数据:", mydata);
             let tmp_http = httpJson.getInstance();
             tmp_http.httpPost(CONST.LOGIN_URL, mydata);
         }
@@ -14525,7 +14471,6 @@
             return loginController._instance;
         }
         showFarmView() {
-            console.log('显示主场景');
             Laya.stage.off(GAMEEVENT.TEST_LOGIN_FARM, this, this.showFarmView);
             webSocketJson.getInstance();
             this._loginview.showFarm();
