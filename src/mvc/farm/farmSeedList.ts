@@ -38,9 +38,6 @@ export default class farmSeedList extends ui.farm.seedListUI {
   //添加种子选项
   private addSeedItem(data) {
     this._dataSeedList = []
-    console.log(data)
-    console.log(data)
-    console.log(data)
     for (var i in data) {
 
       var _seedItem = {

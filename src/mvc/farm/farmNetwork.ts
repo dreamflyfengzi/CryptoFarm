@@ -207,13 +207,13 @@ export default class farmNetwork {
    * 动物产品成熟
    */
   public AnimalProductMature(data) {
-    var _data = {
-      "ga": "animal_product_mature",
-      "gd": {
-        "type": data.type
-      },
-    }
-    dataGlobal.getInstance().setAnimalInfo(_data);//保存农田信息
-    farmController.getInstance().initAnimal();//重置动物
+    // var _data = {
+    //   "ga": "animal_product_mature",
+    //   "gd": {
+    //     "type": data.type
+    //   },
+    // }
+    // dataGlobal.getInstance().setAnimalInfo(_data);//
+    // farmController.getInstance().initAnimal();//重置动物
   }
 }

@@ -76,10 +76,10 @@ export default class dataGlobal {
   public materialInfo: any;//订单任务
   public marketInfo: any;//市场信息
   public animalInfo: any;//动物信息
-  public mailInfo:any;//邮件信息
+  public mailInfo: any;//邮件信息
 
   // 交易市场
-  public exchangeInfo:any; //use
+  public exchangeInfo: any; //use
 
   public query = {//推广的参数
     "uid": '',
@@ -93,19 +93,19 @@ export default class dataGlobal {
     this.farmInfo = {};
     this.userInfo = {};
     this.userInfo = {
-      "nickname":'魔动闪霸',
-      "uid":'7754555',
-      "exp":'700',
-      "upgrade_exp":'775',
-      "flower_num":'111',
-      "order_num":'11111',
-      "goods_num":'11',
+      "nickname": '魔动闪霸',
+      "uid": '7754555',
+      "exp": '700',
+      "upgrade_exp": '775',
+      "flower_num": '111',
+      "order_num": '11111',
+      "goods_num": '11',
       "grade": 12, //用户等级
-      "have_gold":10000, //用户金币
-      "lower_level_unlock":[
+      "have_gold": 10000, //用户金币
+      "lower_level_unlock": [
         {
-          "type":"crops",
-          "id":"crops_1"
+          "type": "crops",
+          "id": "crops_1"
         }
       ],//下级解锁物
     };
@@ -113,7 +113,7 @@ export default class dataGlobal {
 
     //用户库存数量 use
     this.userGoodInfo = {
-      "wheat": {id: "wheat", num: "10"}
+      "wheat": { id: "wheat", num: "10" }
     };
     this.warehouseInfo = {};
     this.lotteryInfo = {};
@@ -145,6 +145,7 @@ export default class dataGlobal {
     // )
     this.animalInfo = {
       "chicken": {
+        "id":"chicken",
         "is_lock": 0, //0需要购买动物 1已经购买
         "locklevel": 5,//购买级别
         "status": 1, //0饥饿状态 1
@@ -154,6 +155,7 @@ export default class dataGlobal {
         "product": ''
       },
       "cow": {
+        "id":"cow",
         "is_lock": 1, //0需要购买动物 1已经购买
         "locklevel": 5,//购买级别
         "unlocknum": 1000,//动物的价格
@@ -162,6 +164,7 @@ export default class dataGlobal {
         "product": ''
       },
       "pig": {
+        "id":"pig",
         "is_lock": 1, //0需要购买动物 1已经购买
         "locklevel": 5,//购买级别
         "unlocknum": 1000,//动物的价格
@@ -170,7 +173,20 @@ export default class dataGlobal {
         "product": {
           'grow_time_tol': 1000,//成熟总时间
           "mature_time": 990,//当前成熟时间
-        }
+        }, 
+        "sheep": {
+          "id":"sheep",
+          "is_lock": 1, //0需要购买动物 1已经购买
+          "locklevel": 5,//购买级别
+          "unlocknum": 1000,//动物的价格
+          "feed_time": 7777,//当前饲料剩余的时间
+          'feed_time_tol': 10000,//饲料总时间（进度条）
+          "product": {
+            'grow_time_tol': 1000,//成熟总时间
+            "mature_time": 990,//当前成熟时间
+          }
+        },
+
       }
     };
   }
@@ -236,34 +252,34 @@ export default class dataGlobal {
     }
 
     // 暂时
-    data.lower_level_unlock =[
+    data.lower_level_unlock = [
       {
-        "type":"crops",
-        "id":"crops_1"
+        "type": "crops",
+        "id": "crops_1"
       },
       {
-        "type":"crops",
-        "id":"crops_1"
+        "type": "crops",
+        "id": "crops_1"
       },
       {
-        "type":"crops",
-        "id":"crops_1"
+        "type": "crops",
+        "id": "crops_1"
       },
       {
-        "type":"crops",
-        "id":"crops_1"
+        "type": "crops",
+        "id": "crops_1"
       },
       {
-        "type":"crops",
-        "id":"crops_1"
+        "type": "crops",
+        "id": "crops_1"
       },
       {
-        "type":"crops",
-        "id":"crops_1"
+        "type": "crops",
+        "id": "crops_1"
       },
       {
-        "type":"crops",
-        "id":"crops_1"
+        "type": "crops",
+        "id": "crops_1"
       }
     ]//下级解锁物
   }
@@ -398,7 +414,7 @@ export default class dataGlobal {
     } else {
       this.factory = data ? data : {};
     }
-    
+
   }
   /**
   * 购买槽位后保存
@@ -477,15 +493,15 @@ export default class dataGlobal {
     if (typeof data.num != 'undefined') { this.marketInfo.num = data.num }
     if (typeof data.data_info != 'undefined') { this.marketInfo.data_info = data.data_info }
   }
-  "type":"crops"
-  "data_info":[
+  "type": "crops"
+  "data_info": [
     {
-      "id":"bouquet3",
-      "price":"1.884"
+      "id": "bouquet3",
+      "price": "1.884"
     },
     {
-      "id":"bouquet3",
-      "price":"1.884"
+      "id": "bouquet3",
+      "price": "1.884"
     },
   ]
   /**
@@ -493,7 +509,7 @@ export default class dataGlobal {
    * @param data 
    * @param type 
    */
-  public setExchangeInfo(data:any) {
+  public setExchangeInfo(data: any) {
     // if (typeof data.type != 'undefined') { this.exchangeInfo.type = data.type }
     // if (typeof data.data_info != 'undefined') { this.marketInfo.data_info = data.data_info }
   }
@@ -580,8 +596,8 @@ export default class dataGlobal {
   /**
    * 设置用户邮件信息
    */
-  public setMailInfo(data:any) {
-      this.mailInfo = data;
+  public setMailInfo(data: any) {
+    this.mailInfo = data;
   }
 
 }

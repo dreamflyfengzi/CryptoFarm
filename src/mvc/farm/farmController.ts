@@ -38,7 +38,6 @@ export default class farmController {
     Laya.stage.on(NETWORKEVENT.FARMINITGROWFLOWER, this, this._network.FarmInitGrowFlower);//植物成长推送
     Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFAT, this, this._network.FarmInitFlowerFat);//肥力失效
 
-    Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEANIMAL, this, this.onResCompleteAnimal); //添加动物
     Laya.stage.on(NETWORKEVENT.ANIMALPRODUCTMATURE, this, this._network.AnimalProductMature); //动物产品成熟
 
   }
@@ -67,12 +66,7 @@ export default class farmController {
 
   }
 
-  /**
- * 加载完成动物
- */
-  public onResCompleteAnimal() {
-    this._farmview.onShowAnimal();
-  }
+  
 
 	/**
 	 * 展示农田信息
@@ -118,11 +112,6 @@ export default class farmController {
     this._farmview.setPlantFramLand();
   }
 
-  /**
-   * 重置动物
-   */
-  public initAnimal() {
-    this._farmview.initAnimal();
-  }
+  
 
 }

@@ -60,18 +60,8 @@ export default class farmView {
     this._indexCom.setPlantFramLand();
   }
 
-  /**
-   * 展示动物
-   */
-  public onShowAnimal() {
-    // this._indexCom.();
-  }
+  
 
 
-  /**
-   * 重置动物
-   */
-  public initAnimal() {
-    this._indexCom.initAnimal();
-  }
+
 }

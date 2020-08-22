@@ -3,6 +3,23 @@ import View=Laya.View;
 import Dialog=Laya.Dialog;
 import Scene=Laya.Scene;
 var REG: Function = Laya.ClassUtils.regClass;
+export module ui.animal {
+    export class animalProductionUI extends Laya.Scene {
+		public outsider:Laya.Image;
+		public close_btn:Laya.Sprite;
+		public gname:laya.display.Text;
+		public bottom_box:Laya.Box;
+		public feed_type:Laya.Sprite;
+		public feed_num:Laya.Label;
+		public product_list:Laya.List;
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("animal/animalProduction");
+        }
+    }
+    REG("ui.animal.animalProductionUI",animalProductionUI);
+}
 export module ui.bank {
     export class bankSceneUI extends Laya.Scene {
 		public bank_list:Laya.List;
@@ -63,6 +80,7 @@ export module ui.base.tip {
 		public tools_icon:Laya.Image;
 		public tools_num:Laya.Label;
 		public get_btn:Laya.Button;
+		public type_pay:Laya.Image;
 		public btn_num:Laya.Label;
         constructor(){ super()}
         createChildren():void {
@@ -439,6 +457,7 @@ export module ui.farm {
 		public material_1:Laya.Image;
 		public material_2:Laya.Image;
 		public material_3:Laya.Image;
+		public animalsContainer:Laya.Box;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

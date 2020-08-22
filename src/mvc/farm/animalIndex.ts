@@ -3,9 +3,23 @@ import resConfig from '../resconfig/resConfig'
 import GAMEEVENT from '../event/GAMEEVENT'
 import dataGlobal from '../resconfig/dataGlobal'
 import TimeLine = Laya.TimeLine;
+import Skeleton = Laya.Skeleton;
+import Templet = Laya.Templet;
+import Event = Laya.Event;
+import Browser = Laya.Browser;
+import Stat = Laya.Stat;
+import WebGL = Laya.WebGL;
 export default class animalIndex {
   static _timer: Laya.Timer;//定时器对象
-  private timeLine: TimeLine = new TimeLine();
+  private mAniPath: string;
+  private mStartX: number = 400;
+  private mStartY: number = 500;
+  private mFactory: Templet;
+  private mActionIndex: number = 0;
+  private mCurrIndex: number = 0;
+  private mArmature: Skeleton;
+  private mCurrSkinIndex: number = 0;
+
   constructor() {
     resManger.getInstance().addGroupRes(resConfig.animalRes);
     resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSANIMAL, GAMEEVENT.ONLOADCOMPLETEANIMAL);
@@ -15,101 +29,42 @@ export default class animalIndex {
    * 初始化动物
    * @param ani 
    */
-  public initAnimalAni(type) {
-    let PATH = '';
-    let _x = 0;
-    let _y = 0;
-    if (type == 'chicken') {
-      PATH = 'res/atlas/animal/muchang_jimc.atlas'
-      _x = 503;
-      _y = 662;
-    } else if (type == 'cow') {
-      PATH = 'res/atlas/animal/muchang_niumc.atlas'
-      _x = 881;
-      _y = 397;
-    } else if (type = 'pig') {
-      PATH = 'res/atlas/animal/muchang_yangmc.atlas'
-      _x = 994;
-      _y = 910;
-    }
-    let _Animation = new Laya.Animation();
-    _Animation.loadAtlas(PATH);
-    _Animation.interval = 60; // 设置播放间隔（单位：毫秒）
-    _Animation.index = 2; // 当前播放索引
-    _Animation.play(); // 播放图集动画
-    _Animation.scaleX = 1.7;
-    _Animation.scaleY = 1.7;
-    _Animation.name = type;
-    _Animation.pos(_x, _y)
+  public initAnimalAni(data) {
+    for (var i in data) {
+      console.log(data[i], i)
+      if (data[i].is_lock) { //已解锁 显示动画
+        this.mAniPath = "animal/niu.sk";
+        this.mFactory = new Templet();
+        this.mFactory.on(Event.COMPLETE, this, this.parseComplete);
+        // this.mFactory.on(Event.ERROR, this, this.onError);
+        this.mFactory.loadAni(this.mAniPath);
+      } else {//未解锁 虚化
 
-    //设置定时器
-    // this.setTimer(_Animation);
-    // this.createTimerLine(_Animation);
-    _Animation.on(Laya.Event.CLICK, this, this.binClickAni);
-    return _Animation
-  }
-
-  /**
-   * 设置定时器
-   */
-  public setTimer(ani) {
-    if (ani._timer) {
-      ani._timer.clear(this, this.timerFun);//先清除定时器
-    }
-    //设置定时器
-    ani._timer = new Laya.Timer();
-    ani._timer.loop(300, this, this.timerFun, [ani]);
-  }
-
-
-  /**
-   * 定时器处理的内容
-   */
-  private timerFun(ani) {
-    var rect = new Laya.Rectangle(ani.x, ani.y, 100, 100);
-    ani.hitArea = rect;
-    var data = dataGlobal.getInstance().animalInfo[ani.name]
-    if (!data.is_lock) {
-       ani.visible = false;
-    } 
-    if (data.feed_time <= 0) {
-      
+      }
     }
   }
 
 
-  /**
-   * 行动的线
-   */
-  private createTimerLine(Ani): void {
-    var timeLine = new TimeLine();
-    if (Ani.name == 'chicken') {
-      // 鸡行动的线
-      timeLine.addLabel("turnRight", 0).to(Ani, { x: 503, y: 637, scaleX: 1.6, scaleY: 1.6, }, 1000, null, 0)
-        .addLabel("turnRight", 0).to(Ani, { x: 656, y: 672, scaleX: 1.7, scaleY: 1.7 }, 1000, null, 0)
-        .addLabel("turnRight", 0).to(Ani, { x: 936, y: 558, scaleX: 1.55, scaleY: 1.55 }, 1500, null, 0)
-        .addLabel("turnRight", 0).to(Ani, { x: 1040, y: 558, skewY: 180 }, 0, null, 0)
-        .addLabel("turnLeft", 0).to(Ani, { x: 783, y: 368, scaleX: 1.3, scaleY: 1.3, }, 3000, null, 0)
-        .addLabel("turnUp", 0).to(Ani, { x: 503, y: 470, scaleX: 1.5, scaleY: 1.5 }, 3000, null, 0)
-        .addLabel("turnUp", 0).to(Ani, { x: 503, y: 470, scaleX: 1.5, scaleY: 1.5, skewY: 0 }, 0, null, 0)
-        .addLabel("turnRight", 0).to(Ani, { x: 503, y: 662, scaleX: 1.6, scaleY: 1.6 }, 1000, null, 0)
-      // .addLabel("turnRight", 0).to(Ani, { x: 393, y: 760,  }, 1000, null, 0)
-      // .addLabel("turnDown", 0).to(Ani, { x: 949, y: 515, scaleX: 1.7, scaleY: 1.7, alpha: 1 }, 5000, null, 0)
-    }
-    if (Ani.name == 'cow') {
-      // 牛行动的线
-    }
-    if (Ani.name == 'pig') {
-      // 猪行动的线
-    }
-
-    timeLine.play(0, true);
+  private parseComplete(): void {
+    //创建模式为1，可以启用换装
+    this.mArmature = this.mFactory.buildArmature(1);
+    this.mArmature.x = this.mStartX;
+    this.mArmature.y = this.mStartY;
+    this.mArmature.scale(0.5, 0.5);
+    Laya.stage.addChild(this.mArmature);
+    this.mArmature.on(Event.STOPPED, this, this.completeHandler);
+    this.play();
   }
 
-  private binClickAni(Ani) {
-
-    // pause()暂停时间轴动画
-    //resume()恢复时间轴动画
+  private completeHandler(): void {
+    this.play();
+  }
+  private play(): void {
+    this.mCurrIndex++;
+    if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
+      this.mCurrIndex = 0;
+    }
+    this.mArmature.play(this.mCurrIndex, false);
   }
 
   /**

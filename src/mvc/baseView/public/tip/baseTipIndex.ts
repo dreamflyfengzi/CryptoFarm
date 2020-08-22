@@ -20,11 +20,10 @@ export default class tipIndex extends baseWindow {
 
   /**
    * 提醒弹窗
-   * @param content_txt :提示文字
-   * @param confirm_txt :确定文字
-   * @param cancel_txt ：取消文字
+   * @param title_txt :标题
+   * @param tips :提示信息
+   * @param info ：取消文字
    * @param confirm_fun ：确定监听函数
-   * @param cancel_fun   ：取消监听函数
    */
   public tipShow(title_txt: string, tips: string, info: object, confirm_fun: Function)  {
     var _tipKuan = new ui.base.tip.baseTipsUI();
@@ -36,9 +35,16 @@ export default class tipIndex extends baseWindow {
       }
       if (i == 'num_txt') {
         _tipKuan.tools_num.text ='×'+ info[i];
+        _tipKuan.tools_num.visible = true;
       }
       if (i == 'price') {
         _tipKuan.btn_num.text = info[i];
+      }
+      _tipKuan.type_pay.skin = 'main/pic_zuanshi.png'
+      if (i == 'type') {
+        if (info[i] == 'coin') {
+           _tipKuan.type_pay.skin = 'base/Icon_Coin.png'
+          }
       }
     }
     _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);

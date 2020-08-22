@@ -20,12 +20,18 @@ import dataGlobal from '../resconfig/dataGlobal'
 import httpJson from '../../net/httpJson'
 import dataJson from '../resconfig/dataJson'
 import materialController from '../materialOrder/materialController'
+import tipController from '../baseView/public/tip/tipController'
+import GAMEEVENT from '../event/GAMEEVENT'
+import animalController from '../animal/animalController'
 
 import Sprite = Laya.Sprite;
 import Stage = Laya.Stage;
 import Event = Laya.Event;
 import Browser = Laya.Browser;
 import WebGL = Laya.WebGL;
+import Skeleton = Laya.Skeleton;
+import Templet = Laya.Templet;
+import Stat = Laya.Stat;
 import materialView from '../materialOrder/materialView'
 export default class farmIndex extends baseScene {
   private _farmIndex: Laya.Sprite;
@@ -39,6 +45,15 @@ export default class farmIndex extends baseScene {
   private _seedListClass: farmSeedList;
   private _seedList: Laya.Sprite;//种子列表
   private _animalIndex: animalIndex;
+
+  private mAniPath: string;
+  private mStartX: number = 400;
+  private mStartY: number = 500;
+  private mFactory: Templet;
+  private mActionIndex: number = 0;
+  private mCurrIndex: number = 0;
+  private mArmature: Skeleton;
+  private mCurrSkinIndex: number = 0;
 
 
   //上次记录的两个触模点之间距离
@@ -100,7 +115,7 @@ export default class farmIndex extends baseScene {
     this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);//交易
     this._farmIndex.scene.rank.on(Laya.Event.CLICK, this, this.onMenuClick, ['rank']);//排行榜
     this._farmIndex.scene.material_box.on(Laya.Event.CLICK, this, this.onMenuClick, ['material_order']);//材料订单
-  
+
     this._materialbox = this._farmIndex.scene.material_box;
     this._material_1 = this._farmIndex.scene.material_1;
     this._material_2 = this._farmIndex.scene.material_2;
@@ -108,7 +123,7 @@ export default class farmIndex extends baseScene {
     this.cleanAllStatu();//重置所有的按钮状态
     this.initMaterial()
 
-    this.initAnimal()
+    this.getAnimalInfo()
   }
   /**
    * 获取订单数量
@@ -119,15 +134,15 @@ export default class farmIndex extends baseScene {
       if (material_info[i].is_lock == 1) {
         if (i == 'MATERIAL301' && material_info[i].t == 0) {
           this._material_1.visible = true;
-          this.setBalloonAni(this._material_1,'onbase')
+          this.setBalloonAni(this._material_1, 'onbase')
         }
         if (i == 'MATERIAL302' && material_info[i].t == 0) {
           this._material_2.visible = true;
-          this.setBalloonAni(this._material_2,'onbase')
+          this.setBalloonAni(this._material_2, 'onbase')
         }
         if (i == 'MATERIAL303' && material_info[i].t == 0) {
           this._material_3.visible = true;
-          this.setBalloonAni(this._material_3,'onbase')
+          this.setBalloonAni(this._material_3, 'onbase')
         }
       }
     }
@@ -135,7 +150,7 @@ export default class farmIndex extends baseScene {
   /**
    * 设置气球的动画
    */
-  public setBalloonAni(_sprite,type) {
+  public setBalloonAni(_sprite, type) {
     if (type == 'onbase') {
       //播放在位置上的动画
     }
@@ -148,132 +163,156 @@ export default class farmIndex extends baseScene {
   }
 
   /**
-   * 初始化动物所有的
+   * 获取动物信息
    */
-  public initAnimal() {
-    var ani: Laya.Animation = new Laya.Animation();
-    ani.loadAtlas("animal/NI_02_tex.json"); // 加载图集动画
-    // ani.interval = 30; // 设置播放间隔（单位：毫秒）
-    // ani.index = 1; // 当前播放索引
-    ani.play(); // 播放图集动画
-
-    // // 获取动画的边界信息
-  
-    ani.pivot(100, 100);
-
-    // ani.pos(Laya.stage.width / 2, Laya.stage.height / 2);
-
-    Laya.stage.addChild(ani);
-
-    
-   
-  }
-  /**
-   * 设置动物定时器
-   * @param type setAnimalTimer
-   */
-  private setAnimalTimer(type) {
-    var data = dataGlobal.getInstance().animalInfo[type];
-    var _animalBox = this._farmIndex.scene.getChildByName(type + '_box')
-    //设置定时器
-    if (data.feed_time > 0 || data.product.grow_time_tol > 0) {
-      //先清除定时器
-      if (_animalBox._timer) {
-        _animalBox._timer.clear(this, this.timerFun);
-      }
-      //设置定时器
-      _animalBox._timer = new Laya.Timer();
-      _animalBox._timer.loop(1000, this, this.timerFun, [type]);
-    }
-  }
-  /**
-   * 定时器处理的内容
-   */
-  private timerFun(type) {
-    var data = dataGlobal.getInstance().animalInfo[type];
-    var _animalBox = this._farmIndex.scene.getChildByName(type + '_box')
-    var _surplus_grow_time = data.product.grow_time_tol - data.product.mature_time;
-    if (data.feed_time == 0 && _surplus_grow_time == 0) {
-      _animalBox._timer.clear(this, this.timerFun);
-    }
-    if (_surplus_grow_time > 0) {
-      data.product.mature_time++
-    }
-    if (data.product.grow_time_tol < data.product.mature_time || data.product.grow_time_tol == data.product.mature_time) {
-      if (_animalBox.static != "harvest") {
-        _animalBox.static = "harvest"
-        //改变状态 发请求
-        Laya.stage.event(NETWORKEVENT.ANIMALPRODUCTMATURE, _animalBox.type);
+  public getAnimalInfo() {
+    var data = dataGlobal.getInstance().animalInfo;
+    for (var i in data) {
+      console.log(data[i], i)
+      if (data[i].is_lock) { //已解锁 显示动画
+        this.renderAnimalBones(data[i])
+      } else {//未解锁 虚化
+        this.renderAnimalStatic(data[i])
       }
     }
   }
+
   /**
-   * 动物状态
+   * 渲染动物动画
    */
-  private initAnimalStatic(type) {
-    var data = dataGlobal.getInstance().animalInfo[type]
-    var _animalBox = this._farmIndex.scene.getChildByName(type + '_box')
-    _animalBox.type = type;
-    //先全部隐藏
-    _animalBox.getChildByName('bgkuang').visible = false;
-    _animalBox.getChildByName('crop').visible = false;
-    _animalBox.getChildByName('feed').visible = false;
-    //移除事件
-    _animalBox.off(Laya.Event.CLICK, this, this.onClickAnimal)
-    if (!data.is_lock) {
-      //未解锁不进行展示 未进行购买的展示购买相关
-      _animalBox.static = 'unlock'
-      _animalBox.visible = false
-    } else {//已经购买的展示动物
-      // 判断动物的状态
-      if (data.feed_time <= 0) { //饥饿状态 需要进行喂养 展示喂养框
-        _animalBox.static = 'feed'
-        _animalBox.getChildByName('feed').visible = true;
-        _animalBox.getChildByName('bgkuang').visible = true;
-        // 绑定喂养事件
-      } else { //饱腹状态 
-        //判断是否有产物 有产物展示产物 没有产物隐藏喂养框
-        if (data.product.grow_time_tol == data.product.mature_time) { //有产物 状态收获
-          _animalBox.static = 'harvest'
-          _animalBox.getChildByName('crop').visible = true;
-          _animalBox.getChildByName('bgkuang').visible = true;
-        } else {
-          _animalBox.static = 'producing' //生产中
-        }
+  private renderAnimalBones(data) {
+    var _x = 0;
+    var _path = "";
+    if (data.id == "chicken") {
+      _x = 0
+      _path = "res/animalBones/niu.sk";
+    }
+    if (data.id == "cow") {
+      _x = 100
+      _path = "res/animalBones/niu.sk";
+    }
+    if (data.id == "sheep") {
+      _x = 200
+      _path = "res/animalBones/niu.sk";
+    }
+    if (data.id == "pig") {
+      _x = 300
+      _path = "res/animalBones/niu.sk";
+    }
+    let templetStone: Laya.Templet = new Laya.Templet();
+    templetStone.on(Laya.Event.COMPLETE, this, () => {
+      //创建第一个动画
+      var skeleton: Laya.Skeleton;
+      //从动画模板创建动画播放对象
+      skeleton = templetStone.buildArmature(1);
+      skeleton.pos(_x, 0);
+      skeleton.scaleX = 0.3;
+      skeleton.scaleY = 0.3;
+      //切换动画皮肤 使用标号为0的皮肤
+      skeleton.showSkinByIndex(0);
+      //播放
+      skeleton.play('full', true);
+      this._farmIndex.scene.animalsContainer.addChild(skeleton);
+      console.log(skeleton)
+      console.log(skeleton.pivotX)
+      console.log(skeleton.pivotY)
+      this.bindClick(skeleton, data)
+    });
+    templetStone.loadAni(_path);
+
+    console.log(templetStone)
+  }
+
+  /**
+   * 
+   * @param data 绑定点击事件
+   */
+  private bindClick(skeleton, data) {
+    console.log('111111')
+    // skeleton.on(Laya.Event.CLICK, this, this.enterAnimalScene,[data.id]) //todo
+  }
+  /**
+   * 渲染动物静态
+   */
+  private renderAnimalStatic(data) {
+    var _x = 0;
+    var _path = "";
+    if (data.id == "chicken") {
+      _x = 0
+      _path = "base/2_Hide.png";
+    }
+    if (data.id == "cow") {
+      _x = 100
+      _path = "base/1_Hide.png";
+    }
+    if (data.id == "sheep") {
+      _x = 200
+      _path = "base/3_Hide.png";
+    }
+    if (data.id == "pig") {
+      _x = 300
+      _path = "base/3_Hide.png";
+    }
+    let StaticSprite: Laya.Image = new Laya.Image();
+    this._farmIndex.scene.animalsContainer.addChild(StaticSprite)
+    StaticSprite.skin = _path;
+    StaticSprite.pos(_x, 0)
+    StaticSprite.pivotX = StaticSprite.width
+    StaticSprite.pivotY = StaticSprite.height
+    StaticSprite.on(Laya.Event.CLICK, this, this.unlockAnimal, [data]);
+  }
+
+  /**
+   * 解锁动物
+   */
+  private unlockAnimal(data) {
+    //进入动物界面
+    animalController.getInstance().onShowAnimal(data.id)
+    return
+    console.log('解锁动物', data.id, data)
+    var have_gold = dataGlobal.getInstance().userInfo.have_gold;//用户金币
+    var grade = dataGlobal.getInstance().userInfo.grade;//用户等级
+    tipController.getInstance();
+    //判断当前是否可以解锁
+    if (grade < data.locklevel) {//升级才可以解锁
+      var _str = "升级至" + data.locklevel + "级才可解锁";
+      Laya.stage.event(GAMEEVENT.TIPSKUAN, [_str, '确认', "取消", function () {
+        tipController.getInstance().close();
+      }, function () {
+        tipController.getInstance().close();
+      }]);
+    } else { //金币解锁
+      var _str = '确认花费' + data.unlocknum + '金币解锁动物'
+      var _skin = ''
+      if (data.id == "chicken") {
+        _skin = "base/2_Hide.png";
       }
+      if (data.id == "cow") {
+        _skin = "base/1_Hide.png";
+      }
+      if (data.id == "sheep") {
+        _skin = "base/3_Hide.png";
+      }
+      if (data.id == "pig") {
+        _skin = "base/3_Hide.png";
+      }
+      var _info = {
+        skin: _skin,
+        price: data.unlocknum,
+        type: 'coin'
+      }
+      var confirm_fun = function () {
+        console.log('进行解锁，发送请求')
+      }
+      Laya.stage.event(GAMEEVENT.BASETIPS, ['解锁', _str, _info, confirm_fun]);
     }
-    _animalBox.on(Laya.Event.CLICK, this, this.onClickAnimal, [_animalBox]);
   }
 
   /**
-   * 点击动物
-   * onClickAnimal
-   */
-  private onClickAnimal(animalBox) {
-    if (animalBox.static == 'harvest') { //收获产物
-      this.onHarvest(animalBox);
-    }
-    if (animalBox.static == 'feed') { //喂饲料
-      this.onFeed(animalBox);
-    }
-    if (animalBox.static == 'producing') { //正在生产中
-      // 飘字提醒
+   * 进入动物生产
+  */
+  public enterAnimalScene(id) {
 
-    }
-  }
-
-  /**
-   * 收获
-   */
-  private onHarvest(animalBox) {
-    //发送收获请求
-  }
-
-  /**
-   * 喂饲料
-   */
-  private onFeed(animalBox) {
-    //发送喂饲料请求
   }
 
   /**
@@ -299,7 +338,6 @@ export default class farmIndex extends baseScene {
       'd': {},
       'code': 1
     };
-    console.log("发送websocket数据", tmp_data);
     tmp_websocket.sendMessage(tmp_data);
     // Laya.stage.event(NETWORKEVENT.FARMINITSEEDLIST);
   }
@@ -431,7 +469,7 @@ export default class farmIndex extends baseScene {
       case 'upgrade':
         this.onClickUpgrade();
         break;
-    
+
       case 'order':
         this.onClickOrder();
         this._farmIndex.scene.order.skin = 'main/btn_dingdan2.png';

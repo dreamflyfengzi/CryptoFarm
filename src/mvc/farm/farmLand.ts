@@ -133,7 +133,6 @@ export default class farmLand extends ui.farm.farmLandUI {
           },
           'code': 1
         };
-        console.log("发送websocket数据", tmp_data);
         tmp_websocket.sendMessage(tmp_data);
         // Laya.stage.event(NETWORKEVENT.FARMINITGROWFLOWER, data);
       }
@@ -316,8 +315,6 @@ export default class farmLand extends ui.farm.farmLandUI {
     var member = dataJson.getInstance().GET_SYS_FLOWER_MEMBER(); //玩家初始数据
     var member_info = dataJson.getInstance().GET_SYS_FLOWER_MEMBER()[grade]; //当前用户等级对应的初始数据
 
-    console.log("玩家初始数据", member)
-    console.log("当前用户等级对应的初始数据", member_info)
 
     var userFarm = dataGlobal.getInstance().farmInfo; //当前用户花田数据
     var num = 0;
@@ -330,7 +327,6 @@ export default class farmLand extends ui.farm.farmLandUI {
     if (member_info.field <= num) {//这里是不能开花田的，需要查询一下下一级可以开的花田
       for (var q in member) {
         if (member[q].field > member_info.field) {
-          console.log(member_info.field)
           str = '达到' + member[q].grade + '级可扩建该花田';
           break;
         }
@@ -338,7 +334,6 @@ export default class farmLand extends ui.farm.farmLandUI {
     }
     // gold_str = "<span style='color:#7D4815'>"+have_gold+"</span><span style='color:#7D4815'>/"+data.ff_id_unlocknum+"</span>";
     // gold_str = "" + have_gold + "/" + data.ff_id_unlocknum + "";
-    console.log(data)
     gold_str = '是否消耗' + data.ff_id_unlocknum + '钻石解锁花田'
     if (type == 1) {
       gold_str = '是否消耗' + data.next_ff_id_glod + '钻石升级花田'
@@ -468,10 +463,7 @@ export default class farmLand extends ui.farm.farmLandUI {
       // 展示了花种
       let index = data.seed_data.pic.lastIndexOf("/");
       var _skin = data.seed_data.pic.substring(index + 1, data.seed_data.pic.length);
-      console.log(data.ff_id,_skin,data.seed_data.id)
-      console.log(data.seed_data.name)
       this.flower.skin = "main/" + _skin + ".png";
-      console.log(this.flower.skin)
       this.flower.visible = true;
       //判断是否可以浇水等
       if (this.isOperation(data)) {

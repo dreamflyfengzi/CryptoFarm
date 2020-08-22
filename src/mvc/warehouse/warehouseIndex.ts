@@ -174,7 +174,6 @@ export default class warehouseIndex extends baseTips {
    */
   public initWarehouseGoodList() {
     var data = dataGlobal.getInstance().userGoodInfo;//查询仓库的信息
-    console.log(data)
     console.log('仓库信息')
     this._good_list = this._warehouse.scene.good_list;
     this._good_list.dataSource = []
@@ -220,7 +219,7 @@ export default class warehouseIndex extends baseTips {
    */
   private creator_good_item(id, num) {
     var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
-    console.log(data)
+    
     var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
 
     let index = good_info.pic.lastIndexOf("/")

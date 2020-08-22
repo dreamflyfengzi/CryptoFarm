@@ -143,6 +143,7 @@
             this.mailInfo = {};
             this.animalInfo = {
                 "chicken": {
+                    "id": "chicken",
                     "is_lock": 0,
                     "locklevel": 5,
                     "status": 1,
@@ -152,6 +153,7 @@
                     "product": ''
                 },
                 "cow": {
+                    "id": "cow",
                     "is_lock": 1,
                     "locklevel": 5,
                     "unlocknum": 1000,
@@ -160,6 +162,7 @@
                     "product": ''
                 },
                 "pig": {
+                    "id": "pig",
                     "is_lock": 1,
                     "locklevel": 5,
                     "unlocknum": 1000,
@@ -168,7 +171,19 @@
                     "product": {
                         'grow_time_tol': 1000,
                         "mature_time": 990,
-                    }
+                    },
+                    "sheep": {
+                        "id": "sheep",
+                        "is_lock": 1,
+                        "locklevel": 5,
+                        "unlocknum": 1000,
+                        "feed_time": 7777,
+                        'feed_time_tol': 10000,
+                        "product": {
+                            'grow_time_tol': 1000,
+                            "mature_time": 990,
+                        }
+                    },
                 }
             };
         }
@@ -436,6 +451,20 @@
 
     var REG = Laya.ClassUtils.regClass;
     var ui;
+    (function (ui) {
+        var animal;
+        (function (animal) {
+            class animalProductionUI extends Laya.Scene {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("animal/animalProduction");
+                }
+            }
+            animal.animalProductionUI = animalProductionUI;
+            REG("ui.animal.animalProductionUI", animalProductionUI);
+        })(animal = ui.animal || (ui.animal = {}));
+    })(ui || (ui = {}));
     (function (ui) {
         var bank;
         (function (bank) {
@@ -1089,50 +1118,6 @@
         }
         ;
     }
-
-    class NETWORKEVENT {
-    }
-    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
-    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
-    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
-    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
-    NETWORKEVENT.GAMEFAILTIP = "game_fail_tip";
-    NETWORKEVENT.USERNICKNAMECHANGE = "user_nickname_change";
-    NETWORKEVENT.USERAVATARCHANGE = "user_avatar_change";
-    NETWORKEVENT.INITINFO = "init_info";
-    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
-    NETWORKEVENT.FARMINITFIELD = "init_field";
-    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
-    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
-    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
-    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
-    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
-    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
-    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
-    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
-    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
-    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
-    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
-    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
-    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
-    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
-    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
-    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
-    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
-    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
-    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
-    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
-    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
-    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
-    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
-    NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
-    NETWORKEVENT.MATERIALINFOBAK = 'material_info';
-    NETWORKEVENT.SENDGOODMATERIALBAK = 'send_good_material_bak';
-    NETWORKEVENT.ANIMALPRODUCTMATURE = "animal_product_mature";
-    NETWORKEVENT.EXCHANGEINFOBAK = 'exchange_info_bak';
-    NETWORKEVENT.EXCHANGEMYMATERIAL = 'exchange_my_material';
-    NETWORKEVENT.MAILINFOBAK = 'mail_info_bak';
-    NETWORKEVENT.MAILOPERATE = 'mail_operate';
 
     class GAMECONFIG {
     }
@@ -9002,9 +8987,16 @@
                 }
                 if (i == 'num_txt') {
                     _tipKuan.tools_num.text = '×' + info[i];
+                    _tipKuan.tools_num.visible = true;
                 }
                 if (i == 'price') {
                     _tipKuan.btn_num.text = info[i];
+                }
+                _tipKuan.type_pay.skin = 'main/pic_zuanshi.png';
+                if (i == 'type') {
+                    if (info[i] == 'coin') {
+                        _tipKuan.type_pay.skin = 'base/Icon_Coin.png';
+                    }
                 }
             }
             _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
@@ -9079,6 +9071,50 @@
             this._baseTipIndex.close();
         }
     }
+
+    class NETWORKEVENT {
+    }
+    NETWORKEVENT.CONNECTONOPEN = "pid_1000";
+    NETWORKEVENT.CONNECTONCLOSE = "pid_1001";
+    NETWORKEVENT.HTTP_LOGIN_OK = "HTTP_LOGIN_OK";
+    NETWORKEVENT.HTTP_ERROR_BAK = "HTTP_ERROR_BAK";
+    NETWORKEVENT.GAMEFAILTIP = "game_fail_tip";
+    NETWORKEVENT.USERNICKNAMECHANGE = "user_nickname_change";
+    NETWORKEVENT.USERAVATARCHANGE = "user_avatar_change";
+    NETWORKEVENT.INITINFO = "init_info";
+    NETWORKEVENT.USERCOUNTINFO = 'user_count_info_bak';
+    NETWORKEVENT.FARMINITFIELD = "init_field";
+    NETWORKEVENT.FARMINITSEEDLIST = "init_seed_list";
+    NETWORKEVENT.FARMINITFLOWERGRADE = 'init_flower_grade';
+    NETWORKEVENT.FARMINITPLANTFLOWER = 'init_plant_flower';
+    NETWORKEVENT.FARMINITFLOWERWATER = 'init_flower_water';
+    NETWORKEVENT.FARMINITGROWFLOWER = 'init_grow_flower';
+    NETWORKEVENT.FARMINITCOLLECTFLOWER = 'init_collect_flower';
+    NETWORKEVENT.FARMINITFLOWERFERTILIZE = 'init_flower_fertilize';
+    NETWORKEVENT.FARMSENDFLOWERFATBAK = 'send_flower_fat_bak';
+    NETWORKEVENT.FARMINITFLOWERFAT = 'init_flower_fat';
+    NETWORKEVENT.SENDFACTORYBAK = 'send_factory_bak';
+    NETWORKEVENT.FACTORYCREATEBAK = 'factory_create_bak';
+    NETWORKEVENT.FACTORYGOODSAVEBAK = 'factory_good_save_bak';
+    NETWORKEVENT.FACTORYOPENSEATNUMBAK = 'factory_open_seat_num_bak';
+    NETWORKEVENT.SENDGOODBAK = 'send_good_bak';
+    NETWORKEVENT.FACTORYACTBAK = 'factory_act_bak';
+    NETWORKEVENT.FACTORYUPGRADEBAK = 'factory_up_grade_bak';
+    NETWORKEVENT.FACTORYGOODGETBAK = 'factory_good_get_bak';
+    NETWORKEVENT.SENDUSERGRADEUP = 'send_user_grade_up';
+    NETWORKEVENT.STOREINFOBAK = 'store_info_bak';
+    NETWORKEVENT.STOREUPGRADEBAK = 'store_up_gread_bak';
+    NETWORKEVENT.STOREGOODDEL = 'store_good_del_bak';
+    NETWORKEVENT.LOTTERYINFOBAK = 'lottery_info_bak';
+    NETWORKEVENT.LOTTERYACTBAK = 'lottery_act_bak';
+    NETWORKEVENT.SHOWSELLTIP = 'show_sell_tip';
+    NETWORKEVENT.MATERIALINFOBAK = 'material_info';
+    NETWORKEVENT.SENDGOODMATERIALBAK = 'send_good_material_bak';
+    NETWORKEVENT.ANIMALPRODUCTMATURE = "animal_product_mature";
+    NETWORKEVENT.EXCHANGEINFOBAK = 'exchange_info_bak';
+    NETWORKEVENT.EXCHANGEMYMATERIAL = 'exchange_my_material';
+    NETWORKEVENT.MAILINFOBAK = 'mail_info_bak';
+    NETWORKEVENT.MAILOPERATE = 'mail_operate';
 
     class tipController {
         constructor() {
@@ -9354,7 +9390,6 @@
                         },
                         'code': 1
                     };
-                    console.log("发送websocket数据", tmp_data);
                     tmp_websocket.sendMessage(tmp_data);
                 }
             }
@@ -9494,8 +9529,6 @@
             }
             var member = dataJson.getInstance().GET_SYS_FLOWER_MEMBER();
             var member_info = dataJson.getInstance().GET_SYS_FLOWER_MEMBER()[grade];
-            console.log("玩家初始数据", member);
-            console.log("当前用户等级对应的初始数据", member_info);
             var userFarm = dataGlobal.getInstance().farmInfo;
             var num = 0;
             for (var i in userFarm) {
@@ -9506,13 +9539,11 @@
             if (member_info.field <= num) {
                 for (var q in member) {
                     if (member[q].field > member_info.field) {
-                        console.log(member_info.field);
                         str = '达到' + member[q].grade + '级可扩建该花田';
                         break;
                     }
                 }
             }
-            console.log(data);
             gold_str = '是否消耗' + data.ff_id_unlocknum + '钻石解锁花田';
             if (type == 1) {
                 gold_str = '是否消耗' + data.next_ff_id_glod + '钻石升级花田';
@@ -9604,10 +9635,7 @@
             if (data.seed_data.id) {
                 let index = data.seed_data.pic.lastIndexOf("/");
                 var _skin = data.seed_data.pic.substring(index + 1, data.seed_data.pic.length);
-                console.log(data.ff_id, _skin, data.seed_data.id);
-                console.log(data.seed_data.name);
                 this.flower.skin = "main/" + _skin + ".png";
-                console.log(this.flower.skin);
                 this.flower.visible = true;
                 if (this.isOperation(data)) {
                     return;
@@ -9678,9 +9706,6 @@
         }
         addSeedItem(data) {
             this._dataSeedList = [];
-            console.log(data);
-            console.log(data);
-            console.log(data);
             for (var i in data) {
                 var _seedItem = {
                     id: 'seed_' + data[i].id,
@@ -10044,7 +10069,6 @@
         }
         initWarehouseGoodList() {
             var data = dataGlobal.getInstance().userGoodInfo;
-            console.log(data);
             console.log('仓库信息');
             this._good_list = this._warehouse.scene.good_list;
             this._good_list.dataSource = [];
@@ -10082,7 +10106,6 @@
         }
         creator_good_item(id, num) {
             var data = dataGlobal.getInstance().warehouseInfo;
-            console.log(data);
             var good_info = dataJson.getInstance().GET_SYS_GOOD_INFO()[id];
             let index = good_info.pic.lastIndexOf("/");
             var _skin = good_info.pic.substring(index + 1, good_info.pic.length);
@@ -13200,6 +13223,7 @@
         { url: resConfig._url + 'res/atlas/avatar.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/resource/crops.atlas', type: Laya.Loader.ATLAS, sign: 'crops' },
         { url: resConfig._url + 'res/atlas/resource/crops.png', type: Laya.Loader.IMAGE },
+        { url: resConfig._url + 'res/animalBones/niu.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/base.atlas', type: Laya.Loader.ATLAS, sign: 'base' },
         { url: resConfig._url + 'res/atlas/base.png', type: Laya.Loader.IMAGE },
         { url: resConfig._url + 'res/atlas/product.atlas', type: Laya.Loader.ATLAS, sign: 'product' },
@@ -13280,80 +13304,49 @@
         }
     }
 
-    var TimeLine = Laya.TimeLine;
+    var Templet = Laya.Templet;
+    var Event = Laya.Event;
     class animalIndex {
         constructor() {
-            this.timeLine = new TimeLine();
+            this.mStartX = 400;
+            this.mStartY = 500;
+            this.mActionIndex = 0;
+            this.mCurrIndex = 0;
+            this.mCurrSkinIndex = 0;
             resManger.getInstance().addGroupRes(resConfig.animalRes);
             resManger.getInstance().startLoad(GAMEEVENT.ONPROGRESSANIMAL, GAMEEVENT.ONLOADCOMPLETEANIMAL);
         }
-        initAnimalAni(type) {
-            let PATH = '';
-            let _x = 0;
-            let _y = 0;
-            if (type == 'chicken') {
-                PATH = 'res/atlas/animal/muchang_jimc.atlas';
-                _x = 503;
-                _y = 662;
-            }
-            else if (type == 'cow') {
-                PATH = 'res/atlas/animal/muchang_niumc.atlas';
-                _x = 881;
-                _y = 397;
-            }
-            else if (type = 'pig') {
-                PATH = 'res/atlas/animal/muchang_yangmc.atlas';
-                _x = 994;
-                _y = 910;
-            }
-            let _Animation = new Laya.Animation();
-            _Animation.loadAtlas(PATH);
-            _Animation.interval = 60;
-            _Animation.index = 2;
-            _Animation.play();
-            _Animation.scaleX = 1.7;
-            _Animation.scaleY = 1.7;
-            _Animation.name = type;
-            _Animation.pos(_x, _y);
-            _Animation.on(Laya.Event.CLICK, this, this.binClickAni);
-            return _Animation;
-        }
-        setTimer(ani) {
-            if (ani._timer) {
-                ani._timer.clear(this, this.timerFun);
-            }
-            ani._timer = new Laya.Timer();
-            ani._timer.loop(300, this, this.timerFun, [ani]);
-        }
-        timerFun(ani) {
-            var rect = new Laya.Rectangle(ani.x, ani.y, 100, 100);
-            ani.hitArea = rect;
-            var data = dataGlobal.getInstance().animalInfo[ani.name];
-            if (!data.is_lock) {
-                ani.visible = false;
-            }
-            if (data.feed_time <= 0) {
+        initAnimalAni(data) {
+            for (var i in data) {
+                console.log(data[i], i);
+                if (data[i].is_lock) {
+                    this.mAniPath = "animal/niu.sk";
+                    this.mFactory = new Templet();
+                    this.mFactory.on(Event.COMPLETE, this, this.parseComplete);
+                    this.mFactory.loadAni(this.mAniPath);
+                }
+                else {
+                }
             }
         }
-        createTimerLine(Ani) {
-            var timeLine = new TimeLine();
-            if (Ani.name == 'chicken') {
-                timeLine.addLabel("turnRight", 0).to(Ani, { x: 503, y: 637, scaleX: 1.6, scaleY: 1.6, }, 1000, null, 0)
-                    .addLabel("turnRight", 0).to(Ani, { x: 656, y: 672, scaleX: 1.7, scaleY: 1.7 }, 1000, null, 0)
-                    .addLabel("turnRight", 0).to(Ani, { x: 936, y: 558, scaleX: 1.55, scaleY: 1.55 }, 1500, null, 0)
-                    .addLabel("turnRight", 0).to(Ani, { x: 1040, y: 558, skewY: 180 }, 0, null, 0)
-                    .addLabel("turnLeft", 0).to(Ani, { x: 783, y: 368, scaleX: 1.3, scaleY: 1.3, }, 3000, null, 0)
-                    .addLabel("turnUp", 0).to(Ani, { x: 503, y: 470, scaleX: 1.5, scaleY: 1.5 }, 3000, null, 0)
-                    .addLabel("turnUp", 0).to(Ani, { x: 503, y: 470, scaleX: 1.5, scaleY: 1.5, skewY: 0 }, 0, null, 0)
-                    .addLabel("turnRight", 0).to(Ani, { x: 503, y: 662, scaleX: 1.6, scaleY: 1.6 }, 1000, null, 0);
-            }
-            if (Ani.name == 'cow') {
-            }
-            if (Ani.name == 'pig') {
-            }
-            timeLine.play(0, true);
+        parseComplete() {
+            this.mArmature = this.mFactory.buildArmature(1);
+            this.mArmature.x = this.mStartX;
+            this.mArmature.y = this.mStartY;
+            this.mArmature.scale(0.5, 0.5);
+            Laya.stage.addChild(this.mArmature);
+            this.mArmature.on(Event.STOPPED, this, this.completeHandler);
+            this.play();
         }
-        binClickAni(Ani) {
+        completeHandler() {
+            this.play();
+        }
+        play() {
+            this.mCurrIndex++;
+            if (this.mCurrIndex >= this.mArmature.getAnimNum()) {
+                this.mCurrIndex = 0;
+            }
+            this.mArmature.play(this.mCurrIndex, false);
         }
     }
 
@@ -13731,10 +13724,147 @@
         }
     }
 
-    var Event = Laya.Event;
+    class animalIndex$1 extends baseTips {
+        constructor() {
+            super();
+        }
+        onShowAnimal(type) {
+            this._animalScene = new ui.animal.animalProductionUI;
+            this._animalScene.pivotX = 0.5 * this._animalScene.width;
+            this._animalScene.pivotY = 0.5 * this._animalScene.height;
+            this.addChild(this._animalScene);
+            this.showLayer();
+            this._animalScene.scene.close_btn.on(Laya.Event.CLICK, this, this.closeScene);
+            this._animalList = this._animalScene.scene.product_list;
+            this.initAnimalList();
+        }
+        closeScene() {
+            this.hideLayer();
+        }
+        initAnimalList() {
+            this._animalList.dataSource = [];
+            var data = [
+                {
+                    "id": "cow010",
+                    "open": "1",
+                    "state": "eat"
+                },
+                {
+                    "id": "cow011",
+                    "open": "1",
+                    "state": "full"
+                },
+                {
+                    "id": "cow012",
+                    "open": "1",
+                    "state": "eat"
+                },
+                {
+                    "id": "cow013",
+                    "open": "1",
+                    "state": "eat"
+                },
+                {
+                    "id": "cow014",
+                    "open": "0",
+                    "state": "stand"
+                },
+                {
+                    "id": "cow015",
+                    "open": "0",
+                    "state": "full"
+                }
+            ];
+            for (var i in data) {
+                var _item = {
+                    innerBox: {
+                        skin: "",
+                        visible: true
+                    },
+                    ani: {
+                        visible: true
+                    },
+                    state: ""
+                };
+                if (data[i].open == "0") {
+                    _item.innerBox.visible = false;
+                    _item.ani.visible = false;
+                }
+                else {
+                    _item.innerBox.skin = 'product/2_Food.png';
+                    _item.innerBox.visible = true;
+                    _item.state = data[i].state;
+                }
+                if (data[i].state == 'full') {
+                    _item.innerBox.skin = 'product/Milk.png';
+                }
+                this._animalList.addItem(_item);
+            }
+            this._animalList.renderHandler = new Laya.Handler(this, this.creatAni);
+        }
+        addAniEvent(cell, index) {
+        }
+        creatAni(cell) {
+            console.log(cell);
+            var data = cell.dataSource;
+            if (!cell.dataSource.state) {
+                return;
+            }
+            var _path = "res/animalBones/niu.sk";
+            let templetStone = new Laya.Templet();
+            templetStone.on(Laya.Event.COMPLETE, this, () => {
+                var skeleton;
+                skeleton = templetStone.buildArmature(1);
+                skeleton.pos(100, 205);
+                skeleton.scaleX = 0.4;
+                skeleton.scaleY = 0.4;
+                skeleton.showSkinByIndex(0);
+                skeleton.play(cell.dataSource.state, true);
+                cell.getChildByName('ani').addChild(skeleton);
+            });
+            templetStone.loadAni(_path);
+        }
+    }
+
+    class animalView {
+        constructor() {
+        }
+        onShowAnimal(type) {
+            if (this._animalCom == null) {
+                this._animalCom = new animalIndex$1;
+            }
+            this._animalCom.onShowAnimal(type);
+        }
+    }
+
+    class animalController {
+        constructor() {
+            this._animalView = new animalView;
+        }
+        static getInstance() {
+            if (animalController._instance == null) {
+                animalController._instance = new animalController;
+            }
+            return animalController._instance;
+        }
+        onShowAnimal(type) {
+            this._animalType = type;
+            if (this._animalView == null) {
+                this._animalView = new animalView;
+            }
+            this._animalView.onShowAnimal(type);
+        }
+    }
+
+    var Event$1 = Laya.Event;
     class farmIndex extends baseScene {
         constructor() {
             super();
+            this.mStartX = 400;
+            this.mStartY = 500;
+            this.mActionIndex = 0;
+            this.mCurrIndex = 0;
+            this.mCurrSkinIndex = 0;
             this.lastDistance = 0;
         }
         onShow(type) {
@@ -13778,7 +13908,7 @@
             this._material_3 = this._farmIndex.scene.material_3;
             this.cleanAllStatu();
             this.initMaterial();
-            this.initAnimal();
+            this.getAnimalInfo();
         }
         initMaterial() {
             var material_info = dataJson.getInstance().GET_SYS_MATERIAL_INFO();
@@ -13807,85 +13937,127 @@
             if (type == 'flyin') {
             }
         }
-        initAnimal() {
-            var ani = new Laya.Animation();
-            ani.loadAtlas("animal/NI_02_tex.json");
-            ani.play();
-            ani.pivot(100, 100);
-            Laya.stage.addChild(ani);
-        }
-        setAnimalTimer(type) {
-            var data = dataGlobal.getInstance().animalInfo[type];
-            var _animalBox = this._farmIndex.scene.getChildByName(type + '_box');
-            if (data.feed_time > 0 || data.product.grow_time_tol > 0) {
-                if (_animalBox._timer) {
-                    _animalBox._timer.clear(this, this.timerFun);
-                }
-                _animalBox._timer = new Laya.Timer();
-                _animalBox._timer.loop(1000, this, this.timerFun, [type]);
-            }
-        }
-        timerFun(type) {
-            var data = dataGlobal.getInstance().animalInfo[type];
-            var _animalBox = this._farmIndex.scene.getChildByName(type + '_box');
-            var _surplus_grow_time = data.product.grow_time_tol - data.product.mature_time;
-            if (data.feed_time == 0 && _surplus_grow_time == 0) {
-                _animalBox._timer.clear(this, this.timerFun);
-            }
-            if (_surplus_grow_time > 0) {
-                data.product.mature_time++;
-            }
-            if (data.product.grow_time_tol < data.product.mature_time || data.product.grow_time_tol == data.product.mature_time) {
-                if (_animalBox.static != "harvest") {
-                    _animalBox.static = "harvest";
-                    Laya.stage.event(NETWORKEVENT.ANIMALPRODUCTMATURE, _animalBox.type);
-                }
-            }
-        }
-        initAnimalStatic(type) {
-            var data = dataGlobal.getInstance().animalInfo[type];
-            var _animalBox = this._farmIndex.scene.getChildByName(type + '_box');
-            _animalBox.type = type;
-            _animalBox.getChildByName('bgkuang').visible = false;
-            _animalBox.getChildByName('crop').visible = false;
-            _animalBox.getChildByName('feed').visible = false;
-            _animalBox.off(Laya.Event.CLICK, this, this.onClickAnimal);
-            if (!data.is_lock) {
-                _animalBox.static = 'unlock';
-                _animalBox.visible = false;
-            }
-            else {
-                if (data.feed_time <= 0) {
-                    _animalBox.static = 'feed';
-                    _animalBox.getChildByName('feed').visible = true;
-                    _animalBox.getChildByName('bgkuang').visible = true;
+        getAnimalInfo() {
+            var data = dataGlobal.getInstance().animalInfo;
+            for (var i in data) {
+                console.log(data[i], i);
+                if (data[i].is_lock) {
+                    this.renderAnimalBones(data[i]);
                 }
                 else {
-                    if (data.product.grow_time_tol == data.product.mature_time) {
-                        _animalBox.static = 'harvest';
-                        _animalBox.getChildByName('crop').visible = true;
-                        _animalBox.getChildByName('bgkuang').visible = true;
-                    }
-                    else {
-                        _animalBox.static = 'producing';
-                    }
+                    this.renderAnimalStatic(data[i]);
                 }
             }
-            _animalBox.on(Laya.Event.CLICK, this, this.onClickAnimal, [_animalBox]);
         }
-        onClickAnimal(animalBox) {
-            if (animalBox.static == 'harvest') {
-                this.onHarvest(animalBox);
+        renderAnimalBones(data) {
+            var _x = 0;
+            var _path = "";
+            if (data.id == "chicken") {
+                _x = 0;
+                _path = "res/animalBones/niu.sk";
             }
-            if (animalBox.static == 'feed') {
-                this.onFeed(animalBox);
+            if (data.id == "cow") {
+                _x = 100;
+                _path = "res/animalBones/niu.sk";
             }
-            if (animalBox.static == 'producing') {
+            if (data.id == "sheep") {
+                _x = 200;
+                _path = "res/animalBones/niu.sk";
+            }
+            if (data.id == "pig") {
+                _x = 300;
+                _path = "res/animalBones/niu.sk";
+            }
+            let templetStone = new Laya.Templet();
+            templetStone.on(Laya.Event.COMPLETE, this, () => {
+                var skeleton;
+                skeleton = templetStone.buildArmature(1);
+                skeleton.pos(_x, 0);
+                skeleton.scaleX = 0.3;
+                skeleton.scaleY = 0.3;
+                skeleton.showSkinByIndex(0);
+                skeleton.play('full', true);
+                this._farmIndex.scene.animalsContainer.addChild(skeleton);
+                console.log(skeleton);
+                console.log(skeleton.pivotX);
+                console.log(skeleton.pivotY);
+                this.bindClick(skeleton, data);
+            });
+            templetStone.loadAni(_path);
+            console.log(templetStone);
+        }
+        bindClick(skeleton, data) {
+            console.log('111111');
+        }
+        renderAnimalStatic(data) {
+            var _x = 0;
+            var _path = "";
+            if (data.id == "chicken") {
+                _x = 0;
+                _path = "base/2_Hide.png";
+            }
+            if (data.id == "cow") {
+                _x = 100;
+                _path = "base/1_Hide.png";
+            }
+            if (data.id == "sheep") {
+                _x = 200;
+                _path = "base/3_Hide.png";
+            }
+            if (data.id == "pig") {
+                _x = 300;
+                _path = "base/3_Hide.png";
+            }
+            let StaticSprite = new Laya.Image();
+            this._farmIndex.scene.animalsContainer.addChild(StaticSprite);
+            StaticSprite.skin = _path;
+            StaticSprite.pos(_x, 0);
+            StaticSprite.pivotX = StaticSprite.width;
+            StaticSprite.pivotY = StaticSprite.height;
+            StaticSprite.on(Laya.Event.CLICK, this, this.unlockAnimal, [data]);
+        }
+        unlockAnimal(data) {
+            animalController.getInstance().onShowAnimal(data.id);
+            return;
+            console.log('解锁动物', data.id, data);
+            var have_gold = dataGlobal.getInstance().userInfo.have_gold;
+            var grade = dataGlobal.getInstance().userInfo.grade;
+            tipController.getInstance();
+            if (grade < data.locklevel) {
+                var _str = "升级至" + data.locklevel + "级才可解锁";
+                Laya.stage.event(GAMEEVENT.TIPSKUAN, [_str, '确认', "取消", function () {
+                        tipController.getInstance().close();
+                    }, function () {
+                        tipController.getInstance().close();
+                    }]);
+            }
+            else {
+                var _str = '确认花费' + data.unlocknum + '金币解锁动物';
+                var _skin = '';
+                if (data.id == "chicken") {
+                    _skin = "base/2_Hide.png";
+                }
+                if (data.id == "cow") {
+                    _skin = "base/1_Hide.png";
+                }
+                if (data.id == "sheep") {
+                    _skin = "base/3_Hide.png";
+                }
+                if (data.id == "pig") {
+                    _skin = "base/3_Hide.png";
+                }
+                var _info = {
+                    skin: _skin,
+                    price: data.unlocknum,
+                    type: 'coin'
+                };
+                var confirm_fun = function () {
+                    console.log('进行解锁，发送请求');
+                };
+                Laya.stage.event(GAMEEVENT.BASETIPS, ['解锁', _str, _info, confirm_fun]);
             }
         }
-        onHarvest(animalBox) {
-        }
-        onFeed(animalBox) {
+        enterAnimalScene(id) {
         }
         loadSeedList() {
             this._seedListClass = new farmSeedList();
@@ -13903,7 +14075,6 @@
                 'd': {},
                 'code': 1
             };
-            console.log("发送websocket数据", tmp_data);
             tmp_websocket.sendMessage(tmp_data);
         }
         onFarmInitSeedList(data) {
@@ -14039,7 +14210,7 @@
             if (touches && touches.length == 2) {
                 this.lastDistance = this.getDistance(touches);
                 console.log('双指缩放', this.lastDistance);
-                Laya.stage.on(Event.MOUSE_MOVE, this, this.onMouseMove);
+                Laya.stage.on(Event$1.MOUSE_MOVE, this, this.onMouseMove);
             }
         }
         onMouseMove(e) {
@@ -14048,7 +14219,7 @@
             this.lastDistance = distance;
         }
         onMouseUp(e) {
-            Laya.stage.off(Event.MOUSE_MOVE, this, this.onMouseMove);
+            Laya.stage.off(Event$1.MOUSE_MOVE, this, this.onMouseMove);
         }
         getDistance(points) {
             var distance = 0;
@@ -14090,11 +14261,6 @@
         }
         setPlantFramLand() {
             this._indexCom.setPlantFramLand();
-        }
-        onShowAnimal() {
-        }
-        initAnimal() {
-            this._indexCom.initAnimal();
         }
     }
 
@@ -14259,14 +14425,6 @@
             farmController.getInstance().initLand();
         }
         AnimalProductMature(data) {
-            var _data = {
-                "ga": "animal_product_mature",
-                "gd": {
-                    "type": data.type
-                },
-            };
-            dataGlobal.getInstance().setAnimalInfo(_data);
-            farmController.getInstance().initAnimal();
         }
     }
 
@@ -14284,7 +14442,6 @@
             Laya.stage.on(NETWORKEVENT.FARMINITCOLLECTFLOWER, this, this._network.FarmCollectFlower);
             Laya.stage.on(NETWORKEVENT.FARMINITGROWFLOWER, this, this._network.FarmInitGrowFlower);
             Laya.stage.on(NETWORKEVENT.FARMINITFLOWERFAT, this, this._network.FarmInitFlowerFat);
-            Laya.stage.on(GAMEEVENT.ONLOADCOMPLETEANIMAL, this, this.onResCompleteAnimal);
             Laya.stage.on(NETWORKEVENT.ANIMALPRODUCTMATURE, this, this._network.AnimalProductMature);
         }
         static getInstance() {
@@ -14310,9 +14467,6 @@
             };
             tmp_websocket.sendMessage(tmp_data);
         }
-        onResCompleteAnimal() {
-            this._farmview.onShowAnimal();
-        }
         onShowFarmInitField(data) {
             this._farmview.onShowFarmInitField(data);
         }
@@ -14333,9 +14487,6 @@
         }
         setPlantFramLand() {
             this._farmview.setPlantFramLand();
-        }
-        initAnimal() {
-            this._farmview.initAnimal();
         }
     }
 

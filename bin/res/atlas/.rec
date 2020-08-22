@@ -18,14 +18,9 @@ P 4A24FA8C pic_xing1.png
 P 38CF3941 pic_xing2.png
 R 2486F677 pic_yingzijiao.png
 D animal
-P 6E722229 niu.png
-R ABA9E2F0 niu.sk
-R 349590E7 NIU_01_ske_ske.json
-R D192E3CC NIU_01_ske_tex.json
-S 60254AEB NIU_01_ske_tex.png
-R BD7A7AB8 niu_ske.json
-R 51405436 niu_tex.json
-P 6E722229 niu_tex.png
+R 7F9DBD07 niu_ske.json
+R 39BA08BA niu_tex.json
+P D7E218F2 niu_tex.png
 D avatar
 P C095886C Avatar10Disable.png
 P B350BBC0 Avatar10Enable.png
@@ -48,7 +43,10 @@ P 811201DE Avatar9Enable.png
 P 0C498786 AvatarBorder.png
 P 0165EF2E AvatarSelected.png
 D base
+P F48C621A 1_Hide.png
 R D59E6797 2.png
+P 67ABBAF7 2_Hide.png
+P F476F8EC 3_Hide.png
 P FB723380 AvatarBorder.png
 P C1411806 b1.png
 P 3F10DEA3 b4.png
@@ -162,6 +160,8 @@ P BC3A4715 TipBg.png
 P D3D262F7 TitleBar.png
 R 9707DC89 top_shop.png
 P AD978174 toptitle.png
+P 8AA738EC Trough_01.png
+P ED686319 Trough_02.png
 P 9855C156 ui_1.png
 P 11A83F92 ui_popup3.png
 D character
@@ -256,6 +256,7 @@ P AC080E8E pic_xing.png
 P 548B8E3D pic_youzhao.png
 P 3F889A55 pic_zhuangshi.png
 P C675D396 Popup_Factory.png
+R DBE45144 Popup_Farming.png
 D farm
 S 60309804 bg.png
 R 28EADC6F btn_cangku1.png
@@ -596,8 +597,17 @@ P 3CE81762 Ship_SendBox.png
 P 0C92CF6D Ship_SendBoxCap.png
 R F7BE496B TitleBar_03.png
 D product
+P 5DB51D66 1_Food.png
+P 1198139E 2_Food.png
+P 5DB51D66 3_Food.png
+P 5684458B Chicken Feed Enable.png
+P DB37E99A Cow Feed Enable.png
+P 1C29E71B Egg.png
+P 1E001BFD Milk.png
 P A24F824C product01.png
 P 1C4037F4 product02.png
+P 5918E844 Sheep Feed Enable.png
+P 4DEBFA25 Wool.png
 D resource
 D warehouse
 R 78F6B136 billboard_bg_roof.png
