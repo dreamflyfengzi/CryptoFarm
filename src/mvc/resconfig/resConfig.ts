@@ -38,7 +38,7 @@ export default class resConfig {
    
     //动物资源
     { url: resConfig._url + 'res/animalBones/niu.png', type: Laya.Loader.IMAGE },
-    // { url: resConfig._url + 'res/animalBones/niu.atlas', type: Laya.Loader.ATLAS, sign: 'Sheep' },
+    { url: resConfig._url + 'res/animalBones/yang.png', type: Laya.Loader.IMAGE },
   
     //base
     { url: resConfig._url + 'res/atlas/base.atlas', type: Laya.Loader.ATLAS, sign: 'base' },
@@ -52,8 +52,11 @@ export default class resConfig {
     { url: resConfig._url + 'res/atlas/order.atlas', type: Laya.Loader.ATLAS, sign: 'order' },
     { url: resConfig._url + 'res/atlas/factory.atlas', type: Laya.Loader.ATLAS, sign: 'factory' },
     { url: resConfig._url + 'res/atlas/character.atlas', type: Laya.Loader.ATLAS, sign: 'character' },
+    { url: resConfig._url + 'res/atlas/sleep.atlas', type: Laya.Loader.ATLAS, sign: 'sleep' },
+    { url: resConfig._url + 'res/atlas/sleep.atlas', type: Laya.Loader.ATLAS, sign: 'sleep' },
     { url: resConfig._url + 'res/atlas/main.png', type: Laya.Loader.IMAGE },
     { url: resConfig._url + 'res/atlas/main1.png', type: Laya.Loader.IMAGE },
+    { url: resConfig._url + 'res/atlas/sleep.png', type: Laya.Loader.IMAGE },
     // { url: resConfig._url + 'res/atlas/animal.png', type: Laya.Loader.IMAGE },
     { url: resConfig._url + 'res/atlas/main2.png', type: Laya.Loader.IMAGE },
     { url: resConfig._url + 'res/atlas/farm.png', type: Laya.Loader.IMAGE },

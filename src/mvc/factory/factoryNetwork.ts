@@ -42,12 +42,61 @@ export default class factoryNetwork {
   }
   //工厂生产产品完成后用户点击收获
   public FactoryGoodSave(data) {
-    // data = { "ga": "factory_create_bak", "gd": { "mf_id": "gc001", "grade": "1", "open_seat_num": "1", "being_goods": { "id": "wp5001", "t": "10" }, "queue_goods": [{ "id": "wp5002", "t": "600000", "t2": "5000000" }], "succ_goods": [] }, "code": 1 };
+    data = {
+      "ga": "factory_create_bak",
+      "gd": {
+        "mf_id": "gc001",
+        "grade": "1",
+        "queue_goods": {
+          "seat_1": {
+            'lock': "1",//1已解锁 
+            'product': {
+              "id": "wp5011"
+            },
+            'price': "100"
+          },
+          "seat_2": {
+            'lock': "1",//1已解锁 
+            'product': {
+              "id": "wp5011"
+            },
+            'price': "100"
+          },
+          "seat_3": {
+            'lock': "1",//1已解锁 
+            'product': null,
+            'price': "100"
+          },
+          "seat_4": {
+            'lock': "0",//1已解锁 
+            'product': null,
+            'price': "100"
+          },
+        },
+        "being_goods": [],
+        "succ_goods": [
+          {
+            "id": "wp5012"
+          },
+          {
+            "id": "wp5013"
+          },
+          {
+            "id": "wp5014"
+          },
+          {
+            "id": "wp5015"
+          }
+        ],
+      }, "code": 1
+    };
     data = data.gd;
     //保存工厂信息
     dataGlobal.getInstance().setFactory(data, data.mf_id);
     //展示工厂的信息
     factoryController.getInstance().showFactory();
+    //刷新页面的信息
+    factoryController.getInstance().initFactoryInfo(data.mf_id);
   }
   //购买生产槽位
   public FactoryOpenSeatNumBak(data) {
@@ -115,6 +164,130 @@ export default class factoryNetwork {
     if (id == data.mf_id) {//如果当前在这间工厂，那么需要刷新一下工厂的信息
       factoryController.getInstance().initFactoryInfo(data.mf_id);
     }
+  }
+
+  //加入待生产队列
+  public FactoryAddWaiting(data) {
+    data = {
+      "ga": "factory_good_get_bak",
+      "gd": {
+        "mf_id": "gc001",
+        "grade": "1",
+        "queue_goods": {
+          "seat_1": {
+            'lock': "1",//1已解锁 
+            'product': {
+              "id": "wp5011"
+            },
+            'price': "100"
+          },
+          "seat_2": {
+            'lock': "1",//1已解锁 
+            'product': {
+              "id": "wp5011"
+            },
+            'price': "100"
+          },
+          "seat_3": {
+            'lock': "1",//1已解锁 
+            'product': null,
+            'price': "100"
+          },
+          "seat_4": {
+            'lock': "0",//1已解锁 
+            'product': null,
+            'price': "100"
+          },
+        },
+        "being_goods": [],
+        "succ_goods": [
+          {
+            "id": "wp5011"
+          },
+          {
+            "id": "wp5012"
+          },
+          {
+            "id": "wp5013"
+          },
+          {
+            "id": "wp5014"
+          },
+          {
+            "id": "wp5015"
+          }
+        ],
+      },
+    }
+    //保存一下工厂的信息
+    data = data.gd;
+    dataGlobal.getInstance().setFactory(data, data.mf_id);
+    //展示工厂的信息
+    factoryController.getInstance().showFactory();
+    //刷新页面的信息
+    factoryController.getInstance().initProduction(data.mf_id);
+  }
+
+  //正在生产立即加速
+  public FactoryProductSpeedUP(data) {
+    data = {
+      "ga": "factory_good_get_bak",
+      "gd": {
+        "mf_id": "gc001",
+        "grade": "1",
+        "queue_goods": {
+          "seat_1": {
+            'lock': "1",//1已解锁 
+            'product': {
+              "id": "wp5011"
+            },
+            'price': "100"
+          },
+          "seat_2": {
+            'lock': "1",//1已解锁 
+            'product': {
+              "id": "wp5011"
+            },
+            'price': "100"
+          },
+          "seat_3": {
+            'lock': "1",//1已解锁 
+            'product': null,
+            'price': "100"
+          },
+          "seat_4": {
+            'lock': "0",//1已解锁 
+            'product': null,
+            'price': "100"
+          },
+        },
+        "being_goods": [],
+        "succ_goods": [
+          {
+            "id": "wp5011"
+          },
+          {
+            "id": "wp5012"
+          },
+          {
+            "id": "wp5013"
+          },
+          {
+            "id": "wp5014"
+          },
+          {
+            "id": "wp5015"
+          }
+        ],
+      },
+    }
+    //保存一下工厂的信息
+    data = data.gd;
+    dataGlobal.getInstance().setFactory(data, data.mf_id);
+    //展示工厂的信息
+    factoryController.getInstance().showFactory();
+    //刷新页面的信息
+    factoryController.getInstance().initFactoryInfo(data.mf_id);
   }
 
 }

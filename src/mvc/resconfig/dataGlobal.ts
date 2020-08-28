@@ -23,6 +23,9 @@ userProp = {
 //用户长连接地址
 gameWS = "连的地址:端口";
 */
+
+import infoController from "../info/infoController";
+
 /*农田信息
 $return_init_field = array(
    "ga"=>"init_field",
@@ -69,13 +72,14 @@ export default class dataGlobal {
   public userProp: any;//用户的属性
   public gameWS: string;//用户长连接地址
   public farmInfo: any;//花田信息
-  public factory: any;//工厂的信息
+  public factory: any;//用户工厂的信息
   public userGoodInfo: any;//用户物品信息 use
   public warehouseInfo: any;//仓库的信息
   public lotteryInfo: any;//订单任务
   public materialInfo: any;//订单任务
   public marketInfo: any;//市场信息
   public animalInfo: any;//动物信息
+  public animalProductList: any;//动物生产信息
   public mailInfo: any;//邮件信息
 
   // 交易市场
@@ -109,13 +113,82 @@ export default class dataGlobal {
         }
       ],//下级解锁物
     };
-    this.factory = {};
+    this.factory = {
+      "gc001": {
+        "mf_id": "gc001",
+        "grade": "1",
+        "queue_goods":{
+          "seat_1":{
+             'lock':"1",//1已解锁 
+             'product':{
+               "id":"wp5011"
+             },
+             'price':"100"
+          },
+          "seat_2":{
+            'lock':"1",//1已解锁 
+            'product':null,
+            'price':"100"
+          },
+          "seat_3":{
+            'lock':"1",//1已解锁 
+            'product':null,
+            'price':"100"
+          },
+          "seat_4":{
+            'lock':"0",//1已解锁 
+            'product':null,
+            'price':"100"
+          },
+        },
+        "being_goods": {
+          "id":"wp5011",
+          "t":"1000"
+        },
+        "succ_goods": [
+          {
+            "id":"wp5011"
+          },
+          {
+            "id":"wp5012"
+          },
+          {
+            "id":"wp5013"
+          },
+          {
+            "id":"wp5014"
+          },
+          {
+            "id":"wp5015"
+          }
+        ],
+      },
+      "gc002": {
+        "mf_id": "gc002",
+        "grade": "2",
+        "open_seat_num": "3",
+        "being_goods": [],
+        "queue_goods": [],
+        "succ_goods": [],
+      }
+    };
 
     //用户库存数量 use
     this.userGoodInfo = {
-      "wheat": { id: "wheat", num: "10" }
+      "wheat": { id: "wheat", num: "10" },
+      "cowfeed": { id: "cowfeed", num: "10" },
+      "chickenfeed": { id: "chickenfeed", type: 'normal', num: "10" },
+      "chickenfeedtop": { id: "chickenfeed", type: 'toplevel', num: "1" },
+      "pigfeed": { id: "pigfeed", type: 'normal', num: "10" },
+      "pigfeedtop": { id: "pigfeed", type: 'toplevel', num: "2" },
+      "sheepfeed": { id: "sheepfeed", type: 'normal', num: "10" },
+      "sheepfeedtop": { id: "sheepfeed", type: 'toplevel', num: "3" },
+      "hh6001":{id:"hh6001",num:"10"},
+      "hh6002":{id:"hh6002",num:"10"},
     };
-    this.warehouseInfo = {};
+    this.warehouseInfo = {
+      
+    };
     this.lotteryInfo = {};
     this.materialInfo = {};
     this.marketInfo = {};
@@ -145,7 +218,7 @@ export default class dataGlobal {
     // )
     this.animalInfo = {
       "chicken": {
-        "id":"chicken",
+        "id": "chicken",
         "is_lock": 0, //0需要购买动物 1已经购买
         "locklevel": 5,//购买级别
         "status": 1, //0饥饿状态 1
@@ -155,7 +228,7 @@ export default class dataGlobal {
         "product": ''
       },
       "cow": {
-        "id":"cow",
+        "id": "cow",
         "is_lock": 1, //0需要购买动物 1已经购买
         "locklevel": 5,//购买级别
         "unlocknum": 1000,//动物的价格
@@ -164,7 +237,7 @@ export default class dataGlobal {
         "product": ''
       },
       "pig": {
-        "id":"pig",
+        "id": "pig",
         "is_lock": 1, //0需要购买动物 1已经购买
         "locklevel": 5,//购买级别
         "unlocknum": 1000,//动物的价格
@@ -173,22 +246,33 @@ export default class dataGlobal {
         "product": {
           'grow_time_tol': 1000,//成熟总时间
           "mature_time": 990,//当前成熟时间
-        }, 
-        "sheep": {
-          "id":"sheep",
-          "is_lock": 1, //0需要购买动物 1已经购买
-          "locklevel": 5,//购买级别
-          "unlocknum": 1000,//动物的价格
-          "feed_time": 7777,//当前饲料剩余的时间
-          'feed_time_tol': 10000,//饲料总时间（进度条）
-          "product": {
-            'grow_time_tol': 1000,//成熟总时间
-            "mature_time": 990,//当前成熟时间
-          }
-        },
 
-      }
+        }
+      },
+
+      "sheep": {
+        "id": "sheep",
+        "is_lock": 0, //0需要购买动物 1已经购买
+        "locklevel": 5,//购买级别
+        "unlocknum": 1000,//动物的价格
+        "feed_time": 7777,//当前饲料剩余的时间
+        'feed_time_tol': 10000,//饲料总时间（进度条）
+        "product": {
+          'grow_time_tol': 1000,//成熟总时间
+          "mature_time": 990,//当前成熟时间
+        }
+      },
+
+
+
     };
+
+    this.animalProductList = {
+      "cow": {},
+      "chicken": {},
+      "sheep": {},
+      "pig": {},
+    }
   }
 
   public static getInstance() {
@@ -406,15 +490,15 @@ export default class dataGlobal {
    * 保存工厂的信息
    * @param data:工厂数据
    * @param id ：工厂的ID（如果有的话就是指定的工厂，没有就是保存全部）
+   * 设置工厂内容
    */
   public setFactory(data: any, id?: string) {
     if (id) {
       this.factory[id] = data;
-
-    } else {
-      this.factory = data ? data : {};
     }
-
+    // } else {
+    //   this.factory = data ? data : {};
+    // }
   }
   /**
   * 购买槽位后保存
@@ -578,19 +662,41 @@ export default class dataGlobal {
    * 设置用户的动物信息
    */
   public setAnimalInfo(data: any) {
-    if (data.ga == "animal_product_mature") {
-      this.animalInfo[data.gd.type] = {
-        "is_lock": 1, //0需要购买动物 1已经购买
-        "locklevel": 5,//购买级别
-        "unlocknum": 1000,//动物的价格
-        "feed_time": 7777,//当前饲料剩余的时间
-        'feed_time_tol': 10000,//饲料总时间（进度条）
-        "product": {
-          'grow_time_tol': 1000,//成熟总时间
-          "mature_time": 1000,//当前成熟时间
-        }
-      }
-    }
+    // this.animalInfo = data
+    // if (data.ga == "animal_product_mature") {
+    //   this.animalInfo[data.gd.type] = {
+    //     "is_lock": 1, //0需要购买动物 1已经购买
+    //     "locklevel": 5,//购买级别
+    //     "unlocknum": 1000,//动物的价格
+    //     "feed_time": 7777,//当前饲料剩余的时间
+    //     'feed_time_tol': 10000,//饲料总时间（进度条）
+    //     "product": {
+    //       'grow_time_tol': 1000,//成熟总时间
+    //       "mature_time": 1000,//当前成熟时间
+    //     }
+    //   }
+    // }
+  }
+  /**
+   * 设置动物生产信息
+   * @param data 
+   */
+  public setAnimalProductInfo(data: any) {
+    if (typeof data.slots != 'undefined') { this.animalProductList[data.type] = data.slots }
+    if (typeof data.info != 'undefined') { this.animalProductList[data.type][data.info.id] = data.info }
+    // if (typeof data.slots != 'undefined') { this.animalProductList[data.type].slots = data.slots }
+  
+    // if (id) {
+    //   this.animalProductList[id] = data;
+    // } else {
+    //   //动物生产信息
+    //   if (data.info){
+    //     console.log(this.animalProductList[data.type])
+    //     this.animalProductList[data.type][data.info.id] = data.info;
+    //     console.log(this.animalProductList[data.type])
+    //   }
+    //   this.animalProductList[data.type] = data.slots;
+    // }
   }
 
   /**

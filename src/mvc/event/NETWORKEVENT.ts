@@ -69,4 +69,16 @@ export default class NETWORKEVENT{
   /**邮件相关 */
   public static MAILINFOBAK:string = 'mail_info_bak';//获取邮件
   public static MAILOPERATE:string = 'mail_operate';//收获返回物品
+
+  /**动物相关 */
+  public static ANIMALPRODUCTINFO:string = 'animal_product_info'//返回动物生产相关数据
+  public static ANIMALPRODUCTHARVEST:string = 'animal_product_harvest'//收获单独动物产物
+  public static ANIMALPRODUCTFEED:string = 'animal_product_feed'//喂食
+  public static ANIMALSlOTLOCK:string = 'animal_slot_lock'//解锁卡槽
+
+
+  /**工厂相关 */
+  public static FACTORYADDWAITING:string = 'factory_add_waiting' //加入等待生产的商品
+  public static FACTORYPRODUCTSPEEDUP:string = 'factory_product_speedup' //正在生产加速
+  
 }

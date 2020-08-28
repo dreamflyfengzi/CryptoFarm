@@ -19,7 +19,6 @@ export default class httpJson {
 
   //提交进度
   private processHandler(data: any): void {
-    console.log(data);
   }
   //提交出错时
   private errorHandler(data: any): void {

@@ -1,4 +1,5 @@
 D .
+R 39B957DA texture.png
 D achievement
 R 549B9EC5 bg_achievement1.png
 R 3192D2BB bg_achievement2.png
@@ -21,6 +22,9 @@ D animal
 R 7F9DBD07 niu_ske.json
 R 39BA08BA niu_tex.json
 P D7E218F2 niu_tex.png
+R 73E2DD4F yang_ske.json
+R 965249EA yang_tex.json
+P 5C9AA65F yang_tex.png
 D avatar
 P C095886C Avatar10Disable.png
 P B350BBC0 Avatar10Enable.png
@@ -114,6 +118,7 @@ P B1C35BE4 gem_shop_shelf.png
 P 01333C1F gem_shop_tag.png
 P 382FEFF6 help.png
 P A472A4A5 Icon Clock.png
+P D3E2B7B2 Icon_Buy.png
 P C8D501CD Icon_Clock_02.png
 P 62B09764 Icon_Coin.png
 P F29E6D1C Icon_Experience_01.png
@@ -186,6 +191,8 @@ R FF58FED6 Bg_factory1.png
 R 1D28AD34 Bg_factory2.png
 R CB37DCF3 Bg_zhizuo1.png
 R 249E7939 Bg_zhizuo2.png
+P C682E395 Bubble.png
+P 86944632 Bubble_Arrow.png
 P 2BCD07C7 cake_bakery_icon.png
 P A350688D coin_icon.png
 P F7CDA703 Factory_Border.png
@@ -197,6 +204,8 @@ R B65A5298 factorybg.jpg
 P 8FCC0D89 feed_mill_icon.png
 P D3E2B7B2 Icon_Buy.png
 P 8E6261EA Order.png
+P BC5E8A7E Panel_03$bar.png
+P EC2BB0AE Panel_03.png
 P 8EBC2D20 pic_10_6.png
 P E885B18B pic_11_6.png
 P EE19CDEA pic_1_6.png
@@ -373,6 +382,7 @@ R 2000415D pic_bg2.png
 P 11380F55 select_all_board.png
 D main
 P DA656ED2 activity.png
+S 763B784D bg.jpg
 S 60309804 bg.png
 R 28EADC6F btn_cangku1.png
 R 492370E6 btn_cangku2.png
@@ -600,15 +610,46 @@ D product
 P 5DB51D66 1_Food.png
 P 1198139E 2_Food.png
 P 5DB51D66 3_Food.png
-P 5684458B Chicken Feed Enable.png
-P DB37E99A Cow Feed Enable.png
+P 5684458B chickenFeed1.png
+P DB37E99A cowFeed1.png
 P 1C29E71B Egg.png
 P 1E001BFD Milk.png
 P A24F824C product01.png
 P 1C4037F4 product02.png
-P 5918E844 Sheep Feed Enable.png
+P 5918E844 sheepFeed1.png
 P 4DEBFA25 Wool.png
 D resource
+R 498B7D6A buildings.rar
+D sleep
+P E0ADD161 miner1-action_sleep_01.png
+P 696FD474 miner1-action_sleep_02.png
+P C2F98F2C miner1-action_sleep_03.png
+P A0A574C3 miner1-action_sleep_04.png
+P 170F86AE miner1-action_sleep_05.png
+P 23DEE896 miner1-action_sleep_06.png
+P 155207BD miner1-action_sleep_07.png
+P 1D97616F miner1-action_sleep_08.png
+P 76621CF3 miner1-action_sleep_09.png
+P 722FA437 miner1-action_sleep_10.png
+P 33F59CC1 miner1-action_sleep_11.png
+P 64C3EEEA miner1-action_sleep_12.png
+P 58383CDF miner1-action_sleep_13.png
+P C04FD108 miner1-action_sleep_14.png
+P A693BD3B miner1-action_sleep_15.png
+P D5B494CF miner1-action_sleep_16.png
+P B9C9F093 miner1-action_sleep_17.png
+P 414E90E0 miner1-action_sleep_18.png
+P FAAB44E0 miner1-action_sleep_19.png
+P 6D8025CE miner1-action_sleep_20.png
+P 98FB7717 miner1-action_sleep_21.png
+P 8B6C940C miner1-action_sleep_22.png
+P 913B1F58 miner1-action_sleep_23.png
+P 4F78D32D miner1-action_sleep_24.png
+P 2742C211 miner1-action_sleep_25.png
+P 98F33021 miner1-action_sleep_26.png
+P 80B72B95 miner1-action_sleep_27.png
+P 7ABB7648 miner1-action_sleep_28.png
+P A97A4A12 miner1-action_sleep_29.png
 D warehouse
 R 78F6B136 billboard_bg_roof.png
 P 50F9DEBF btn_biaoqian1.png

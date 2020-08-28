@@ -104,15 +104,15 @@ export class infoIndex extends baseWindow {
    * data:farm(农场页面)、factory(工厂页面)
    */
   public showBottonDiv(data) {
-    if (data == 'farm') {//这个是在农场页面的
-      this._topSence.scene.current_btn.getChildByName("main_icon").skin = 'main/pic_gongchnag1.png';
-      this._topSence.scene.current_btn.on(Laya.Event.CLICK, this, this.showSecen, ['factory'])
-    } else if (data == 'factory') {//这个是在工厂页面的
-      this._topSence.scene.current_btn.getChildByName("main_icon").skin = 'main/pic_huatian1.png';
-      this._topSence.scene.current_btn.on(Laya.Event.CLICK, this, this.showSecen, ['farm'])
-    } else if (data == 'all') {//全部隐藏
-      this._topSence.scene.getChildByName('main_btn').visible = false;
-    }
+    // if (data == 'farm') {//这个是在农场页面的
+    //   this._topSence.scene.current_btn.getChildByName("main_icon").skin = 'main/pic_gongchnag1.png';
+    //   this._topSence.scene.current_btn.on(Laya.Event.CLICK, this, this.showSecen, ['factory'])
+    // } else if (data == 'factory') {//这个是在工厂页面的
+    //   this._topSence.scene.current_btn.getChildByName("main_icon").skin = 'main/pic_huatian1.png';
+    //   this._topSence.scene.current_btn.on(Laya.Event.CLICK, this, this.showSecen, ['farm'])
+    // } else if (data == 'all') {//全部隐藏
+    //   this._topSence.scene.getChildByName('main_btn').visible = false;
+    // }
   }
   /**
    * 显示用户信息层

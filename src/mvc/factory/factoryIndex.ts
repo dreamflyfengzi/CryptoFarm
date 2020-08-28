@@ -3,6 +3,7 @@
 */
 
 import { baseScene } from '../baseView/component/baseScene'
+import baseTips from '../baseView/component/baseTips'
 import { ui } from '../../ui/layaMaxUI'
 import CONST from '../../const/CONST'
 import factoryController from './factoryController'
@@ -13,9 +14,10 @@ import NETWORKEVENT from '../event/NETWORKEVENT'
 import tipController from '../baseView/public/tip/tipController'
 import webSocketJson from '../../net/webSocketJson'
 import httpJson from '../../net/httpJson'
-export default class factoryIndex extends baseScene {
+export default class factoryIndex extends baseTips {
 
-  private _factory: Laya.Sprite;//顶层对象
+  private _factory: Laya.Sprite;//界面
+  // private _factory: Laya.Sprite;//顶层对象
   private _factory_div: Laya.List;//工厂组
   private downMouseY = 0;
   private offsetY = 0;
@@ -46,6 +48,7 @@ export default class factoryIndex extends baseScene {
   private mouseMoveOff() {
     Laya.stage.off(Laya.Event.MOUSE_MOVE, this, this.mouseMove)
   }
+
   private moveMap(y) {
     this._factory.scene.bg.y = this._factory.scene.bg.y - y / 10
     if (this._factory.scene.bg.y < this.minY) {
@@ -60,24 +63,38 @@ export default class factoryIndex extends baseScene {
 
   /**显示工厂场景(type:1.当前页面隐藏切换，2.当前页面去除切换 */
   public onShow(type) {
-    if (this._factory == null) {
-      this._factory = new ui.factory.factoryUI;
+    this._factory = new ui.factory.factoryUI();
+    this._factory.name = 'orderIndex';
+    this._factory.pivot(this._factory.width / 2, this._factory.height / 2);//设置轴心
+    this.addChild(this._factory);
+    this.showLayer();
+    this._factory.scene.close_btn.on(Laya.Event.CLICK, this, this.closeScene);
+    // if (this._factory == null) {
+    //   this._factory = new ui.factory.factoryUI;
 
-      // this.setScale(this._factory);
-      this._factory.name = 'factory';
-      //初始化信息
-      //先获取用户的工厂信息
-      this.get_factory_info();
+    //   // this.setScale(this._factory);
+    //   this._factory.name = 'factory';
+    //   //初始化信息
+    //先获取用户的工厂信息
+    this.get_factory_info();
 
-    } else {
-      //看看有没有需要打开的工厂，可能是从别的地方跳过来生产的
-      this.isOpenFactoryInfo();
-      this.showFactory();
-    }
+    // } else {
+    //   //看看有没有需要打开的工厂，可能是从别的地方跳过来生产的
+    //   this.isOpenFactoryInfo();
+    //   this.showFactory();
+    // }
 
-    // this.tweenAlphaAdd(this._factory.displayObject,this._factory.displayObject.name,type);
-    this.tweenTranAdd(this._factory, this._factory.name, type, 'left');
+    // // this.tweenAlphaAdd(this._factory.displayObject,this._factory.displayObject.name,type);
+    // this.tweenTranAdd(this._factory, this._factory.name, type, 'left');
   }
+
+  /**
+   * 关闭
+   */
+  private closeScene() {
+    this.hideLayer()
+  }
+
   //判断是否有需要打开的工厂
   private isOpenFactoryInfo() {
     var id = factoryController.getInstance().model._mf_id;
@@ -93,6 +110,7 @@ export default class factoryIndex extends baseScene {
     }
     factoryController.getInstance().model._is_open = false;//帮用户打开过工厂就设置回来，不需要打开了
   }
+
   //获取用户的工厂信息
   private get_factory_info() {
     let tmp_http = httpJson.getInstance();
@@ -129,15 +147,33 @@ export default class factoryIndex extends baseScene {
         //如果是有信息的，证明已经购买了该工厂
         factory_div.visible = true;
         unlock_div.visible = false;
-        var factory_icon = factory_div.getChildByName('factory_icon');//工厂ICON
-        factory_icon.skin = data[id][myData[id].grade].pic + '.png';
+        if (Object.keys(myData[id].being_goods).length == 0) {
+          // 显示zzz
+          var ani: Laya.Animation = new Laya.Animation();
+          ani.loadAtlas("res/atlas/sleep.atlas"); // 加载图集动画
+          ani.interval = 50; // 设置播放间隔（单位：毫秒）
+          ani.index = 1; // 当前播放索引
+          ani.autoSize = true;
+          ani.scaleX = 2;
+          ani.scaleY = 2;
+          ani.pivotX =  ani.width;
+          ani.pivotY = ani.height;
+          ani.play(); // 播放图集动画
+    
+          factory_item.getChildByName('sleep_div').addChild(ani);
+          console.log("创建了",ani)
+          // ani.pos(Laya.stage.width / 2, Laya.stage.height / 2);
+    
+        }
+        // // if (myData[id].being_goods)
+        // var factory_icon = factory_div.getChildByName('factory_icon');//工厂ICON
+        // factory_icon.skin = data[id][myData[id].grade].pic + '.png';
         var factory_level = factory_div.getChildByName('factory_level');//工厂等级
         factory_level.text = myData[id].grade;
 
         // factory_div.touchable = true;
-        var good_list_bgdi = factory_div.getChildByName('good_list_bgdi');//生产完成物品列表的背景下角
         var good_list_bg = factory_div.getChildByName('good_list_bg');//生产完成物品列表的背景
-        var good_list = factory_div.getChildByName('good_list');//生产完成物品列表
+        var good_list = good_list_bg.getChildByName('good_list');//生产完成物品列表
         // //判断是否有生产完成的物品
         var succ_goods_num = myData[id].succ_goods.length;
         if (succ_goods_num > 0) {//工厂完成时点击
@@ -148,10 +184,19 @@ export default class factoryIndex extends baseScene {
             good_list_bg.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
           }
           good_list.width = succ_goods_num * 110 + (succ_goods_num + 1) * 10;
-          good_list_bgdi.visible = true;
+
           // 鼠标不可以穿透
 
           good_list_bg.visible = true;
+          good_list_bg.x = 0;
+
+          // 上下浮动的效果
+          var popfloat = new Laya.TimeLine()
+          popfloat.addLabel("turnUp", 0).to(good_list_bg, { y: -130 }, 1000, null, 0)
+            .addLabel("turnDown", 0).to(good_list_bg, { y: -100 }, 1000, null, 0);
+          popfloat.play(0, true)
+
+          good_list.x = good_list_bg.width / 2 + 20;
           good_list.visible = true;
           var list_data = myData[id].succ_goods;
           //清除列表信息
@@ -159,8 +204,8 @@ export default class factoryIndex extends baseScene {
           good_list.dataSource = [];
           for (var q in list_data) {
             var goodInfo = good_data[id][list_data[q].id];//工厂可生产物品的信息
-            goodInfo = dataJson.getInstance().GET_SYS_GOOD_INFO()[goodInfo.id];//获取物品的详细信息
 
+            goodInfo = dataJson.getInstance().GET_SYS_GOOD_INFO()[goodInfo.id];//获取物品的详细信息
             let index = goodInfo.pic.lastIndexOf("/")
             var _skin = goodInfo.pic.substring(index + 1, goodInfo.pic.length)
             var imgLoader = {
@@ -171,13 +216,12 @@ export default class factoryIndex extends baseScene {
 
             _dataSource.push(imgLoader)
             good_list.dataSource = _dataSource;
-
           }
-          factory_div.on(Laya.Event.CLICK, this, this.factory_good_save, [id]);
+          // factory_div.on(Laya.Event.CLICK, this, this.factory_good_save, [id]);
+          factory_div.on(Laya.Event.CLICK, this, this.onShowFactoryInfo, [id]);
           //展示完成的物品
         } else {
           //这里直接监听进入工厂生产页面
-          good_list_bgdi.visible = false;
           good_list_bg.visible = false;
           good_list.visible = false;
           factory_div.on(Laya.Event.CLICK, this, this.onShowFactoryInfo, [id]);

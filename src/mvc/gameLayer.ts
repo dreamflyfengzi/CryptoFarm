@@ -13,14 +13,14 @@ export default class gameLayer {
         if (gameLayer.bglayer == null) {
             gameLayer.bglayer = new Laya.Sprite;
             gameLayer.scenelayer = new Laya.Sprite;
-            gameLayer.windowlayer = new Laya.Sprite;
             gameLayer.tipslayer = new Laya.Sprite;
+            gameLayer.windowlayer = new Laya.Sprite;
             //
 
             Laya.stage.addChild(gameLayer.bglayer);
             Laya.stage.addChild(gameLayer.scenelayer);
-            Laya.stage.addChild(gameLayer.windowlayer);
             Laya.stage.addChild(gameLayer.tipslayer);
+            Laya.stage.addChild(gameLayer.windowlayer);
         }
     }
 }

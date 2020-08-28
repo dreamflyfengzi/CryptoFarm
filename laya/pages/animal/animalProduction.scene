@@ -2,11 +2,11 @@
     "x":0,
     "type":"Scene",
     "selectedBox":2,
-    "selecteID":35,
+    "selecteID":47,
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
-    "maxID":40,
+    "maxID":62,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -32,7 +32,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,outsider",
-            "props":{"y":732,"x":-84,"width":1409,"var":"outsider","skin":"factory/Popup_Farming.png","sizeGrid":"75,174,7,169","height":808},
+            "props":{"y":760,"x":-84,"width":1409,"var":"outsider","skin":"factory/Popup_Farming.png","sizeGrid":"75,174,7,169","height":752},
             "nodeParent":2,
             "label":"outsider",
             "isDirectory":false,
@@ -72,6 +72,281 @@
         },
         {
             "x":15,
+            "type":"List",
+            "searchKey":"List,product_list,product_list",
+            "props":{"y":1038,"x":0,"width":1275,"var":"product_list","spaceY":1,"spaceX":0,"repeatY":1,"repeatX":6,"renderType":"render","name":"product_list","height":318},
+            "nodeParent":2,
+            "label":"product_list",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":22,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Box",
+                    "searchKey":"Box,product_item",
+                    "props":{"y":0,"x":0,"width":205,"renderType":"render","name":"product_item","height":315},
+                    "nodeParent":22,
+                    "label":"product_item",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":false,
+                    "hasChild":true,
+                    "compId":33,
+                    "child":[
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,ani",
+                            "props":{"y":14,"x":12,"width":166,"styleSkin":"base/Popcorn Enable.png","name":"ani","height":176},
+                            "nodeParent":33,
+                            "label":"ani",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":34,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,outbox_1",
+                            "props":{"y":190,"x":7,"width":177,"skin":"base/Trough_02.png","name":"outbox_1","height":69},
+                            "nodeParent":33,
+                            "label":"outbox_1",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":36,
+                            "child":[
+                                ],
+                            "$HIDDEN":true
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,innerBox",
+                            "props":{"y":140,"x":32,"width":127,"skin":"product/Wool.png","name":"innerBox","height":119},
+                            "nodeParent":33,
+                            "label":"innerBox",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":35,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,outbox_2",
+                            "props":{"y":225,"x":0,"width":191,"skin":"base/Trough_01.png","name":"outbox_2","height":81},
+                            "nodeParent":33,
+                            "label":"outbox_2",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":37,
+                            "child":[
+                                ],
+                            "$HIDDEN":true
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,unlock",
+                            "props":{"y":0,"x":0,"width":193,"name":"unlock","height":291},
+                            "nodeParent":33,
+                            "label":"unlock",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":false,
+                            "hasChild":true,
+                            "compId":46,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image,unlock_icon",
+                                    "props":{"y":3,"x":-3.5,"width":200,"skin":"base/3_Hide.png","name":"unlock_icon","height":232},
+                                    "nodeParent":46,
+                                    "label":"unlock_icon",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":47,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Sprite",
+                                    "searchKey":"Sprite",
+                                    "props":{"y":74,"x":51,"width":90,"texture":"base/Icon_Buy.png","height":89},
+                                    "nodeParent":46,
+                                    "label":"Sprite",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":48,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Sprite",
+                                    "searchKey":"Sprite",
+                                    "props":{"y":235,"x":23.5,"width":55,"texture":"farm/pic_zuanshi.png","height":60},
+                                    "nodeParent":46,
+                                    "label":"Sprite",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":50,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,outbox",
+                            "props":{"y":14,"x":12,"width":166,"styleSkin":"base/Popcorn Enable.png","name":"outbox","height":176},
+                            "nodeParent":33,
+                            "label":"outbox",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":52,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,unlock_num",
+                            "props":{"y":242,"x":85,"width":82,"valign":"middle","text":"40","strokeColor":"#a66648","stroke":6,"name":"unlock_num","height":57,"fontSize":60,"font":"Microsoft YaHei","color":"#f9f9f9","bold":true,"align":"center"},
+                            "nodeParent":33,
+                            "label":"unlock_num",
+                            "isDirectory":false,
+                            "isAniNode":false,
+                            "hasChild":false,
+                            "compId":51,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,speedUp_box",
+                            "props":{"y":242,"x":-47,"width":280,"visible":false,"rotation":0,"name":"speedUp_box","height":231},
+                            "nodeParent":33,
+                            "label":"speedUp_box",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":false,
+                            "hasChild":true,
+                            "compId":53,
+                            "child":[
+                                {
+                                    "type":"Button",
+                                    "searchKey":"Button,go_btn",
+                                    "props":{"y":0,"x":9,"width":273,"var":"go_btn","stateNum":"1","skin":"order/pic_kuang9.png","sizeGrid":"140,70,60,70","height":227},
+                                    "nodeParent":53,
+                                    "label":"go_btn",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":54,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Sprite",
+                                    "searchKey":"Sprite,n1",
+                                    "props":{"y":21,"x":168,"width":69,"var":"n1","texture":"order/pic_shoukuang2.png","rotation":180,"height":53},
+                                    "nodeParent":53,
+                                    "label":"n1",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":55,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,gname",
+                                    "props":{"y":45,"x":70,"width":196,"valign":"middle","text":"12分20秒","name":"gname","height":76,"fontSize":40,"font":"Microsoft YaHei","color":"#ad7d4f","bold":true,"align":"center"},
+                                    "nodeParent":53,
+                                    "label":"gname",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":56,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Button",
+                                    "searchKey":"Button,goto_btn,goto_btn",
+                                    "props":{"y":121,"x":32,"width":230,"var":"goto_btn","stateNum":"1","skin":"warehouse/btn_green_medium.png","sizeGrid":"26,53,38,44","name":"goto_btn","labelStrokeColor":"#62543b","labelStroke":5,"labelSize":40,"labelFont":"Microsoft YaHei","labelColors":"#fff","height":92},
+                                    "nodeParent":53,
+                                    "label":"goto_btn",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":false,
+                                    "hasChild":true,
+                                    "compId":58,
+                                    "child":[
+                                        {
+                                            "type":"Sprite",
+                                            "searchKey":"Sprite",
+                                            "props":{"y":16.5,"x":26,"width":55,"texture":"base/b4.png","height":59},
+                                            "nodeParent":58,
+                                            "label":"Sprite",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":60,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,product_icon",
+                                    "props":{"y":34.5,"x":22,"skin":"product/Milk.png","name":"product_icon"},
+                                    "nodeParent":53,
+                                    "label":"product_icon",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":59,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,speed_up_num",
+                                    "props":{"y":137,"x":119.5,"width":83,"valign":"middle","text":"3","strokeColor":"#284a2b","stroke":4,"name":"speed_up_num","height":76,"fontSize":55,"font":"Microsoft YaHei","color":"#f6f6f6","bold":true,"align":"center"},
+                                    "nodeParent":53,
+                                    "label":"speed_up_num",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":61,
+                                    "child":[
+                                        ]
+                                }]
+                        }]
+                }]
+        },
+        {
+            "x":15,
             "type":"Box",
             "searchKey":"Box,bottom_box",
             "props":{"y":1621,"x":133,"width":1000,"var":"bottom_box","height":172},
@@ -86,7 +361,7 @@
                 {
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"y":-12,"x":304,"width":383,"skin":"main/pic_dikuang.png","sizeGrid":"8,7,12,7","height":188,"alpha":0.3},
+                    "props":{"y":-12,"x":111,"width":777,"skin":"main/pic_dikuang.png","sizeGrid":"8,7,12,7","height":188,"alpha":0.3},
                     "nodeParent":21,
                     "label":"Image",
                     "isDirectory":false,
@@ -97,22 +372,9 @@
                         ]
                 },
                 {
-                    "type":"Sprite",
-                    "searchKey":"Sprite,feed_type",
-                    "props":{"y":18,"x":376,"width":124,"var":"feed_type","texture":"product/Cow Feed Enable.png","height":136},
-                    "nodeParent":21,
-                    "label":"feed_type",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":38,
-                    "child":[
-                        ]
-                },
-                {
                     "type":"Label",
                     "searchKey":"Label,feed_num",
-                    "props":{"y":34,"x":500,"width":145,"var":"feed_num","valign":"middle","text":"37","strokeColor":"#171515","stroke":6,"height":138,"fontSize":75,"font":"Microsoft YaHei","color":"#fbfbfb","bold":true,"align":"center"},
+                    "props":{"y":34,"x":333,"width":145,"var":"feed_num","valign":"middle","text":"37","strokeColor":"#171515","stroke":6,"height":138,"fontSize":75,"font":"Microsoft YaHei","color":"#fbfbfb","bold":true,"align":"center"},
                     "nodeParent":21,
                     "label":"feed_num",
                     "isDirectory":false,
@@ -121,91 +383,49 @@
                     "compId":39,
                     "child":[
                         ]
+                },
+                {
+                    "type":"Label",
+                    "searchKey":"Label,top_feed_num",
+                    "props":{"y":34,"x":635,"width":145,"var":"top_feed_num","valign":"middle","text":"37","strokeColor":"#b2b09f","stroke":6,"height":138,"fontSize":75,"font":"Microsoft YaHei","color":"#ecd663","bold":true,"align":"center"},
+                    "nodeParent":21,
+                    "label":"top_feed_num",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":41,
+                    "child":[
+                        ]
                 }]
         },
         {
             "x":15,
-            "type":"List",
-            "searchKey":"List,product_list,product_list",
-            "props":{"y":1028,"x":0,"width":1275,"var":"product_list","spaceY":1,"spaceX":10,"repeatY":1,"repeatX":6,"renderType":"render","name":"product_list","height":318},
+            "type":"Image",
+            "searchKey":"Image,feed_type",
+            "props":{"y":1706,"x":385,"width":124,"var":"feed_type","skin":"product/sheepFeed1.png","pivotY":68,"pivotX":62,"height":136},
             "nodeParent":2,
-            "label":"product_list",
+            "label":"feed_type",
             "isOpen":true,
-            "isDirectory":true,
+            "isDirectory":false,
             "isAniNode":true,
-            "hasChild":true,
-            "compId":22,
+            "hasChild":false,
+            "compId":38,
             "child":[
-                {
-                    "x":30,
-                    "type":"Box",
-                    "searchKey":"Box,product_item",
-                    "props":{"y":0,"x":0,"width":195,"renderType":"render","name":"product_item","height":295},
-                    "nodeParent":22,
-                    "label":"product_item",
-                    "isOpen":true,
-                    "isDirectory":true,
-                    "isAniNode":false,
-                    "hasChild":true,
-                    "compId":33,
-                    "child":[
-                        {
-                            "x":45,
-                            "type":"Box",
-                            "searchKey":"Box,ani",
-                            "props":{"y":14,"x":27,"width":166,"styleSkin":"base/Popcorn Enable.png","name":"ani","height":176},
-                            "nodeParent":33,
-                            "label":"ani",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":34,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Sprite",
-                            "searchKey":"Sprite",
-                            "props":{"y":190,"x":24,"width":177,"texture":"base/Trough_02.png","height":69},
-                            "nodeParent":33,
-                            "label":"Sprite",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":36,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Image",
-                            "searchKey":"Image,innerBox",
-                            "props":{"y":140,"x":49,"width":127,"skin":"product/3_Food.png","name":"innerBox","height":119},
-                            "nodeParent":33,
-                            "label":"innerBox",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":35,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Sprite",
-                            "searchKey":"Sprite",
-                            "props":{"y":225,"x":17,"width":191,"texture":"base/Trough_01.png","height":81},
-                            "nodeParent":33,
-                            "label":"Sprite",
-                            "isDirectory":false,
-                            "isAniNode":false,
-                            "hasChild":false,
-                            "compId":37,
-                            "child":[
-                                ]
-                        }]
-                }]
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,top_feed_icon",
+            "props":{"y":1707,"x":706,"width":124,"var":"top_feed_icon","skin":"product/chickenFeed1.png","pivotY":68,"pivotX":62,"height":136},
+            "nodeParent":2,
+            "label":"top_feed_icon",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":40,
+            "child":[
+                ]
         }],
     "animations":[
         {

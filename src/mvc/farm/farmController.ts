@@ -51,7 +51,7 @@ export default class farmController {
     //发送显示农场底部按钮的信息
     infoController.getInstance();
     Laya.stage.event(GAMEEVENT.GETINITINFO) //获取用户信息
-    Laya.stage.event(GAMEEVENT.BOTTOMBTN, ['farm']);
+    // Laya.stage.event(GAMEEVENT.BOTTOMBTN, ['farm']);
 
     //试着进行websocke请求
     let tmp_websocket = webSocketJson.getInstance();

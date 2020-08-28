@@ -10,4 +10,11 @@ export default class animalView {
     }
     this._animalCom.onShowAnimal(type);
   }
+
+  /**
+   * 展示生产的动物列表
+   */
+  public showAnimalFactory(_type?:string){
+    this._animalCom.showAnimalFactory(_type)
+  }
 }

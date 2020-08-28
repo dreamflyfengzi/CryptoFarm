@@ -8,10 +8,15 @@ export module ui.animal {
 		public outsider:Laya.Image;
 		public close_btn:Laya.Sprite;
 		public gname:laya.display.Text;
-		public bottom_box:Laya.Box;
-		public feed_type:Laya.Sprite;
-		public feed_num:Laya.Label;
 		public product_list:Laya.List;
+		public go_btn:Laya.Button;
+		public n1:Laya.Sprite;
+		public goto_btn:Laya.Button;
+		public bottom_box:Laya.Box;
+		public feed_num:Laya.Label;
+		public top_feed_num:Laya.Label;
+		public feed_type:Laya.Image;
+		public top_feed_icon:Laya.Image;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -47,8 +52,6 @@ export module ui.base.scene {
 		public setting_btn:Laya.Sprite;
 		public mail_btn:Laya.Sprite;
 		public help_btn:Laya.Sprite;
-		public current_btn:Laya.Image;
-		public main_icon:Laya.Image;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -294,8 +297,13 @@ export module ui.exchange {
 export module ui.factory {
     export class baseFactoryUI extends Laya.Scene {
 		public outsider:Laya.Image;
+		public gear_top:Laya.Image;
+		public gear_bottom:Laya.Image;
 		public making:Laya.Image;
-		public gname:laya.display.Text;
+		public get_btn:Laya.Button;
+		public waiting_list:Laya.List;
+		public close_btn:Laya.Sprite;
+		public factory_name:laya.display.Text;
 		public bottom_box:Laya.Box;
         constructor(){ super()}
         createChildren():void {
@@ -315,6 +323,8 @@ export module ui.factory {
 		public good_item:Laya.Box;
 		public items_6:Laya.Image;
 		public unlock_div:Laya.Box;
+		public close_btn:Laya.Image;
+		public main_icon:Laya.Image;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();
@@ -450,7 +460,6 @@ export module ui.farm {
 		public n71:Laya.Sprite;
 		public n72:Laya.Sprite;
 		public n74:Laya.Image;
-		public exchange:Laya.Image;
 		public rank:Laya.Image;
 		public material_box:Laya.Box;
 		public material_order:Laya.Sprite;
@@ -458,6 +467,9 @@ export module ui.farm {
 		public material_2:Laya.Image;
 		public material_3:Laya.Image;
 		public animalsContainer:Laya.Box;
+		public exchange:Laya.Sprite;
+		public factory_btn:Laya.Image;
+		public main_icon:Laya.Image;
         constructor(){ super()}
         createChildren():void {
             super.createChildren();

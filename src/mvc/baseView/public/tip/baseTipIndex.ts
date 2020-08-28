@@ -48,6 +48,7 @@ export default class tipIndex extends baseWindow {
       }
     }
     _tipKuan.close_btn.on(Laya.Event.CLICK, this, this.close);
+    _tipKuan.get_btn.on(Laya.Event.CLICK, this, confirm_fun);
     _tipKuan.pivot(_tipKuan.width / 2, _tipKuan.height / 2);//设置轴心
     this.addChild(_tipKuan);
     this.tweenShow();

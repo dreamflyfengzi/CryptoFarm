@@ -6,7 +6,7 @@
     "searchKey":"Scene",
     "props":{"width":1242,"sceneColor":"#000000","height":2688},
     "nodeParent":-1,
-    "maxID":116,
+    "maxID":124,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -44,6 +44,20 @@
         },
         {
             "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite",
+            "props":{"y":0,"x":0,"texture":"main/bg.jpg"},
+            "nodeParent":2,
+            "label":"Sprite",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":117,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
             "type":"Button",
             "searchKey":"Button,order",
             "props":{"y":1924,"x":-164,"width":629,"var":"order","stateNum":"1","skin":"main/btn_dingdan1.png","label":"label","height":561},
@@ -54,13 +68,14 @@
             "hasChild":false,
             "compId":9,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
             "type":"Button",
             "searchKey":"Button,email",
-            "props":{"y":1949,"x":866,"width":361,"var":"email","stateNum":"1","skin":"main/btn_youxiang1.png","label":"label","height":480},
+            "props":{"y":2085,"x":-1042,"width":361,"var":"email","stateNum":"1","skin":"main/btn_youxiang1.png","label":"label","height":480},
             "nodeParent":2,
             "label":"email",
             "isDirectory":false,
@@ -68,13 +83,14 @@
             "hasChild":false,
             "compId":10,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
             "type":"Button",
             "searchKey":"Button,building",
-            "props":{"y":1872.5,"x":700,"width":606,"var":"building","stateNum":"1","skin":"main/warehouse.png","height":633},
+            "props":{"y":244,"x":760,"width":606,"var":"building","stateNum":"1","skin":"main/warehouse.png","skewX":1,"height":633},
             "nodeParent":2,
             "label":"building",
             "isDirectory":false,
@@ -82,7 +98,8 @@
             "hasChild":false,
             "compId":7,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -96,7 +113,8 @@
             "hasChild":false,
             "compId":11,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -155,36 +173,8 @@
         {
             "x":15,
             "type":"Image",
-            "searchKey":"Image,exchange,exchange",
-            "props":{"y":2464,"x":586,"width":170,"var":"exchange","skin":"base/Button_00.png","sizeGrid":"20,25,29,26","name":"exchange","height":170},
-            "nodeParent":2,
-            "label":"exchange",
-            "isOpen":true,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":78,
-            "child":[
-                {
-                    "x":30,
-                    "type":"Sprite",
-                    "searchKey":"Sprite,main_icon",
-                    "props":{"y":17,"x":13,"width":144,"texture":"base/stall.png","name":"main_icon","height":136},
-                    "nodeParent":78,
-                    "label":"main_icon",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":81,
-                    "child":[
-                        ]
-                }]
-        },
-        {
-            "x":15,
-            "type":"Image",
             "searchKey":"Image,rank",
-            "props":{"y":2464,"x":810,"width":170,"var":"rank","skin":"base/Button_00.png","sizeGrid":"20,25,29,26","height":170},
+            "props":{"y":2467,"x":812,"width":170,"var":"rank","skin":"base/Button_00.png","sizeGrid":"20,25,29,26","height":170},
             "nodeParent":2,
             "label":"rank",
             "isOpen":false,
@@ -205,13 +195,14 @@
                     "compId":82,
                     "child":[
                         ]
-                }]
+                }],
+            "$HIDDEN":false
         },
         {
             "x":15,
             "type":"Image",
             "searchKey":"Image,main_btn",
-            "props":{"y":2464,"x":1026,"width":170,"skin":"base/Button_00.png","sizeGrid":"20,25,29,26","name":"main_btn","height":170},
+            "props":{"y":2467,"x":1026,"width":170,"skin":"base/Button_00.png","sizeGrid":"20,25,29,26","name":"main_btn","height":170},
             "nodeParent":2,
             "label":"main_btn",
             "isOpen":false,
@@ -232,13 +223,14 @@
                     "compId":83,
                     "child":[
                         ]
-                }]
+                }],
+            "$HIDDEN":false
         },
         {
             "x":15,
             "type":"Box",
             "searchKey":"Box,material_box",
-            "props":{"y":276,"x":714.5,"width":560,"var":"material_box","height":552},
+            "props":{"y":381,"x":569,"width":560,"var":"material_box","skewY":180,"height":552},
             "nodeParent":2,
             "label":"material_box",
             "isOpen":false,
@@ -314,13 +306,14 @@
                     "compId":96,
                     "child":[
                         ]
-                }]
+                }],
+            "$HIDDEN":false
         },
         {
             "x":15,
             "type":"Box",
             "searchKey":"Box,animalsContainer",
-            "props":{"y":1223,"x":237,"width":600,"var":"animalsContainer","pivotY":202,"height":202},
+            "props":{"y":1328,"x":87,"width":774,"var":"animalsContainer","pivotY":202,"height":202,"alpha":1},
             "nodeParent":2,
             "label":"animalsContainer",
             "isOpen":true,
@@ -329,7 +322,51 @@
             "hasChild":false,
             "compId":107,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Sprite",
+            "searchKey":"Sprite,main_icon,exchange",
+            "props":{"y":2467,"x":621,"width":156,"var":"exchange","texture":"base/stall.png","name":"main_icon","height":164},
+            "nodeParent":2,
+            "label":"main_icon",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":81,
+            "child":[
+                ],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,factory_btn,factory_btn",
+            "props":{"y":2177,"x":982,"width":210,"var":"factory_btn","skin":"base/ButtonBlue.png","sizeGrid":"13,13,20,13","name":"factory_btn","height":210},
+            "nodeParent":2,
+            "label":"factory_btn",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":118,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,main_icon,main_icon",
+                    "props":{"y":41,"x":32.5,"width":145,"var":"main_icon","skin":"main/pic_gongchnag1.png","name":"main_icon","height":128},
+                    "nodeParent":118,
+                    "label":"main_icon",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":119,
+                    "child":[
+                        ]
+                }]
         }],
     "animations":[
         {

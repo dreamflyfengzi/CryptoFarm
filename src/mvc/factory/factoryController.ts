@@ -24,23 +24,27 @@ export default class factoryController{
 		this._network = new factoryNetwork;
 		Laya.stage.on(NETWORKEVENT.SENDFACTORYBAK,this,this._network.SendFactoryBak);//获取工厂信息
 		Laya.stage.on(NETWORKEVENT.FACTORYCREATEBAK,this,this._network.FactoryCreateBak);//工厂建造的协议
-		Laya.stage.on(NETWORKEVENT.FACTORYGOODSAVEBAK,this,this._network.FactoryGoodSave);//工厂生产产品完成后用户点击收获
 		Laya.stage.on(NETWORKEVENT.FACTORYOPENSEATNUMBAK,this,this._network.FactoryOpenSeatNumBak);//工厂生产产品完成后用户点击收获
 		Laya.stage.on(NETWORKEVENT.SENDGOODBAK,this,this._network.SendGoodBak);//获取玩家某些物品数量的协议   2222
 		Laya.stage.on(NETWORKEVENT.FACTORYACTBAK,this,this._network.FactoryAct);//工厂生产产品协议
 		Laya.stage.on(NETWORKEVENT.FACTORYUPGRADEBAK,this,this._network.FactoryUpGrade);//工厂升级的协议
-		Laya.stage.on(NETWORKEVENT.FACTORYGOODGETBAK,this,this._network.FactoryGoodGet);//工厂生产产品完成的协议
+    Laya.stage.on(NETWORKEVENT.FACTORYGOODGETBAK,this,this._network.FactoryGoodGet);//工厂生产产品完成的协议
+    
+    //新增加的
+    Laya.stage.on(NETWORKEVENT.FACTORYADDWAITING,this,this._network.FactoryAddWaiting) //加入待生产队列
+		Laya.stage.on(NETWORKEVENT.FACTORYGOODSAVEBAK,this,this._network.FactoryGoodSave);//工厂生产产品完成后用户点击收获
+		Laya.stage.on(NETWORKEVENT.FACTORYPRODUCTSPEEDUP,this,this._network.FactoryProductSpeedUP);//工厂生产立即生产完成
 		
 	}
 	/**显示工厂场景(type:1.当前页面隐藏切换，2.当前页面去除切换) */
-	public onShow(type){
+	public onShow(type?:any){
 		if(this._factoryview == null){
 			//初始化视图的类
 			this._factoryview = new factoryView;
 		}
 		this._factoryview.onShow(type);
 		//发送显示农场底部按钮的信息
-		Laya.stage.event(GAMEEVENT.BOTTOMBTN,['factory']);
+		// Laya.stage.event(GAMEEVENT.BOTTOMBTN,['factory']);
 	}
 	/**
 	 * 展示工厂的信息

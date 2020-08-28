@@ -33,6 +33,7 @@ import Skeleton = Laya.Skeleton;
 import Templet = Laya.Templet;
 import Stat = Laya.Stat;
 import materialView from '../materialOrder/materialView'
+import factoryController from '../factory/factoryController'
 export default class farmIndex extends baseScene {
   private _farmIndex: Laya.Sprite;
   private _materialbox: Laya.Box;//气球订单
@@ -115,6 +116,7 @@ export default class farmIndex extends baseScene {
     this._farmIndex.scene.exchange.on(Laya.Event.CLICK, this, this.onMenuClick, ['exchange']);//交易
     this._farmIndex.scene.rank.on(Laya.Event.CLICK, this, this.onMenuClick, ['rank']);//排行榜
     this._farmIndex.scene.material_box.on(Laya.Event.CLICK, this, this.onMenuClick, ['material_order']);//材料订单
+    this._farmIndex.scene.factory_btn.on(Laya.Event.CLICK, this, this.onMenuClick, ['factory']);//工厂
 
     this._materialbox = this._farmIndex.scene.material_box;
     this._material_1 = this._farmIndex.scene.material_1;
@@ -168,7 +170,6 @@ export default class farmIndex extends baseScene {
   public getAnimalInfo() {
     var data = dataGlobal.getInstance().animalInfo;
     for (var i in data) {
-      console.log(data[i], i)
       if (data[i].is_lock) { //已解锁 显示动画
         this.renderAnimalBones(data[i])
       } else {//未解锁 虚化
@@ -181,84 +182,124 @@ export default class farmIndex extends baseScene {
    * 渲染动物动画
    */
   private renderAnimalBones(data) {
+   
     var _x = 0;
+    var _y = 0;
     var _path = "";
+    var _scale = 0.3;
     if (data.id == "chicken") {
       _x = 0
+      _y = 80
       _path = "res/animalBones/niu.sk";
     }
     if (data.id == "cow") {
-      _x = 100
+      _x = 150
+      _y = 0;
       _path = "res/animalBones/niu.sk";
     }
     if (data.id == "sheep") {
-      _x = 200
-      _path = "res/animalBones/niu.sk";
+      _x = 300
+      _y = -80;
+      _path = "res/animalBones/yang.sk";
+      _scale = 0.5;
     }
     if (data.id == "pig") {
-      _x = 300
+      _y = -160;
+      _x = 450
       _path = "res/animalBones/niu.sk";
     }
     let templetStone: Laya.Templet = new Laya.Templet();
+
     templetStone.on(Laya.Event.COMPLETE, this, () => {
       //创建第一个动画
       var skeleton: Laya.Skeleton;
       //从动画模板创建动画播放对象
       skeleton = templetStone.buildArmature(1);
-      skeleton.pos(_x, 0);
-      skeleton.scaleX = 0.3;
-      skeleton.scaleY = 0.3;
+      skeleton.scaleX = _scale;
+      skeleton.scaleY = _scale;
       //切换动画皮肤 使用标号为0的皮肤
       skeleton.showSkinByIndex(0);
+      // skeleton.mouseEnabled = true;
       //播放
       skeleton.play('full', true);
       this._farmIndex.scene.animalsContainer.addChild(skeleton);
+      let bound: Laya.Rectangle = skeleton.getBounds();
+      // var W = bound.width, H = bound.height;
+      skeleton.autoSize = true;
+      // skeleton.width = W;
+      // skeleton.height = H;
       console.log(skeleton)
-      console.log(skeleton.pivotX)
-      console.log(skeleton.pivotY)
-      this.bindClick(skeleton, data)
+      skeleton.pos(_x, _y);
+      // var rect: Laya.Rectangle = new Laya.Rectangle(_x + W, H, skeleton.displayWidth, skeleton.displayHeight);
+      // skeleton.hitArea = rect;
+      // proxy.height = H;
+      // proxy.width = W;
+      // proxy.graphics.drawRect(_x + W / 2, 0, proxy.width, proxy.height, "#fff");
+      // this._farmIndex.scene.animalsContainer.addChild(proxy);
+      // console.log(proxy)
+      // proxy.on(Laya.Event.MOUSE_DOWN, this, function() {
+      //     console.log("MouseDown Event",data.id);
+      // });
+      // skeleton.pos(_x, 0);
+      // skeleton.width = bound.width; 
+      // skeleton.height = bound.height; 
+      // skeleton.x = bound.x + bound.width*1.5; 
+      // skeleton.y = -bound.y; 
+      // var rectBox: Laya.Sprite = new Laya.Sprite();
+      // rectBox.graphics.drawRect(_x + W, H, skeleton.displayWidth, skeleton.displayHeight, "#ffff00");
+      // this._farmIndex.scene.animalsContainer.addChild(rectBox);
+      // rect.intersects
+      // this._farmIndex.scene.animalsContainer.addChild(rect);
+      // skeleton.hitArea= rect;
+      // mArmature.on(Event.CLICK,this,onClick);
+      skeleton.on(Laya.Event.CLICK, this, this.enterAnimalScene, [data.id]) //todo
+      // console.log(bound)
+      // this.bindClick(skeleton,templetStone, data)
     });
     templetStone.loadAni(_path);
-
-    console.log(templetStone)
   }
 
   /**
-   * 
    * @param data 绑定点击事件
    */
-  private bindClick(skeleton, data) {
-    console.log('111111')
-    // skeleton.on(Laya.Event.CLICK, this, this.enterAnimalScene,[data.id]) //todo
+  private bindClick(skeleton, templetStone, data) {
+    skeleton.on(Laya.Event.CLICK, this, this.enterAnimalScene, [data.id]) //todo
+    templetStone.on(Laya.Event.CLICK, this, this.enterAnimalScene, [data.id]) //todo
   }
   /**
    * 渲染动物静态
    */
   private renderAnimalStatic(data) {
+   
     var _x = 0;
+    var _y = 0;
     var _path = "";
     if (data.id == "chicken") {
       _x = 0
+      _y = 80
       _path = "base/2_Hide.png";
     }
     if (data.id == "cow") {
-      _x = 100
+      _x = 150
+      _y = 0;
       _path = "base/1_Hide.png";
     }
     if (data.id == "sheep") {
-      _x = 200
+      _x = 300
+      _y = -80;
       _path = "base/3_Hide.png";
     }
     if (data.id == "pig") {
-      _x = 300
+       _y = -160;
+      _x = 450
       _path = "base/3_Hide.png";
     }
     let StaticSprite: Laya.Image = new Laya.Image();
     this._farmIndex.scene.animalsContainer.addChild(StaticSprite)
     StaticSprite.skin = _path;
-    StaticSprite.pos(_x, 0)
-    StaticSprite.pivotX = StaticSprite.width
-    StaticSprite.pivotY = StaticSprite.height
+    StaticSprite.pos(_x - StaticSprite.width / 2, _y -  StaticSprite.height )
+    // StaticSprite.pivotX = StaticSprite.width
+    // StaticSprite.pivotY = StaticSprite.height
     StaticSprite.on(Laya.Event.CLICK, this, this.unlockAnimal, [data]);
   }
 
@@ -312,7 +353,7 @@ export default class farmIndex extends baseScene {
    * 进入动物生产
   */
   public enterAnimalScene(id) {
-
+    console.log("成功", id)
   }
 
   /**
@@ -485,6 +526,9 @@ export default class farmIndex extends baseScene {
       case "material_order":
         this.onClickMaterialOrder();
         break;
+      case "factory":
+        this.onClickFactory();
+        break;
     }
 
   }
@@ -542,6 +586,13 @@ export default class farmIndex extends baseScene {
   */
   private onClickRank() {
     rankController.getInstance().onShowRank();
+  }
+
+  /**
+   * 点击工厂跳转按钮
+   */
+  private onClickFactory(){
+    factoryController.getInstance().onShow()
   }
 
 

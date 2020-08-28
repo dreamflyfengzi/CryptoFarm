@@ -73,6 +73,8 @@ export default class warehouseIndex extends baseTips {
    */
   public initWarehouseInfo() {
     var data = dataGlobal.getInstance().warehouseInfo;//查询仓库的信息
+    console.log("设置仓库的基本信息",data)
+    return
     // 'store_id'=>'仓库系统ID',
     // 'grade'=>'仓库等级',
     // 'num'=>'仓库总大小',
@@ -174,7 +176,6 @@ export default class warehouseIndex extends baseTips {
    */
   public initWarehouseGoodList() {
     var data = dataGlobal.getInstance().userGoodInfo;//查询仓库的信息
-    console.log('仓库信息')
     this._good_list = this._warehouse.scene.good_list;
     this._good_list.dataSource = []
     var _dataSource = []
@@ -212,6 +213,7 @@ export default class warehouseIndex extends baseTips {
   private clickItem(cell) {
     this.showSellTip(cell.dataSource.id)
   }
+
   /**
    * 创建图标 单个商品
    * @param id 商品ID
